@@ -17,23 +17,48 @@
       "error",
       {
         "selector": "variable",
-        "format": ["camelCase"]
+        "format": ["camelCase", "UPPER_CASE"]
+      },
+      {
+        "selector": "variable",
+        "types": ["function"],
+        "format": ["PascalCase", "camelCase"],
+        "leadingUnderscore": "forbid"
       },
       {
         "selector": "function",
-        "format": ["camelCase", "PascalCase"]
+        "format": ["camelCase"]
       },
       {
         "selector": "typeLike",
-        "format": ["camelCase"]
+        "format": ["camelCase", "PascalCase"]
       }
     ],
     "new-cap": ["error", { "capIsNew": false, "newIsCap": true }],
     "import/order": [
       "error",
       {
-        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
         "newlines-between": "always"
+      }
+    ],
+    "import/no-anonymous-default-export": [
+      "error",
+      {
+        "allowArray": false,
+        "allowArrowFunction": false,
+        "allowAnonymousClass": false,
+        "allowAnonymousFunction": false,
+        "allowLiteral": false,
+        "allowObject": false,
+        "allowCallExpression": false
       }
     ],
     "@typescript-eslint/no-explicit-any": "error",
