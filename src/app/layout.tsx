@@ -20,7 +20,10 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         />
       </head>
       <body className={FONT_FAMILY.gothic}>
-        <Provider>{children}</Provider>
+        <Provider>
+          {children}
+          <div id="portal" />
+        </Provider>
       </body>
     </html>
   );
