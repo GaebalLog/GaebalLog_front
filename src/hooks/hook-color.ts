@@ -1,17 +1,17 @@
-import React from "react";
+import { useRecoilValue } from "recoil";
 
 import { COLOR_VARIANT } from "@/constants/global/colors";
+import { darkAtom } from "@/constants/global/atoms";
 
 interface colorProps {
-  bgColor: color;
-  color: color;
+  bgColor?: color;
+  color?: color;
 }
 
 const useColor = ({ bgColor, color }: colorProps) => {
-  // 추후 리코일을 사용하는 로직으로 변경
-  const [dark] = React.useState<0 | 1>(0);
+  const dark = useRecoilValue(darkAtom);
 
-  const DARKABLE_COLOR_VARIANT: color = {
+  const DARKABLE_COLOR_VARIANT = {
     black: [COLOR_VARIANT.black, COLOR_VARIANT.white],
     black100: [COLOR_VARIANT.black100, COLOR_VARIANT.white100],
     black200: [COLOR_VARIANT.black200, COLOR_VARIANT.white200],
@@ -38,15 +38,16 @@ const useColor = ({ bgColor, color }: colorProps) => {
     purple: [COLOR_VARIANT.purple, COLOR_VARIANT.purple],
     blue: [COLOR_VARIANT.blue, COLOR_VARIANT.blue],
     background: [COLOR_VARIANT.white, COLOR_VARIANT.background],
-    etcA: [COLOR_VARIANT.white, COLOR_VARIANT.neutral500],
+    categoryButton: [COLOR_VARIANT.white, COLOR_VARIANT.neutral500],
     etcB: [COLOR_VARIANT.white, COLOR_VARIANT.black700],
   };
 
   // 컴포넌트에서 import => const { bgColorClass, textColorClass } = useColor({ bgColor, color})
+  //                       const { bgColorClass } = useColor({ bgColor: "black" });
   // className={`bg-[${bgColorClass}] text-[${textColorClass}]`} 형식으로 사용
   return {
-    bgColorClass: DARKABLE_COLOR_VARIANT[bgColor][dark] ?? "",
-    textColorClass: DARKABLE_COLOR_VARIANT[color][dark] ?? "",
+    bgColorClass: bgColor ? DARKABLE_COLOR_VARIANT[bgColor][dark] : "",
+    textColorClass: color ? DARKABLE_COLOR_VARIANT[color][dark] : "",
   };
 };
 
