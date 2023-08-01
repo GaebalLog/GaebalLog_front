@@ -15,12 +15,15 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <html lang="en">
       <head>
         <link
-          href="https://cdn.jsdelivr.net/gh/source-foundry/Hack@3.003/web/hack.css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/hack-font/3.3.0/web/hack.css"
           rel="stylesheet"
         />
       </head>
       <body className={FONT_FAMILY.gothic}>
-        <Provider>{children}</Provider>
+        <Provider>
+          {children}
+          <div id="portal" />
+        </Provider>
       </body>
     </html>
   );

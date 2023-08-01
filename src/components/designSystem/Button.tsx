@@ -8,7 +8,7 @@ import { TYPOGRAPH_VARIANT } from "@/constants/global/fonts";
 interface buttonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: "button1" | "button2" | "button3" | "button4";
   bgColor: color;
-  coloc?: color;
+  color?: color;
   rounded?: boolean;
 }
 
