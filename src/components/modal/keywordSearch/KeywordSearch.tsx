@@ -1,49 +1,19 @@
 import React from "react";
 import Image from "next/image";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 import { BG_COLOR } from "@/constants/global/colors";
 import { FONT_FAMILY } from "@/constants/global/fonts";
 import Input from "@/components/designSystem/Input";
 import Button from "@/components/designSystem/Button";
 import { darkAtom, modalAtom } from "@/constants/global/atoms";
+import { server } from "@/tests/msw/server";
 
 import Modal from "../Modal";
 import close from "../../../../public/assets/images/common/close.png";
 import darkClose from "../../../../public/assets/images/common/darkClose.png";
-
-const mockMyCategory = [
-  "개발자",
-  "깃헙사용법정리",
-  "깃허브",
-  "코딩용어",
-  "알고리즘",
-  "Pascal",
-  "Object",
-  "IMP",
-  "Javascript",
-  "PEARL",
-  "JASS",
-  "PL/SQL",
-  "Java",
-  "Language",
-];
-
-const mockHotCategory = [
-  "Github",
-  "Java",
-  "Java",
-  "Physon",
-  "IMP",
-  "Language",
-  "ALGOL",
-  "Javascript",
-  "PEARL",
-  "Object",
-  "PL/SQL",
-  "Pascal",
-  "JASS",
-];
 
 const style = {
   container: `flex justify-center w-[1330px] h-[700px] ${BG_COLOR.general02}}`,
@@ -57,9 +27,28 @@ const style = {
 };
 
 const KeywordSearch = () => {
-  const [search, setSearch] = React.useState("");
+  const [keyword, setKeyword] = React.useState("");
   const isDark = useRecoilValue(darkAtom);
   const setIsModal = useSetRecoilState(modalAtom);
+
+  const { data: myCategories } = useQuery({
+    queryKey: ["userCategories"],
+    queryFn: () => axios.get("/api/userCategories"),
+  });
+  const { data: trendCategories } = useQuery({
+    queryKey: ["trendCategories"],
+    queryFn: () => axios.get("/api/trendCategories"),
+  });
+
+  React.useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      server.listen();
+
+      return () => {
+        server.close();
+      };
+    }
+  }, []);
 
   return (
     <Modal background>
@@ -69,15 +58,19 @@ const KeywordSearch = () => {
           <Input
             type="searchModal"
             placeholder="키워드를 추가하여 나만의 키워드를 만들어 보세요."
-            value={search}
-            onChange={setSearch}
+            value={keyword}
+            onChange={setKeyword}
           />
           <div className={style.keyworBox}>
             <span className={style.keyworBoxTitle}>현재 나의 키워드</span>
             <ul className={style.keywordList}>
-              {mockMyCategory.map((category) => {
+              {myCategories?.data.map((category: string[]) => {
                 return (
-                  <li key={category} className="mb-[6px]">
+                  <li
+                    key={`my_${category}`}
+                    data-testid={`my_${category}`}
+                    className="mb-[6px]"
+                  >
                     <Button size="category" color="background" rounded withIcon>
                       <span>#{category}</span>
                       <Image
@@ -97,9 +90,13 @@ const KeywordSearch = () => {
           <div className={style.keyworBox}>
             <span className={style.keyworBoxTitle}>실시간 인기 키워드</span>
             <ul className={style.keywordList}>
-              {mockHotCategory.map((category) => {
+              {trendCategories?.data.map((category: string[]) => {
                 return (
-                  <li key={category} className="mb-[6px]">
+                  <li
+                    key={`trend_${category}`}
+                    data-testid={`trend_${category}`}
+                    className="mb-[6px]"
+                  >
                     <Button size="category" color="background" rounded>
                       #{category}
                     </Button>
@@ -118,7 +115,7 @@ const KeywordSearch = () => {
               border
               onClick={() => setIsModal((prev) => !prev)}
             >
-              Cancel
+              Cancle
             </Button>
           </div>
         </div>
