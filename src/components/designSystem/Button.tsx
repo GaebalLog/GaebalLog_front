@@ -6,14 +6,14 @@ import { FONT_FAMILY } from "@/constants/global/fonts";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 
 const BUTTON_VARIANT = {
-  tab: `text-[20px] py-[10px] px-5`,
+  tab: `text-[20px] py-[10px] px-5 rounded-[3px]`,
   category: `text-[20px] py-[10px] px-4 ${FONT_FAMILY.hack}`,
   bigCreate: `text-[32px] py-2 px-4 bg-[#4D4D4D] text-[#DFAE3D]`,
   middleCreate: `text-[16px] py-4 px-[88px]`,
   smallCreate: `text-[24px] py-[18px]`,
   withIcon: `text-[16px] py-2 px-4`,
-  tag: `text-[16px] p-2`,
-  login: `text-[11.137px] py-[9.74px] px-[22.27px] ${FONT_FAMILY.hack}`,
+  tag: `text-[16px] p-2 rounded-[3px]`,
+  login: `text-[11.137px] py-[9.74px] px-[22.27px] rounded-[3px] ${FONT_FAMILY.hack}`,
 };
 
 const COLOR_VARIANT = {
@@ -32,6 +32,7 @@ interface buttonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color: keyof typeof COLOR_VARIANT;
   rounded?: boolean;
   border?: boolean;
+  withIcon?: boolean;
 }
 
 const Button: React.FC<buttonProps> = ({
@@ -39,6 +40,7 @@ const Button: React.FC<buttonProps> = ({
   color,
   rounded,
   border,
+  withIcon,
   className,
   children,
   ...props
@@ -47,7 +49,9 @@ const Button: React.FC<buttonProps> = ({
     <button
       className={`${BUTTON_VARIANT[size]} ${COLOR_VARIANT[color]} ${
         rounded && `rounded-full`
-      } ${border && BORDER_VARIANT} ${className}`}
+      } ${border && BORDER_VARIANT} ${
+        withIcon && `flex items-center`
+      } ${className}`}
       {...props}
     >
       {children}
