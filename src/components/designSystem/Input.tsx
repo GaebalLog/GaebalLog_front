@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React from "react";
 
-import search from "../../../public/assets/home/search.png";
+import search from "../../../public/assets/images/home/search.png";
 
 interface InputProps {
   type: "header" | "searchModal";

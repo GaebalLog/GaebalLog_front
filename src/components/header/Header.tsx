@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 import Input from "../designSystem/Input";
-import logo from "../../../public/assets/home/logo.png";
+import logo from "../../../public/assets/images/home/logo.png";
 
 const styles = {
   innerUl: "flex items-center justify-between",
