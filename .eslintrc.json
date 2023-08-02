@@ -11,7 +11,7 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "react", "import"],
+  "plugins": ["react", "import"],
   "rules": {
     "@typescript-eslint/naming-convention": [
       "error",

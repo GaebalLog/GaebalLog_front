@@ -30,7 +30,8 @@
     ".next/types/**/*.ts",
     "jest.setup.js",
     "jest.config.js",
-    "src/tests/msw/server.js"
+    "src/tests/msw/server.js",
+    "src/app/home"
   ],
   "exclude": ["node_modules"]
 }

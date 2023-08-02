@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 import Provider from "@/components/provider/Provider";
+import Header from "@/components/header/Header";
 import { FONT_FAMILY } from "@/constants/global/fonts";
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </head>
       <body className={FONT_FAMILY.gothic}>
         <Provider>
+          <Header />
           {children}
           <div id="portal" />
         </Provider>
