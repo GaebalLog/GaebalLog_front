@@ -23,8 +23,8 @@ const Input: React.FC<InputProps> = ({
   switch (type) {
     case "searchModal":
       style = {
-        container: "relative w-[400px] h-[40px]",
-        input: "w-full h-full p-[10px] rounded-[5px]",
+        container: "relative w-full h-[48px] mb-[53px]",
+        input: "w-full h-full pl-[30px] pr-[55px] rounded-full",
       };
       break;
     default: //"header"일 경우
