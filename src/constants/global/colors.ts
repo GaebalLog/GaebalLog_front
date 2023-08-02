@@ -44,3 +44,7 @@ export const TEXT_COLOR = {
   accentPurple: "text-[#967AC3] dark:text-[#967AC3]",
   accentBlue: "text-[#7ECDF3] dark:text-[#7ECDF3]",
 };
+
+export const BORDER_COLOR = {
+  primary: "border-[#F5F5F5] dark:border-[#282828]",
+};
