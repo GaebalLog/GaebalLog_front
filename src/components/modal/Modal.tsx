@@ -3,11 +3,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import useColor from "@/hooks/hook-color";
+import { BG_COLOR } from "@/constants/global/colors";
 
 const stModal = {
-  backdrop: `absolute w-screen h-screen inset-0`,
-  contentsBox: `absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`,
+  backdrop: `fixed w-screen h-screen inset-0`,
+  contentsBox: `fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`,
 };
 
 const Portal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -19,22 +19,16 @@ const Portal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 };
 
 interface ModalProps {
-  bgColor?: color;
-  isOpacity?: boolean;
+  background?: boolean;
   children: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({
-  bgColor = "black",
-  isOpacity = false,
-  children,
-}) => {
-  const { bgColorClass } = useColor({ bgColor });
+const Modal: React.FC<ModalProps> = ({ background = false, children }) => {
   return (
     <Portal>
       <div
-        className={`${stModal.backdrop} bg-[${bgColorClass}] ${
-          isOpacity && `opacity-40`
+        className={`${stModal.backdrop} ${
+          background && `${BG_COLOR.inverse} opacity-40`
         }`}
       />
       <div className={stModal.contentsBox}>{children}</div>

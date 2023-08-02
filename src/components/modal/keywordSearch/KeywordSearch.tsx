@@ -1,16 +1,17 @@
 import React from "react";
 
-import useColor from "@/hooks/hook-color";
+import { BG_COLOR } from "@/constants/global/colors";
+import Button from "@/components/designSystem/Button";
 
 import Modal from "../Modal";
 
 const KeywordSearch = () => {
-  const { bgColorClass } = useColor({ bgColor: "white" });
-
   return (
-    <Modal isOpacity>
-      <div className={`w-[1330px] h-[700px] bg-[${bgColorClass}]`}>
-        Add my keywords
+    <Modal background>
+      <div
+        className={`flex flex-col items-center w-[1330px] h-[700px] ${BG_COLOR.general02}}`}
+      >
+        <span>Add my keywords</span>
       </div>
     </Modal>
   );

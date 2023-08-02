@@ -12,6 +12,7 @@
 
 export const BG_COLOR = {
   primary: "bg-[#FFFFFF] dark:bg-[#000000]",
+  inverse: "bg-[#000000] dark:bg-[#FFFFFF]",
   background: "bg-[#FFFFFF] dark:bg-[#121212]",
   general01: "bg-[#F5F5F5] dark:bg-[#282828]",
   general02: "bg-[#F4F4F4] dark:bg-[#202020]",
@@ -28,6 +29,7 @@ export const BG_COLOR = {
 
 export const TEXT_COLOR = {
   primary: "text-[#000000] dark:text-[#FFFFFF]",
+  inverse: "text-[#FFFFFF] dark:text-[#000000]",
   text: "text-[#121212] dark:text-[#FFFFFF]",
   general01: "text-[#282828] dark:text-[#F5F5F5]",
   general02: "text-[#202020] dark:text-[#F4F4F4]",
