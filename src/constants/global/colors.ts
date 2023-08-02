@@ -38,6 +38,7 @@ export const TEXT_COLOR = {
   general05: "text-[#6A6A6A] dark:text-[#D3D3D3]",
   general06: "text-[#9A9A9A] dark:text-[#888888]",
   general07: "text-[#ECECEC] dark:text-[#48483F]",
+  general08: "text-[#888888] dark:text-[#9A9A9A]",
   etcColor01: "text-[#4D4D4D] dark:text-[#FFFFFF]",
   accentYellow: "text-[#DFAE3D] dark:text-[#DFAE3D]",
   accentPurple: "text-[#967AC3] dark:text-[#967AC3]",
