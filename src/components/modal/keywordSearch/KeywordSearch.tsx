@@ -8,11 +8,11 @@ import { FONT_FAMILY } from "@/constants/global/fonts";
 import Button from "@/components/designSystem/Button";
 import { modalAtom } from "@/constants/global/atoms";
 import { server } from "@/tests/msw/server";
-import Input from "@/components/designSystem/Input";
 
 import Modal from "../Modal";
 
 import KeywordList from "./KeywordList";
+import RealtimeSearch from "./RealTimeSearch";
 
 const style = {
   container: `flex justify-center w-[1330px] h-[700px] ${BG_COLOR.general02}}`,
@@ -54,12 +54,7 @@ const KeywordSearch = () => {
       <div className={style.container}>
         <div className={style.widthWrapper}>
           <span className={style.title}>Add my keywords</span>
-          <Input
-            type="searchModal"
-            placeholder="키워드를 추가하여 나만의 키워드를 만들어 보세요."
-            value={keyword}
-            onChange={setKeyword}
-          />
+          <RealtimeSearch value={keyword} onChange={setKeyword} />
           <div className={style.keyworBox}>
             <span className={style.keyworBoxTitle}>현재 나의 키워드</span>
             {
