@@ -46,4 +46,16 @@ export const handlers = [
       ]),
     );
   }),
+  rest.get("/api/liveSearch", (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json([
+        "리액트네이티브",
+        "리액트네이티브 ios",
+        "리액트네이티브 애니메이션",
+        "리액트네이티브 플러터 차이",
+        "리액트네이티브 튜토리얼",
+      ]),
+    );
+  }),
 ];

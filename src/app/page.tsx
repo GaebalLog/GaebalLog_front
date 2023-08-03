@@ -19,7 +19,7 @@ const Home = () => {
         className="text-white"
         onClick={() => setIsModal((prev) => !prev)}
       >
-        edit
+        Edit
       </button>
       {isModal && <KeywordSearch />}
     </div>
