@@ -74,4 +74,24 @@ describe("실시간 검색 기능 테스트", () => {
     await userEvent.click(screen.getByText("Add my keywords"));
     expect(screen.queryByText("리액트네이티브")).not.toBeInTheDocument();
   });
+
+  test("방향키를 사용하여 항목 선택", async () => {
+    expect(await screen.findByTestId("item-0")).toHaveClass("bg-[#FFFFFF]");
+    await userEvent.keyboard("{arrowdown}");
+    expect(await screen.findByTestId("item-0")).toHaveClass("bg-gray-200");
+    await userEvent.keyboard("{arrowdown}");
+    expect(await screen.findByTestId("item-0")).toHaveClass("bg-[#FFFFFF]");
+    expect(await screen.findByTestId("item-1")).toHaveClass("bg-gray-200");
+    await userEvent.keyboard("{arrowup}");
+    expect(await screen.findByTestId("item-0")).toHaveClass("bg-gray-200");
+    expect(await screen.findByTestId("item-1")).toHaveClass("bg-[#FFFFFF]");
+  });
+
+  test("엔터를 누를 때 항목 클릭 이벤트 발생", async () => {
+    userEvent.keyboard("{arrowdown}");
+    expect(await screen.findByText("리액트네이티브")).toBeInTheDocument();
+    userEvent.keyboard("{enter}");
+    await utilDelay(100);
+    expect(screen.queryByText("리액트네이티브")).not.toBeInTheDocument();
+  });
 });
