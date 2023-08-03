@@ -15,21 +15,15 @@ import search_dark from "./search_dark.png";
 import star_empty from "./star_empty.png";
 import star_full from "./star_full.png";
 
-exports = {
-  alarm_light,
-  alarm_dark,
-  close_light,
-  close_dark,
-  eye_light,
-  eye_dark,
-  heart_light,
-  heart_dark,
-  mike_light,
-  mike_dark,
-  profile_light,
-  profile_dark,
-  search_light,
-  search_dark,
-  star_empty,
-  star_full,
+const ICON = {
+  alarm: [alarm_light, alarm_dark],
+  close: [close_light, close_dark],
+  eye: [eye_light, eye_dark],
+  heart: [heart_light, heart_dark],
+  mike: [mike_light, mike_dark],
+  profile: [profile_light, profile_dark],
+  search: [search_light, search_dark],
+  star: [star_empty, star_empty],
+  star_full: [star_full, star_full],
 };
+export default ICON;

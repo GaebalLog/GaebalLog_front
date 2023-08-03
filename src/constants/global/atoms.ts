@@ -7,5 +7,5 @@ export const modalAtom = atom({
 
 export const darkAtom = atom({
   key: "dark",
-  default: false,
+  default: 0,
 });
