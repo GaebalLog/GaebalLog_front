@@ -5,10 +5,10 @@ import axios from "axios";
 
 import { BG_COLOR } from "@/constants/global/colors";
 import { FONT_FAMILY } from "@/constants/global/fonts";
-import Input from "@/components/designSystem/Input";
 import Button from "@/components/designSystem/Button";
 import { modalAtom } from "@/constants/global/atoms";
 import { server } from "@/tests/msw/server";
+import Input from "@/components/designSystem/Input";
 
 import Modal from "../Modal";
 
@@ -50,7 +50,7 @@ const KeywordSearch = () => {
   }, []);
 
   return (
-    <Modal background>
+    <Modal isBgColor onBackdropClick={() => setIsModal(false)}>
       <div className={style.container}>
         <div className={style.widthWrapper}>
           <span className={style.title}>Add my keywords</span>
@@ -66,6 +66,7 @@ const KeywordSearch = () => {
               <KeywordList
                 data={myCategories?.data ?? []}
                 type="myCategory"
+                noneIcon
                 isLoading={myCategoriesLoading}
               />
             }
@@ -77,7 +78,6 @@ const KeywordSearch = () => {
               <KeywordList
                 data={trendCategories?.data ?? []}
                 type="trendCategory"
-                noneIcon
                 isLoading={trendCategoriesLoading}
               />
             }

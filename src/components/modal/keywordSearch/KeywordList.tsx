@@ -7,17 +7,17 @@ import close from "../../../../public/assets/images/common/close.png";
 
 const style = {
   keywordList: `flex flex-wrap gap-[10px] mt-[22px]`,
-  exceptionUI: `flex justify-center items-center w-full h-[130.5px]`,
+  exceptionUI: `flex justify-center items-center w-full h-[130.5px] text-xl`,
 };
 
-interface KeywordListProps {
+interface keywordListProps {
   data: string[];
   type: "myCategory" | "trendCategory";
   noneIcon?: boolean;
   isLoading?: boolean;
 }
 
-const KeywordList: React.FC<KeywordListProps> = ({
+const KeywordList: React.FC<keywordListProps> = ({
   data,
   type,
   noneIcon,
