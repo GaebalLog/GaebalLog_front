@@ -20,7 +20,7 @@ const Header = () => {
     <header
       className={`flex justify-center w-full border-b-[3px] ${BORDER_COLOR.primary}`}
     >
-      <ul className="flex items-center justify-between w-[1800px] h-[94px] p-[20px] gap-[88px]">
+      <ul className="flex items-center justify-between w-[1632px] h-[94px] p-[20px] gap-[88px]">
         <Image src={logo} width={188} height={28} alt="logo" />
         <nav className="flex items-center justify-between w-[80%]">
           <ul className={styles.innerUl}>
