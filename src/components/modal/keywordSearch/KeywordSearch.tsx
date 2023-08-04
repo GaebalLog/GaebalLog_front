@@ -26,9 +26,11 @@ const style = {
 
 const KeywordSearch = () => {
   const [keyword, setKeyword] = React.useState("");
+  const [addedCategories, setAddedCategories] = React.useState<string[]>([]);
+  const [myCategories, setMyCategories] = React.useState<string[]>([]);
   const setIsModal = useSetRecoilState(modalAtom);
 
-  const { data: myCategories, isLoading: myCategoriesLoading } = useQuery({
+  const { data, isLoading: myCategoriesLoading } = useQuery({
     queryKey: ["userCategories"],
     queryFn: () => axios.get("/api/userCategories"),
   });
@@ -39,10 +41,25 @@ const KeywordSearch = () => {
     },
   );
 
+  const categoryAddHandler = (selectedKeyword: string) => {
+    if (!addedCategories.includes(selectedKeyword)) {
+      setMyCategories((prev) => [...prev, selectedKeyword]);
+      setAddedCategories((prev) => [...prev, selectedKeyword]);
+    }
+  };
+  const addedCategorySubmitHandler = () => {
+    console.log(addedCategories);
+    setAddedCategories([]);
+    setIsModal((prev) => !prev);
+  };
+
+  React.useEffect(() => {
+    setMyCategories(data?.data ?? []);
+  }, [data?.data]);
+
   React.useEffect(() => {
     if (process.env.NODE_ENV === "development") {
       server.listen();
-
       return () => {
         server.close();
       };
@@ -54,31 +71,36 @@ const KeywordSearch = () => {
       <div className={style.container}>
         <div className={style.widthWrapper}>
           <span className={style.title}>Add my keywords</span>
-          <RealtimeSearch value={keyword} onChange={setKeyword} />
+          <RealtimeSearch
+            value={keyword}
+            onChange={setKeyword}
+            categoryAddHandler={categoryAddHandler}
+          />
           <div className={style.keyworBox}>
             <span className={style.keyworBoxTitle}>현재 나의 키워드</span>
-            {
-              <KeywordList
-                data={myCategories?.data ?? []}
-                type="myCategory"
-                noneIcon
-                isLoading={myCategoriesLoading}
-              />
-            }
+            <KeywordList
+              data={myCategories}
+              type="myCategory"
+              noneIcon
+              isLoading={myCategoriesLoading}
+            />
           </div>
           <hr className={style.line} />
           <div className={style.keyworBox}>
             <span className={style.keyworBoxTitle}>실시간 인기 키워드</span>
-            {
-              <KeywordList
-                data={trendCategories?.data ?? []}
-                type="trendCategory"
-                isLoading={trendCategoriesLoading}
-              />
-            }
+            <KeywordList
+              data={trendCategories?.data ?? []}
+              type="trendCategory"
+              isLoading={trendCategoriesLoading}
+            />
           </div>
           <div className={style.buttonBox}>
-            <Button className="mr-6" size="confirm" color="black">
+            <Button
+              className="mr-6"
+              size="confirm"
+              color="black"
+              onClick={addedCategorySubmitHandler}
+            >
               Ok
             </Button>
             <Button

@@ -9,12 +9,21 @@ import { BG_COLOR } from "@/constants/global/colors";
 import search from "../../../../public/assets/home/search.png";
 import NonPortalModal from "../NonPortalModal";
 
+const style = {
+  searchList: `flex items-center w-full h-[60px] cursor-pointer hover:bg-gray-200`,
+};
+
 interface realtimeSearchProps {
   value: string;
+  categoryAddHandler: (selectedKeyword: string) => void;
   onChange: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const RealtimeSearch = ({ value, onChange }: realtimeSearchProps) => {
+const RealtimeSearch = ({
+  value,
+  categoryAddHandler,
+  onChange,
+}: realtimeSearchProps) => {
   const [isModal, setIsModal] = React.useState<boolean>(false);
   const [focusedIndex, setFocusedIndex] = React.useState<number | null>(null);
   const modalRef = React.useRef<HTMLUListElement | null>(null);
@@ -32,7 +41,9 @@ const RealtimeSearch = ({ value, onChange }: realtimeSearchProps) => {
     if (!isClickInsideInput && !isClickInsideModal) setIsModal(false);
   }, []);
 
-  const searchKeywordClick = () => {
+  const searchKeywordClick = (selectedKeyword: string) => {
+    categoryAddHandler(selectedKeyword);
+    onChange("");
     setIsModal((prev) => !prev);
   };
 
@@ -51,7 +62,8 @@ const RealtimeSearch = ({ value, onChange }: realtimeSearchProps) => {
       );
     }
     if (key === "Enter" && focusedIndex !== null) {
-      return searchKeywordClick();
+      const selectedResult = data?.data[focusedIndex];
+      return searchKeywordClick(selectedResult);
     }
   };
 
@@ -79,7 +91,7 @@ const RealtimeSearch = ({ value, onChange }: realtimeSearchProps) => {
           onChange={onChange}
         />
         {isModal && (
-          <NonPortalModal topLeft={{ top: 50, left: 19.5 }} noneBackdrop>
+          <NonPortalModal topLeft={{ top: 50, left: 19.5 }} nonBackdrop>
             <ul className="w-[1180px] shadow-xl" ref={modalRef}>
               {data?.data.map((result: string, i: number) => {
                 const bgColor =
@@ -89,9 +101,8 @@ const RealtimeSearch = ({ value, onChange }: realtimeSearchProps) => {
                   <li
                     key={i}
                     data-testid={`item-${i}`}
-                    tabIndex={0}
-                    className={`flex items-center w-full h-[60px] ${bgColor} cursor-pointer hover:bg-gray-200`}
-                    onClick={searchKeywordClick}
+                    className={`${style.searchList} ${bgColor}`}
+                    onClick={() => searchKeywordClick(result)}
                   >
                     <Image
                       className="px-6"

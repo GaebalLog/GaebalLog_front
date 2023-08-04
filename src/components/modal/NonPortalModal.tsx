@@ -19,14 +19,14 @@ import React from "react";
 
 interface nonPortalModalProps {
   topLeft: { top: number; left: number };
-  noneBackdrop?: boolean;
+  nonBackdrop?: boolean;
   onBackdropClick?: () => void;
   children: React.ReactNode;
 }
 
 const NonPortalModal: React.FC<nonPortalModalProps> = ({
   topLeft,
-  noneBackdrop,
+  nonBackdrop,
   onBackdropClick, // 모달 닫을 때 사용하는 함수
   children,
 }) => {
@@ -37,7 +37,7 @@ const NonPortalModal: React.FC<nonPortalModalProps> = ({
 
   return (
     <div>
-      {!noneBackdrop && (
+      {!nonBackdrop && (
         <div className={`${stModal.backdrop}`} onClick={onBackdropClick} />
       )}
       <div className={stModal.contentsBox} style={topLeft}>
