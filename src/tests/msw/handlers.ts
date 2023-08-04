@@ -19,11 +19,6 @@ export const handlers = [
         "Object",
         "IMP",
         "Javascript",
-        "PEARL",
-        "JASS",
-        "PL/SQL",
-        "Java",
-        "Language",
       ]),
     );
   }),

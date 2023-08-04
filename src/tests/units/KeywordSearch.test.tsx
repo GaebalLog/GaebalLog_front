@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import RootLayout from "@/app/layout";
@@ -35,7 +35,7 @@ describe("키워드 검색 모달 API 요청 테스트", () => {
   });
 
   test("현재 나의 키워드 get 요청 테스트", async () => {
-    const expectedItemCount = 14;
+    const expectedItemCount = 9;
     const items = await screen.findAllByTestId(/myCategory/);
     expect(items.length).toBe(expectedItemCount);
   });
@@ -87,11 +87,14 @@ describe("실시간 검색 기능 테스트", () => {
     expect(await screen.findByTestId("item-1")).toHaveClass("bg-[#FFFFFF]");
   });
 
-  test("엔터를 누를 때 항목 클릭 이벤트 발생", async () => {
-    userEvent.keyboard("{arrowdown}");
+  test("항목을 고르고 엔터를 누르면 모달이 닫히고 리스트에 항목이 추가 됨", async () => {
     expect(await screen.findByText("리액트네이티브")).toBeInTheDocument();
-    userEvent.keyboard("{enter}");
-    await utilDelay(100);
-    expect(screen.queryByText("리액트네이티브")).not.toBeInTheDocument();
+    expect(await screen.findByText("리액트네이티브 ios")).toBeInTheDocument();
+    await userEvent.keyboard("{arrowdown}");
+    await userEvent.keyboard("{enter}");
+    waitFor(() => {
+      expect(screen.queryByText("리액트네이티브 ios")).not.toBeInTheDocument();
+    });
+    expect(await screen.findByText("#리액트네이티브")).toBeInTheDocument();
   });
 });
