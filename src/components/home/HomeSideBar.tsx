@@ -1,15 +1,16 @@
 "use client";
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
+import { QUERY_KEYS } from "@/constants/global/querykeys";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 
 import Button from "../designSystem/Button";
 
 const HomeSideBar = () => {
   const { data } = useQuery({
-    queryKey: ["keywordList"],
+    queryKey: [QUERY_KEYS.KEYWORDLIST],
     queryFn: async () => await axios.get("/api/usercategories"),
   });
   const keywordList = data?.data;

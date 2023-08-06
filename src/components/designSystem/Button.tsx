@@ -50,7 +50,7 @@ const Button: React.FC<buttonProps> = ({
   return (
     <button
       className={`${BUTTON_VARIANT[size]} ${COLOR_VARIANT[color]}  ${
-        withIcon && `flex items-center`
+        withIcon && `flex items-center gap-2`
       } ${rounded && `rounded-full`} ${border && BORDER_VARIANT} ${className}`}
       {...props}
     >
