@@ -26,11 +26,6 @@
         "leadingUnderscore": "forbid"
       },
       {
-        "selector": "variable",
-        "types": ["ReactElement"],
-        "format": ["PascalCase"]
-      },
-      {
         "selector": "function",
         "format": ["camelCase"]
       },
