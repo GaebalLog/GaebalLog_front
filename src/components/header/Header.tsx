@@ -1,8 +1,10 @@
 "use client";
 import Image from "next/image";
 import React from "react";
+import { useRecoilValue } from "recoil";
 
 import { BORDER_COLOR } from "@/constants/global/colors";
+import { isLoggedInAtom } from "@/constants/global/atoms";
 
 import Input from "../designSystem/Input";
 import logo from "../../../public/assets/images/home/logo.png";
@@ -16,6 +18,7 @@ const styles = {
 
 const Header = () => {
   const [search, setSearch] = React.useState("");
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
   return (
     <header
       className={`flex justify-center w-full border-b-[3px] ${BORDER_COLOR.primary}`}
@@ -32,7 +35,7 @@ const Header = () => {
             </li>
           </ul>
           <ul className={styles.innerUl}>
-            <LoggedInBox />
+            {isLoggedIn ? <LoggedInBox /> : <NotLoggedInBox />}
           </ul>
         </nav>
       </ul>
