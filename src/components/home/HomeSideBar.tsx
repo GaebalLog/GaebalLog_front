@@ -1,6 +1,8 @@
 import React from "react";
-import Button from "../designSystem/Button";
+
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
+
+import Button from "../designSystem/Button";
 
 const keywordList = ["프론트엔드", "백엔드", "풀스택", "웹 개발자"];
 const HomeSideBar = () => {

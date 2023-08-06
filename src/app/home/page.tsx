@@ -1,6 +1,7 @@
-import HomeSideBar from "@/components/home/HomeSideBar";
 import Image from "next/image";
 import React from "react";
+
+import HomeSideBar from "@/components/home/HomeSideBar";
 
 const HomePage = () => {
   return (
