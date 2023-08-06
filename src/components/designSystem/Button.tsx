@@ -11,6 +11,7 @@ const BUTTON_VARIANT = {
   bigCreate: `text-[32px] leading-[37.25px] py-2 px-4 bg-[#4D4D4D] text-[#DFAE3D]`,
   middleCreate: `text-[16px] leading-[30px] py-4 px-[88px]`,
   smallCreate: `text-[24px] leading-[18.63px] py-[18px]`,
+  commentCreate: `text-[24px] leading-normal py-6 px-[100px]`,
   withIcon: `text-[16px] leading-5 py-2 px-4`,
   tag: `text-[16px] p-2 leading-5 rounded-[3px]`,
   login: `text-[11.137px] leading-[16.71px] py-[9.74px] px-[22.27px] rounded-[3px] ${FONT_FAMILY.hack}`,

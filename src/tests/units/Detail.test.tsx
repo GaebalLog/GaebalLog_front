@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 
-import Detail from "@/app/detail/page";
+import Detail from "@/app/detail/[title]/page";
 import RootLayout from "@/app/layout";
 
 describe("디테일 페이지 렌더링 테스트", () => {

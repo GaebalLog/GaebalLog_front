@@ -9,3 +9,8 @@ export const darkAtom = atom({
   key: "dark",
   default: false,
 });
+
+export const activeCommentIdAtom = atom<string | null>({
+  key: "activCommentId",
+  default: null,
+});
