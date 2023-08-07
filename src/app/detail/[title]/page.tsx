@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { server } from "@/tests/msw/server";
 import CommentsList from "@/components/detail/CommentsList";
 import { BG_COLOR } from "@/constants/global/colors";
-import CommentForm from "@/components/detail/CommentForm";
+import CommentForm from "@/components/detail/form/CommentForm";
 
 const styles = {
   contents: {

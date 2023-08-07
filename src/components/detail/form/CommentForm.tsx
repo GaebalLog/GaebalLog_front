@@ -2,7 +2,7 @@ import React from "react";
 
 import { BG_COLOR } from "@/constants/global/colors";
 
-import Button from "../designSystem/Button";
+import Button from "../../designSystem/Button";
 
 const styles = {
   form: `flex flex-col self-start`,

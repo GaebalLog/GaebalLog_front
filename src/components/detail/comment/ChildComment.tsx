@@ -4,9 +4,10 @@ import { useRecoilValue } from "recoil";
 import { BG_COLOR } from "@/constants/global/colors";
 import { activeCommentIdAtom } from "@/constants/global/atoms";
 
-import ArrowInNestedComment from "./icons/ArrowInNestedComment";
+import ArrowInNestedComment from "../icons/ArrowInNestedComment";
+import SubCommentForm from "../form/SubCommentForm";
+
 import CommentCard from "./CommentCard";
-import SubCommentForm from "./SubCommentForm";
 import GrandChildComment from "./GrandChildComment";
 
 const styles = {

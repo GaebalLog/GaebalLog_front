@@ -4,10 +4,10 @@ import { useRecoilState } from "recoil";
 import { BG_COLOR } from "@/constants/global/colors";
 import { activeCommentIdAtom } from "@/constants/global/atoms";
 
-import CommentCard from "./CommentCard";
-import SubCommentForm from "./SubCommentForm";
+import CommentCard from "./comment/CommentCard";
+import SubCommentForm from "./form/SubCommentForm";
 import Arrow from "./icons/Arrow";
-import ChildComment from "./ChildComment";
+import ChildComment from "./comment/ChildComment";
 
 const styles = {
   commentAddButton: `flex justify-center items-center text-[#967AC3]`,
@@ -56,6 +56,7 @@ const CommentsList: React.FC<comment> = ({ ...comment }) => {
       </>
     );
   };
+
   const NonChildLayout: React.FC = () => {
     return (
       <>

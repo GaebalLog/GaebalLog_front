@@ -3,8 +3,7 @@ import { useRecoilState } from "recoil";
 
 import utilConvertTime from "@/utils/util-datetime";
 import { activeCommentIdAtom } from "@/constants/global/atoms";
-
-import Button from "../designSystem/Button";
+import Button from "@/components/designSystem/Button";
 
 const style = {
   commentHeader: `flex justify-between`,

@@ -3,8 +3,7 @@ import { useSetRecoilState } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
 import { activeCommentIdAtom } from "@/constants/global/atoms";
-
-import Button from "../designSystem/Button";
+import Button from "@/components/designSystem/Button";
 
 const style = {
   wrapper: `mt-8`,
