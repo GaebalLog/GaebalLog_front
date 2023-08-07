@@ -2,9 +2,11 @@
 import Image from "next/image";
 import React from "react";
 import { useRecoilValue } from "recoil";
+import Link from "next/link";
 
-import { BORDER_COLOR } from "@/constants/global/colors";
+import { BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import { isLoggedInAtom } from "@/constants/global/atoms";
+import useIcon from "@/hooks/useIcon";
 
 import Input from "../designSystem/Input";
 import logo from "../../../public/assets/images/home/logo.png";
@@ -15,10 +17,14 @@ import NotLoggedInBox from "./NotLoggedInBox";
 const styles = {
   innerUl: "flex items-center justify-between gap-[22px]",
 };
+const linkList = ["Discussions", "Tech"];
 
 const Header = () => {
   const [search, setSearch] = React.useState("");
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
+  const { getIcon } = useIcon();
+  const mike = getIcon("mike", 24, 24);
+
   return (
     <header
       className={`flex justify-center w-full border-b-[3px] ${BORDER_COLOR.primary}`}
@@ -27,12 +33,19 @@ const Header = () => {
         <Image src={logo} width={188} height={28} alt="logo" />
         <nav className="flex items-center justify-between w-[80%]">
           <ul className={styles.innerUl}>
+            {linkList.map((link) => (
+              <Link
+                key={`${Link}`}
+                href={`/${link}`}
+                className={`${TEXT_COLOR.text} text=[24px] font-bold`}
+              >
+                {link}
+              </Link>
+            ))}
             <li>
               <Input value={search} onChange={setSearch} type="header" />
             </li>
-            <li>
-              <Image src={logo} width={48} height={48} alt="음성 검색" />
-            </li>
+            <li>{mike}</li>
           </ul>
           <ul className={styles.innerUl}>
             {isLoggedIn ? <NotLoggedInBox /> : <LoggedInBox />}

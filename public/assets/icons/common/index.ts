@@ -16,6 +16,8 @@ import bookmark_light from "./bookmark_light.png";
 import bookmark_dark from "./bookmark_dark.png";
 import star_empty from "./star_empty.png";
 import star_full from "./star_full.png";
+import checkbook_light from "./checkbook_light.png";
+import checkbook_dark from "./checkbook_dark.png";
 
 const ICON = {
   alarm: [alarm_light, alarm_dark],
@@ -27,6 +29,7 @@ const ICON = {
   search: [search_light, search_dark],
   star: [star_empty, star_empty],
   bookmark: [bookmark_light, bookmark_dark],
+  checkbook: [checkbook_light, checkbook_dark],
   star_full: [star_full, star_full],
 };
 export default ICON;

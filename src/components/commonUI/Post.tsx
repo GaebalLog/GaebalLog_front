@@ -1,18 +1,20 @@
 import React from "react";
 import Image from "next/image";
+import { useRecoilValue } from "recoil";
 
 import useIcon from "@/hooks/useIcon";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { isLoggedInAtom } from "@/constants/global/atoms";
 
 import Button from "../designSystem/Button";
 
 const Post: React.FC<{ post: post }> = ({ post }) => {
   const { getIcon } = useIcon();
-
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const heart = getIcon("heart", 16, 14);
   const eye = getIcon("eye", 18, 16);
   const bookmark = getIcon("bookmark", 48, 80);
-
+  const checkBookmark = getIcon("checkbook", 48, 80);
   const btns = [
     { id: "heart", icon: heart, count: post.like },
     { id: "search", icon: eye, count: post.count },
@@ -35,7 +37,11 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
           {/* 에디터 구현에 따라 수정필요할지도 */}
           <p className={`${TEXT_COLOR.text} text-[16px]`}>{post.content}</p>
         </div>
-        <div className="absolute top-0 right-[40px]">{bookmark}</div>
+        {isLoggedIn && (
+          <div className="absolute top-0 right-[40px]">
+            {post.isBookmarked ? checkBookmark : bookmark}
+          </div>
+        )}
         <div className="flex items-center gap-[16px]">
           {post.tags.map((tag) => (
             <Button key={`${post.postId}${tag}`} color="grey" size="tag">
