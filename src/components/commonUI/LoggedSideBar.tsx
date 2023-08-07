@@ -8,15 +8,24 @@ import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 
 import Button from "../designSystem/Button";
 
-const HomeSideBar = () => {
+type WidthValue = `w-[${string}]`;
+
+interface props {
+  height?: WidthValue;
+}
+const LoggedSideBar: React.FC<props> = ({ height }) => {
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.KEYWORDLIST],
     queryFn: async () => await axios.get("/api/usercategories"),
   });
   const keywordList = data?.data;
+
+  const styles = height
+    ? `w-[380px] ${height} sticky top-[10px]}`
+    : "w-[380px] h-full sticky top-[10px]";
   return (
-    <div className="w-[380px] h-full sticky top-[10px]">
-      <article
+    <div className={styles}>
+      <div
         className={`${BG_COLOR.general02} ${BORDER_COLOR.container} px-[15px] py-[24px] flex gap-3 flex-wrap content-start h-[500px]`}
       >
         {keywordList?.map((keyword: string) => (
@@ -24,9 +33,9 @@ const HomeSideBar = () => {
             #{keyword}
           </Button>
         ))}
-      </article>
+      </div>
     </div>
   );
 };
 
-export default HomeSideBar;
+export default LoggedSideBar;
