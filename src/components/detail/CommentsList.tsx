@@ -8,6 +8,7 @@ import CommentCard from "./comment/CommentCard";
 import SubCommentForm from "./form/SubCommentForm";
 import Arrow from "./icons/Arrow";
 import ChildComment from "./comment/ChildComment";
+import DeletedComment from "./comment/DeletedComment";
 
 const styles = {
   commentAddButton: `flex justify-center items-center text-[#967AC3]`,
@@ -23,14 +24,14 @@ const CommentsList: React.FC<comment> = ({ ...comment }) => {
   const [activeCommentId, setActiveCommentId] =
     useRecoilState(activeCommentIdAtom);
 
-  const { childComments } = comment;
+  const { commentId, isDeleted, childComments } = comment;
   const hasChildComments = childComments && childComments?.length > 0;
 
   const onAddCommentClick = () => {
-    if (activeCommentId === comment.commentId) {
+    if (activeCommentId === commentId) {
       setActiveCommentId(null);
     } else {
-      setActiveCommentId(comment.commentId);
+      setActiveCommentId(commentId);
     }
   };
 
@@ -38,7 +39,9 @@ const CommentsList: React.FC<comment> = ({ ...comment }) => {
     return (
       <>
         <button
-          className={styles.childCommentVisibleButton}
+          className={`${styles.childCommentVisibleButton} ${
+            isDeleted && `-mt-6`
+          }`}
           onClick={() => setIsChildCommentVisible((prev) => !prev)}
         >
           <span>{`답글 ${childComments?.length}개 더보기 `}</span>
@@ -60,7 +63,11 @@ const CommentsList: React.FC<comment> = ({ ...comment }) => {
   const NonChildLayout: React.FC = () => {
     return (
       <>
-        <button className={styles.commentAddButton} onClick={onAddCommentClick}>
+        <button
+          data-testid={`bigAddComment_${comment.commentId}`}
+          className={styles.commentAddButton}
+          onClick={onAddCommentClick}
+        >
           <span className={styles.plusIcon}>+</span>
           <span>답글 달기</span>
         </button>
@@ -71,10 +78,18 @@ const CommentsList: React.FC<comment> = ({ ...comment }) => {
   return (
     <div>
       <div>
-        <CommentCard parentComment {...comment} />
-        {hasChildComments ? <HasChildLayout /> : <NonChildLayout />}
+        {isDeleted ? (
+          <DeletedComment />
+        ) : (
+          <CommentCard parentComment {...comment} />
+        )}
+        {hasChildComments ? (
+          <HasChildLayout />
+        ) : (
+          !isDeleted && <NonChildLayout />
+        )}
       </div>
-      {activeCommentId === comment.commentId && <SubCommentForm />}
+      {activeCommentId === commentId && <SubCommentForm />}
       <hr className={styles.line} />
     </div>
   );

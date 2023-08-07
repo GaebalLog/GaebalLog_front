@@ -15,7 +15,7 @@ const SubCommentForm: React.FC = () => {
   const setActivCommentId = useSetRecoilState(activeCommentIdAtom);
 
   return (
-    <form className="mt-8">
+    <form className="mt-8 mb-5">
       <textarea className={style.textarea} placeholder="댓글을 입력해주세요." />
       <div className={style.buttonBox}>
         <Button

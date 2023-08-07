@@ -1,4 +1,4 @@
-const utilConvertTime = (createdAt: Date | string) => {
+const utilConvertTime = (createdAt: string) => {
   const creatTime = new Date(createdAt);
   const now = new Date();
 

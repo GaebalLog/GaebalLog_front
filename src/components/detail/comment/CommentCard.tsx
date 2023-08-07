@@ -32,7 +32,7 @@ const CommentCard: React.FC<commentCardProps> = ({
 }) => {
   const [activeCommentId, setActiveCommentId] =
     useRecoilState(activeCommentIdAtom);
-  const time = utilConvertTime(createdAt?.toLocaleString());
+  const time = utilConvertTime(createdAt);
   const hasChild = childComments && childComments?.length > 0;
 
   const onAddCommentClick = () => {
@@ -58,12 +58,20 @@ const CommentCard: React.FC<commentCardProps> = ({
           <button className="ml-10">차단하기</button>
           {parentComment ? (
             hasChild && (
-              <button className="ml-10" onClick={onAddCommentClick}>
+              <button
+                data-testid={`smallAddComment_${commentId}`}
+                className="ml-10"
+                onClick={onAddCommentClick}
+              >
                 답글쓰기
               </button>
             )
           ) : (
-            <button className="ml-10" onClick={onAddCommentClick}>
+            <button
+              data-testid={`smallAddComment_${commentId}`}
+              className="ml-10"
+              onClick={onAddCommentClick}
+            >
               답글쓰기
             </button>
           )}

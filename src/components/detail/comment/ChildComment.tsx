@@ -9,6 +9,7 @@ import SubCommentForm from "../form/SubCommentForm";
 
 import CommentCard from "./CommentCard";
 import GrandChildComment from "./GrandChildComment";
+import DeletedComment from "./DeletedComment";
 
 const styles = {
   childCommentList: `grid grid-cols-[auto,1fr] pt-4 px-[55px] mb-6 ${BG_COLOR.general01}`,
@@ -17,13 +18,17 @@ const styles = {
 const ChildComment: React.FC<comment> = ({ ...comment }) => {
   const activeCommentId = useRecoilValue(activeCommentIdAtom);
 
-  const { childComments } = comment;
+  const { commentId, isDeleted, childComments } = comment;
   return (
     <>
-      <div className={styles.childCommentList}>
-        <ArrowInNestedComment className="mr-[22.6px]" />
-        <CommentCard {...comment} />
-      </div>
+      {isDeleted ? (
+        <DeletedComment childComment />
+      ) : (
+        <div className={styles.childCommentList}>
+          <ArrowInNestedComment className="mr-[22.6px]" />
+          <CommentCard {...comment} />
+        </div>
+      )}
       <ul>
         {childComments?.map((comment: comment) => (
           <li key={comment.commentId}>
@@ -31,7 +36,7 @@ const ChildComment: React.FC<comment> = ({ ...comment }) => {
           </li>
         ))}
       </ul>
-      {activeCommentId === comment.commentId && <SubCommentForm />}
+      {activeCommentId === commentId && <SubCommentForm />}
     </>
   );
 };
