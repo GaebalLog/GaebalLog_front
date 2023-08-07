@@ -12,6 +12,8 @@ import profile_light from "./profile_light.png";
 import profile_dark from "./profile_dark.png";
 import search_light from "./search_light.png";
 import search_dark from "./search_dark.png";
+import bookmark_light from "./bookmark_light.png";
+import bookmark_dark from "./bookmark_dark.png";
 import star_empty from "./star_empty.png";
 import star_full from "./star_full.png";
 
@@ -24,6 +26,7 @@ const ICON = {
   profile: [profile_light, profile_dark],
   search: [search_light, search_dark],
   star: [star_empty, star_empty],
+  bookmark: [bookmark_light, bookmark_dark],
   star_full: [star_full, star_full],
 };
 export default ICON;

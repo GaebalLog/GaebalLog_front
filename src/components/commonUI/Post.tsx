@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 import useIcon from "@/hooks/useIcon";
-import { BG_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 
 import Button from "../designSystem/Button";
 
@@ -11,6 +11,7 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
 
   const heart = getIcon("heart", 16, 14);
   const eye = getIcon("eye", 18, 16);
+  const bookmark = getIcon("bookmark", 48, 80);
 
   const btns = [
     { id: "heart", icon: heart, count: post.like },
@@ -18,21 +19,28 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
   ];
   return (
     <div
-      className={`w-[1200px] h-[400px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02}`}
+      className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02}`}
     >
       <div className="w-[332px] h-[280px] overflow-hidden">
         <Image src={post.thumbnail} width={332} height={280} alt={post.title} />
       </div>
-      <div className="flex flex-col gap-[80px]">
-        <div>
-          <h2>{post.nickname}</h2>
-          <h1>{post.title}</h1>
+      <div className="flex justify-between flex-col h-[280px] gap-[80px]">
+        <div className="flex flex-col gap-[24px]">
+          <h2 className={`${TEXT_COLOR.general07rev} text-[20px]`}>
+            {post.nickname}
+          </h2>
+          <h1 className={`${TEXT_COLOR.text} text-[24px] font-bold`}>
+            {post.title}
+          </h1>
           {/* 에디터 구현에 따라 수정필요할지도 */}
-          <h3>{post.content}</h3>
+          <p className={`${TEXT_COLOR.text} text-[16px]`}>{post.content}</p>
         </div>
+        <div className="absolute top-0 right-[40px]">{bookmark}</div>
         <div className="flex items-center gap-[16px]">
           {post.tags.map((tag) => (
-            <div key={`${post.postId}${tag}`}>{tag}</div>
+            <Button key={`${post.postId}${tag}`} color="grey" size="tag">
+              # {tag}
+            </Button>
           ))}
         </div>
       </div>
@@ -45,7 +53,6 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
               color="background"
               rounded
               className="flex-wrap"
-              withIcon
             >
               {btn.icon}
               {btn.count}

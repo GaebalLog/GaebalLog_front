@@ -34,7 +34,6 @@ interface buttonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color: keyof typeof COLOR_VARIANT;
   rounded?: boolean;
   border?: boolean;
-  withIcon?: boolean;
 }
 
 const Button: React.FC<buttonProps> = ({
@@ -42,7 +41,6 @@ const Button: React.FC<buttonProps> = ({
   color,
   rounded,
   border,
-  withIcon,
   className,
   children,
   ...props
@@ -50,7 +48,7 @@ const Button: React.FC<buttonProps> = ({
   return (
     <button
       className={`${BUTTON_VARIANT[size]} ${COLOR_VARIANT[color]}  ${
-        withIcon && `flex items-center gap-2`
+        size === "withIcon" && `flex items-center gap-2`
       } ${rounded && `rounded-full`} ${border && BORDER_VARIANT} ${className}`}
       {...props}
     >
