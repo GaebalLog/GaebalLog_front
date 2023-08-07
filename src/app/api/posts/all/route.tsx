@@ -6,7 +6,7 @@ export const GET = async () => {
       postId: 1,
       title: "title",
       content: "content",
-      tags: ["tags"],
+      tags: ["tags", "tåg2"],
       like: 1,
       count: 1,
       nickname: "hi",
