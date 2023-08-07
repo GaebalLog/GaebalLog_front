@@ -8,11 +8,12 @@ import { server } from "@/tests/msw/server";
 import CommentsList from "@/components/detail/CommentsList";
 import { BG_COLOR } from "@/constants/global/colors";
 import CommentForm from "@/components/detail/form/CommentForm";
+import Contents from "@/components/detail/Contents";
 
 const styles = {
   contents: {
     wrapper: `flex flex-col items-center w-[1632px]`,
-    inner: `w-[909px]`,
+    inner: `w-[909px] mt-[60px]`,
   },
   line: `w-full h-[3px] mt-[63px] mb-8 ${BG_COLOR.general01}`,
   comment: {
@@ -43,7 +44,7 @@ const Detail = () => {
   return (
     <div className={styles.contents.wrapper}>
       <article className={styles.contents.inner}>
-        <section dangerouslySetInnerHTML={{ __html: detailContents?.data }} />
+        <Contents contents={detailContents?.data} />
       </article>
       <hr className={styles.line} />
       <aside className={styles.comment.wrapper}>
