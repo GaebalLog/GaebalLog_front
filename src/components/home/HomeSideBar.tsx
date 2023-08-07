@@ -15,7 +15,7 @@ const HomeSideBar = () => {
   });
   const keywordList = data?.data;
   return (
-    <div className="w-[380px] h-full">
+    <div className="w-[380px] h-full sticky top-[10px]">
       <article
         className={`${BG_COLOR.general02} ${BORDER_COLOR.container} px-[15px] py-[24px] flex gap-3 flex-wrap content-start h-[500px]`}
       >
