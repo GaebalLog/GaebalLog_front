@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 import Header from "@/components/header/Header";
 import Provider from "@/components/provider/Provider";
 import HomePage from "@/app/home/page";
-import HomeSideBar from "@/components/home/HomeSideBar";
+import SideBar from "@/components/commonUI/SideBar";
 
 describe("홈 화면 테스트", () => {
   test("초기 레이아웃 렌더링", async () => {
@@ -19,7 +19,7 @@ describe("홈 화면 테스트", () => {
       screen.getByRole("img", { name: "메인 이미지" }),
     ).toBeInTheDocument();
 
-    render(<HomeSideBar />, { wrapper: Provider });
+    render(<SideBar />, { wrapper: Provider });
     // 모킹서버에서 받아온 데이터를 이용한 테스트 작업
   });
 });
