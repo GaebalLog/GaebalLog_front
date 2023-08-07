@@ -22,6 +22,9 @@ export const handlers = [
       ]),
     );
   }),
+  rest.delete("/api/usercategories/:categoryId", (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
   rest.get("/api/trendCategories", (req, res, ctx) => {
     return res(
       ctx.status(200),

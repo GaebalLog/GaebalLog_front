@@ -1,10 +1,14 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { rest } from "msw";
+import axios from "axios";
 
 import RootLayout from "@/app/layout";
 import Home from "@/app/page";
 import utilDelay from "@/utils/util-delay";
+
+import { server } from "../msw/server";
 
 test("edit 버튼을 누르면 키워드 검색 모달이 열리고 Cancle 버튼을 누르면 닫힌다.", async () => {
   render(
@@ -53,6 +57,14 @@ describe("키워드 검색 모달 API 요청 테스트", () => {
     expect(screen.queryByText("리액트네이티브")).not.toBeInTheDocument();
     await userEvent.type(input, "리액트");
     expect(await screen.findByText("리액트네이티브")).toBeInTheDocument();
+  });
+
+  test("마이 카테고리 삭제 버튼 눌렀을 때 delete 요청 가는지 테스트", async () => {
+    const deleteSpy = jest.spyOn(axios, "delete");
+    await userEvent.click(await screen.findByTestId("myCategory_개발자"));
+    expect(deleteSpy).toHaveBeenCalled();
+
+    deleteSpy.mockRestore();
   });
 });
 
