@@ -1,7 +1,7 @@
 /**
  *
  * @description
- * 포탈을 사용하지 않고 클릭하는 요소에 나타나는 모달
+ * 포탈을 사용하지 않아 클릭하는 요소에 나타나는 모달
  * @example
  * <div className="relative">
  *  <button>모달 여는 버튼</button>

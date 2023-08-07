@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 
 import Button from "@/components/designSystem/Button";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 import close from "../../../../public/assets/images/common/close.png";
 
@@ -23,7 +24,12 @@ const KeywordList: React.FC<keywordListProps> = ({
   noneIcon,
   isLoading,
 }) => {
-  if (isLoading) return <div className={style.exceptionUI}>로딩중</div>;
+  if (isLoading)
+    return (
+      <div className={style.exceptionUI}>
+        <LoadingSpinner />
+      </div>
+    );
   if (!data) return <div className={style.exceptionUI}>데이터 없음</div>;
   return (
     <ul className={style.keywordList}>
