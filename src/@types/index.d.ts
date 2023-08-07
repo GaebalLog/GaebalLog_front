@@ -8,7 +8,8 @@ declare global {
     nickname: string;
     profileImage: string;
     contents: string;
-    createdAt: Date;
+    createdAt: string;
+    isDeleted: boolean;
     childComments: comment[];
   }
 }
