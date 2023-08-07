@@ -19,7 +19,7 @@ export const handlers = [
           profileImage: "",
           contents: "정말 유익한 글이었습니다.",
           createdAt: "2023-08-05T14:00:00Z",
-          isDeleted: true,
+          isDeleted: false,
           childComments: [],
         },
         {
@@ -28,7 +28,7 @@ export const handlers = [
           profileImage: "",
           contents: "깔끔하게 잘 정해주셨네요.",
           createdAt: "2023-07-13T14:00:00Z",
-          isDeleted: true,
+          isDeleted: false,
           childComments: [
             {
               commentId: "3",
@@ -36,7 +36,7 @@ export const handlers = [
               profileImage: "",
               contents: "저도 그렇게 생각합니다ㅋㅋ",
               createdAt: "2023-07-13T14:00:00Z",
-              isDeleted: true,
+              isDeleted: false,
               childComments: [
                 {
                   commentId: "4",
@@ -44,7 +44,7 @@ export const handlers = [
                   profileImage: "",
                   contents: "ffff",
                   createdAt: "2023-07-13T14:00:00Z",
-                  isDeleted: true,
+                  isDeleted: false,
                   childComments: [],
                 },
                 {
