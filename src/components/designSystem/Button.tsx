@@ -24,7 +24,7 @@ const COLOR_VARIANT = {
   black: `${BG_COLOR.inverse} ${TEXT_COLOR.inverse}`,
   background: `${BG_COLOR.background} ${TEXT_COLOR.primary}`,
   category: `${BG_COLOR.etcColor01} ${TEXT_COLOR.primary}`,
-  cancleButton: `${BG_COLOR.primary} ${TEXT_COLOR.general08}`,
+  cancelButton: `${BG_COLOR.primary} ${TEXT_COLOR.general08}`,
 };
 
 const BORDER_VARIANT = `border border-[#D3D3D3] dark:border-[#6A6A6A]`;
@@ -34,7 +34,6 @@ interface buttonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color: keyof typeof COLOR_VARIANT;
   rounded?: boolean;
   border?: boolean;
-  withIcon?: boolean;
 }
 
 const Button: React.FC<buttonProps> = ({
@@ -42,15 +41,14 @@ const Button: React.FC<buttonProps> = ({
   color,
   rounded,
   border,
-  withIcon,
   className,
   children,
   ...props
 }: buttonProps) => {
   return (
     <button
-      className={`${BUTTON_VARIANT[size]} ${COLOR_VARIANT[color]}  ${
-        withIcon && `flex items-center`
+      className={`flex items-center ${BUTTON_VARIANT[size]} ${
+        COLOR_VARIANT[color]
       } ${rounded && `rounded-full`} ${border && BORDER_VARIANT} ${className}`}
       {...props}
     >

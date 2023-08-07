@@ -1,6 +1,6 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 import { BG_COLOR } from "@/constants/global/colors";
@@ -18,7 +18,7 @@ const style = {
   container: `flex justify-center w-[1330px] h-[700px] ${BG_COLOR.general02}}`,
   widthWrapper: `flex flex-col items-center w-11/12`,
   title: `text-2xl ${FONT_FAMILY.hack} mt-6 mb-8`,
-  keyworBox: `self-start w-full`,
+  keyworBox: `self-start w-full h-[155px]`,
   keyworBoxTitle: `text-[18px] leading-[22.5px] text-[#888888]`,
   line: `w-[1330px] h-[3px] bg-[#DCDCDC] mt-[30px] mb-5`,
   buttonBox: `self-end mt-[57px]`,
@@ -29,10 +29,14 @@ const KeywordSearch = () => {
   const [addedCategories, setAddedCategories] = React.useState<string[]>([]);
   const [myCategories, setMyCategories] = React.useState<string[]>([]);
   const setIsModal = useSetRecoilState(modalAtom);
+  const queryClient = useQueryClient();
 
-  const { data, isLoading: myCategoriesLoading } = useQuery({
+  const { isLoading: myCategoriesLoading } = useQuery({
     queryKey: ["userCategories"],
     queryFn: () => axios.get("/api/userCategories"),
+    onSuccess: (data) => {
+      setMyCategories(data?.data);
+    },
   });
   const { data: trendCategories, isLoading: trendCategoriesLoading } = useQuery(
     {
@@ -41,10 +45,14 @@ const KeywordSearch = () => {
     },
   );
 
-  const categoryAddHandler = (selectedKeyword: string) => {
+  const categoryAddHandler = async (selectedKeyword: string) => {
+    const addedResult = (prev: string[]) => [...prev, selectedKeyword];
     if (!addedCategories.includes(selectedKeyword)) {
-      setMyCategories((prev) => [...prev, selectedKeyword]);
-      setAddedCategories((prev) => [...prev, selectedKeyword]);
+      queryClient.setQueryData(["userCategories"], {
+        data: [...myCategories, selectedKeyword],
+      });
+      setMyCategories(addedResult);
+      setAddedCategories(addedResult);
     }
   };
   const addedCategorySubmitHandler = () => {
@@ -52,10 +60,6 @@ const KeywordSearch = () => {
     setAddedCategories([]);
     setIsModal((prev) => !prev);
   };
-
-  React.useEffect(() => {
-    setMyCategories(data?.data ?? []);
-  }, [data?.data]);
 
   React.useEffect(() => {
     if (process.env.NODE_ENV === "development") {
@@ -81,8 +85,8 @@ const KeywordSearch = () => {
             <KeywordList
               data={myCategories}
               type="myCategory"
-              noneIcon
               isLoading={myCategoriesLoading}
+              setMyCategories={setMyCategories}
             />
           </div>
           <hr className={style.line} />
@@ -91,6 +95,7 @@ const KeywordSearch = () => {
             <KeywordList
               data={trendCategories?.data ?? []}
               type="trendCategory"
+              nonIcon
               isLoading={trendCategoriesLoading}
             />
           </div>

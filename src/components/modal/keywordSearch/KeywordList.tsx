@@ -1,5 +1,7 @@
 import Image from "next/image";
 import React from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
 import Button from "@/components/designSystem/Button";
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -14,47 +16,74 @@ const style = {
 interface keywordListProps {
   data: string[];
   type: "myCategory" | "trendCategory";
-  noneIcon?: boolean;
+  nonIcon?: boolean;
   isLoading?: boolean;
+  setMyCategories?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const KeywordList: React.FC<keywordListProps> = ({
   data,
   type,
-  noneIcon,
+  nonIcon,
   isLoading,
+  setMyCategories,
 }) => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: (selectedCategory: string) =>
+      axios.delete(`/api/usercategories/${selectedCategory}`),
+    onSuccess: (_, selectedCategory) => {
+      const myCategory = queryClient.getQueryData<{ data: string[] }>([
+        "userCategories",
+      ])?.data;
+
+      const deletedResult = myCategory?.filter(
+        (category) => category !== selectedCategory,
+      );
+
+      if (!deletedResult || !setMyCategories) return;
+
+      setMyCategories(deletedResult);
+      queryClient.setQueryData(["userCategories"], {
+        data: deletedResult,
+      });
+    },
+  });
+
   if (isLoading)
     return (
       <div className={style.exceptionUI}>
         <LoadingSpinner />
       </div>
     );
-  if (!data) return <div className={style.exceptionUI}>데이터 없음</div>;
+  if (data.length === 0)
+    return <div className={style.exceptionUI}>데이터 없음</div>;
+
   return (
     <ul className={style.keywordList}>
-      {data?.map((category: string) => {
-        return (
-          <li
-            key={`${type}_${category}`}
+      {data?.map((category: string) => (
+        <li key={`${type}_${category}`} className="mb-[6px]">
+          <Button
             data-testid={`${type}_${category}`}
-            className="mb-[6px]"
+            size="category"
+            color="background"
+            rounded
+            onClick={!nonIcon ? () => mutate(category) : undefined}
           >
-            <Button size="category" color="background" rounded withIcon>
-              <span>#{category}</span>
-              {noneIcon && (
-                <Image
-                  className="ml-[10px]"
-                  src={close}
-                  width={18}
-                  height={18}
-                  alt="삭제"
-                />
-              )}
-            </Button>
-          </li>
-        );
-      })}
+            <span>#{category}</span>
+            {!nonIcon && (
+              <Image
+                className="ml-[10px]"
+                src={close}
+                width={18}
+                height={18}
+                alt="삭제"
+              />
+            )}
+          </Button>
+        </li>
+      ))}
     </ul>
   );
 };
