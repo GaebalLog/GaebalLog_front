@@ -47,9 +47,11 @@ const Button: React.FC<buttonProps> = ({
 }: buttonProps) => {
   return (
     <button
-      className={`${BUTTON_VARIANT[size]} ${COLOR_VARIANT[color]}  ${
-        size === "withIcon" && `flex items-center gap-2`
-      } ${rounded && `rounded-full`} ${border && BORDER_VARIANT} ${className}`}
+      className={`flex items-center ${BUTTON_VARIANT[size]} ${
+        COLOR_VARIANT[color]
+      }  ${size === "withIcon" && `flex items-center gap-2`} ${
+        rounded && `rounded-full`
+      } ${border && BORDER_VARIANT} ${className}`}
       {...props}
     >
       {children}

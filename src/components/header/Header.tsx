@@ -17,7 +17,10 @@ import NotLoggedInBox from "./NotLoggedInBox";
 const styles = {
   innerUl: "flex items-center justify-between gap-[22px]",
 };
-const linkList = ["Discussions", "Tech"];
+const linkList = [
+  { href: "discussion", text: "Discussions" },
+  { href: "tech", text: "Tech" },
+];
 
 const Header = () => {
   const [search, setSearch] = React.useState("");
@@ -35,11 +38,11 @@ const Header = () => {
           <ul className={styles.innerUl}>
             {linkList.map((link) => (
               <Link
-                key={`${Link}`}
-                href={`/${link}`}
+                key={`${link.href}header`}
+                href={`/${link.href}`}
                 className={`${TEXT_COLOR.text} text=[24px] font-bold`}
               >
-                {link}
+                {link.text}
               </Link>
             ))}
             <li>
