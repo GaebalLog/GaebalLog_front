@@ -51,7 +51,7 @@ const Header = () => {
             <li>{mike}</li>
           </ul>
           <ul className={styles.innerUl}>
-            {isLoggedIn ? <NotLoggedInBox /> : <LoggedInBox />}
+            {isLoggedIn ? <LoggedInBox /> : <NotLoggedInBox />}
           </ul>
         </nav>
       </ul>
