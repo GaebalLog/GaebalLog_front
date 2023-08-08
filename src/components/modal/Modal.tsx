@@ -35,10 +35,10 @@ const Modal: React.FC<modalProps> = ({
   children,
 }) => {
   const styles = {
-    backdrop: `fixed w-full h-full inset-0`,
+    backdrop: `fixed w-full h-full inset-0 z-10`,
     contentsBox: `${
       isFixed ? "fixed" : "absolute"
-    } ${`top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}`,
+    } ${`top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20`}`,
   };
 
   React.useEffect(() => {

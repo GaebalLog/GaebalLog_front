@@ -21,7 +21,7 @@ const styles = {
   keywordBox: `self-start w-full h-[155px]`,
   keywordBoxTitle: `text-[18px] leading-[22.5px] text-[#888888]`,
   line: `w-[1330px] h-[3px] bg-[#DCDCDC] mt-[30px] mb-5`,
-  buttonBox: `flex self-end mt-[57px]`,
+  buttonBox: `self-end mt-[57px]`,
 };
 
 const KeywordSearch = () => {
