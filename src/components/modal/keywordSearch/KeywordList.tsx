@@ -1,12 +1,10 @@
-import Image from "next/image";
 import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 import Button from "@/components/designSystem/Button";
 import LoadingSpinner from "@/components/LoadingSpinner";
-
-import close from "../../../../public/assets/images/common/close.png";
+import useIcon from "@/hooks/useIcon";
 
 const styles = {
   keywordList: `flex flex-wrap gap-[10px] mt-[22px]`,
@@ -51,6 +49,9 @@ const KeywordList: React.FC<keywordListProps> = ({
     },
   });
 
+  const { getIcon } = useIcon();
+  const close = getIcon("close", 18, 18);
+
   if (isLoading)
     return (
       <div className={styles.exceptionUI}>
@@ -72,15 +73,7 @@ const KeywordList: React.FC<keywordListProps> = ({
             onClick={!nonIcon ? () => mutate(category) : undefined}
           >
             <span>#{category}</span>
-            {!nonIcon && (
-              <Image
-                className="ml-[10px]"
-                src={close}
-                width={18}
-                height={18}
-                alt="삭제"
-              />
-            )}
+            {!nonIcon && <div>{close}</div>}
           </Button>
         </li>
       ))}

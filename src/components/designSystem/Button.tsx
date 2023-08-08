@@ -7,7 +7,7 @@ import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 
 const BUTTON_VARIANT = {
   tab: `text-[20px] leading-[25px] py-[10px] px-5 rounded-[3px]`,
-  category: `text-[20px] leading-[23.28px] py-[10px] px-4 ${FONT_FAMILY.hack}`,
+  category: `text-[20px] h-[40px] leading-[23.28px] py-[10px] px-4 ${FONT_FAMILY.hack}`,
   bigCreate: `text-[32px] leading-[37.25px] py-2 px-4 bg-[#4D4D4D] text-[#DFAE3D]`,
   middleCreate: `text-[16px] leading-[30px] py-4 px-[88px]`,
   smallCreate: `text-[24px] leading-[18.63px] py-[18px]`,
@@ -49,7 +49,9 @@ const Button: React.FC<buttonProps> = ({
     <button
       className={`flex items-center ${BUTTON_VARIANT[size]} ${
         COLOR_VARIANT[color]
-      } ${rounded && `rounded-full`} ${border && BORDER_VARIANT} ${className}`}
+      }  ${size === "withIcon" && `gap-2`} ${rounded && `rounded-full`} ${
+        border && BORDER_VARIANT
+      } ${className}`}
       {...props}
     >
       {children}

@@ -1,12 +1,11 @@
 import React from "react";
-import Image from "next/image";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 import Input from "@/components/designSystem/Input";
 import { BG_COLOR } from "@/constants/global/colors";
+import useIcon from "@/hooks/useIcon";
 
-import search from "../../../../public/assets/home/search.png";
 import NonPortalModal from "../NonPortalModal";
 
 const styles = {
@@ -33,6 +32,9 @@ const RealtimeSearch = ({
     queryKey: ["liveSearch"],
     queryFn: () => axios.get("/api/liveSearch"),
   });
+
+  const { getIcon } = useIcon();
+  const search = getIcon("search", 18, 22);
 
   const modalOutsideClick = React.useCallback((event: MouseEvent) => {
     if (!(event.target instanceof Node)) return;
@@ -104,13 +106,7 @@ const RealtimeSearch = ({
                     className={`${styles.searchList} ${bgColor}`}
                     onClick={() => searchKeywordClick(result)}
                   >
-                    <Image
-                      className="px-6"
-                      src={search}
-                      width={18}
-                      height={18}
-                      alt="돋보기"
-                    />
+                    <div className="mx-5">{search}</div>
                     <span>{result}</span>
                   </li>
                 );
