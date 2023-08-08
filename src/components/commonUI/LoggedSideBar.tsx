@@ -2,9 +2,11 @@
 import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { useSetRecoilState } from "recoil";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
+import { modalAtom } from "@/constants/global/atoms";
 
 import Button from "../designSystem/Button";
 
@@ -15,6 +17,7 @@ interface props {
   sticky?: boolean;
 }
 const LoggedSideBar: React.FC<props> = ({ height, sticky }) => {
+  const setIsModal = useSetRecoilState<boolean>(modalAtom);
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.KEYWORDLIST],
     queryFn: async () => await axios.get("/api/usercategories"),
@@ -31,6 +34,7 @@ const LoggedSideBar: React.FC<props> = ({ height, sticky }) => {
 
   return (
     <div className={styles}>
+      <h1>My Keyword</h1>
       <div
         className={`${BG_COLOR.general02} ${BORDER_COLOR.container} px-[15px] py-[24px] flex gap-3 flex-wrap content-start h-[500px]`}
       >
@@ -39,6 +43,12 @@ const LoggedSideBar: React.FC<props> = ({ height, sticky }) => {
             #{keyword}
           </Button>
         ))}
+        <button
+          className="block text-white"
+          onClick={() => setIsModal((prev) => !prev)}
+        >
+          Edit
+        </button>
       </div>
     </div>
   );

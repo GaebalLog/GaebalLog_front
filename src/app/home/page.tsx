@@ -4,17 +4,25 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
+import dynamic from "next/dynamic";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 import Post from "@/components/commonUI/Post";
 import LoggedSideBar from "@/components/commonUI/LoggedSideBar";
 import { isLoggedInAtom } from "@/constants/global/atoms";
 import SideBar from "@/components/commonUI/SideBar";
+import { modalAtom } from "@/constants/global/atoms";
 
 import mainImage from "../../../public/assets/images/home/main.png";
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const KeywordSearch = dynamic(
+  () => import("../../components/modal/keywordSearch/KeywordSearch"),
+);
+
 const HomePage = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
+  const isModal = useRecoilValue<boolean>(modalAtom);
 
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.POSTLIST_HOME],
@@ -39,6 +47,7 @@ const HomePage = () => {
           })}
         </div>
       </div>
+      {isModal && <KeywordSearch />}
     </div>
   );
 };
