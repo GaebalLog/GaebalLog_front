@@ -10,11 +10,7 @@ import GrandChildComment from "@/components/detail/comment/GrandChildComment";
 
 describe("디테일 페이지 렌더링 테스트", () => {
   beforeEach(() => {
-    render(
-      <RootLayout>
-        <Detail />
-      </RootLayout>,
-    );
+    render(<Detail params={{ title: "안녕" }} />, { wrapper: RootLayout });
   });
 
   test("디테일 페이지 본문 렌더링 테스트", async () => {
@@ -75,47 +71,32 @@ describe("삭제된 댓글 렌더링 테스트", () => {
   };
 
   test("댓글 삭제됐을 때 테스트", async () => {
-    render(
-      <RootLayout>
-        <CommentsList {...comment} />
-      </RootLayout>,
-    );
+    render(<CommentsList {...comment} />, { wrapper: RootLayout });
+
     expect(screen.queryByText("삭제 된 댓글 입니다.")).not.toBeInTheDocument();
-    render(
-      <RootLayout>
-        <CommentsList {...deletedComment} />
-      </RootLayout>,
-    );
+
+    render(<CommentsList {...deletedComment} />, { wrapper: RootLayout });
+
     expect(await screen.findByText("삭제 된 댓글 입니다.")).toBeInTheDocument();
   });
 
   test("대댓글 삭제됐을 때 테스트", async () => {
-    render(
-      <RootLayout>
-        <ChildComment {...comment} />
-      </RootLayout>,
-    );
+    render(<ChildComment {...comment} />, { wrapper: RootLayout });
+
     expect(screen.queryByText("삭제 된 댓글 입니다.")).not.toBeInTheDocument();
-    render(
-      <RootLayout>
-        <ChildComment {...deletedComment} />
-      </RootLayout>,
-    );
+
+    render(<ChildComment {...deletedComment} />, { wrapper: RootLayout });
+
     expect(await screen.findByText("삭제 된 댓글 입니다.")).toBeInTheDocument();
   });
 
   test("대대댓글 삭제됐을 때 테스트", async () => {
-    render(
-      <RootLayout>
-        <GrandChildComment {...comment} />
-      </RootLayout>,
-    );
+    render(<GrandChildComment {...comment} />, { wrapper: RootLayout });
+
     expect(screen.queryByText("삭제 된 댓글 입니다.")).not.toBeInTheDocument();
-    render(
-      <RootLayout>
-        <GrandChildComment {...deletedComment} />
-      </RootLayout>,
-    );
+
+    render(<GrandChildComment {...deletedComment} />, { wrapper: RootLayout });
+
     expect(await screen.findByText("삭제 된 댓글 입니다.")).toBeInTheDocument();
   });
 });
