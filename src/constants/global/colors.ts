@@ -34,6 +34,7 @@ export const TEXT_COLOR = {
   general01: "text-[#282828] dark:text-[#F5F5F5]",
   general02: "text-[#202020] dark:text-[#F4F4F4]",
   general03: "text-[#2A2A2A] dark:text-[#DCDCDC]",
+  general03rev: "text-[#DCDCDC] dark:text-[#2A2A2A]",
   general04: "text-[#363636] dark:text-[#D9D9D9]",
   general05: "text-[#6A6A6A] dark:text-[#D3D3D3]",
   general06: "text-[#9A9A9A] dark:text-[#888888]",
