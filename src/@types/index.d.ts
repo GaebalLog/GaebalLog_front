@@ -18,4 +18,13 @@ declare global {
     createdAt: Date;
   }
   type posts = post[];
+  interface comment {
+    commentId: string;
+    nickname: string;
+    profileImage: string;
+    contents: string;
+    createdAt: string;
+    isDeleted: boolean;
+    childComments: comment[];
+  }
 }
