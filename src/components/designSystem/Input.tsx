@@ -37,6 +37,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <div className={styles[type].container}>
       <input
+        id={type}
         className={styles[type].input}
         value={value}
         onChange={changeHandler}

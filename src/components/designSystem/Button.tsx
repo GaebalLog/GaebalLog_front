@@ -24,7 +24,7 @@ const COLOR_VARIANT = {
   black: `${BG_COLOR.inverse} ${TEXT_COLOR.inverse}`,
   background: `${BG_COLOR.background} ${TEXT_COLOR.primary}`,
   category: `${BG_COLOR.etcColor01} ${TEXT_COLOR.primary}`,
-  cancleButton: `${BG_COLOR.primary} ${TEXT_COLOR.general08}`,
+  cancelButton: `${BG_COLOR.primary} ${TEXT_COLOR.general08}`,
 };
 
 const BORDER_VARIANT = `border border-[#D3D3D3] dark:border-[#6A6A6A]`;
@@ -49,9 +49,9 @@ const Button: React.FC<buttonProps> = ({
     <button
       className={`flex items-center ${BUTTON_VARIANT[size]} ${
         COLOR_VARIANT[color]
-      }  ${size === "withIcon" && `flex items-center gap-2`} ${
-        rounded && `rounded-full`
-      } ${border && BORDER_VARIANT} ${className}`}
+      }  ${size === "withIcon" && `gap-2`} ${rounded && `rounded-full`} ${
+        border && BORDER_VARIANT
+      } ${className}`}
       {...props}
     >
       {children}
