@@ -40,7 +40,13 @@ export const TEXT_COLOR = {
   general07: "text-[#ECECEC] dark:text-[#48483F]",
   general08: "text-[#888888] dark:text-[#9A9A9A]",
   etcColor01: "text-[#4D4D4D] dark:text-[#FFFFFF]",
+  general07rev: "text-[#48483F] dark:text-[#ECECEC]",
   accentYellow: "text-[#DFAE3D] dark:text-[#DFAE3D]",
   accentPurple: "text-[#967AC3] dark:text-[#967AC3]",
   accentBlue: "text-[#7ECDF3] dark:text-[#7ECDF3]",
+};
+
+export const BORDER_COLOR = {
+  primary: "border-[#F5F5F5] dark:border-[#282828]",
+  container: "border-[#DCDCDC] dark:border-[#2A2A2A]",
 };

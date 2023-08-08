@@ -21,14 +21,20 @@ const styles = {
   },
 };
 
-const Detail = () => {
+export interface detailParams {
+  params: {
+    title: string;
+  };
+}
+
+const Detail = ({ params: { title } }: detailParams) => {
   const { data: detailContents } = useQuery({
-    queryKey: ["detailContents"],
+    queryKey: ["detailContents", title],
     queryFn: () => axios.get("/api/detailcontents"),
   });
 
   const { data: comments } = useQuery({
-    queryKey: ["comments"],
+    queryKey: ["comments", title],
     queryFn: () => axios.get("/api/comments"),
   });
 

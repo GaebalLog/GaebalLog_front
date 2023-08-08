@@ -7,6 +7,11 @@ export const modalAtom = atom({
 
 export const darkAtom = atom({
   key: "dark",
+  default: 0,
+});
+
+export const isLoggedInAtom = atom({
+  key: "isLoggedIn",
   default: false,
 });
 

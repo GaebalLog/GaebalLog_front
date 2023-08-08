@@ -20,7 +20,7 @@ const Home = () => {
         className="block text-white"
         onClick={() => setIsModal((prev) => !prev)}
       >
-        edit
+        Edit
       </button>
       <Link className="text-white" href="/detail/안녕하세요" passHref>
         디테일 페이지로 이동

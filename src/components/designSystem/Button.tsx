@@ -7,7 +7,7 @@ import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 
 const BUTTON_VARIANT = {
   tab: `text-[20px] leading-[25px] py-[10px] px-5 rounded-[3px]`,
-  category: `text-[20px] leading-[23.28px] py-[10px] px-4 ${FONT_FAMILY.hack}`,
+  category: `text-[20px] h-[40px] leading-[23.28px] py-[10px] px-4 ${FONT_FAMILY.hack}`,
   bigCreate: `text-[32px] leading-[37.25px] py-2 px-4 bg-[#4D4D4D] text-[#DFAE3D]`,
   middleCreate: `text-[16px] leading-[30px] py-4 px-[88px]`,
   smallCreate: `text-[24px] leading-[18.63px] py-[18px]`,
@@ -25,7 +25,7 @@ const COLOR_VARIANT = {
   black: `${BG_COLOR.inverse} ${TEXT_COLOR.inverse}`,
   background: `${BG_COLOR.background} ${TEXT_COLOR.primary}`,
   category: `${BG_COLOR.etcColor01} ${TEXT_COLOR.primary}`,
-  cancleButton: `${BG_COLOR.primary} ${TEXT_COLOR.general08}`,
+  cancelButton: `${BG_COLOR.primary} ${TEXT_COLOR.general08}`,
 };
 
 const BORDER_VARIANT = `border border-[#D3D3D3] dark:border-[#6A6A6A]`;
@@ -35,7 +35,6 @@ interface buttonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color: keyof typeof COLOR_VARIANT;
   rounded?: boolean;
   border?: boolean;
-  withIcon?: boolean;
 }
 
 const Button: React.FC<buttonProps> = ({
@@ -43,16 +42,17 @@ const Button: React.FC<buttonProps> = ({
   color,
   rounded,
   border,
-  withIcon,
   className,
   children,
   ...props
 }: buttonProps) => {
   return (
     <button
-      className={`${BUTTON_VARIANT[size]} ${COLOR_VARIANT[color]}  ${
-        withIcon && `flex items-center`
-      } ${rounded && `rounded-full`} ${border && BORDER_VARIANT} ${className}`}
+      className={`flex items-center ${BUTTON_VARIANT[size]} ${
+        COLOR_VARIANT[color]
+      }  ${size === "withIcon" && `gap-2`} ${rounded && `rounded-full`} ${
+        border && BORDER_VARIANT
+      } ${className}`}
       {...props}
     >
       {children}
