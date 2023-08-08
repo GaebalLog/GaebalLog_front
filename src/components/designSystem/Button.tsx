@@ -2,12 +2,11 @@
 
 import React from "react";
 
-import { FONT_FAMILY } from "@/constants/global/fonts";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 
 const BUTTON_VARIANT = {
   tab: `text-[20px] leading-[25px] py-[10px] px-5 rounded-[3px]`,
-  category: `text-[20px] h-[40px] leading-[23.28px] py-[10px] px-4 ${FONT_FAMILY.hack}`,
+  category: `text-[20px] h-[40px] leading-[23.28px] py-[10px] px-4 font-hack`,
   bigCreate: `text-[32px] leading-[37.25px] py-2 px-4 bg-[#4D4D4D] text-[#DFAE3D]`,
   middleCreate: `text-[16px] leading-[30px] py-4 px-[88px]`,
   smallCreate: `text-[24px] leading-[18.63px] py-[18px]`,
@@ -15,8 +14,8 @@ const BUTTON_VARIANT = {
   withIcon: `flex items-center gap-2 text-[16px] leading-5 py-2 px-4`,
   tag: `text-[16px] p-2 leading-5 rounded-[3px]`,
   bigLogin: `text-[24px] py-4`,
-  login: `text-[11.137px] leading-[16.71px] py-[9.74px] px-[22.27px] rounded-[3px] ${FONT_FAMILY.hack}`,
-  confirm: `text-[24px] leading-[27.94pxpx] py-[10px] px-6 rounded-[3px] ${FONT_FAMILY.hack}`,
+  login: `text-[11.137px] leading-[16.71px] py-[9.74px] px-[22.27px] rounded-[3px] font-hack`,
+  confirm: `text-[24px] leading-[27.94pxpx] py-[10px] px-6 rounded-[3px] font-hack`,
 };
 
 const COLOR_VARIANT = {

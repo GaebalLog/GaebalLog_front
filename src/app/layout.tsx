@@ -1,10 +1,12 @@
 import React from "react";
 import "./globals.css";
 import type { Metadata } from "next";
+import { Gothic_A1 } from "next/font/google";
 
 import Provider from "@/components/provider/Provider";
 import Header from "@/components/header/Header";
-import { FONT_FAMILY } from "@/constants/global/fonts";
+
+const gothic = Gothic_A1({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +22,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           rel="stylesheet"
         />
       </head>
-      <body className={`${FONT_FAMILY.gothic} flex flex-col items-center`}>
+      <body className={`${gothic.className} flex flex-col items-center`}>
         <Provider>
           <div className="h-[94px]" />
           <Header />

@@ -4,7 +4,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 import { BG_COLOR } from "@/constants/global/colors";
-import { FONT_FAMILY } from "@/constants/global/fonts";
 import Button from "@/components/designSystem/Button";
 import { modalAtom } from "@/constants/global/atoms";
 import { server } from "@/tests/msw/server";
@@ -17,7 +16,7 @@ import RealtimeSearch from "./RealTimeSearch";
 const styles = {
   container: `flex justify-center w-[1330px] h-[700px] ${BG_COLOR.general02}}`,
   widthWrapper: `flex flex-col items-center w-11/12`,
-  title: `text-2xl ${FONT_FAMILY.hack} mt-6 mb-8`,
+  title: `text-2xl mt-6 mb-8 font-hack`,
   keywordBox: `self-start w-full h-[155px]`,
   keywordBoxTitle: `text-[18px] leading-[22.5px] text-[#888888]`,
   line: `w-[1330px] h-[3px] bg-[#DCDCDC] mt-[30px] mb-5`,
