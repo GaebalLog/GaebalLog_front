@@ -2,10 +2,21 @@
 import Image from "next/image";
 import React from "react";
 
-import search from "../../../public/assets/home/search.png";
+import search from "../../../public/assets/images/home/search.png";
 
+const styles = {
+  searchModal: {
+    container: "relative w-full h-[48px] mb-[53px]",
+    input: "w-full h-full pl-[30px] pr-[55px] rounded-full",
+  },
+  header: {
+    container: "relative w-[666px] h-[48px]",
+    input:
+      "w-[666px] h-[48px] rounded-[24px] p-[15px] border border-solid border-gray-[600]",
+  },
+};
 interface InputProps {
-  type: "header" | "searchModal";
+  type: keyof typeof styles;
   value: string;
   placeholder?: string;
   onChange: (value: string) => void;
@@ -18,33 +29,15 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   onChange,
 }) => {
-  let style;
-
-  switch (type) {
-    case "searchModal":
-      style = {
-        container: "relative w-full h-[48px] mb-[53px]",
-        input: "w-full h-full pl-[30px] pr-[55px] rounded-full",
-      };
-      break;
-    default: //"header"일 경우
-      style = {
-        container: "relative w-[666px] h-[48px]",
-        input:
-          "w-[666px] h-[48px] rounded-[24px] p-[15px] border border-solid border-gray-[600]",
-      };
-      break;
-  }
-
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     onChange(value);
   };
 
   return (
-    <div className={style.container}>
+    <div className={styles[type].container}>
       <input
-        className={style.input}
+        className={styles[type].input}
         value={value}
         onChange={changeHandler}
         placeholder={placeholder || "검색어를 입력해주세요."}
