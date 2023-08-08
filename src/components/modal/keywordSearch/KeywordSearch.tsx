@@ -14,14 +14,14 @@ import Modal from "../Modal";
 import KeywordList from "./KeywordList";
 import RealtimeSearch from "./RealTimeSearch";
 
-const style = {
+const styles = {
   container: `flex justify-center w-[1330px] h-[700px] ${BG_COLOR.general02}}`,
   widthWrapper: `flex flex-col items-center w-11/12`,
   title: `text-2xl ${FONT_FAMILY.hack} mt-6 mb-8`,
-  keyworBox: `self-start w-full h-[155px]`,
-  keyworBoxTitle: `text-[18px] leading-[22.5px] text-[#888888]`,
+  keywordBox: `self-start w-full h-[155px]`,
+  keywordBoxTitle: `text-[18px] leading-[22.5px] text-[#888888]`,
   line: `w-[1330px] h-[3px] bg-[#DCDCDC] mt-[30px] mb-5`,
-  buttonBox: `self-end mt-[57px]`,
+  buttonBox: `flex self-end mt-[57px]`,
 };
 
 const KeywordSearch = () => {
@@ -34,10 +34,9 @@ const KeywordSearch = () => {
   const { isLoading: myCategoriesLoading } = useQuery({
     queryKey: ["userCategories"],
     queryFn: () => axios.get("/api/userCategories"),
-    onSuccess: (data) => {
-      setMyCategories(data?.data);
-    },
+    onSuccess: (data) => setMyCategories(data?.data),
   });
+
   const { data: trendCategories, isLoading: trendCategoriesLoading } = useQuery(
     {
       queryKey: ["trendCategories"],
@@ -47,6 +46,7 @@ const KeywordSearch = () => {
 
   const categoryAddHandler = async (selectedKeyword: string) => {
     const addedResult = (prev: string[]) => [...prev, selectedKeyword];
+
     if (!addedCategories.includes(selectedKeyword)) {
       queryClient.setQueryData(["userCategories"], {
         data: [...myCategories, selectedKeyword],
@@ -55,6 +55,7 @@ const KeywordSearch = () => {
       setAddedCategories(addedResult);
     }
   };
+
   const addedCategorySubmitHandler = () => {
     console.log(addedCategories);
     setAddedCategories([]);
@@ -72,16 +73,16 @@ const KeywordSearch = () => {
 
   return (
     <Modal isBgColor onBackdropClick={() => setIsModal(false)}>
-      <div className={style.container}>
-        <div className={style.widthWrapper}>
-          <span className={style.title}>Add my keywords</span>
+      <div className={styles.container}>
+        <div className={styles.widthWrapper}>
+          <span className={styles.title}>Add my keywords</span>
           <RealtimeSearch
             value={keyword}
             onChange={setKeyword}
             categoryAddHandler={categoryAddHandler}
           />
-          <div className={style.keyworBox}>
-            <span className={style.keyworBoxTitle}>현재 나의 키워드</span>
+          <div className={styles.keywordBox}>
+            <span className={styles.keywordBoxTitle}>현재 나의 키워드</span>
             <KeywordList
               data={myCategories}
               type="myCategory"
@@ -89,9 +90,9 @@ const KeywordSearch = () => {
               setMyCategories={setMyCategories}
             />
           </div>
-          <hr className={style.line} />
-          <div className={style.keyworBox}>
-            <span className={style.keyworBoxTitle}>실시간 인기 키워드</span>
+          <hr className={styles.line} />
+          <div className={styles.keywordBox}>
+            <span className={styles.keywordBoxTitle}>실시간 인기 키워드</span>
             <KeywordList
               data={trendCategories?.data ?? []}
               type="trendCategory"
@@ -99,7 +100,7 @@ const KeywordSearch = () => {
               isLoading={trendCategoriesLoading}
             />
           </div>
-          <div className={style.buttonBox}>
+          <div className={styles.buttonBox}>
             <Button
               className="mr-6"
               size="confirm"
@@ -110,11 +111,11 @@ const KeywordSearch = () => {
             </Button>
             <Button
               size="confirm"
-              color="cancleButton"
+              color="cancelButton"
               border
               onClick={() => setIsModal((prev) => !prev)}
             >
-              Cancle
+              Cancel
             </Button>
           </div>
         </div>

@@ -34,7 +34,7 @@ const Modal: React.FC<modalProps> = ({
   onBackdropClick, // 모달 닫을 때 사용하는 함수
   children,
 }) => {
-  const stModal = {
+  const styles = {
     backdrop: `fixed w-full h-full inset-0`,
     contentsBox: `${
       isFixed ? "fixed" : "absolute"
@@ -53,12 +53,12 @@ const Modal: React.FC<modalProps> = ({
   return (
     <Portal>
       <div
-        className={`${stModal.backdrop} ${
+        className={`${styles.backdrop} ${
           isBgColor && `${BG_COLOR.inverse} opacity-40`
         }`}
         onClick={onBackdropClick}
       />
-      <div className={stModal.contentsBox}>{children}</div>
+      <div className={styles.contentsBox}>{children}</div>
     </Portal>
   );
 };

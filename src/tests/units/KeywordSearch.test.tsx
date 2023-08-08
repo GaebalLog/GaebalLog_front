@@ -1,16 +1,13 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { rest } from "msw";
 import axios from "axios";
 
 import RootLayout from "@/app/layout";
 import Home from "@/app/page";
 import utilDelay from "@/utils/util-delay";
 
-import { server } from "../msw/server";
-
-test("edit 버튼을 누르면 키워드 검색 모달이 열리고 Cancle 버튼을 누르면 닫힌다.", async () => {
+test("edit 버튼을 누르면 키워드 검색 모달이 열리고 Cancel 버튼을 누르면 닫힌다.", async () => {
   render(
     <RootLayout>
       <Home />
@@ -18,12 +15,12 @@ test("edit 버튼을 누르면 키워드 검색 모달이 열리고 Cancle 버�
   );
   await userEvent.click(screen.getByRole("button", { name: /Edit/ }));
   expect(
-    await screen.findByRole("button", { name: "Cancle" }),
+    await screen.findByRole("button", { name: "Cancel" }),
   ).toBeInTheDocument();
 
-  await userEvent.click(screen.getByRole("button", { name: "Cancle" }));
+  await userEvent.click(screen.getByRole("button", { name: "Cancel" }));
   expect(
-    screen.queryByRole("button", { name: "Cancle" }),
+    screen.queryByRole("button", { name: "Cancel" }),
   ).not.toBeInTheDocument();
 });
 

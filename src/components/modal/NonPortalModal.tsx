@@ -30,7 +30,7 @@ const NonPortalModal: React.FC<nonPortalModalProps> = ({
   onBackdropClick, // 모달 닫을 때 사용하는 함수
   children,
 }) => {
-  const stModal = {
+  const styles = {
     backdrop: `fixed w-full h-full inset-0`,
     contentsBox: `absolute`,
   };
@@ -38,9 +38,9 @@ const NonPortalModal: React.FC<nonPortalModalProps> = ({
   return (
     <div>
       {!nonBackdrop && (
-        <div className={`${stModal.backdrop}`} onClick={onBackdropClick} />
+        <div className={`${styles.backdrop}`} onClick={onBackdropClick} />
       )}
-      <div className={stModal.contentsBox} style={topLeft}>
+      <div className={styles.contentsBox} style={topLeft}>
         {children}
       </div>
     </div>

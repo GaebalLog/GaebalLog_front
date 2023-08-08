@@ -9,7 +9,7 @@ import { BG_COLOR } from "@/constants/global/colors";
 import search from "../../../../public/assets/home/search.png";
 import NonPortalModal from "../NonPortalModal";
 
-const style = {
+const styles = {
   searchList: `flex items-center w-full h-[60px] cursor-pointer hover:bg-gray-200`,
 };
 
@@ -101,7 +101,7 @@ const RealtimeSearch = ({
                   <li
                     key={i}
                     data-testid={`item-${i}`}
-                    className={`${style.searchList} ${bgColor}`}
+                    className={`${styles.searchList} ${bgColor}`}
                     onClick={() => searchKeywordClick(result)}
                   >
                     <Image

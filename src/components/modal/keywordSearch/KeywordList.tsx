@@ -8,7 +8,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 
 import close from "../../../../public/assets/images/common/close.png";
 
-const style = {
+const styles = {
   keywordList: `flex flex-wrap gap-[10px] mt-[22px]`,
   exceptionUI: `flex justify-center items-center w-full h-[130.5px] text-xl`,
 };
@@ -53,15 +53,15 @@ const KeywordList: React.FC<keywordListProps> = ({
 
   if (isLoading)
     return (
-      <div className={style.exceptionUI}>
+      <div className={styles.exceptionUI}>
         <LoadingSpinner />
       </div>
     );
   if (data.length === 0)
-    return <div className={style.exceptionUI}>데이터 없음</div>;
+    return <div className={styles.exceptionUI}>데이터 없음</div>;
 
   return (
-    <ul className={style.keywordList}>
+    <ul className={styles.keywordList}>
       {data?.map((category: string) => (
         <li key={`${type}_${category}`} className="mb-[6px]">
           <Button
