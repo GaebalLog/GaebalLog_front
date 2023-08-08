@@ -32,7 +32,7 @@ const HomePage = () => {
         alt="메인 이미지"
       />
       <div className="flex justify-between">
-        {isLoggedIn ? <LoggedSideBar /> : <SideBar />}
+        {isLoggedIn ? <LoggedSideBar sticky /> : <SideBar sticky />}
         <div className="flex flex-col gap-[20px]">
           {postList?.map((post: post) => {
             return <Post post={post} key={post.postId} />;

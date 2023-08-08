@@ -4,7 +4,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import Link from "next/link";
 
-import { BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import { isLoggedInAtom } from "@/constants/global/atoms";
 import useIcon from "@/hooks/useIcon";
 
@@ -30,7 +30,7 @@ const Header = () => {
 
   return (
     <header
-      className={`flex justify-center w-full border-b-[3px] ${BORDER_COLOR.primary}`}
+      className={`flex justify-center w-full border-b-[3px] ${BORDER_COLOR.primary} ${BG_COLOR.background} fixed top-0 z-10`}
     >
       <ul className="flex items-center justify-between w-[1632px] h-[94px] p-[20px] gap-[88px]">
         <Image src={logo} width={188} height={28} alt="logo" />

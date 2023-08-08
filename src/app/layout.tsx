@@ -22,6 +22,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </head>
       <body className={`${FONT_FAMILY.gothic} flex flex-col items-center`}>
         <Provider>
+          <div className="h-[94px]" />
           <Header />
           {children}
           <div id="portal" />

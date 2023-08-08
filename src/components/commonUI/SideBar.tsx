@@ -12,16 +12,23 @@ type WidthValue = `w-[${string}]`;
 
 interface props {
   height?: WidthValue;
+  sticky?: boolean;
 }
-const SideBar: React.FC<props> = ({ height }) => {
+const SideBar: React.FC<props> = ({ height, sticky }) => {
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.KEYWORDLIST],
     queryFn: async () => await axios.get("/api/search/trending"),
   });
   const keywordList = data?.data;
+
   const styles = height
-    ? `w-[380px] ${height} sticky top-[10px]}`
-    : "w-[380px] h-full sticky top-[10px]";
+    ? sticky
+      ? `w-[380px] ${height} sticky top-[104px]}`
+      : `w-[380px] ${height}`
+    : sticky
+    ? "w-[380px] h-full sticky top-[104px]"
+    : `w-[380px] h-full`;
+
   return (
     <div className={styles}>
       <div
