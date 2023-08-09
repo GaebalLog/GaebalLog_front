@@ -7,11 +7,13 @@ import { useRecoilValue } from "recoil";
 import dynamic from "next/dynamic";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
-import Post from "@/components/commonUI/Post";
-import LoggedSideBar from "@/components/commonUI/LoggedSideBar";
 import { isLoggedInAtom } from "@/constants/global/atoms";
-import SideBar from "@/components/commonUI/SideBar";
 import { modalAtom } from "@/constants/global/atoms";
+import { TEXT_COLOR } from "@/constants/global/colors";
+import Post from "@/components/commonUI/Post";
+import Button from "@/components/designSystem/Button";
+import SideBar from "@/components/commonUI/SideBar";
+import LoggedSideBar from "@/components/commonUI/LoggedSideBar";
 
 import mainImage from "../../../public/assets/images/home/main.png";
 
@@ -19,6 +21,8 @@ import mainImage from "../../../public/assets/images/home/main.png";
 const KeywordSearch = dynamic(
   () => import("../../components/modal/keywordSearch/KeywordSearch"),
 );
+
+const loggedInUI = ["전체글", "My Friends' Articles"];
 
 const HomePage = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
@@ -29,6 +33,7 @@ const HomePage = () => {
     queryFn: async () => await axios.get("/api/posts/all"),
   });
   const postList = data?.data;
+  const [tab, setTab] = React.useState<string>("전체글");
 
   return (
     <div className="w-[1632px] flex flex-col">
@@ -40,11 +45,37 @@ const HomePage = () => {
         alt="메인 이미지"
       />
       <div className="flex justify-between">
-        {isLoggedIn ? <LoggedSideBar sticky /> : <SideBar sticky />}
-        <div className="flex flex-col gap-[20px]">
-          {postList?.map((post: post) => {
-            return <Post post={post} key={post.postId} />;
-          })}
+        {isLoggedIn ? (
+          <LoggedSideBar position="bottom" sticky />
+        ) : (
+          <SideBar sticky />
+        )}
+        <div>
+          {isLoggedIn && (
+            <div className="relative flex gap-[40px] pt-[34px] mb-[20px]">
+              <button
+                className={`absolute top-0 right-0 text-[24px] ${TEXT_COLOR.primary}`}
+              >
+                + Create Article
+              </button>
+              {isLoggedIn &&
+                loggedInUI.map((item) => (
+                  <Button
+                    key={`${item}tab`}
+                    size="tab"
+                    color={tab === item ? "black" : "lightGrey"}
+                    onClick={() => setTab(item)}
+                  >
+                    {item}
+                  </Button>
+                ))}
+            </div>
+          )}
+          <div className="flex flex-col gap-[20px]">
+            {postList?.map((post: post) => {
+              return <Post post={post} key={post.postId} />;
+            })}
+          </div>
         </div>
       </div>
       {isModal && <KeywordSearch />}

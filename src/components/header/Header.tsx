@@ -33,7 +33,9 @@ const Header = () => {
       className={`flex justify-center w-full border-b-[3px] ${BORDER_COLOR.primary} ${BG_COLOR.background} fixed top-0 z-10`}
     >
       <ul className="flex items-center justify-between w-[1632px] h-[94px] p-[20px] gap-[88px]">
-        <Image src={logo} width={188} height={28} alt="logo" />
+        <Link href="/home">
+          <Image src={logo} width={188} height={28} alt="logo" />
+        </Link>
         <nav className="flex items-center justify-between w-[80%]">
           <ul className={styles.innerUl}>
             {linkList.map((link) => (
