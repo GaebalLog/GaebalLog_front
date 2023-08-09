@@ -20,6 +20,6 @@ const DetailLayout: React.FC<{ children: React.ReactNode }> = ({
 
 export default DetailLayout;
 
-// export async function generateStaticParams() {
+// export const generateStaticParams = async() => {
 //   return;
 // }

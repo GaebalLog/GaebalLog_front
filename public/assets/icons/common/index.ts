@@ -18,11 +18,22 @@ import star_empty from "./star_empty.png";
 import star_full from "./star_full.png";
 import checkbook_light from "./checkbook_light.png";
 import checkbook_dark from "./checkbook_dark.png";
+import eyeoff_dark from "./eyeoff_dark.png";
+import eyeoff_light from "./eyeoff_light.png";
+import kakao_light from "./kakao.png";
+import kakao_dark from "./kakao.png";
+import google_light from "./google.png";
+import google_dark from "./google.png";
+import github_light from "./github_light.png";
+import github_dark from "./github_dark.png";
+import like_light from "./like_light.png";
+import like_dark from "./like_dark.png";
 
 const ICON = {
   alarm: [alarm_light, alarm_dark],
   close: [close_light, close_dark],
   eye: [eye_light, eye_dark],
+  eyeoff: [eyeoff_light, eyeoff_dark],
   heart: [heart_light, heart_dark],
   mike: [mike_light, mike_dark],
   profile: [profile_light, profile_dark],
@@ -31,5 +42,9 @@ const ICON = {
   bookmark: [bookmark_light, bookmark_dark],
   checkbook: [checkbook_light, checkbook_dark],
   star_full: [star_full, star_full],
+  kakao: [kakao_light, kakao_dark],
+  google: [google_light, google_dark],
+  github: [github_light, github_dark],
+  like: [like_light, like_dark],
 };
 export default ICON;
