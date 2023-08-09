@@ -10,7 +10,11 @@ import GrandChildComment from "@/components/detail/comment/GrandChildComment";
 
 describe("디테일 페이지 렌더링 테스트", () => {
   beforeEach(() => {
-    render(<Detail params={{ title: "안녕" }} />, { wrapper: RootLayout });
+    render(
+      <RootLayout>
+        <Detail params={{ postId: 1 }} />
+      </RootLayout>,
+    );
   });
 
   test("디테일 페이지 본문 렌더링 테스트", async () => {

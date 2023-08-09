@@ -50,5 +50,6 @@ export const TEXT_COLOR = {
 export const BORDER_COLOR = {
   primary: "border-[#F5F5F5] dark:border-[#282828]",
   container: "border-[#DCDCDC] dark:border-[#2A2A2A]",
+  button: "border-[#D3D3D3] dark:border-[#6A6A6A]",
   box: "border-[#D3D3D3] dark:border-[#6A6A6A]",
 };

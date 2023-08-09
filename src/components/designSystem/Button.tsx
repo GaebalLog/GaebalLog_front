@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 
 const BUTTON_VARIANT = {
   tab: `text-[20px] leading-[25px] py-[10px] px-5 rounded-[3px]`,
@@ -28,8 +28,6 @@ const COLOR_VARIANT = {
   cancelButton: `${BG_COLOR.primary} ${TEXT_COLOR.general08}`,
 };
 
-const BORDER_VARIANT = `border border-[#D3D3D3] dark:border-[#6A6A6A]`;
-
 interface buttonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: keyof typeof BUTTON_VARIANT;
   color: keyof typeof COLOR_VARIANT;
@@ -50,7 +48,7 @@ const Button: React.FC<buttonProps> = ({
     <button
       className={`${BUTTON_VARIANT[size]} ${COLOR_VARIANT[color]} ${
         rounded && `rounded-full`
-      } ${border && BORDER_VARIANT} ${className}`}
+      } ${border && BORDER_COLOR.button} ${className}`}
       {...props}
     >
       {children}

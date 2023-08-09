@@ -23,18 +23,18 @@ const styles = {
 
 export interface detailParams {
   params: {
-    title: string;
+    postId: number;
   };
 }
 
-const Detail = ({ params: { title } }: detailParams) => {
+const Detail = ({ params: { postId } }: detailParams) => {
   const { data: detailContents } = useQuery({
-    queryKey: ["detailContents", title],
+    queryKey: ["detailContents", postId],
     queryFn: () => axios.get("/api/detailcontents"),
   });
 
   const { data: comments } = useQuery({
-    queryKey: ["comments", title],
+    queryKey: ["comments", postId],
     queryFn: () => axios.get("/api/comments"),
   });
 
