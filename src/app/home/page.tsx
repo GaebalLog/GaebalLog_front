@@ -65,6 +65,7 @@ const HomePage = () => {
                     size="tab"
                     color={tab === item ? "black" : "lightGrey"}
                     onClick={() => setTab(item)}
+                    border
                   >
                     {item}
                   </Button>
