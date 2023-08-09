@@ -4,15 +4,11 @@ import userEvent from "@testing-library/user-event";
 import axios from "axios";
 
 import RootLayout from "@/app/layout";
-import Home from "@/app/page";
 import utilDelay from "@/utils/util-delay";
+import HomePage from "@/app/home/page";
 
 test("edit 버튼을 누르면 키워드 검색 모달이 열리고 Cancel 버튼을 누르면 닫힌다.", async () => {
-  render(
-    <RootLayout>
-      <Home />
-    </RootLayout>,
-  );
+  render(<HomePage />, { wrapper: RootLayout });
   await userEvent.click(screen.getByRole("button", { name: /Edit/ }));
   expect(
     await screen.findByRole("button", { name: "Cancel" }),
@@ -26,11 +22,7 @@ test("edit 버튼을 누르면 키워드 검색 모달이 열리고 Cancel 버�
 
 describe("키워드 검색 모달 API 요청 테스트", () => {
   beforeEach(async () => {
-    render(
-      <RootLayout>
-        <Home />
-      </RootLayout>,
-    );
+    render(<HomePage />, { wrapper: RootLayout });
     await userEvent.click(screen.getByRole("button", { name: /Edit/ }));
     await utilDelay(100);
   });
@@ -67,11 +59,7 @@ describe("키워드 검색 모달 API 요청 테스트", () => {
 
 describe("실시간 검색 기능 테스트", () => {
   beforeEach(async () => {
-    render(
-      <RootLayout>
-        <Home />
-      </RootLayout>,
-    );
+    render(<HomePage />, { wrapper: RootLayout });
     await userEvent.click(screen.getByRole("button", { name: /Edit/ }));
     await utilDelay(100);
     await userEvent.type(await screen.findByTestId("realTimeInput"), "리액트");
