@@ -1,6 +1,7 @@
 import { rest } from "msw";
 
 export const handlers = [
+  // 상세 페이지 api
   rest.get("/api/detailcontents", (req, res, ctx) => {
     return res(
       ctx.status(200),
@@ -110,6 +111,7 @@ export const handlers = [
     );
   }),
 
+  // 실시간 카테고리 검색 api
   rest.get("/api/userCategories", (req, res, ctx) => {
     // const VALID_TOKEN = "your-valid-token";
     // const token = req.headers.get("Authorization");
@@ -165,7 +167,9 @@ export const handlers = [
       ]),
     );
   }),
-  rest.get("/api/chatlists/:chatroom", (req, res, ctx) => {
+
+  //토의방 api
+  rest.get("/api/chatlists/:chatroomId", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
@@ -182,6 +186,15 @@ export const handlers = [
         discussionEndTime: "18시",
         remainingTime: "13분",
       }),
+    );
+  }),
+
+  rest.get("/api/discussionprogress/:chatroomId", (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json(
+        "<div>스타일 컴포넌트 : 반영 가능하지만 무거워서 싫다는 의견이 다수라서 제외</div>",
+      ),
     );
   }),
 ];
