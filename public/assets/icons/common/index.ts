@@ -26,6 +26,8 @@ import google_light from "./google.png";
 import google_dark from "./google.png";
 import github_light from "./github_light.png";
 import github_dark from "./github_dark.png";
+import like_light from "./like_light.png";
+import like_dark from "./like_dark.png";
 
 const ICON = {
   alarm: [alarm_light, alarm_dark],
@@ -43,5 +45,6 @@ const ICON = {
   kakao: [kakao_light, kakao_dark],
   google: [google_light, google_dark],
   github: [github_light, github_dark],
+  like: [like_light, like_dark],
 };
 export default ICON;
