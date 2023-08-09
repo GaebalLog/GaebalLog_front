@@ -12,7 +12,7 @@ describe("디테일 페이지 렌더링 테스트", () => {
   beforeEach(() => {
     render(
       <RootLayout>
-        <Detail />
+        <Detail params={{ postId: 1 }} />
       </RootLayout>,
     );
   });

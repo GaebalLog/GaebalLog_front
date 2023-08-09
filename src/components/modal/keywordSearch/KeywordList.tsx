@@ -66,6 +66,7 @@ const KeywordList: React.FC<keywordListProps> = ({
       {data?.map((category: string) => (
         <li key={`${type}_${category}`} className="mb-[6px]">
           <Button
+            className="flex items-center"
             data-testid={`${type}_${category}`}
             size="category"
             color="background"

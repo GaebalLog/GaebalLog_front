@@ -3,7 +3,7 @@
 import React from "react";
 
 import { FONT_FAMILY } from "@/constants/global/fonts";
-import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 
 const BUTTON_VARIANT = {
   tab: `text-[20px] leading-[25px] py-[10px] px-5 rounded-[3px]`,
@@ -12,8 +12,9 @@ const BUTTON_VARIANT = {
   middleCreate: `text-[16px] leading-[30px] py-4 px-[88px]`,
   smallCreate: `text-[24px] leading-[18.63px] py-[18px]`,
   commentCreate: `text-[24px] leading-normal py-6 px-[100px]`,
-  withIcon: `text-[16px] leading-5 py-2 px-4`,
+  withIcon: `flex items-center gap-2 text-[16px] leading-5 py-2 px-4`,
   tag: `text-[16px] p-2 leading-5 rounded-[3px]`,
+  bigLogin: `text-[24px] py-4`,
   login: `text-[11.137px] leading-[16.71px] py-[9.74px] px-[22.27px] rounded-[3px] ${FONT_FAMILY.hack}`,
   confirm: `text-[24px] leading-[27.94pxpx] py-[10px] px-6 rounded-[3px] ${FONT_FAMILY.hack}`,
 };
@@ -28,8 +29,6 @@ const COLOR_VARIANT = {
   cancelButton: `${BG_COLOR.primary} ${TEXT_COLOR.general08}`,
 };
 
-const BORDER_VARIANT = `border border-[#D3D3D3] dark:border-[#6A6A6A]`;
-
 interface buttonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: keyof typeof BUTTON_VARIANT;
   color: keyof typeof COLOR_VARIANT;
@@ -42,17 +41,15 @@ const Button: React.FC<buttonProps> = ({
   color,
   rounded,
   border,
-  className,
+  className = "",
   children,
   ...props
 }: buttonProps) => {
   return (
     <button
-      className={`flex items-center ${BUTTON_VARIANT[size]} ${
-        COLOR_VARIANT[color]
-      }  ${size === "withIcon" && `gap-2`} ${rounded && `rounded-full`} ${
-        border && BORDER_VARIANT
-      } ${className}`}
+      className={`${BUTTON_VARIANT[size]} ${COLOR_VARIANT[color]} ${
+        rounded && `rounded-full`
+      } ${border && BORDER_COLOR.button} ${className}`}
       {...props}
     >
       {children}
