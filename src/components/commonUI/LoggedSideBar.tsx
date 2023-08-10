@@ -41,7 +41,7 @@ const LoggedSideBar: React.FC<props> = ({ height, sticky, position }) => {
         className={`${BG_COLOR.general02} ${
           BORDER_COLOR.container
         } relative px-[16px] py-[24px] ${
-          position === "bottom" ? "h-[500px]" : "h-[307px]"
+          position === "bottom" ? "h-[500px]" : "h-[409px]"
         }`}
       >
         <h1 className="font-hack text-[24px] mb-[32px]">My Keyword</h1>
