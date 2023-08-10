@@ -6,6 +6,7 @@ import { isLoggedInAtom } from "@/constants/global/atoms";
 
 import LoggedSideBar from "../commonUI/LoggedSideBar";
 import SideBar from "../commonUI/SideBar";
+import Button from "../designSystem/Button";
 
 const TechSideBar = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
@@ -13,6 +14,14 @@ const TechSideBar = () => {
     <div className="sticky top-[114px] h-[500px]">
       {isLoggedIn ? (
         <>
+          <Button
+            size="middleCreate"
+            color="white"
+            border
+            className="rounded-[3px] w-[380px] mb-[16px]"
+          >
+            + Create Article
+          </Button>
           <LoggedSideBar position="top" />
         </>
       ) : (

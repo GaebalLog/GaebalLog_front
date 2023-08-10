@@ -2,6 +2,7 @@ import React from "react";
 
 import RoomContents from "@/components/discussionDetail/RoomContents";
 import DiscussionProgress from "@/components/discussionDetail/DiscussionProgress";
+import Chat from "@/components/discussionDetail/chat/Chat";
 
 const ChatRoompage = () => {
   const chatRoomId = 1;
@@ -12,7 +13,7 @@ const ChatRoompage = () => {
         <RoomContents chatRoomId={chatRoomId} />
         <DiscussionProgress chatRoomId={chatRoomId} />
       </div>
-      <section className="w-[493px] h-full bg-slate-600">채팅</section>
+      <Chat chatRoomId={chatRoomId} />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { useSetRecoilState } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
-import { activeCommentIdAtom } from "@/constants/global/atoms";
+import { activeModalIdAtom } from "@/constants/global/atoms";
 import Button from "@/components/designSystem/Button";
 
 const style = {
@@ -12,7 +12,7 @@ const style = {
 };
 
 const SubCommentForm: React.FC = () => {
-  const setActivCommentId = useSetRecoilState(activeCommentIdAtom);
+  const setActivCommentId = useSetRecoilState(activeModalIdAtom);
 
   return (
     <form className="mt-8 mb-5">
