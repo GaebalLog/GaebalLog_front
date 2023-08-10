@@ -27,4 +27,11 @@ declare global {
     isDeleted: boolean;
     childComments: comment[];
   }
+  interface chat {
+    chatId: number;
+    userId: number;
+    nickname: string;
+    profileImage: string;
+    content: string;
+  }
 }
