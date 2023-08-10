@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import NonPortalModal from "@/components/modal/NonPortalModal";
 import Button from "@/components/designSystem/Button";
-import { activeCommentIdAtom } from "@/constants/global/atoms";
+import { activeModalIdAtom } from "@/constants/global/atoms";
 
 const styles = {
   chatTail: {
@@ -27,7 +27,7 @@ const ChatItem: React.FC<chat> = ({
   profileImage,
   content,
 }) => {
-  const [activeId, setActiveId] = useRecoilState(activeCommentIdAtom);
+  const [activeChatId, setActiveChatId] = useRecoilState(activeModalIdAtom);
 
   const isMe = userId === 1;
   const bgColor = isMe ? BG_COLOR.general03 : BG_COLOR.general01;
@@ -54,7 +54,7 @@ const ChatItem: React.FC<chat> = ({
         <div className={styles.chat.metaInfoBox}>
           <button
             className={styles.chat.profileButton}
-            onClick={() => setActiveId(chatId)}
+            onClick={() => setActiveChatId(chatId)}
           >
             <Image
               className="rounded-full object-cover"
@@ -65,10 +65,10 @@ const ChatItem: React.FC<chat> = ({
             />
           </button>
           <span>{nickname}</span>
-          {activeId === chatId && (
+          {activeChatId === chatId && (
             <NonPortalModal
               topLeft={{ top: 0, left: 45 }}
-              onBackdropClick={() => setActiveId(null)}
+              onBackdropClick={() => setActiveChatId(null)}
             >
               <div className={`flex flex-col ${BORDER_COLOR.box}`}>
                 <Button size="tab" color="white">

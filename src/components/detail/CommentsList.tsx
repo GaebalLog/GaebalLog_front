@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilState } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
-import { activeCommentIdAtom } from "@/constants/global/atoms";
+import { activeModalIdAtom } from "@/constants/global/atoms";
 
 import CommentCard from "./comment/CommentCard";
 import SubCommentForm from "./form/SubCommentForm";
@@ -22,7 +22,7 @@ const CommentsList: React.FC<comment> = ({ ...comment }) => {
   const [isChildCommentVisible, setIsChildCommentVisible] =
     React.useState(true);
   const [activeCommentId, setActiveCommentId] =
-    useRecoilState(activeCommentIdAtom);
+    useRecoilState(activeModalIdAtom);
 
   const { commentId, isDeleted, childComments } = comment;
   const hasChildComments = childComments && childComments?.length > 0;

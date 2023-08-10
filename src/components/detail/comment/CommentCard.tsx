@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilState } from "recoil";
 
 import utilConvertTime from "@/utils/util-datetime";
-import { activeCommentIdAtom } from "@/constants/global/atoms";
+import { activeModalIdAtom } from "@/constants/global/atoms";
 import Button from "@/components/designSystem/Button";
 
 const style = {
@@ -31,7 +31,7 @@ const CommentCard: React.FC<commentCardProps> = ({
   parentComment,
 }) => {
   const [activeCommentId, setActiveCommentId] =
-    useRecoilState(activeCommentIdAtom);
+    useRecoilState(activeModalIdAtom);
   const time = utilConvertTime(createdAt);
   const hasChild = childComments && childComments?.length > 0;
 
