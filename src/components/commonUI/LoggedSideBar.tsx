@@ -40,7 +40,7 @@ const LoggedSideBar: React.FC<props> = ({ height, sticky, position }) => {
       <div
         className={`${BG_COLOR.general02} ${
           BORDER_COLOR.container
-        } relative px-[15px] py-[24px] ${
+        } relative px-[16px] py-[24px] ${
           position === "bottom" ? "h-[500px]" : "h-[307px]"
         }`}
       >
