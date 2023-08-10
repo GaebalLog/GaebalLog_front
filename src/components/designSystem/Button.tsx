@@ -6,7 +6,7 @@ import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 
 const BUTTON_VARIANT = {
   tab: `text-[20px] leading-[25px] py-[10px] px-5 rounded-[3px]`,
-  category: `text-[20px] h-[40px] leading-[23.28px] py-[10px] px-4 font-hack`,
+  category: `text-[20px] h-[40px] leading-[23.28px] py-[10px] px-4 font-hack max-w-[347px] truncate`,
   bigCreate: `text-[32px] leading-[37.25px] py-2 px-4 bg-[#4D4D4D] text-[#DFAE3D]`,
   middleCreate: `text-[16px] leading-[30px] py-4 px-[88px]`,
   smallCreate: `text-[24px] leading-[18.63px] py-[18px]`,

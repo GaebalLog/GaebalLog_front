@@ -42,7 +42,7 @@ const Header = () => {
               <Link
                 key={`${link.href}header`}
                 href={`/${link.href}`}
-                className={`${TEXT_COLOR.text} text=[24px] font-bold`}
+                className={`${TEXT_COLOR.text} text-[24px] font-bold`}
               >
                 {link.text}
               </Link>
