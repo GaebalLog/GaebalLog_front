@@ -13,7 +13,7 @@ import Button from "../designSystem/Button";
 import LoadingSpinner from "../LoadingSpinner";
 
 const styles = {
-  container: `overflow-y-auto w-[1100px] h-[62%] p-4 border ${BORDER_COLOR.box}`,
+  container: `overflow-y-auto w-[1100px] h-[62%] p-4 ${BORDER_COLOR.box}`,
   header: {
     wrapper: `flex justify-between mb-2`,
     titleBox: `flex items-center`,
@@ -61,8 +61,6 @@ const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
       };
     }
   }, []);
-
-  console.log(data);
 
   if (isLoading)
     return (

@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
-import { activeCommentIdAtom } from "@/constants/global/atoms";
+import { activeModalIdAtom } from "@/constants/global/atoms";
 
 import ArrowInNestedComment from "../icons/ArrowInNestedComment";
 import SubCommentForm from "../form/SubCommentForm";
@@ -16,7 +16,7 @@ const styles = {
 };
 
 const ChildComment: React.FC<comment> = ({ ...comment }) => {
-  const activeCommentId = useRecoilValue(activeCommentIdAtom);
+  const activeCommentId = useRecoilValue(activeModalIdAtom);
 
   const { commentId, isDeleted, childComments } = comment;
   return (

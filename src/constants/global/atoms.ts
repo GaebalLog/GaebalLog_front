@@ -15,7 +15,7 @@ export const isLoggedInAtom = atom({
   default: true,
 });
 
-export const activeModalIdAtom = atom<string | null>({
-  key: "activCommentId",
+export const activeModalIdAtom = atom<string | number | null>({
+  key: "activeModalId",
   default: null,
 });
