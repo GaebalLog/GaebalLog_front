@@ -20,7 +20,7 @@ const styles = {
 };
 
 const Chat: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
-  const { data, isLoading } = useQuery<{ data: chat[] }>({
+  const { data } = useQuery<{ data: chat[] }>({
     queryKey: ["chats", chatRoomId],
     queryFn: () => axios.get(`/api/chat/${chatRoomId}`),
   });
