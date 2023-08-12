@@ -1,5 +1,6 @@
 "use client";
 
+import type { FormEvent } from "react";
 import React from "react";
 import Link from "next/link";
 
@@ -7,6 +8,8 @@ import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import InputWithLabel from "@/components/designSystem/InputWithLabel";
 import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
+import { authAPI } from "@/api/api";
+import useInput from "@/hooks/useInput";
 
 const styles = {
   container: `flex flex-col items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
@@ -24,7 +27,10 @@ const styles = {
 };
 
 const Loginpage = () => {
+  const emailInput = useInput();
+  const passwordInput = useInput();
   const { getIcon } = useIcon();
+
   const kakao = getIcon("kakao", 80, 80);
   const google = getIcon("google", 80, 80);
   const github = getIcon("github", 80, 80);
@@ -32,14 +38,23 @@ const Loginpage = () => {
   const REDIRECT_URI = "http://localhost:3000/auth/callback/google";
   const googleURL = `https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=${`188016563531-e4l4jvoj3muf8332aoinhhj0m2d90pqv.apps.googleusercontent.com`}&scope=openid%20email%20profile&response_type=code&redirect_uri=${REDIRECT_URI}&state=nVYd7MUtXsB9bU8HSaAzo2jVbP8op_sFVtGdU66baPU&code_challenge=DF6pPeQbrG5mW6VuUUSXDL_kxPKkDq8PyZvaW980oHs&code_challenge_method=S256&service=lso&o2v=2&flowName=GeneralOAuthFlow`;
 
+  const LoginHandler = async (e: FormEvent) => {
+    e.preventDefault();
+    const { data } = await authAPI.localLogin(
+      emailInput.value,
+      passwordInput.value,
+    );
+    console.log(data);
+  };
+
   return (
     <div className={styles.container}>
       <section className={styles.loginSection.wrapper}>
         <h1 className={styles.loginSection.title}>Log in</h1>
         <form className={styles.loginSection.form}>
-          <InputWithLabel label="E-mail" type="email" />
-          <InputWithLabel label="PASSWORD" type="password" />
-          <Button size="bigLogin" color="white">
+          <InputWithLabel label="E-mail" type="email" {...emailInput} />
+          <InputWithLabel label="PASSWORD" type="password" {...passwordInput} />
+          <Button size="bigLogin" color="white" onClick={LoginHandler}>
             Log in
           </Button>
         </form>

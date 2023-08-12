@@ -44,7 +44,7 @@ const Signuppage = () => {
     formData.append("nickname", nicknameInput.value);
     formData.append("password", passwordInput.value);
 
-    const { data } = await authAPI.localLogin(formData);
+    const { data } = await authAPI.localSignup(formData);
     console.log("회원가입::", data);
   };
 

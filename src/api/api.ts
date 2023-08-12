@@ -1,19 +1,20 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_MY_API,
+  baseURL: process.env.APP_API,
   withCredentials: true,
 });
 
 export const authAPI = {
-  localLogin: async (payload: FormData) => {
-    const { data } = await instance.post(
-      "/auth/login",
-      { payload },
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-      },
-    );
+  localSignup: async (formData: FormData) => {
+    const { data } = await instance.post("/api/auth/signup", formData);
+    return data;
+  },
+  localLogin: async (email: string, password: string) => {
+    const { data } = await instance.post("/api/auth/login", {
+      email,
+      password,
+    });
     return data;
   },
   googleLogin: async (code: string | null) => {

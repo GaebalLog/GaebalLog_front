@@ -18,7 +18,8 @@ const GoogleLogin = ({ params: { snsType } }: Props) => {
   const fetchData = useCallback(async () => {
     if (searchParams) {
       const code = searchParams.get("code");
-      const data = await authAPI.googleLogin(code);
+      const { data } = await authAPI.googleLogin(code);
+      console.log(data);
     }
   }, [searchParams]);
 
