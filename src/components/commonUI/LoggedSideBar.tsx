@@ -10,13 +10,13 @@ import { modalAtom } from "@/constants/global/atoms";
 
 import Button from "../designSystem/Button";
 
-type WidthValue = `w-[${string}]`;
-
 interface props {
-  position: "top" | "bottom";
-  height?: WidthValue;
+  position: "top" | "bottom" | "disussion";
+  height?: `w-[${string}]`;
   sticky?: boolean;
 }
+const colorSettings = `relative ${BG_COLOR.general02} ${BORDER_COLOR.container}`;
+
 const LoggedSideBar: React.FC<props> = ({ height, sticky, position }) => {
   const setIsModal = useSetRecoilState<boolean>(modalAtom);
   const { data } = useQuery({
@@ -25,25 +25,32 @@ const LoggedSideBar: React.FC<props> = ({ height, sticky, position }) => {
   });
   const keywordList = data?.data;
 
+  const heightValue = `${
+    position === "bottom"
+      ? "h-[500px]"
+      : position === "top"
+      ? "h-[409px]"
+      : "h-[280px]"
+  }`;
   const styles = height
     ? sticky
-      ? `w-[380px] ${height} sticky top-[114px]}`
-      : `w-[380px] ${height}`
+      ? `w-[380px] sticky top-[114px] overflow-auto ${colorSettings} ${heightValue}`
+      : `w-[380px] overflow-auto ${colorSettings} ${heightValue}`
     : sticky
-    ? "w-[380px] h-full sticky top-[114px]"
-    : `w-[380px] h-full`;
+    ? `w-[380px] sticky top-[114px] overflow-auto ${colorSettings} ${heightValue}`
+    : `w-[380px] overflow-auto ${colorSettings} ${heightValue}`;
 
-  const editPosition = position === "top" ? "top-[26px]" : "bottom-[16px]";
+  const editPosition =
+    position === "top" || position === "disussion"
+      ? "top-[26px]"
+      : "bottom-[16px]";
+  const buttonStyles = `${TEXT_COLOR.primary} ${
+    position === "bottom" ? "text-[24px]" : "text-[16px]"
+  } absolute ${editPosition} right-[25px]`;
 
   return (
     <div className={styles}>
-      <div
-        className={`${BG_COLOR.general02} ${
-          BORDER_COLOR.container
-        } relative px-[16px] py-[24px] ${
-          position === "bottom" ? "h-[500px]" : "h-[409px]"
-        }`}
-      >
+      <div className="px-[16px] py-[24px]">
         <h1 className="font-hack text-[24px] mb-[32px]">My Keyword</h1>
         <div className="flex gap-3 flex-wrap content-start">
           {keywordList?.map((keyword: string) => (
@@ -52,9 +59,7 @@ const LoggedSideBar: React.FC<props> = ({ height, sticky, position }) => {
             </Button>
           ))}
           <button
-            className={`${TEXT_COLOR.primary} ${
-              position === "bottom" ? "text-[24px]" : "text-[16px]"
-            } absolute ${editPosition} right-[25px]`}
+            className={buttonStyles}
             onClick={() => setIsModal((prev) => !prev)}
           >
             + Edit
