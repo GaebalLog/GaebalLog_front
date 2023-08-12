@@ -56,7 +56,6 @@ const KeywordSearch = () => {
   };
 
   const addedCategorySubmitHandler = () => {
-    console.log(addedCategories);
     setAddedCategories([]);
     setIsModal((prev) => !prev);
   };

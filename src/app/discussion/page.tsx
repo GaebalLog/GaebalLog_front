@@ -18,7 +18,6 @@ const DiscussionPage = () => {
     queryFn: async () => await axios.get("/api/chatlists/1"),
   });
   const discussionList = data?.data.discussions;
-  console.log(discussionList);
   return (
     <div className="w-[1632px] flex justify-between mt-[20px]">
       <DiscussionSideBar />

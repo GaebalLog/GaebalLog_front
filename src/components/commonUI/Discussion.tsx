@@ -28,29 +28,34 @@ const Discussion: React.FC<{ discussion: discussion }> = ({ discussion }) => {
       </div>
       <div className="flex justify-between flex-col h-[280px] gap-[80px]">
         <div className="flex flex-col gap-[24px]">
-          <h2 className={`${TEXT_COLOR.general07rev} text-[20px]`}>
+          <p className={`${TEXT_COLOR.general07rev} text-[20px]`}>
+            <span className="font-bold">진행자 </span>
             {discussion.nickname}
-          </h2>
+          </p>
           <h1 className={`${TEXT_COLOR.text} text-[24px] font-bold`}>
             {discussion.title}
           </h1>
+          <div className="flex items-center gap-[16px]">
+            {discussion.categories.map((category) => (
+              <Button
+                key={`${discussion.chatListId}${category}`}
+                color="grey"
+                size="tag"
+              >
+                # {category}
+              </Button>
+            ))}
+          </div>
         </div>
         {isLoggedIn && (
           <div className="absolute top-0 right-[40px]">
             {discussion.isparticipated ? checkBookmark : bookmark}
           </div>
         )}
-        <div className="flex items-center gap-[16px]">
-          {discussion.categories.map((category) => (
-            <Button
-              key={`${discussion.chatListId}${category}`}
-              color="grey"
-              size="tag"
-            >
-              # {category}
-            </Button>
-          ))}
-        </div>
+        <p className={`${TEXT_COLOR.general07rev} text-[20px]`}>
+          <span className="font-bold">남은시간 </span>
+          {discussion.remainingTime}
+        </p>
       </div>
     </div>
   );
