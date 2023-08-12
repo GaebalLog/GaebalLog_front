@@ -35,3 +35,9 @@ declare global {
     content: string;
   }
 }
+
+interface neighborItem {
+  userId: number;
+  nickname: string;
+  profileImage: string;
+}

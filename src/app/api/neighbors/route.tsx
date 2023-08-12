@@ -5,10 +5,12 @@ export const GET = async () => {
     {
       userId: 1,
       nickname: "no.1",
+      profileImg: null,
     },
     {
       userId: 2,
       nickname: "no.2",
+      profileImg: null,
     },
   ];
   return NextResponse.json(neighbors);
