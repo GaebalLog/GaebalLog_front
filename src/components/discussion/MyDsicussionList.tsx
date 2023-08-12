@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
+import Link from "next/link";
 
 import type { chatItemAtSide } from "@/@types";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
@@ -31,7 +32,7 @@ const MyDiscussion = () => {
           return (
             <div key={chatListId} className={styles.listBox}>
               <div>{title}</div>
-              <button>{arrow}</button>
+              <Link href={`/discussionrooms/${chatListId}`}>{arrow}</Link>
             </div>
           );
         })}
