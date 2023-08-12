@@ -43,9 +43,9 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
           </div>
         )}
         <div className="flex items-center gap-[16px]">
-          {post.tags.map((tag) => (
-            <Button key={`${post.postId}${tag}`} color="grey" size="tag">
-              # {tag}
+          {post.categories.map((category) => (
+            <Button key={`${post.postId}${category}`} color="grey" size="tag">
+              # {category}
             </Button>
           ))}
         </div>

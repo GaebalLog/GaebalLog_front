@@ -13,7 +13,7 @@ import { TEXT_COLOR } from "@/constants/global/colors";
 import Post from "@/components/commonUI/Post";
 import Button from "@/components/designSystem/Button";
 import SideBar from "@/components/commonUI/SideBar";
-import LoggedSideBar from "@/components/commonUI/LoggedSideBar";
+import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
 
 import mainImage from "../../../public/assets/images/home/main.png";
 
@@ -32,7 +32,7 @@ const HomePage = () => {
     queryKey: [QUERY_KEYS.POSTLIST_HOME],
     queryFn: async () => await axios.get("/api/posts/all"),
   });
-  const postList = data?.data;
+  const postList = data?.data.posts;
   const [tab, setTab] = React.useState<string>("전체글");
 
   return (
@@ -74,7 +74,7 @@ const HomePage = () => {
           )}
           <div className="flex flex-col gap-[20px]">
             {postList?.map((post: post) => {
-              return <Post post={post} key={post.postId} />;
+              return <Post post={post} key={`postlist${post.postId}`} />;
             })}
           </div>
         </div>

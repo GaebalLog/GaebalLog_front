@@ -28,6 +28,10 @@ import github_light from "./github_light.png";
 import github_dark from "./github_dark.png";
 import like_light from "./like_light.png";
 import like_dark from "./like_dark.png";
+import default_profile_light from "./default_profile_light.png";
+import default_profile_dark from "./default_profile_dark.png";
+import arrow_light from "./arrow_light.png";
+import arrow_dark from "./arrow_dark.png";
 
 const ICON = {
   alarm: [alarm_light, alarm_dark],
@@ -37,6 +41,7 @@ const ICON = {
   heart: [heart_light, heart_dark],
   mike: [mike_light, mike_dark],
   profile: [profile_light, profile_dark],
+  default_profile: [default_profile_light, default_profile_dark],
   search: [search_light, search_dark],
   star: [star_empty, star_empty],
   bookmark: [bookmark_light, bookmark_dark],
@@ -46,5 +51,6 @@ const ICON = {
   google: [google_light, google_dark],
   github: [github_light, github_dark],
   like: [like_light, like_dark],
+  arrow: [arrow_light, arrow_dark],
 };
 export default ICON;

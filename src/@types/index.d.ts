@@ -11,7 +11,7 @@ declare global {
     content: string;
     thumbnail: string;
     nickname: string;
-    tags: string[];
+    categories: string[];
     like: number;
     count: number;
     isBookmarked: boolean;
@@ -27,11 +27,30 @@ declare global {
     isDeleted: boolean;
     childComments: comment[];
   }
+  interface discussion {
+    chatListId: number;
+    nickname: string;
+    title: string;
+    categories: string[];
+    thumbnail: string;
+    remainingTime: number;
+    isparticipated: bool;
+  }
+  type discussions = discussion[];
   interface chat {
     chatId: number;
     userId: number;
     nickname: string;
     profileImage: string;
     content: string;
+  }
+  interface neighborItem {
+    userId: number;
+    nickname: string;
+    profileImage: string;
+  }
+  interface chatItemAtSide {
+    chatListId: number;
+    title: string;
   }
 }
