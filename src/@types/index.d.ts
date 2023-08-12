@@ -41,3 +41,8 @@ interface neighborItem {
   nickname: string;
   profileImage: string;
 }
+
+interface chatItemAtSide {
+  chatListId: number;
+  title: string;
+}

@@ -30,6 +30,8 @@ import like_light from "./like_light.png";
 import like_dark from "./like_dark.png";
 import default_profile_light from "./default_profile_light.png";
 import default_profile_dark from "./default_profile_dark.png";
+import arrow_light from "./arrow_light.png";
+import arrow_dark from "./arrow_dark.png";
 
 const ICON = {
   alarm: [alarm_light, alarm_dark],
@@ -49,5 +51,6 @@ const ICON = {
   google: [google_light, google_dark],
   github: [github_light, github_dark],
   like: [like_light, like_dark],
+  arrow: [arrow_light, arrow_dark],
 };
 export default ICON;

@@ -5,8 +5,8 @@ import axios from "axios";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 import Post from "@/components/commonUI/Post";
-import TechSideBar from "@/components/tech/TechSideBar";
 import Button from "@/components/designSystem/Button";
+import DiscussionSideBar from "@/components/discussion/DiscussionSideBar";
 
 const sortTab = ["정확도 순", "조회 순", "최신순"] as const;
 
@@ -20,7 +20,7 @@ const DiscussionPage = () => {
   const postList = data?.data;
   return (
     <div className="w-[1632px] flex justify-between mt-[20px]">
-      <TechSideBar />
+      <DiscussionSideBar />
       <div>
         <div className="flex justify-end gap-[16px] mb-[16px]">
           {sortTab.map((item) => (
