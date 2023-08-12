@@ -17,7 +17,7 @@ interface props {
 }
 const colorSettings = `relative ${BG_COLOR.general02} ${BORDER_COLOR.container}`;
 
-const LoggedSideBar: React.FC<props> = ({ height, sticky, position }) => {
+const LoggedSide: React.FC<props> = ({ height, sticky, position }) => {
   const setIsModal = useSetRecoilState<boolean>(modalAtom);
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.KEYWORDLIST],
@@ -70,4 +70,4 @@ const LoggedSideBar: React.FC<props> = ({ height, sticky, position }) => {
   );
 };
 
-export default LoggedSideBar;
+export const LoggedSideBar = React.memo(LoggedSide);

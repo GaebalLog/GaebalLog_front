@@ -10,7 +10,7 @@ import NeightborProfile from "./NeightborProfile";
 interface props {
   discussion?: boolean;
 }
-const NeighborArticleList: React.FC<props> = ({ discussion }) => {
+const NeighborArticle: React.FC<props> = ({ discussion }) => {
   const { data } = useQuery({
     queryKey: ["neighborlist"],
     queryFn: async () => await axios.get("/api/neighbors"),
@@ -40,4 +40,4 @@ const NeighborArticleList: React.FC<props> = ({ discussion }) => {
   );
 };
 
-export default NeighborArticleList;
+export const NeighborArticleList = React.memo(NeighborArticle);

@@ -13,7 +13,7 @@ import { TEXT_COLOR } from "@/constants/global/colors";
 import Post from "@/components/commonUI/Post";
 import Button from "@/components/designSystem/Button";
 import SideBar from "@/components/commonUI/SideBar";
-import LoggedSideBar from "@/components/commonUI/LoggedSideBar";
+import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
 
 import mainImage from "../../../public/assets/images/home/main.png";
 
