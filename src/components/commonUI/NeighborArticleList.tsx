@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
 
-import type { neighborItem } from "@/@types";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 
 import NeightborProfile from "./NeightborProfile";
@@ -29,7 +28,7 @@ const NeighborArticle: React.FC<props> = ({ discussion }) => {
         const { nickname, profileImage, userId } = item;
         return (
           <NeightborProfile
-            key={item.userId}
+            key={`neighborProfile${item.userId}`}
             nickname={nickname}
             profileImage={profileImage}
             userId={userId}

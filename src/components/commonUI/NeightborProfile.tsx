@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 
-import type { neighborItem } from "@/@types";
 import useIcon from "@/hooks/useIcon";
 import { TEXT_COLOR } from "@/constants/global/colors";
 

@@ -1,46 +1,37 @@
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
-  const posts: posts = [
+  const discussions: discussions = [
     {
-      postId: 1,
-      title: "title",
-      content: "content",
-      categories: ["tags", "tåg2"],
-      like: 1,
-      count: 1,
-      nickname: "hi",
+      chatListId: 1,
+      nickname: "나나",
+      title: "제목1",
+      categories: ["카테고리1", "카테고리2"],
       thumbnail:
         "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
-      isBookmarked: true,
-      createdAt: new Date(),
+      remainingTime: 1,
+      isparticipated: true,
     },
     {
-      postId: 2,
-      title: "title",
-      content: "content",
-      categories: ["tags"],
-      like: 1,
-      count: 1,
-      nickname: "hi",
+      chatListId: 2,
+      nickname: "나나",
+      title: "제목1",
+      categories: ["카테고리1", "카테고리2"],
       thumbnail:
         "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
-      isBookmarked: false,
-      createdAt: new Date(),
+      remainingTime: 1,
+      isparticipated: false,
     },
     {
-      postId: 3,
-      title: "title",
-      content: "content",
-      categories: ["tags"],
-      like: 1,
-      count: 1,
-      nickname: "hi",
+      chatListId: 3,
+      nickname: "나나",
+      title: "제목1",
+      categories: ["카테고리1", "카테고리2"],
       thumbnail:
         "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
-      isBookmarked: true,
-      createdAt: new Date(),
+      remainingTime: 1,
+      isparticipated: true,
     },
   ];
-  return NextResponse.json({ posts });
+  return NextResponse.json({ discussions });
 };

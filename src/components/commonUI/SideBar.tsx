@@ -37,7 +37,12 @@ const SideBar: React.FC<props> = ({ height, sticky }) => {
         <h1 className="font-hack text-[24px] mb-[32px]">Trend Keyword</h1>
         <div className="flex gap-3 flex-wrap content-start">
           {keywordList?.map((keyword: string) => (
-            <Button size="category" color="white" key={keyword} rounded>
+            <Button
+              size="category"
+              color="white"
+              key={`side${keyword}`}
+              rounded
+            >
               #{keyword}
             </Button>
           ))}
