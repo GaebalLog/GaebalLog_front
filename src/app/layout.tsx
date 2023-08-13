@@ -21,6 +21,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           href="https://cdnjs.cloudflare.com/ajax/libs/hack-font/3.3.0/web/hack.css"
           rel="stylesheet"
         />
+        <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={`${gothic.className} flex flex-col items-center`}>
         <Provider>
