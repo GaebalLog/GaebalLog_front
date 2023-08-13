@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 import useIcon from "@/hooks/useIcon";
 
@@ -11,7 +12,9 @@ const LoggedInBox = () => {
   return (
     <>
       <li data-testid="logout">{alarm}</li>
-      <li>{profile}</li>
+      <li>
+        <Link href="/mypage">{profile}</Link>
+      </li>
       <li>
         <Button size="login" color="black">
           Log out
