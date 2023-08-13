@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 import Button from "../designSystem/Button";
 
@@ -6,14 +7,18 @@ const NotLoggedInBox = () => {
   return (
     <>
       <li data-testid="sign-in">
-        <Button size="login" color="lightGrey">
-          Sign in
-        </Button>
+        <Link href={"/auth/login"}>
+          <Button size="login" color="lightGrey">
+            Sign in
+          </Button>
+        </Link>
       </li>
       <li>
-        <Button size="login" color="black">
-          Sign up
-        </Button>
+        <Link href={"/auth/signup"}>
+          <Button size="login" color="black">
+            Sign up
+          </Button>
+        </Link>
       </li>
     </>
   );

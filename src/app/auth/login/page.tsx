@@ -1,5 +1,6 @@
 "use client";
 
+import type { FormEvent } from "react";
 import React from "react";
 import Link from "next/link";
 
@@ -7,9 +8,11 @@ import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import InputWithLabel from "@/components/designSystem/InputWithLabel";
 import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
+import { authAPI } from "@/api/api";
+import useInput from "@/hooks/useInput";
 
 const styles = {
-  container: `flex flex-col items-center w-[800px] h-[800px]`,
+  container: `flex flex-col items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
   loginSection: {
     wrapper: `w-[465px]`,
     title: `text-[32px] text-center leading-normal mt-12 mb-[88px] font-hack`,
@@ -23,27 +26,54 @@ const styles = {
   },
 };
 
+const googleURL =
+  `https://accounts.google.com/o/oauth2/v2/auth?` +
+  `redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&` +
+  `client_id=${process.env.NEXT_PUBLIC_GOOGLE_ID}&` +
+  `access_type=offline&` +
+  `response_type=code&` +
+  `prompt=consent&` +
+  `scope=${[
+    "https://www.googleapis.com/auth/userinfo.profile",
+    "https://www.googleapis.com/auth/userinfo.email",
+  ].join(" ")}`;
+
 const Loginpage = () => {
+  const emailInput = useInput();
+  const passwordInput = useInput();
   const { getIcon } = useIcon();
+
   const kakao = getIcon("kakao", 80, 80);
   const google = getIcon("google", 80, 80);
   const github = getIcon("github", 80, 80);
 
+  const LoginHandler = async (e: FormEvent) => {
+    e.preventDefault();
+    const { data } = await authAPI.localLogin(
+      emailInput.value,
+      passwordInput.value,
+    );
+    console.log(data);
+  };
+
   return (
-    <div className={`${styles.container} ${BG_COLOR.general02}`}>
+    <div className={styles.container}>
       <section className={styles.loginSection.wrapper}>
         <h1 className={styles.loginSection.title}>Log in</h1>
         <form className={styles.loginSection.form}>
-          <InputWithLabel label="E-mail" />
-          <InputWithLabel label="PASSWORD" isPassword />
-          <Button size="bigLogin" color="white">
+          <InputWithLabel label="E-mail" type="email" {...emailInput} />
+          <InputWithLabel label="PASSWORD" type="password" {...passwordInput} />
+          <Button size="bigLogin" color="white" onClick={LoginHandler}>
             Log in
           </Button>
         </form>
         <div className={styles.loginSection.localSignUp}>
-          <button className={`leading-none ${TEXT_COLOR.general07rev}`}>
+          <Link
+            href="signup"
+            className={`leading-none ${TEXT_COLOR.general07rev}`}
+          >
             회원가입
-          </button>
+          </Link>
           <div className={`leading-none ${TEXT_COLOR.general03rev}`}>|</div>
           <button className={`leading-none ${TEXT_COLOR.general07rev}`}>
             비밀번호 찾기
@@ -55,7 +85,7 @@ const Loginpage = () => {
         <h4 className={styles.social.title}>간편 로그인</h4>
         <div className={styles.social.iconBox}>
           <Link href={""}>{kakao}</Link>
-          <Link href={""}>{google}</Link>
+          <Link href={googleURL}>{google}</Link>
           <Link href={""}>{github}</Link>
         </div>
       </section>
