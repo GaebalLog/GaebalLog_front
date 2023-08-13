@@ -27,7 +27,7 @@ const InputWithLabel: React.FC<LabelWithInputProps> = ({
   const eye = getIcon("eye", 22, 19);
   const eyeoff = getIcon("eyeoff", 22, 19);
 
-  const filterdType = type === "password" && isEyeoff ? "password" : type;
+  const filterdType = type === "password" && isEyeoff ? "password" : "text";
 
   const eyeChangHandler = (event: React.MouseEvent) => {
     event.preventDefault();

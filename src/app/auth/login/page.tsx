@@ -26,6 +26,18 @@ const styles = {
   },
 };
 
+const googleURL =
+  `https://accounts.google.com/o/oauth2/v2/auth?` +
+  `redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&` +
+  `client_id=${process.env.NEXT_PUBLIC_GOOGLE_ID}&` +
+  `access_type=offline&` +
+  `response_type=code&` +
+  `prompt=consent&` +
+  `scope=${[
+    "https://www.googleapis.com/auth/userinfo.profile",
+    "https://www.googleapis.com/auth/userinfo.email",
+  ].join(" ")}`;
+
 const Loginpage = () => {
   const emailInput = useInput();
   const passwordInput = useInput();
@@ -34,9 +46,6 @@ const Loginpage = () => {
   const kakao = getIcon("kakao", 80, 80);
   const google = getIcon("google", 80, 80);
   const github = getIcon("github", 80, 80);
-
-  const REDIRECT_URI = "http://localhost:3000/auth/callback/google";
-  const googleURL = `https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=${`188016563531-e4l4jvoj3muf8332aoinhhj0m2d90pqv.apps.googleusercontent.com`}&scope=openid%20email%20profile&response_type=code&redirect_uri=${REDIRECT_URI}&state=nVYd7MUtXsB9bU8HSaAzo2jVbP8op_sFVtGdU66baPU&code_challenge=DF6pPeQbrG5mW6VuUUSXDL_kxPKkDq8PyZvaW980oHs&code_challenge_method=S256&service=lso&o2v=2&flowName=GeneralOAuthFlow`;
 
   const LoginHandler = async (e: FormEvent) => {
     e.preventDefault();

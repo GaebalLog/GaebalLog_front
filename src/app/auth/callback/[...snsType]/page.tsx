@@ -1,18 +1,17 @@
 "use client";
 
 import { notFound, redirect, useSearchParams } from "next/navigation";
-import Link from "next/link";
-import React, { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 import { authAPI } from "@/api/api";
 
-interface Props {
+interface snsTypeProps {
   params: {
     snsType: string;
   };
 }
 
-const GoogleLogin = ({ params: { snsType } }: Props) => {
+const GoogleLogin = ({ params: { snsType } }: snsTypeProps) => {
   const searchParams = useSearchParams();
 
   const fetchData = useCallback(async () => {
@@ -33,7 +32,7 @@ const GoogleLogin = ({ params: { snsType } }: Props) => {
     redirect("/home");
   }, [fetchData]);
 
-  return <Link href="/home">메인 페이지로 다시 이동</Link>;
+  return;
 };
 
 export default GoogleLogin;

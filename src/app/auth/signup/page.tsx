@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { redirect } from "next/navigation";
 
 import InputWithLabel from "@/components/designSystem/InputWithLabel";
 import Button from "@/components/designSystem/Button";
@@ -46,6 +47,7 @@ const Signuppage = () => {
 
     const { data } = await authAPI.localSignup(formData);
     console.log("회원가입::", data);
+    redirect("/home");
   };
 
   return (
