@@ -16,6 +16,7 @@ const BUTTON_VARIANT = {
   bigLogin: `text-[24px] py-4`,
   login: `text-[11.137px] leading-[16.71px] py-[9.74px] px-[22.27px] rounded-[3px] font-hack`,
   confirm: `text-[24px] leading-[27.94pxpx] py-[10px] px-6 rounded-[3px] font-hack`,
+  button: `text-[16px] py-[10px] px-[20px] rounded-[3px]`,
 };
 
 const COLOR_VARIANT = {
