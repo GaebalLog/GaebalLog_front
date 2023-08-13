@@ -8,7 +8,6 @@ import useIcon from "@/hooks/useIcon";
 interface LabelWithInputProps extends HTMLAttributes<HTMLDivElement> {
   label: string;
   type?: "email" | "password" | "text";
-  isPassword?: boolean;
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
@@ -28,6 +27,11 @@ const InputWithLabel: React.FC<LabelWithInputProps> = ({
   const eyeoff = getIcon("eyeoff", 22, 19);
 
   const filterdType = type === "password" && isEyeoff ? "password" : "text";
+  const styles = {
+    wrapper: `flex flex-col w-full ${className}`,
+    label: `text-2xl leading-none mb-2 font-hack`,
+    input: `w-full pl-4 pr-12 py-[14px]`,
+  };
 
   const eyeChangHandler = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -35,13 +39,13 @@ const InputWithLabel: React.FC<LabelWithInputProps> = ({
   };
 
   return (
-    <div className={`flex flex-col w-full ${className}`}>
-      <label htmlFor={label} className={`text-2xl leading-none mb-2 font-hack`}>
+    <div className={styles.wrapper}>
+      <label htmlFor={label} className={styles.label}>
         {label}
       </label>
       <div className="relative">
         <input
-          className={`w-full pl-4 pr-12 py-[14px]`}
+          className={styles.input}
           type={filterdType}
           value={value}
           onChange={onChange}

@@ -24,7 +24,13 @@ const linkList = [
 ];
 
 // 헤더가 필요없는 경로 추가
-const noHeaderPathList = ["/mypage", "signup", "/auth/login", "/auth/signup"];
+const noHeaderPathList = [
+  "/mypage",
+  "signup",
+  "/auth/login",
+  "/auth/signup",
+  "/post/tech",
+];
 
 const Header = () => {
   const path = usePathname();
