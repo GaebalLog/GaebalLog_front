@@ -9,7 +9,7 @@ import { BORDER_COLOR } from "@/constants/global/colors";
 import LoadingSpinner from "../LoadingSpinner";
 
 const styles = {
-  container: `w-[1100px] h-[33%] p-4 ${BORDER_COLOR.box}`,
+  container: `w-[1100px] h-[33%] p-4 ${BORDER_COLOR.button}`,
   loading: `flex justify-center items-center h-full`,
   title: `text-xl font-bold`,
 };

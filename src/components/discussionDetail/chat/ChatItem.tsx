@@ -70,7 +70,7 @@ const ChatItem: React.FC<chat> = ({
               topLeft={{ top: 0, left: 45 }}
               onBackdropClick={() => setActiveChatId(null)}
             >
-              <div className={`flex flex-col ${BORDER_COLOR.box}`}>
+              <div className={`flex flex-col ${BORDER_COLOR.button}`}>
                 <Button size="tab" color="white">
                   강퇴하기
                 </Button>

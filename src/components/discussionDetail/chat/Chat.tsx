@@ -10,7 +10,7 @@ import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import ChatItem from "./ChatItem";
 
 const styles = {
-  container: `overflow-y-auto relative flex flex-col justify-between w-[493px] h-full ${BORDER_COLOR.box} ${BG_COLOR.primary}`,
+  container: `overflow-y-auto relative flex flex-col justify-between w-[493px] h-full ${BORDER_COLOR.button} ${BG_COLOR.primary}`,
   chatList: `flex flex-col items-center p-4`,
   inputBox: {
     wrapper: `sticky bottom-0 flex h-[77px] p-4 z-20 ${BG_COLOR.primary}`,
