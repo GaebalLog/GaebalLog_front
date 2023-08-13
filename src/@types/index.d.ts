@@ -53,4 +53,8 @@ declare global {
     chatListId: number;
     title: string;
   }
+  interface timeOfLearning {
+    category: string;
+    timespent: number;
+  }
 }
