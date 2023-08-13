@@ -4,23 +4,23 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
-import Post from "@/components/commonUI/Post";
-import TechSideBar from "@/components/tech/TechSideBar";
 import Button from "@/components/designSystem/Button";
+import DiscussionSideBar from "@/components/discussion/DiscussionSideBar";
+import Discussion from "@/components/commonUI/Discussion";
 
 const sortTab = ["정확도 순", "조회 순", "최신순"] as const;
 
-const TechPage = () => {
+const DiscussionPage = () => {
   const [tab, setTab] = React.useState<(typeof sortTab)[number]>("정확도 순");
 
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.POSTLIST_HOME],
-    queryFn: async () => await axios.get("/api/posts/all"),
+    queryFn: async () => await axios.get("/api/chatlists/1"),
   });
-  const postList = data?.data.posts;
+  const discussionList = data?.data.discussions;
   return (
     <div className="w-[1632px] flex justify-between mt-[20px]">
-      <TechSideBar />
+      <DiscussionSideBar />
       <div>
         <div className="flex justify-end gap-[16px] mb-[16px]">
           {sortTab.map((item) => (
@@ -36,8 +36,13 @@ const TechPage = () => {
           ))}
         </div>
         <div className="flex flex-col gap-[20px]">
-          {postList?.map((post: post) => {
-            return <Post post={post} key={post.postId} />;
+          {discussionList?.map((discussion: discussion) => {
+            return (
+              <Discussion
+                discussion={discussion}
+                key={`chatlist${discussion.chatListId}`}
+              />
+            );
           })}
         </div>
       </div>
@@ -45,4 +50,4 @@ const TechPage = () => {
   );
 };
 
-export default TechPage;
+export default DiscussionPage;

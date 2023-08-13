@@ -9,10 +9,12 @@ import Button from "../designSystem/Button";
 import { LoggedSideBar } from "../commonUI/LoggedSideBar";
 import { NeighborArticleList } from "../commonUI/NeighborArticleList";
 
-const TechSideBar = () => {
+import { MyDsicussionList } from "./MyDsicussionList";
+
+const DiscussionSideBar = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   return (
-    <div className="sticky top-[114px] h-[500px]">
+    <div>
       {isLoggedIn ? (
         <div className="flex flex-col gap-[16px]">
           <Button
@@ -21,10 +23,11 @@ const TechSideBar = () => {
             border
             className="rounded-[3px] w-[380px]"
           >
-            + Create Article
+            + Create Discussion
           </Button>
-          <LoggedSideBar position="top" />
-          <NeighborArticleList />
+          <MyDsicussionList />
+          <LoggedSideBar position="disussion" />
+          <NeighborArticleList discussion />
         </div>
       ) : (
         <SideBar />
@@ -33,4 +36,4 @@ const TechSideBar = () => {
   );
 };
 
-export default TechSideBar;
+export default DiscussionSideBar;

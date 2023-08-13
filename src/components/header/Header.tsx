@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { useRecoilValue } from "recoil";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import { isLoggedInAtom } from "@/constants/global/atoms";
@@ -22,7 +23,11 @@ const linkList = [
   { href: "tech", text: "Tech" },
 ];
 
+// 헤더가 필요없는 경로 추가
+const noHeaderPathList = ["/mypage", "signup"];
+
 const Header = () => {
+  const path = usePathname();
   const [search, setSearch] = React.useState("");
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const { getIcon } = useIcon();
@@ -36,22 +41,28 @@ const Header = () => {
         <Link href="/home">
           <Image src={logo} width={188} height={28} alt="logo" />
         </Link>
-        <nav className="flex items-center justify-between w-[80%]">
-          <ul className={styles.innerUl}>
-            {linkList.map((link) => (
-              <Link
-                key={`${link.href}header`}
-                href={`/${link.href}`}
-                className={`${TEXT_COLOR.text} text-[24px] font-bold`}
-              >
-                {link.text}
-              </Link>
-            ))}
-            <li>
-              <Input value={search} onChange={setSearch} type="header" />
-            </li>
-            <li>{mike}</li>
-          </ul>
+        <nav
+          className={`flex items-center ${
+            noHeaderPathList.includes(path) ? "justify-end" : "justify-between"
+          } w-[80%]`}
+        >
+          {!noHeaderPathList.includes(path) && (
+            <ul className={styles.innerUl}>
+              {linkList.map((link) => (
+                <Link
+                  key={`${link.href}header`}
+                  href={`/${link.href}`}
+                  className={`${TEXT_COLOR.text} text-[24px] font-bold`}
+                >
+                  {link.text}
+                </Link>
+              ))}
+              <li>
+                <Input value={search} onChange={setSearch} type="header" />
+              </li>
+              <li>{mike}</li>
+            </ul>
+          )}
           <ul className={styles.innerUl}>
             {isLoggedIn ? <LoggedInBox /> : <NotLoggedInBox />}
           </ul>
