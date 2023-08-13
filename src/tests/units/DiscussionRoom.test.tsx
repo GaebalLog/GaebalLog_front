@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 
-import ChatRoompage from "@/app/discussionrooms/[id]/page";
+import ChatRoompage from "@/app/discussion/[id]/page";
 import RootLayout from "@/app/layout";
 
 test("토의 방 렌더링 테스트", async () => {
