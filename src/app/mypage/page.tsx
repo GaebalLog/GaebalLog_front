@@ -29,20 +29,20 @@ const MyPagePage = () => {
     setNewProfileImg("");
     setProfileImg("");
   };
-  const { isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["myInfo"],
     queryFn: async () => await axios.get("/api/users"),
     onSuccess: (res) => {
       setProfileImg(res.data.profileImg);
     },
   });
-  if (isLoading) return <div>로딩중</div>;
+  const userInfo = data?.data as myInfo;
   return (
     <div className="w-[1632px] flex justify-between mt-[20px]">
       <MyPageSideBar />
-      <div className="first-letter:flex flex-col gap-[20px]">
-        <div className={`w-[1200px] h-[416px] ${boxOption}`}>
-          <div className="flex flex-col items-center gap-[40px] px-[40px] py-[70px]">
+      <div className="flex flex-col gap-[20px]">
+        <div className={`flex w-[1200px] h-[416px] ${boxOption}`}>
+          <div className="flex flex-col items-center gap-[40px] w-[350px] px-[40px] py-[70px]">
             <Image
               src={newProfileImg !== "" ? newProfileImg : profileImg}
               alt="프로필사진"
@@ -72,6 +72,21 @@ const MyPagePage = () => {
               >
                 이미지 제거
               </Button>
+            </div>
+          </div>
+          <div>
+            <h1>닉네임</h1>
+            <div>
+              <span>{userInfo?.nickname}</span>
+              <button>수정</button>
+            </div>
+            <div>
+              <h1>작성한 글</h1>
+              <span>{userInfo?.postsno} 개</span>
+            </div>
+            <div>
+              <h1>참여중인 토의</h1>
+              <span>{userInfo?.chatlistno} 개</span>
             </div>
           </div>
         </div>
