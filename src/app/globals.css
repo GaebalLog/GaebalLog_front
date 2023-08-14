@@ -50,6 +50,10 @@
   padding-left: 0;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .ck-editor__editable {
   height: var(--ckeditorHeight);
 }

@@ -12,7 +12,7 @@ import Button from "../designSystem/Button";
 
 interface props {
   position: "top" | "bottom" | "disussion";
-  height?: `w-[${string}]`;
+  height?: `h-[${string}]`;
   sticky?: boolean;
 }
 const colorSettings = `relative ${BG_COLOR.general02} ${BORDER_COLOR.container}`;

@@ -53,6 +53,19 @@ declare global {
     chatListId: number;
     title: string;
   }
+  interface timeOfLearning {
+    category: string;
+    timespent: number;
+  }
+  interface myInfo {
+    nickname: string;
+    profileImg: string;
+    postsno: number;
+    chatlistno: number;
+    alarm_reply: boolean;
+    alarm_neighbors: boolean;
+    alarm_discussion: boolean;
+  }
 }
 
 declare module "ckeditor5-custom-build/build/ckeditor" {

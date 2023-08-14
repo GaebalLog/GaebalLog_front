@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 
-import type { chatItemAtSide } from "@/@types";
-
 export const GET = async () => {
   const chatList: chatItemAtSide[] = [
     {
