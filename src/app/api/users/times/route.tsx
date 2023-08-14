@@ -8,7 +8,7 @@ export const GET = async () => {
     },
     {
       category: "채팅방2",
-      timespent: 2,
+      timespent: 20000,
     },
     {
       category: "채팅방3",
