@@ -7,7 +7,6 @@ import axios from "axios";
 
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
-import { server } from "@/tests/msw/server";
 
 import Button from "../designSystem/Button";
 import LoadingSpinner from "../LoadingSpinner";
@@ -47,20 +46,11 @@ interface chatroom {
 const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
   const { data, isLoading } = useQuery<chatroom>({
     queryKey: ["chatRoom", chatRoomId],
-    queryFn: () => axios.get(`/api/chatlists/${chatRoomId}`),
+    queryFn: () => axios.get(`/api/chatrooms/${chatRoomId}`),
   });
 
   const { getIcon } = useIcon();
   const like = getIcon("like", 18, 18);
-
-  React.useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
-      server.listen();
-      return () => {
-        server.close();
-      };
-    }
-  }, []);
 
   if (isLoading)
     return (

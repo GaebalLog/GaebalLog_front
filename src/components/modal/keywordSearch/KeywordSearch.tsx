@@ -6,7 +6,6 @@ import axios from "axios";
 import { BG_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
 import { modalAtom } from "@/constants/global/atoms";
-import { server } from "@/tests/msw/server";
 
 import Modal from "../Modal";
 
@@ -32,8 +31,10 @@ const KeywordSearch = () => {
 
   const { isLoading: myCategoriesLoading } = useQuery({
     queryKey: ["userCategories"],
-    queryFn: () => axios.get("/api/userCategories"),
-    onSuccess: (data) => setMyCategories(data?.data),
+    queryFn: () => axios.get("/api/usercategories"),
+    onSuccess: (data) => {
+      setMyCategories(data?.data);
+    },
   });
 
   const { data: trendCategories, isLoading: trendCategoriesLoading } = useQuery(
@@ -59,15 +60,6 @@ const KeywordSearch = () => {
     setAddedCategories([]);
     setIsModal((prev) => !prev);
   };
-
-  React.useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
-      server.listen();
-      return () => {
-        server.close();
-      };
-    }
-  }, []);
 
   return (
     <Modal isBgColor onBackdropClick={() => setIsModal(false)}>

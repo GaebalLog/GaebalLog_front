@@ -5,11 +5,6 @@ export const handlers = [
   rest.get("/api/search/trending", (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(["test1", "test2", "test3"]));
   }),
-
-  rest.get("/api/usercategories", (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(["login1", "login2", "login3"]));
-  }),
-
   rest.get("/api/posts/all", (req, res, ctx) => {
     const posts: posts = [
       {
@@ -223,7 +218,7 @@ export const handlers = [
   }),
 
   //토의방 api
-  rest.get("/api/chatlists/:chatroomId", (req, res, ctx) => {
+  rest.get("/api/chatrooms/:chatroomId", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({

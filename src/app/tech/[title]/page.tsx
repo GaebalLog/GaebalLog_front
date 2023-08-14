@@ -4,7 +4,6 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-import { server } from "@/tests/msw/server";
 import CommentsList from "@/components/detail/CommentsList";
 import { BG_COLOR } from "@/constants/global/colors";
 import CommentForm from "@/components/detail/form/CommentForm";
@@ -37,15 +36,6 @@ const Detail = ({ params: { postId } }: detailParams) => {
     queryKey: ["comments", postId],
     queryFn: () => axios.get("/api/comments"),
   });
-
-  React.useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
-      server.listen();
-      return () => {
-        server.close();
-      };
-    }
-  }, []);
 
   return (
     <div className={styles.contents.wrapper}>
