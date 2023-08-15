@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { useRecoilValue } from "recoil";
+import { useRouter } from "next/navigation";
 
 import useIcon from "@/hooks/useIcon";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
@@ -9,14 +10,32 @@ import { isLoggedInAtom } from "@/constants/global/atoms";
 import Button from "../designSystem/Button";
 
 const Discussion: React.FC<{ discussion: discussion }> = ({ discussion }) => {
-  const { getIcon } = useIcon();
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
-  const bookmark = getIcon("bookmark", 48, 80);
-  const checkBookmark = getIcon("checkbook", 48, 80);
+  const router = useRouter();
+
+  const { getIcon } = useIcon();
+  const bookmark = getIcon("bookmark", 48, 80, "cursor hover");
+  const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
+
+  const onClickHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    // 35번째 코드로 인한 타입 가드
+    if (!(e.target instanceof HTMLElement)) {
+      return;
+    }
+    if (e.target.closest(".excluded")) {
+      return;
+    }
+    router.push(`/tech/${discussion.chatListId}`);
+  };
+
+  const checkBookmarkHandler = () => {
+    console.log("북마크 클릭시 처리");
+  };
 
   return (
     <div
-      className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02}`}
+      className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02} cursor-pointer`}
+      onClick={onClickHandler}
     >
       <div className="w-[332px] h-[280px] overflow-hidden">
         <Image
@@ -48,7 +67,10 @@ const Discussion: React.FC<{ discussion: discussion }> = ({ discussion }) => {
           </div>
         </div>
         {isLoggedIn && (
-          <div className="absolute top-0 right-[40px]">
+          <div
+            className="absolute top-0 right-[40px] excluded"
+            onClick={checkBookmarkHandler}
+          >
             {discussion.isparticipated ? checkBookmark : bookmark}
           </div>
         )}
