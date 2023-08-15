@@ -31,9 +31,21 @@ const useIcon = () => {
     name: keyof typeof ICON,
     width: number,
     height: number,
+    option?: "cursor" | "hover" | "cursor hover",
   ): React.ReactElement => {
     const source = ICON[name][dark];
-    return <Image src={source} alt={name} width={width} height={height} />;
+    return (
+      <Image
+        src={source}
+        alt={name}
+        width={width}
+        height={height}
+        className={`${option?.includes("cursor") && "cursor-pointer"} ${
+          option?.includes("hover") &&
+          "hover:scale-110 transform transition-all duration-5 00"
+        }}`}
+      />
+    );
   };
   return { getIcon };
 };

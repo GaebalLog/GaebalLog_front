@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { useRecoilValue } from "recoil";
+import { useRouter } from "next/navigation";
 
 import useIcon from "@/hooks/useIcon";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
@@ -9,19 +10,32 @@ import { isLoggedInAtom } from "@/constants/global/atoms";
 import Button from "../designSystem/Button";
 
 const Post: React.FC<{ post: post }> = ({ post }) => {
+  const router = useRouter();
   const { getIcon } = useIcon();
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
-  const heart = getIcon("heart", 16, 14);
+  const heart = getIcon("heart", 16, 14, "cursor hover");
   const eye = getIcon("eye", 18, 16);
-  const bookmark = getIcon("bookmark", 48, 80);
-  const checkBookmark = getIcon("checkbook", 48, 80);
+  const bookmark = getIcon("bookmark", 48, 80, "cursor hover");
+  const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
   const btns = [
-    { id: "heart", icon: heart, count: post.like },
+    { id: "heart", icon: heart, count: post.like, className: "excluded" },
     { id: "search", icon: eye, count: post.count },
   ];
+
+  const onClickHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    // 35번째 코드로 인한 타입 가드
+    if (!(e.target instanceof HTMLElement)) {
+      return;
+    }
+    if (e.target.closest(".excluded")) {
+      return;
+    }
+    router.push(`/tech/${post.postId}`);
+  };
   return (
     <div
-      className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02}`}
+      className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02} cursor-pointer`}
+      onClick={onClickHandler}
     >
       <div className="w-[332px] h-[280px] overflow-hidden">
         <Image src={post.thumbnail} width={332} height={280} alt={post.title} />
@@ -38,7 +52,7 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
           <p className={`${TEXT_COLOR.text} text-[16px]`}>{post.content}</p>
         </div>
         {isLoggedIn && (
-          <div className="absolute top-0 right-[40px]">
+          <div className="absolute top-0 right-[40px] excluded">
             {post.isBookmarked ? checkBookmark : bookmark}
           </div>
         )}
@@ -58,7 +72,7 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
               size="withIcon"
               color="background"
               rounded
-              className="flex-wrap"
+              className={`flex-wrap ${btn.className}`}
             >
               {btn.icon}
               {btn.count}
