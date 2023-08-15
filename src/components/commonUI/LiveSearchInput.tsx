@@ -7,6 +7,7 @@ import Input from "@/components/designSystem/Input";
 import { BG_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
 import useInput from "@/hooks/useInput";
+import useDebounce from "@/hooks/useDebounce";
 
 import NonPortalModal from "../modal/NonPortalModal";
 
@@ -39,16 +40,17 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
   const router = useRouter();
 
   const { value, onChange, setValue } = useInput();
+  const debouncedVlaue = useDebounce(value);
   const { data } = useQuery({
-    queryKey: ["liveSearch", value],
-    queryFn: () => axios.get(`/api/liveSearch/${value}`),
+    queryKey: ["liveSearch", debouncedVlaue],
+    queryFn: () => axios.get(`/api/liveSearch/${debouncedVlaue}`),
   });
 
   const { getIcon } = useIcon();
   const search = getIcon("search", 18, 22);
 
   const styles = {
-    searchUl: `${typeStyles[type].modalWidth} h-[300px] shadow-xl ${BG_COLOR.primary}`,
+    searchUl: `${typeStyles[type].modalWidth} shadow-xl ${BG_COLOR.primary}`,
     searchList: `flex items-center w-full h-[60px] cursor-pointer hover:${BG_COLOR.general03}`,
   };
 
