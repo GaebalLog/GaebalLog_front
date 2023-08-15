@@ -19,7 +19,7 @@ interface InputProps {
   type: keyof typeof styles;
   value: string;
   placeholder?: string;
-  onChange: (value: string) => void;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 /**헤더와 검색 모달의 검색 인풋 */
@@ -29,18 +29,13 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   onChange,
 }) => {
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    onChange(value);
-  };
-
   return (
     <div className={styles[type].container}>
       <input
         id={type}
         className={styles[type].input}
         value={value}
-        onChange={changeHandler}
+        onChange={onChange}
         placeholder={placeholder || "검색어를 입력해주세요."}
       />
       <Image

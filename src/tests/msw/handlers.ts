@@ -204,7 +204,7 @@ export const handlers = [
       ]),
     );
   }),
-  rest.get("/api/liveSearch", (req, res, ctx) => {
+  rest.get("/api/liveSearch/:value", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json([
