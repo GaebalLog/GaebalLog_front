@@ -14,7 +14,10 @@ const Provider: React.FC<{
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <RecoilRoot initializeState={initializeState}>{children}</RecoilRoot>
+        <RecoilRoot initializeState={initializeState}>
+          {children}
+          <div id="portal" />
+        </RecoilRoot>
         <ReactQueryDevtools />
         <div id="portal" />
       </QueryClientProvider>
