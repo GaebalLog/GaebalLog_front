@@ -10,15 +10,27 @@ import { isLoggedInAtom } from "@/constants/global/atoms";
 import Button from "../designSystem/Button";
 
 const Post: React.FC<{ post: post }> = ({ post }) => {
-  const router = useRouter();
-  const { getIcon } = useIcon();
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
+  const router = useRouter();
+
+  const { getIcon } = useIcon();
   const heart = getIcon("heart", 16, 14, "cursor hover");
   const eye = getIcon("eye", 18, 16);
   const bookmark = getIcon("bookmark", 48, 80, "cursor hover");
   const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
+
+  const clickHeartHandler = () => {
+    console.log("좋아요");
+  };
+
   const btns = [
-    { id: "heart", icon: heart, count: post.like, className: "excluded" },
+    {
+      id: "heart",
+      icon: heart,
+      count: post.like,
+      className: "excluded",
+      onClick: clickHeartHandler,
+    },
     { id: "search", icon: eye, count: post.count },
   ];
 
@@ -32,6 +44,11 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
     }
     router.push(`/tech/${post.postId}`);
   };
+
+  const checkBookmarkHandler = () => {
+    console.log("북마크 클릭시 처리");
+  };
+
   return (
     <div
       className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02} cursor-pointer`}
@@ -52,7 +69,10 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
           <p className={`${TEXT_COLOR.text} text-[16px]`}>{post.content}</p>
         </div>
         {isLoggedIn && (
-          <div className="absolute top-0 right-[40px] excluded">
+          <div
+            className="absolute top-0 right-[40px] excluded"
+            onClick={checkBookmarkHandler}
+          >
             {post.isBookmarked ? checkBookmark : bookmark}
           </div>
         )}
@@ -73,6 +93,7 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
               color="background"
               rounded
               className={`flex-wrap ${btn.className}`}
+              onClick={btn.onClick}
             >
               {btn.icon}
               {btn.count}
