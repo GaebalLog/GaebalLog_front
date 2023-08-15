@@ -88,8 +88,9 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
         prev !== null && prev > 0 ? prev - 1 : maxIndex,
       );
     }
-    if (key === "Enter" && focusedIndex !== null) {
-      const selectedResult = data?.data[focusedIndex];
+    if (key === "Enter") {
+      const selectedResult =
+        focusedIndex !== null ? data?.data[focusedIndex] : value;
       return searchKeywordClick(selectedResult);
     }
   };
@@ -122,6 +123,7 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
           placeholder="키워드를 추가하여 나만의 키워드를 만들어 보세요."
           value={value}
           onChange={onChange}
+          onClick={searchKeywordClick}
         />
         {isModal && (
           <NonPortalModal topLeft={typeStyles[type].topLeft} nonBackdrop>
