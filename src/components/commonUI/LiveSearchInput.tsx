@@ -40,10 +40,10 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
   const router = useRouter();
 
   const { value, onChange, setValue } = useInput();
-  const debouncedVlaue = useDebounce(value);
+  const debouncedValue = useDebounce(value);
   const { data } = useQuery({
-    queryKey: ["liveSearch", debouncedVlaue],
-    queryFn: () => axios.get(`/api/liveSearch/${debouncedVlaue}`),
+    queryKey: ["liveSearch", debouncedValue],
+    queryFn: () => axios.get(`/api/liveSearch?value=${debouncedValue}`),
   });
 
   const { getIcon } = useIcon();
@@ -51,20 +51,24 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
 
   const styles = {
     searchUl: `${typeStyles[type].modalWidth} shadow-xl ${BG_COLOR.primary}`,
-    searchList: `flex items-center w-full h-[60px] cursor-pointer hover:${BG_COLOR.general03}`,
+    searchList: `flex items-center w-full h-[60px] cursor-pointer`,
   };
 
   const modalOutsideClick = React.useCallback((event: MouseEvent) => {
     if (!(event.target instanceof Node)) return;
     const isClickInsideInput = inputRef.current?.contains(event.target);
     const isClickInsideModal = modalRef.current?.contains(event.target);
-    if (!isClickInsideInput && !isClickInsideModal) setIsModal(false);
+    if (!isClickInsideInput && !isClickInsideModal) {
+      setFocusedIndex(null);
+      setIsModal(false);
+    }
   }, []);
 
   const searchKeywordClick = (selectedKeyword: string) => {
     categoryAddHandler && categoryAddHandler(selectedKeyword);
     setValue("");
     setIsModal((prev) => !prev);
+    setFocusedIndex(null);
     isRouter && router.push(`/tech?keyword=${selectedKeyword}`);
   };
 
@@ -87,6 +91,12 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
       return searchKeywordClick(selectedResult);
     }
   };
+
+  React.useEffect(() => {
+    if (focusedIndex !== null && data?.data) {
+      setValue(data.data[focusedIndex]);
+    }
+  }, [focusedIndex, data, setValue]);
 
   React.useEffect(() => {
     setIsModal(Boolean(value));
@@ -124,6 +134,7 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
                     data-testid={`item-${i}`}
                     className={`${styles.searchList} ${bgColor}`}
                     onClick={() => searchKeywordClick(result)}
+                    onMouseEnter={() => setFocusedIndex(i)}
                   >
                     <div className="mx-5">{search}</div>
                     <span>{result}</span>
