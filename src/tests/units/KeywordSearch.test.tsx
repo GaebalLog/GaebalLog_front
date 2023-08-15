@@ -91,4 +91,29 @@ describe("실시간 검색 기능 테스트", () => {
     });
     expect(await screen.findByText("#리액트네이티브")).toBeInTheDocument();
   });
+
+  test("항목 선택 동작은 마우스 호버와 키보드 방향키가 서로 공유해야 함", async () => {
+    await userEvent.keyboard("{arrowdown}");
+    expect(await screen.findByTestId("item-0")).toHaveClass("bg-[#DCDCDC]");
+
+    await userEvent.hover(screen.getByTestId("item-3"));
+    expect(await screen.findByTestId("item-3")).toHaveClass("bg-[#DCDCDC]");
+    expect(await screen.findByTestId("item-0")).not.toHaveClass("bg-[#DCDCDC]");
+
+    await userEvent.keyboard("{arrowup}");
+    expect(await screen.findByTestId("item-2")).toHaveClass("bg-[#DCDCDC]");
+    expect(await screen.findByTestId("item-3")).not.toHaveClass("bg-[#DCDCDC]");
+  });
+
+  test("input의 텍스트가 선택된 추천 키워드로 바뀌어야 함", async () => {
+    const placeholder = "키워드를 추가하여 나만의 키워드를 만들어 보세요.";
+    expect(await screen.findByPlaceholderText(placeholder)).toHaveValue(
+      "리액트",
+    );
+
+    await userEvent.keyboard("{arrowdown}");
+    expect(await screen.findByPlaceholderText(placeholder)).toHaveValue(
+      "리액트네이티브",
+    );
+  });
 });
