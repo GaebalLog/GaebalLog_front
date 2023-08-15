@@ -54,6 +54,7 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
     <div
       className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02} cursor-pointer`}
       onClick={onClickHandler}
+      data-testid={`post${post.postId}`}
     >
       <div className="w-[332px] h-[280px] overflow-hidden">
         <Image src={post.thumbnail} width={332} height={280} alt={post.title} />

@@ -69,4 +69,11 @@ describe("홈 화면 테스트", () => {
     await userEvent.click(createArticleBtn);
     expect(mockPush).toHaveBeenCalledWith("/post/tech");
   });
+
+  test("글 리스트 클릭시 페이지 이동", async () => {
+    rederHome.loggedOut();
+    const articleList = await screen.findByTestId("post1");
+    await userEvent.click(articleList);
+    expect(mockPush).toHaveBeenCalledWith("/tech/1");
+  });
 });
