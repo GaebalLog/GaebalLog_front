@@ -11,7 +11,7 @@ export const handlers = [
         postId: 1,
         title: "title",
         content: "content",
-        categories: ["tags", "tåg23"],
+        categories: ["tags", "tåg2"],
         like: 1,
         count: 1,
         nickname: "hi",
@@ -47,7 +47,7 @@ export const handlers = [
         createdAt: new Date(),
       },
     ];
-    return res(ctx.status(200), ctx.json(posts));
+    return res(ctx.json({ posts }));
   }),
 
   // 상세 페이지 api

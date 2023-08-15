@@ -19,5 +19,6 @@ export const mockPush = jest.fn();
 const useRouter = () => ({
   push: mockPush,
 });
+const usePathname = () => "/";
 
-export default useRouter;
+export { useRouter, usePathname };

@@ -16,6 +16,7 @@ const Provider: React.FC<{
       <QueryClientProvider client={queryClient}>
         <RecoilRoot initializeState={initializeState}>{children}</RecoilRoot>
         <ReactQueryDevtools />
+        <div id="portal" />
       </QueryClientProvider>
     </>
   );
