@@ -4,8 +4,9 @@ import userEvent from "@testing-library/user-event";
 import axios from "axios";
 
 import RootLayout from "@/app/layout";
-import utilDelay from "@/utils/util-delay";
 import HomePage from "@/app/home/page";
+import KeywordSearch from "@/components/modal/keywordSearch/KeywordSearch";
+import Provider from "@/components/provider/Provider";
 
 test("edit 버튼을 누르면 키워드 검색 모달이 열리고 Cancel 버튼을 누르면 닫힌다.", async () => {
   render(<HomePage />, { wrapper: RootLayout });
@@ -22,9 +23,7 @@ test("edit 버튼을 누르면 키워드 검색 모달이 열리고 Cancel 버�
 
 describe("키워드 검색 모달 API 요청 테스트", () => {
   beforeEach(async () => {
-    render(<HomePage />, { wrapper: RootLayout });
-    await userEvent.click(screen.getByRole("button", { name: /Edit/ }));
-    await utilDelay(100);
+    render(<KeywordSearch />, { wrapper: RootLayout });
   });
 
   test("현재 나의 키워드 get 요청 테스트", async () => {
@@ -59,9 +58,7 @@ describe("키워드 검색 모달 API 요청 테스트", () => {
 
 describe("실시간 검색 기능 테스트", () => {
   beforeEach(async () => {
-    render(<HomePage />, { wrapper: RootLayout });
-    await userEvent.click(screen.getByRole("button", { name: /Edit/ }));
-    await utilDelay(100);
+    render(<KeywordSearch />, { wrapper: Provider });
     await userEvent.type(await screen.findByTestId("realTimeInput"), "리액트");
   });
 
@@ -75,12 +72,12 @@ describe("실시간 검색 기능 테스트", () => {
   test("방향키를 사용하여 항목 선택", async () => {
     expect(await screen.findByTestId("item-0")).toHaveClass("bg-[#FFFFFF]");
     await userEvent.keyboard("{arrowdown}");
-    expect(await screen.findByTestId("item-0")).toHaveClass("bg-gray-200");
+    expect(await screen.findByTestId("item-0")).toHaveClass("bg-[#DCDCDC]");
     await userEvent.keyboard("{arrowdown}");
     expect(await screen.findByTestId("item-0")).toHaveClass("bg-[#FFFFFF]");
-    expect(await screen.findByTestId("item-1")).toHaveClass("bg-gray-200");
+    expect(await screen.findByTestId("item-1")).toHaveClass("bg-[#DCDCDC]");
     await userEvent.keyboard("{arrowup}");
-    expect(await screen.findByTestId("item-0")).toHaveClass("bg-gray-200");
+    expect(await screen.findByTestId("item-0")).toHaveClass("bg-[#DCDCDC]");
     expect(await screen.findByTestId("item-1")).toHaveClass("bg-[#FFFFFF]");
   });
 

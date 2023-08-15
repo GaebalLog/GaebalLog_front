@@ -28,7 +28,6 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <div className="h-[94px]" />
           <Header />
           {children}
-          <div id="portal" />
         </Provider>
       </body>
     </html>

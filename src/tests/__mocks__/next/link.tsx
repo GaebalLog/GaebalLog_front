@@ -7,7 +7,7 @@
 
 import React from "react";
 
-import { mockPush } from "./router";
+import { mockPush } from "./navigation";
 
 const NextLink: React.FC<{
   children: React.ReactNode;
