@@ -34,6 +34,7 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
   isRouter,
 }) => {
   const [isModal, setIsModal] = React.useState<boolean>(false);
+  const [displayedResults, setDisplayedResults] = React.useState([]);
   const [focusedIndex, setFocusedIndex] = React.useState<number | null>(null);
   const modalRef = React.useRef<HTMLUListElement | null>(null);
   const inputRef = React.useRef<HTMLLabelElement | null>(null);
@@ -44,6 +45,7 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
   const { data } = useQuery({
     queryKey: ["liveSearch", debouncedValue],
     queryFn: () => axios.get(`/api/liveSearch?value=${debouncedValue}`),
+    onSuccess: (data) => setDisplayedResults(data.data),
   });
 
   const { getIcon } = useIcon();
@@ -124,7 +126,7 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
         {isModal && (
           <NonPortalModal topLeft={typeStyles[type].topLeft} nonBackdrop>
             <ul className={styles.searchUl} ref={modalRef}>
-              {data?.data.map((result: string, i: number) => {
+              {displayedResults?.map((result: string, i: number) => {
                 const bgColor =
                   focusedIndex === i ? BG_COLOR.general03 : BG_COLOR.primary;
 
