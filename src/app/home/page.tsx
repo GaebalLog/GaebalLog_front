@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 import { isLoggedInAtom } from "@/constants/global/atoms";
@@ -53,11 +54,13 @@ const HomePage = () => {
         <div>
           {isLoggedIn && (
             <div className="relative flex gap-[40px] pt-[34px] mb-[20px]">
-              <button
-                className={`absolute top-0 right-0 text-[24px] ${TEXT_COLOR.primary}`}
-              >
-                + Create Article
-              </button>
+              <Link href="/post/tech">
+                <button
+                  className={`absolute top-0 right-0 text-[24px] ${TEXT_COLOR.primary}`}
+                >
+                  + Create Article
+                </button>
+              </Link>
               {isLoggedIn &&
                 loggedInUI.map((item) => (
                   <Button
