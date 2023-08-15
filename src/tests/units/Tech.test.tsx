@@ -6,7 +6,7 @@ import Header from "@/components/header/Header";
 import Provider from "@/components/provider/Provider";
 import HomePage from "@/app/home/page";
 
-import { mockPush } from "../__mocks__/next/router";
+import { mockPush } from "../__mocks__/next/navigation";
 
 describe("테크 화면 테스트", () => {
   test("테크 화면으로 진입", async () => {

@@ -8,9 +8,9 @@ import Button from "@/components/designSystem/Button";
 import { modalAtom } from "@/constants/global/atoms";
 
 import Modal from "../Modal";
+import LiveSearchInput from "../../commonUI/LiveSearchInput";
 
 import KeywordList from "./KeywordList";
-import RealtimeSearch from "./RealTimeSearch";
 
 const styles = {
   container: `flex justify-center w-[1330px] h-[700px] ${BG_COLOR.general02}}`,
@@ -23,7 +23,6 @@ const styles = {
 };
 
 const KeywordSearch = () => {
-  const [keyword, setKeyword] = React.useState("");
   const [addedCategories, setAddedCategories] = React.useState<string[]>([]);
   const [myCategories, setMyCategories] = React.useState<string[]>([]);
   const setIsModal = useSetRecoilState(modalAtom);
@@ -66,9 +65,8 @@ const KeywordSearch = () => {
       <div className={styles.container}>
         <div className={styles.widthWrapper}>
           <span className={styles.title}>Add my keywords</span>
-          <RealtimeSearch
-            value={keyword}
-            onChange={setKeyword}
+          <LiveSearchInput
+            type="searchModal"
             categoryAddHandler={categoryAddHandler}
           />
           <div className={styles.keywordBox}>
