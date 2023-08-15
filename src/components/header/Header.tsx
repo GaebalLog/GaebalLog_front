@@ -9,8 +9,8 @@ import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import { isLoggedInAtom } from "@/constants/global/atoms";
 import useIcon from "@/hooks/useIcon";
 
-import Input from "../designSystem/Input";
 import logo from "../../../public/assets/images/home/logo.png";
+import LiveSearchInput from "../commonUI/LiveSearchInput";
 
 import LoggedInBox from "./LoggedInBox";
 import NotLoggedInBox from "./NotLoggedInBox";
@@ -34,7 +34,6 @@ const noHeaderPathList = [
 
 const Header = () => {
   const path = usePathname();
-  const [search, setSearch] = React.useState("");
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const { getIcon } = useIcon();
   const mike = getIcon("mike", 24, 24);
@@ -64,7 +63,7 @@ const Header = () => {
                 </Link>
               ))}
               <li>
-                <Input value={search} onChange={setSearch} type="header" />
+                <LiveSearchInput type="header" isRouter />
               </li>
               <li>{mike}</li>
             </ul>
