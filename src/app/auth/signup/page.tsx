@@ -16,7 +16,11 @@ const Signuppage = () => {
   const nicknameInput = useInput();
   const passwordInput = useInput();
   const passwordConfirmInput = useInput();
-  const { isPassed } = useValidation(passwordInput.value);
+  const { isPassed: isEmailValid } = useValidation(emailInput.value, "email");
+  const { isPassed: isPasswordValid } = useValidation(
+    passwordInput.value,
+    "password",
+  );
 
   const imageUpLoadHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -38,18 +42,26 @@ const Signuppage = () => {
   const onSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const formData = new FormData();
+    if (
+      isEmailValid &&
+      isPasswordValid &&
+      file &&
+      nicknameInput.value &&
+      passwordInput.value === passwordConfirmInput.value
+    ) {
+      const formData = new FormData();
 
-    if (!file) return;
+      formData.append("file", file);
+      formData.append("email", emailInput.value);
+      formData.append("nickname", nicknameInput.value);
+      formData.append("password", passwordInput.value);
 
-    formData.append("file", file);
-    formData.append("email", emailInput.value);
-    formData.append("nickname", nicknameInput.value);
-    formData.append("password", passwordInput.value);
-
-    const { data } = await authAPI.localSignup(formData);
-    console.log("회원가입::", data);
-    redirect("/home");
+      const { data } = await authAPI.localSignup(formData);
+      console.log("회원가입::", data);
+      redirect("/home");
+    } else {
+      alert("회원가입 실패!");
+    }
   };
 
   return (
@@ -105,7 +117,7 @@ const Signuppage = () => {
         />
         <p
           className={`-mt-[10px] mb-2 ${
-            isPassed ? TEXT_COLOR.general07rev : "text-red-500"
+            isPasswordValid ? TEXT_COLOR.general07rev : "text-red-500"
           }`}
         >
           비밀번호는 8~20 자의 영문 소문자 , 숫자 , 특문 사용

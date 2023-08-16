@@ -1,17 +1,28 @@
 import React from "react";
 
-const useValidation = (value: string) => {
+type ValidationType = "email" | "password";
+
+const useValidation = (value: string, type: ValidationType) => {
   const [isPassed, setIsPassed] = React.useState(false);
+
+  const validateEmail = React.useCallback(() => {
+    const validation = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    return validation.test(value);
+  }, [value]);
 
   const validatePassword = React.useCallback(() => {
     const validation =
       /^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,20}$/;
-    setIsPassed(validation.test(value));
+    return validation.test(value);
   }, [value]);
 
   React.useEffect(() => {
-    validatePassword();
-  }, [value, validatePassword]);
+    if (type === "email") {
+      setIsPassed(validateEmail());
+    } else if (type === "password") {
+      setIsPassed(validatePassword());
+    }
+  }, [type, value, validateEmail, validatePassword]);
 
   return { isPassed };
 };
