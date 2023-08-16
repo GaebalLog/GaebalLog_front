@@ -11,14 +11,15 @@
  * render(<Header />);
  */
 
-export const mockPush = jest.fn();
-
-export const mockUsePathname = jest.fn();
+export const mockNavigation = jest.fn();
 
 const useRouter = () => ({
-  push: mockPush,
+  push: mockNavigation,
+  replace: mockNavigation,
 });
 
-const usePathname = mockUsePathname;
+const usePathname = mockNavigation;
 
-export { useRouter, usePathname };
+const redirect = mockNavigation;
+
+export { useRouter, usePathname, redirect };

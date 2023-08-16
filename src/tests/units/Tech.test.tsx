@@ -6,7 +6,7 @@ import Header from "@/components/header/Header";
 import Provider from "@/components/provider/Provider";
 import HomePage from "@/app/home/page";
 
-import { mockPush } from "../__mocks__/next/navigation";
+import { mockNavigation } from "../__mocks__/next/navigation";
 
 describe("테크 화면 테스트", () => {
   test("테크 화면으로 진입", async () => {
@@ -19,6 +19,6 @@ describe("테크 화면 테스트", () => {
     const techButton = screen.getByText("Tech");
     await userEvent.click(techButton);
 
-    expect(mockPush).toHaveBeenCalledWith("/tech");
+    expect(mockNavigation).toHaveBeenCalledWith("/tech");
   });
 });
