@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 
 import { modalAtom } from "@/constants/global/atoms";
 import { TEXT_COLOR } from "@/constants/global/colors";
+import { scrollHandler } from "@/utils/util-scrollhandler";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const KeywordSearch = dynamic(
@@ -23,6 +24,12 @@ const EditBtn: React.FC<{ position: "top" | "bottom" | "disussion" }> = ({
   const buttonStyles = `${TEXT_COLOR.primary} ${
     position === "bottom" ? "text-[24px]" : "text-[16px]"
   } absolute ${editPosition} right-[25px]`;
+
+  React.useEffect(() => {
+    scrollHandler.disabledScroll();
+    return () => scrollHandler.enabledScroll();
+  }, []);
+
   return (
     <>
       <button
