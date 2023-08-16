@@ -2,33 +2,32 @@ import React from "react";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import Header from "@/components/header/Header";
 import HomePage from "@/app/home/page";
 
 import { mockPush } from "../__mocks__/next/navigation";
+import {
+  renderLoggedInLayout,
+  renderLoggedOutLayout,
+} from "../../utils/util-test";
 
-import { renderLoggedInLayout, renderLoggedOutLayout } from "./Common.test";
-
-const rederHome = {
+export const renderHome = {
   loggedOut: () => {
-    renderLoggedOutLayout(<HomePage />);
-    renderLoggedOutLayout(<Header />);
+    renderLoggedOutLayout(<HomePage />, { withHeader: true });
   },
   loggedIn: () => {
-    renderLoggedInLayout(<HomePage />);
-    renderLoggedInLayout(<Header />);
+    renderLoggedInLayout(<HomePage />, { withHeader: true });
   },
 };
 
 describe("홈 화면 테스트", () => {
   test("비로그인일 경우 초기 레이아웃 렌더링", async () => {
-    rederHome.loggedOut();
-    expect(screen.getByTestId("sign-in")).toBeInTheDocument();
+    renderHome.loggedOut();
+    expect(await screen.findByTestId("sign-in")).toBeInTheDocument();
     expect(
       await screen.findByRole("button", { name: "Sign in" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("img", { name: "메인 이미지" }),
+      await screen.findByRole("img", { name: "메인 이미지" }),
     ).toBeInTheDocument();
     expect(
       await screen.findByRole("button", { name: "#test1" }),
@@ -37,13 +36,13 @@ describe("홈 화면 테스트", () => {
   });
 
   test("로그인일 경우 초기 레이아웃 렌더링", async () => {
-    rederHome.loggedIn();
-    expect(screen.getByTestId("logout")).toBeInTheDocument();
+    renderHome.loggedIn();
+    expect(await screen.findByTestId("logout")).toBeInTheDocument();
     expect(
       await screen.findByRole("button", { name: "Log out" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("img", { name: "메인 이미지" }),
+      await screen.findByRole("img", { name: "메인 이미지" }),
     ).toBeInTheDocument();
     expect(
       await screen.findByRole("button", { name: "#개발자" }),
@@ -52,7 +51,7 @@ describe("홈 화면 테스트", () => {
   });
 
   test("Edit 버튼 클릭 후 검색 모달 생성", async () => {
-    rederHome.loggedIn();
+    renderHome.loggedIn();
     const editBtn = await screen.findByRole("button", { name: "+ Edit" });
     await userEvent.click(editBtn);
     const cancelBtn = await screen.findByRole("button", { name: "Cancel" });
@@ -62,7 +61,7 @@ describe("홈 화면 테스트", () => {
   });
 
   test("Create Article 버튼 클릭 후 글 작성 페이지 이동", async () => {
-    rederHome.loggedIn();
+    renderHome.loggedIn();
     const createArticleBtn = await screen.findByRole("button", {
       name: "+ Create Article",
     });
@@ -71,7 +70,7 @@ describe("홈 화면 테스트", () => {
   });
 
   test("글 리스트 클릭시 페이지 이동", async () => {
-    rederHome.loggedOut();
+    renderHome.loggedOut();
     const articleList = await screen.findByTestId("post1");
     await userEvent.click(articleList);
     expect(mockPush).toHaveBeenCalledWith("/tech/1");

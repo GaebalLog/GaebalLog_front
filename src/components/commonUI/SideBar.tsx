@@ -17,7 +17,7 @@ interface props {
 const SideBar: React.FC<props> = ({ height, sticky }) => {
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.KEYWORDLIST],
-    queryFn: async () => await axios.get("/api/search/trending"),
+    queryFn: async () => await axios.get("/api/categories"),
   });
   const keywordList = data?.data;
 

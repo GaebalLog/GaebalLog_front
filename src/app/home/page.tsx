@@ -4,12 +4,10 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 import { isLoggedInAtom } from "@/constants/global/atoms";
-import { modalAtom } from "@/constants/global/atoms";
 import { TEXT_COLOR } from "@/constants/global/colors";
 import Post from "@/components/commonUI/Post";
 import Button from "@/components/designSystem/Button";
@@ -18,16 +16,10 @@ import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
 
 import mainImage from "../../../public/assets/images/home/main.png";
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const KeywordSearch = dynamic(
-  () => import("../../components/modal/keywordSearch/KeywordSearch"),
-);
-
 const loggedInUI = ["전체글", "My Friends' Articles"];
 
 const HomePage = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
-  const isModal = useRecoilValue<boolean>(modalAtom);
 
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.POSTLIST_HOME],
@@ -82,7 +74,6 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      {isModal && <KeywordSearch />}
     </div>
   );
 };

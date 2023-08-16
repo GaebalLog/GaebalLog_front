@@ -19,7 +19,6 @@ const Provider: React.FC<{
           <div id="portal" />
         </RecoilRoot>
         <ReactQueryDevtools />
-        <div id="portal" />
       </QueryClientProvider>
     </>
   );
