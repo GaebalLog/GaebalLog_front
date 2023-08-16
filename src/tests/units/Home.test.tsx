@@ -4,11 +4,7 @@ import userEvent from "@testing-library/user-event";
 
 import HomePage from "@/app/home/page";
 
-import { mockPush } from "../__mocks__/next/navigation";
-import {
-  renderLoggedInLayout,
-  renderLoggedOutLayout,
-} from "../../utils/util-test";
+import { mockNavigation } from "../__mocks__/next/navigation";
 
 export const renderHome = {
   loggedOut: () => {
@@ -66,13 +62,13 @@ describe("홈 화면 테스트", () => {
       name: "+ Create Article",
     });
     await userEvent.click(createArticleBtn);
-    expect(mockPush).toHaveBeenCalledWith("/post/tech");
+    expect(mockNavigation).toHaveBeenCalledWith("/post/tech");
   });
 
   test("글 리스트 클릭시 페이지 이동", async () => {
     renderHome.loggedOut();
     const articleList = await screen.findByTestId("post1");
     await userEvent.click(articleList);
-    expect(mockPush).toHaveBeenCalledWith("/tech/1");
+    expect(mockNavigation).toHaveBeenCalledWith("/tech/1");
   });
 });

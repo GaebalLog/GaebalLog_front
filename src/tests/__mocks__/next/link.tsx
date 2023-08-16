@@ -7,13 +7,13 @@
 
 import React from "react";
 
-import { mockPush } from "./navigation";
+import { mockNavigation } from "./navigation";
 
 const NextLink: React.FC<{
   children: React.ReactNode;
   href: string;
 }> = ({ children, href }) => {
-  return <a onClick={() => mockPush(href)}>{children}</a>;
+  return <a onClick={() => mockNavigation(href)}>{children}</a>;
 };
 
 export default NextLink;

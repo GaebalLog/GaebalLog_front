@@ -45,6 +45,7 @@ const InputWithLabel: React.FC<LabelWithInputProps> = ({
       </label>
       <div className="relative">
         <input
+          id={label}
           className={styles.input}
           type={filterdType}
           value={value}
