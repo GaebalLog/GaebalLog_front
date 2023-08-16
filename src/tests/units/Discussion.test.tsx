@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 
 import DiscussionPage from "@/app/discussion/page";
 
-import { mockPush } from "../__mocks__/next/navigation";
+import { mockNavigation } from "../__mocks__/next/navigation";
 import {
   renderLoggedInLayout,
   renderLoggedOutLayout,
@@ -27,7 +27,7 @@ describe("토의목록 페이지 테스트", () => {
 
     const discussionBtn = await screen.findByText("Discussions");
     await userEvent.click(discussionBtn);
-    expect(mockPush).toHaveBeenCalledWith("/discussion");
+    expect(mockNavigation).toHaveBeenCalledWith("/discussion");
   });
 
   test("Create Article 버튼 클릭 후 글 작성 페이지 이동", async () => {
@@ -36,7 +36,7 @@ describe("토의목록 페이지 테스트", () => {
       name: "+ Create Discussion",
     });
     await userEvent.click(createArticleBtn);
-    expect(mockPush).toHaveBeenCalledWith("/post/discussion");
+    expect(mockNavigation).toHaveBeenCalledWith("/post/discussion");
   });
 
   test("Edit 버튼 클릭 후 검색 모달 생성", async () => {
@@ -53,7 +53,7 @@ describe("토의목록 페이지 테스트", () => {
     rederDiscussion.loggedIn();
     const articleList = await screen.findByTestId("discussion1");
     await userEvent.click(articleList);
-    expect(mockPush).toHaveBeenCalledWith("/discussion/1");
+    expect(mockNavigation).toHaveBeenCalledWith("/discussion/1");
   });
 
   test("정렬 방식 클릭시 정렬된 글 리스트 출력", async () => {});

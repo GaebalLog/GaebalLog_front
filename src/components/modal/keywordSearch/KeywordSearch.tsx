@@ -6,6 +6,7 @@ import axios from "axios";
 import { BG_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
 import { modalAtom } from "@/constants/global/atoms";
+import { scrollHandler } from "@/utils/util-scrollhandler";
 
 import Modal from "../Modal";
 import LiveSearchInput from "../../commonUI/LiveSearchInput";
@@ -59,6 +60,11 @@ const KeywordSearch = () => {
     setAddedCategories([]);
     setIsModal((prev) => !prev);
   };
+
+  React.useEffect(() => {
+    scrollHandler.disabledScroll();
+    return () => scrollHandler.enabledScroll();
+  }, []);
 
   return (
     <Modal isBgColor onBackdropClick={() => setIsModal(false)}>

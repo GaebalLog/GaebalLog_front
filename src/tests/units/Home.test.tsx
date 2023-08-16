@@ -3,6 +3,7 @@ import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import HomePage from "@/app/home/page";
+import { renderLoggedInLayout, renderLoggedOutLayout } from "@/utils/util-test";
 
 import { mockNavigation } from "../__mocks__/next/navigation";
 
