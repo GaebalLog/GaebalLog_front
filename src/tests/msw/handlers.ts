@@ -2,7 +2,7 @@ import { rest } from "msw";
 
 export const handlers = [
   // 카테고리
-  rest.get("/api/search/trending", (req, res, ctx) => {
+  rest.get("/api/categories", (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(["test1", "test2", "test3"]));
   }),
   rest.get("/api/userCategories", (req, res, ctx) => {

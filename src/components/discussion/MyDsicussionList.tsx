@@ -31,7 +31,7 @@ const MyDiscussion = () => {
           return (
             <div key={chatListId} className={styles.listBox}>
               <div>{title}</div>
-              <Link href={`/discussionrooms/${chatListId}`}>{arrow}</Link>
+              <Link href={`/discussion/${chatListId}`}>{arrow}</Link>
             </div>
           );
         })}
