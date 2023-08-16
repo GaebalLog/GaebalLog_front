@@ -1,10 +1,35 @@
 import { rest } from "msw";
 
 export const handlers = [
-  // Home
+  // 카테고리
   rest.get("/api/search/trending", (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(["test1", "test2", "test3"]));
   }),
+  rest.get("/api/userCategories", (req, res, ctx) => {
+    // const VALID_TOKEN = "your-valid-token";
+    // const token = req.headers.get("Authorization");
+    // if (!token || token !== `Bearer ${VALID_TOKEN}`) {
+    //   return res(ctx.status(401), ctx.json({ error: "Unauthorized" }));
+    // }
+    return res(
+      ctx.status(200),
+      ctx.json([
+        "개발자",
+        "깃헙사용법정리",
+        "깃허브",
+        "코딩용어",
+        "알고리즘",
+        "Pascal",
+        "Object",
+        "IMP",
+        "Javascript",
+      ]),
+    );
+  }),
+  rest.delete("/api/usercategories/:categoryId", (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
+  // 블로그 글
   rest.get("/api/posts/all", (req, res, ctx) => {
     const posts: posts = [
       {
@@ -48,6 +73,25 @@ export const handlers = [
       },
     ];
     return res(ctx.json({ posts }));
+  }),
+  rest.get("/api/trendCategories", (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json([
+        "Github",
+        "Java",
+        "Physon",
+        "IMP",
+        "Language",
+        "ALGOL",
+        "Javascript",
+        "PEARL",
+        "Object",
+        "PL/SQL",
+        "Pascal",
+        "JASS",
+      ]),
+    );
   }),
 
   // 상세 페이지 api
@@ -160,50 +204,6 @@ export const handlers = [
     );
   }),
 
-  // 실시간 카테고리 검색 api
-  rest.get("/api/userCategories", (req, res, ctx) => {
-    // const VALID_TOKEN = "your-valid-token";
-    // const token = req.headers.get("Authorization");
-    // if (!token || token !== `Bearer ${VALID_TOKEN}`) {
-    //   return res(ctx.status(401), ctx.json({ error: "Unauthorized" }));
-    // }
-    return res(
-      ctx.status(200),
-      ctx.json([
-        "개발자",
-        "깃헙사용법정리",
-        "깃허브",
-        "코딩용어",
-        "알고리즘",
-        "Pascal",
-        "Object",
-        "IMP",
-        "Javascript",
-      ]),
-    );
-  }),
-  rest.delete("/api/usercategories/:categoryId", (req, res, ctx) => {
-    return res(ctx.status(200));
-  }),
-  rest.get("/api/trendCategories", (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json([
-        "Github",
-        "Java",
-        "Physon",
-        "IMP",
-        "Language",
-        "ALGOL",
-        "Javascript",
-        "PEARL",
-        "Object",
-        "PL/SQL",
-        "Pascal",
-        "JASS",
-      ]),
-    );
-  }),
   rest.get("/api/liveSearch", (req, res, ctx) => {
     return res(
       ctx.status(200),
@@ -218,6 +218,59 @@ export const handlers = [
   }),
 
   //토의방 api
+  rest.get("/api/chatlists/1", (req, res, ctx) => {
+    const discussions: discussions = [
+      {
+        chatListId: 1,
+        nickname: "나나",
+        title: "제목1",
+        categories: ["카테고리1", "카테고리2"],
+        thumbnail:
+          "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
+        remainingTime: 1,
+        isparticipated: true,
+      },
+      {
+        chatListId: 2,
+        nickname: "나나",
+        title: "제목1",
+        categories: ["카테고리1", "카테고리2"],
+        thumbnail:
+          "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
+        remainingTime: 1,
+        isparticipated: false,
+      },
+      {
+        chatListId: 3,
+        nickname: "나나",
+        title: "제목1",
+        categories: ["카테고리1", "카테고리2"],
+        thumbnail:
+          "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
+        remainingTime: 1,
+        isparticipated: true,
+      },
+    ];
+    return res(ctx.status(200), ctx.json({ discussions }));
+  }),
+
+  rest.get("/api/users/chatlists", (req, res, ctx) => {
+    const chatList: chatItemAtSide[] = [
+      {
+        chatListId: 1,
+        title: "채팅방1",
+      },
+      {
+        chatListId: 2,
+        title: "채팅방2",
+      },
+      {
+        chatListId: 3,
+        title: "채팅방3",
+      },
+    ];
+    return res(ctx.status(200), ctx.json({ chatList }));
+  }),
   rest.get("/api/chatrooms/:chatroomId", (req, res, ctx) => {
     return res(
       ctx.status(200),
@@ -291,5 +344,33 @@ export const handlers = [
         },
       ]),
     );
+  }),
+  rest.get("/api/neighbors", (req, res, ctx) => {
+    const neighbors = [
+      {
+        userId: 1,
+        nickname: "no.1",
+        profileImg: null,
+      },
+      {
+        userId: 2,
+        nickname: "no.2",
+        profileImg: null,
+      },
+    ];
+    return res(ctx.status(200), ctx.json(neighbors));
+  }),
+  rest.post("api/neighbors", (req, res, ctx) => {
+    const registers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const userId =
+      req.body && typeof req.body === "object" && "userId" in req.body
+        ? req.body.userId
+        : null;
+
+    if (userId && registers.includes(userId)) {
+      return res(ctx.json({ status: 200 }));
+    } else {
+      return res(ctx.json({ status: 400, message: "Invalid userId" }));
+    }
   }),
 ];
