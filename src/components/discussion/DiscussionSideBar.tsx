@@ -1,5 +1,6 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
+import Link from "next/link";
 
 import { isLoggedInAtom } from "@/constants/global/atoms";
 
@@ -16,14 +17,16 @@ const DiscussionSideBar = () => {
     <div>
       {isLoggedIn ? (
         <div className="flex flex-col gap-[16px]">
-          <Button
-            size="middleCreate"
-            color="white"
-            border
-            className="rounded-[3px] w-[380px]"
-          >
-            + Create Discussion
-          </Button>
+          <Link href="/post/discussion">
+            <Button
+              size="middleCreate"
+              color="white"
+              border
+              className="rounded-[3px] w-[380px]"
+            >
+              + Create Discussion
+            </Button>
+          </Link>
           <MyDsicussionList />
           <LoggedSideBar position="disussion" />
           <NeighborArticleList discussion />

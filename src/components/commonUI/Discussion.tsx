@@ -36,6 +36,7 @@ const Discussion: React.FC<{ discussion: discussion }> = ({ discussion }) => {
     <div
       className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02} cursor-pointer`}
       onClick={onClickHandler}
+      data-testid={`discussion${discussion.chatListId}`}
     >
       <div className="w-[332px] h-[280px] overflow-hidden">
         <Image
