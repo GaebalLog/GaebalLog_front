@@ -119,7 +119,9 @@ const Signuppage = () => {
         />
         <p
           className={`-mt-[10px] mb-2 ${
-            isPasswordValid ? TEXT_COLOR.general07rev : "text-red-500"
+            isPasswordValid || passwordInput.value === ""
+              ? TEXT_COLOR.general07rev
+              : "text-red-500"
           }`}
         >
           비밀번호는 8~20 자의 영문 소문자 , 숫자 , 특문 사용

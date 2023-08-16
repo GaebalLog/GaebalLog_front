@@ -3,6 +3,8 @@
 import type { FormEvent } from "react";
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useSetRecoilState } from "recoil";
 
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import InputWithLabel from "@/components/designSystem/InputWithLabel";
@@ -10,6 +12,7 @@ import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
 import { authAPI } from "@/api/api";
 import useInput from "@/hooks/useInput";
+import { isLoggedInAtom } from "@/constants/global/atoms";
 
 const styles = {
   container: `flex flex-col items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
@@ -39,6 +42,10 @@ const googleURL =
   ].join(" ")}`;
 
 const Loginpage = () => {
+  const [isError, setIsError] = React.useState(false);
+  const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
+  const router = useRouter();
+
   const emailInput = useInput();
   const passwordInput = useInput();
   const { getIcon } = useIcon();
@@ -49,11 +56,17 @@ const Loginpage = () => {
 
   const LoginHandler = async (e: FormEvent) => {
     e.preventDefault();
-    const { data } = await authAPI.localLogin(
-      emailInput.value,
-      passwordInput.value,
-    );
-    console.log(data);
+    try {
+      const { data } = await authAPI.localLogin(
+        emailInput.value,
+        passwordInput.value,
+      );
+      alert("로그인 성공!");
+      setIsLoggedIn((prev) => !prev);
+      router.replace("/home");
+    } catch (error) {
+      setIsError(true);
+    }
   };
 
   return (
@@ -63,6 +76,13 @@ const Loginpage = () => {
         <form className={styles.loginSection.form}>
           <InputWithLabel label="E-mail" type="email" {...emailInput} />
           <InputWithLabel label="PASSWORD" type="password" {...passwordInput} />
+          <p
+            className={`-mt-[30px] -mb-7 ${
+              isError ? "text-red-500" : "text-transparent"
+            }`}
+          >
+            아이디 또는 비밀번호를 다시 확인하세요.
+          </p>
           <Button size="bigLogin" color="white" onClick={LoginHandler}>
             Log in
           </Button>
