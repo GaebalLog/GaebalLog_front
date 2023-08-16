@@ -25,7 +25,7 @@ const Discussion: React.FC<{ discussion: discussion }> = ({ discussion }) => {
     if (e.target.closest(".excluded")) {
       return;
     }
-    router.push(`/tech/${discussion.chatListId}`);
+    router.push(`/discussion/${discussion.chatListId}`);
   };
 
   const checkBookmarkHandler = () => {
