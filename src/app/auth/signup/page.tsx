@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import InputWithLabel from "@/components/designSystem/InputWithLabel";
 import Button from "@/components/designSystem/Button";
@@ -12,6 +12,8 @@ import useValidation from "@/hooks/useValidation";
 
 const Signuppage = () => {
   const [file, setFile] = React.useState<File>();
+  const router = useRouter();
+
   const emailInput = useInput();
   const nicknameInput = useInput();
   const passwordInput = useInput();
@@ -57,8 +59,8 @@ const Signuppage = () => {
       formData.append("password", passwordInput.value);
 
       const { data } = await authAPI.localSignup(formData);
-      console.log("회원가입::", data);
-      redirect("/home");
+      alert("회원가입 성공!");
+      router.replace("/home");
     } else {
       alert("회원가입 실패!");
     }
