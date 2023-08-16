@@ -5,9 +5,10 @@ import { redirect } from "next/navigation";
 
 import InputWithLabel from "@/components/designSystem/InputWithLabel";
 import Button from "@/components/designSystem/Button";
-import { BG_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import { authAPI } from "@/api/api";
 import useInput from "@/hooks/useInput";
+import useValidation from "@/hooks/useValidation";
 
 const Signuppage = () => {
   const [file, setFile] = React.useState<File>();
@@ -15,6 +16,7 @@ const Signuppage = () => {
   const nicknameInput = useInput();
   const passwordInput = useInput();
   const passwordConfirmInput = useInput();
+  const { isPassed } = useValidation(passwordInput.value);
 
   const imageUpLoadHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -55,35 +57,84 @@ const Signuppage = () => {
       className={`flex justify-center items-center w-[800px] h-[800px] ${BG_COLOR.general02}`}
     >
       <form className="flex flex-col gap-5" onSubmit={onSubmitHandler}>
-        <input
-          name="input"
-          id="input-upload"
-          type="file"
-          accept="image/*"
-          className="mb-5"
-          onChange={imageUpLoadHandler}
-        />
-        <div>
-          <InputWithLabel label="이메일" type="email" {...emailInput} />
-          <Button size="tab" color="black" onClick={emailCheckHandler}>
-            중복확인
-          </Button>
+        <h1 className="text-[32px] text-center font-hack">Sign up</h1>
+        <div className="text-center">
+          <input
+            name="input"
+            data-testid="input-upload"
+            type="file"
+            accept="image/*"
+            className="mb-5"
+            onChange={imageUpLoadHandler}
+          />
         </div>
-        <div>
-          <InputWithLabel label="닉네임" {...nicknameInput} />
-          <Button size="tab" color="black" onClick={nicknameCheckHandler}>
-            중복확인
-          </Button>
+        <div className="flex">
+          <div>
+            <InputWithLabel
+              className="w-[574px]"
+              label="E-mail"
+              type="email"
+              {...emailInput}
+            />
+          </div>
+          <div className="mt-auto ml-6 mb-1">
+            <Button size="tab" color="white" onClick={emailCheckHandler}>
+              중복 확인
+            </Button>
+          </div>
         </div>
-        <InputWithLabel label="비밀번호" type="password" {...passwordInput} />
+        <div className="flex">
+          <div>
+            <InputWithLabel
+              className="w-[574px]"
+              label="Nickname"
+              {...nicknameInput}
+            />
+          </div>
+          <div className="mt-auto ml-6 mb-1">
+            <Button size="tab" color="white" onClick={nicknameCheckHandler}>
+              중복 확인
+            </Button>
+          </div>
+        </div>
         <InputWithLabel
-          label="비밀번호 재확인"
+          className="w-[574px]"
+          label="Password"
+          type="password"
+          {...passwordInput}
+        />
+        <p
+          className={`-mt-[10px] mb-2 ${
+            isPassed ? TEXT_COLOR.general07rev : "text-red-500"
+          }`}
+        >
+          비밀번호는 8~20 자의 영문 소문자 , 숫자 , 특문 사용
+        </p>
+        <InputWithLabel
+          className="w-[574px]"
+          label="Confirm Password"
           type="password"
           {...passwordConfirmInput}
         />
-        <Button size="tab" color="black" type="submit">
-          회원가입
-        </Button>
+        <p
+          className={`-mt-[10px] ${
+            passwordInput.value === passwordConfirmInput.value
+              ? "text-transparent"
+              : "text-red-500"
+          }`}
+        >
+          비밀번호와 일치시켜주세요.
+        </p>
+        <div className="text-center">
+          <Button
+            className="w-[465px] mt-[75px]"
+            size="bigLogin"
+            color="white"
+            type="submit"
+          >
+            Create Account
+          </Button>
+        </div>
       </form>
     </div>
   );
