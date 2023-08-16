@@ -2,29 +2,20 @@ import React from "react";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import Header from "@/components/header/Header";
 import HomePage from "@/app/home/page";
 
 import { mockPush } from "../__mocks__/next/navigation";
-
-import { renderLoggedInLayout, renderLoggedOutLayout } from "./Common.test";
+import {
+  renderLoggedInLayout,
+  renderLoggedOutLayout,
+} from "../../utils/util-test";
 
 export const renderHome = {
   loggedOut: () => {
-    renderLoggedOutLayout(
-      <>
-        <Header />
-        <HomePage />
-      </>,
-    );
+    renderLoggedOutLayout(<HomePage />, { withHeader: true });
   },
   loggedIn: () => {
-    renderLoggedInLayout(
-      <>
-        <Header />
-        <HomePage />
-      </>,
-    );
+    renderLoggedInLayout(<HomePage />, { withHeader: true });
   },
 };
 
