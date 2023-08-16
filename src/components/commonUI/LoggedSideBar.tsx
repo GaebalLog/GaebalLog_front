@@ -2,13 +2,13 @@
 import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { useSetRecoilState } from "recoil";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import { modalAtom } from "@/constants/global/atoms";
+import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 
 import Button from "../designSystem/Button";
+
+import EditBtn from "./EditBtn";
 
 interface props {
   position: "top" | "bottom" | "disussion";
@@ -18,7 +18,6 @@ interface props {
 const colorSettings = `relative ${BG_COLOR.general02} ${BORDER_COLOR.container}`;
 
 const LoggedSide: React.FC<props> = ({ height, sticky, position }) => {
-  const setIsModal = useSetRecoilState<boolean>(modalAtom);
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.KEYWORDLIST],
     queryFn: async () => await axios.get("/api/usercategories"),
@@ -40,14 +39,6 @@ const LoggedSide: React.FC<props> = ({ height, sticky, position }) => {
     ? `w-[380px] sticky top-[114px] overflow-auto ${colorSettings} ${heightValue}`
     : `w-[380px] overflow-auto ${colorSettings} ${heightValue}`;
 
-  const editPosition =
-    position === "top" || position === "disussion"
-      ? "top-[26px]"
-      : "bottom-[16px]";
-  const buttonStyles = `${TEXT_COLOR.primary} ${
-    position === "bottom" ? "text-[24px]" : "text-[16px]"
-  } absolute ${editPosition} right-[25px]`;
-
   return (
     <div className={styles}>
       <div className="px-[16px] py-[24px]">
@@ -63,12 +54,7 @@ const LoggedSide: React.FC<props> = ({ height, sticky, position }) => {
               #{keyword}
             </Button>
           ))}
-          <button
-            className={buttonStyles}
-            onClick={() => setIsModal((prev) => !prev)}
-          >
-            + Edit
-          </button>
+          <EditBtn position={position} />
         </div>
       </div>
     </div>

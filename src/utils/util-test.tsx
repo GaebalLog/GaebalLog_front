@@ -4,6 +4,7 @@ import { render } from "@testing-library/react";
 
 import Provider from "@/components/provider/Provider";
 import { isLoggedInAtom } from "@/constants/global/atoms";
+import Header from "@/components/header/Header";
 
 const mockInitializeState =
   (isLoggedInValue: boolean) =>
@@ -16,9 +17,16 @@ const mockInitializeState =
  * @example
  * renderLoggedInLayout(<HomePage />);
  */
-export const renderLoggedInLayout = (component: React.JSX.Element) => {
+interface option {
+  withHeader: boolean;
+}
+export const renderLoggedInLayout = (
+  component: React.JSX.Element,
+  option?: option,
+) => {
   render(
     <Provider initializeState={mockInitializeState(true)}>
+      {option?.withHeader && <Header />}
       {component}
     </Provider>,
   );
@@ -28,9 +36,13 @@ export const renderLoggedInLayout = (component: React.JSX.Element) => {
  * @example
  * renderLoggedInLayout(<HomePage />);
  */
-export const renderLoggedOutLayout = (component: React.JSX.Element) => {
+export const renderLoggedOutLayout = (
+  component: React.JSX.Element,
+  option?: option,
+) => {
   render(
     <Provider initializeState={mockInitializeState(false)}>
+      {option?.withHeader && <Header />}
       {component}
     </Provider>,
   );

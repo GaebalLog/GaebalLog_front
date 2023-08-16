@@ -3,7 +3,6 @@ import axios from "axios";
 import React from "react";
 import Link from "next/link";
 
-import type { chatItemAtSide } from "@/@types";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
 
@@ -32,7 +31,7 @@ const MyDiscussion = () => {
           return (
             <div key={chatListId} className={styles.listBox}>
               <div>{title}</div>
-              <Link href={`/discussionrooms/${chatListId}`}>{arrow}</Link>
+              <Link href={`/discussion/${chatListId}`}>{arrow}</Link>
             </div>
           );
         })}
