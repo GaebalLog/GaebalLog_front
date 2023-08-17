@@ -18,8 +18,14 @@ const useRouter = () => ({
   replace: mockNavigation,
 });
 
+const useSearchParams = () => ({
+  get: mockNavigation,
+});
+
 const usePathname = mockNavigation;
 
 const redirect = mockNavigation;
 
-export { useRouter, usePathname, redirect };
+const notFound = mockNavigation;
+
+export { useRouter, useSearchParams, usePathname, redirect, notFound };
