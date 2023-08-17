@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { notFound, redirect, useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
 
@@ -11,7 +12,7 @@ interface snsTypeProps {
   };
 }
 
-const GoogleLogin = ({ params: { snsType } }: snsTypeProps) => {
+const SnsLogin = ({ params: { snsType } }: snsTypeProps) => {
   const searchParams = useSearchParams();
 
   const fetchData = useCallback(async () => {
@@ -32,7 +33,7 @@ const GoogleLogin = ({ params: { snsType } }: snsTypeProps) => {
     redirect("/home");
   }, [fetchData]);
 
-  return;
+  return <></>;
 };
 
-export default GoogleLogin;
+export default SnsLogin;
