@@ -61,6 +61,8 @@ const Loginpage = () => {
         emailInput.value,
         passwordInput.value,
       );
+      console.log(data);
+
       alert("로그인 성공!");
       setIsLoggedIn((prev) => !prev);
       router.replace("/home");

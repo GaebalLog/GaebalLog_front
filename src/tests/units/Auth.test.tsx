@@ -1,6 +1,5 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 
 import Loginpage from "@/app/auth/login/page";
 import RootLayout from "@/app/layout";

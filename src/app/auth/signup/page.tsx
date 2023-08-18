@@ -59,6 +59,7 @@ const Signuppage = () => {
       formData.append("password", passwordInput.value);
 
       const { data } = await authAPI.localSignup(formData);
+      console.log(data);
       alert("회원가입 성공!");
       router.replace("/home");
     } else {
