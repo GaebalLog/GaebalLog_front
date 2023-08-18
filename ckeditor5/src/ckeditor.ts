@@ -13,6 +13,7 @@ import { BlockQuote } from '@ckeditor/ckeditor5-block-quote';
 import { CodeBlock } from '@ckeditor/ckeditor5-code-block';
 import { Essentials } from '@ckeditor/ckeditor5-essentials';
 import { FontBackgroundColor, FontColor, FontFamily, FontSize } from '@ckeditor/ckeditor5-font';
+import { Heading } from '@ckeditor/ckeditor5-heading';
 import { HorizontalLine } from '@ckeditor/ckeditor5-horizontal-line';
 import {
 	AutoImage,
@@ -27,6 +28,7 @@ import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
 import { Table, TableToolbar } from '@ckeditor/ckeditor5-table';
 import { TextTransformation } from '@ckeditor/ckeditor5-typing';
+import { Base64UploadAdapter } from '@ckeditor/ckeditor5-upload';
 
 // You can read more about extending the build with additional plugins in the "Installing plugins" guide.
 // See https://ckeditor.com/docs/ckeditor5/latest/installation/plugins/installing-plugins.html for details.
@@ -37,6 +39,7 @@ class Editor extends ClassicEditor {
 		AutoImage,
 		Autoformat,
 		Autosave,
+		Base64UploadAdapter,
 		BlockQuote,
 		Bold,
 		CodeBlock,
@@ -45,6 +48,7 @@ class Editor extends ClassicEditor {
 		FontColor,
 		FontFamily,
 		FontSize,
+		Heading,
 		HorizontalLine,
 		Image,
 		ImageCaption,
@@ -69,6 +73,7 @@ class Editor extends ClassicEditor {
 			items: [
 				'undo',
 				'redo',
+				'heading',
 				'|',
 				'fontFamily',
 				'fontSize',

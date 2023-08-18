@@ -11,6 +11,7 @@ import { BlockQuote } from '@ckeditor/ckeditor5-block-quote';
 import { CodeBlock } from '@ckeditor/ckeditor5-code-block';
 import { Essentials } from '@ckeditor/ckeditor5-essentials';
 import { FontBackgroundColor, FontColor, FontFamily, FontSize } from '@ckeditor/ckeditor5-font';
+import { Heading } from '@ckeditor/ckeditor5-heading';
 import { HorizontalLine } from '@ckeditor/ckeditor5-horizontal-line';
 import { AutoImage, Image, ImageCaption, ImageToolbar, ImageUpload } from '@ckeditor/ckeditor5-image';
 import { Indent, IndentBlock } from '@ckeditor/ckeditor5-indent';
@@ -19,8 +20,9 @@ import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
 import { Table, TableToolbar } from '@ckeditor/ckeditor5-table';
 import { TextTransformation } from '@ckeditor/ckeditor5-typing';
+import { Base64UploadAdapter } from '@ckeditor/ckeditor5-upload';
 declare class Editor extends ClassicEditor {
-    static builtinPlugins: (typeof Alignment | typeof TextTransformation | typeof Autoformat | typeof Autosave | typeof Bold | typeof Italic | typeof Strikethrough | typeof Underline | typeof BlockQuote | typeof CodeBlock | typeof Essentials | typeof FontBackgroundColor | typeof FontColor | typeof FontFamily | typeof FontSize | typeof HorizontalLine | typeof AutoImage | typeof Image | typeof ImageCaption | typeof ImageToolbar | typeof ImageUpload | typeof Indent | typeof IndentBlock | typeof List | typeof TodoList | typeof MediaEmbed | typeof Paragraph | typeof Table | typeof TableToolbar)[];
+    static builtinPlugins: (typeof Alignment | typeof TextTransformation | typeof Autoformat | typeof Autosave | typeof Bold | typeof Italic | typeof Strikethrough | typeof Underline | typeof BlockQuote | typeof CodeBlock | typeof Essentials | typeof FontBackgroundColor | typeof FontColor | typeof FontFamily | typeof FontSize | typeof Paragraph | typeof Heading | typeof HorizontalLine | typeof Base64UploadAdapter | typeof AutoImage | typeof Image | typeof ImageCaption | typeof ImageToolbar | typeof ImageUpload | typeof Indent | typeof IndentBlock | typeof List | typeof TodoList | typeof MediaEmbed | typeof Table | typeof TableToolbar)[];
     static defaultConfig: {
         toolbar: {
             items: string[];
