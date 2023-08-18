@@ -4,6 +4,7 @@ export const scrollHandler = {
    */
   disabledScroll: () => {
     document.body.style.overflowY = "hidden";
+    window.scrollTo(0, 0);
   },
   /**
    * enabled scroll event
