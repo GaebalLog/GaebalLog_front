@@ -2,6 +2,8 @@
 import React from "react";
 
 import useIcon from "@/hooks/useIcon";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import useModalController from "@/hooks/useModalController";
 
 const styles = {
   searchModal: {
@@ -9,11 +11,16 @@ const styles = {
     input: "w-full h-full pl-[30px] pr-[55px] rounded-full",
   },
   header: {
-    container: "relative w-[666px] h-[48px]",
-    input:
-      "w-[666px] h-[48px] rounded-[24px] p-[15px] border border-solid border-gray-[600]",
+    container: `flex relative w-[666px] h-[48px] rounded-[24px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.general06}`,
+    input: "w-[666px] h-[48px] px-[15px] rounded-r-[24px] bg-transparent",
   },
   icon: `absolute top-[15px] right-[15px] cursor-pointer`,
+  dropDown: {
+    drop: "w-[100px] h-[48px] cursor-pointer  flex items-center justify-center text-[18px] ",
+    ul: `absolute top-[48px] left-0 z-10 w-[100px] max-h-[100px] overflow-y-auto rounded-[10px] text-[18px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.primary}`,
+    noSelected: `w-full h-[48px] px-[30px] flex items-center cursor-pointer ${BG_COLOR.general01}`,
+    selected: `w-full h-[48px] px-[30px] flex items-center cursor-pointer ${BG_COLOR.general06}`,
+  },
 };
 interface InputProps {
   type: "searchModal" | "header";
@@ -23,6 +30,7 @@ interface InputProps {
   onClick?: (keyword: string) => void;
 }
 
+const sortList = ["토의", "기술"] as const;
 /**헤더와 검색 모달의 검색 인풋 */
 const Input: React.FC<InputProps> = ({
   type,
@@ -31,7 +39,13 @@ const Input: React.FC<InputProps> = ({
   onChange,
   onClick,
 }) => {
+  const { modal, closeModal, toggleModal } = useModalController();
+
   const { getIcon } = useIcon();
+  const [searchSort, setSearchSort] =
+    React.useState<(typeof sortList)[number]>("토의");
+  const [hoveredItem, setHoveredItem] =
+    React.useState<(typeof sortList)[number]>(); // 현재 hover 중인 항목을 추적하는 상태
   const search = getIcon("search", 18, 18);
 
   const handleIconClick = () => {
@@ -39,7 +53,40 @@ const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <div className={styles[type].container}>
+    <div
+      className={styles[type].container}
+      onClick={(e) => e.stopPropagation()}
+    >
+      {type === "header" && (
+        <span
+          className={styles.dropDown.drop}
+          onClick={() => toggleModal("headerSearch")}
+        >
+          {searchSort}
+        </span>
+      )}
+      {modal.headerSearch && (
+        <ul className={styles.dropDown.ul}>
+          {sortList.map((sort) => (
+            <li
+              key={sort}
+              className={
+                hoveredItem === sort
+                  ? styles.dropDown.selected
+                  : styles.dropDown.noSelected
+              }
+              onClick={() => {
+                setSearchSort(sort);
+                closeModal("headerSearch");
+              }}
+              onMouseOver={() => setHoveredItem(sort)}
+              onMouseLeave={() => setHoveredItem(undefined)}
+            >
+              {sort}
+            </li>
+          ))}
+        </ul>
+      )}
       <input
         id={type}
         className={styles[type].input}

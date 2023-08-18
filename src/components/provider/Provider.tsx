@@ -6,6 +6,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { MutableSnapshot } from "recoil";
 import { RecoilRoot } from "recoil";
 
+import SettingsProvider from "./SettingsProvider";
+
 const Provider: React.FC<{
   children: React.ReactNode;
   initializeState?: (mutableSnapshot: MutableSnapshot) => void;
@@ -15,7 +17,7 @@ const Provider: React.FC<{
     <>
       <QueryClientProvider client={queryClient}>
         <RecoilRoot initializeState={initializeState}>
-          {children}
+          <SettingsProvider>{children}</SettingsProvider>
           <div id="portal" />
         </RecoilRoot>
         <ReactQueryDevtools />

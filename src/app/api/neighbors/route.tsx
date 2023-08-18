@@ -1,3 +1,4 @@
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
@@ -16,7 +17,8 @@ export const GET = async () => {
   return NextResponse.json(neighbors);
 };
 
-export const POST = async (userId: number) => {
+export const POST = async (request: NextRequest) => {
+  const userId = await request.json();
   const registers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   if (registers.includes(userId)) return NextResponse.json({ status: 200 });
 };

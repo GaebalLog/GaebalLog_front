@@ -35,6 +35,8 @@ const Postpage: React.FC<postpageParams> = ({ params: { slug } }) => {
   const [isModal, setIsModal] = React.useState(false);
   const titleRef = React.useRef<HTMLInputElement | null>(null);
   const editorDataRef = React.useRef("");
+  console.log(editorDataRef);
+
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
     if (titleRef.current) {
