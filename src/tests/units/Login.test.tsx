@@ -10,6 +10,8 @@ import Provider from "@/components/provider/Provider";
 import { mockNavigation } from "../__mocks__/next/navigation";
 import { server } from "../msw/server";
 
+import { renderHome } from "./Home.test";
+
 describe("로그인 페이지 테스트", () => {
   beforeEach(() => {
     render(<Loginpage />, { wrapper: Provider });
@@ -69,5 +71,23 @@ describe("로그인 페이지 테스트", () => {
     await waitFor(() => {
       expect(mockNavigation).toHaveBeenCalledWith("/home");
     });
+  });
+});
+
+describe("헤더 경로 이동 테스트", () => {
+  test("헤더의 로그인 버튼 경로 이동 테스트", async () => {
+    renderHome.loggedOut();
+    await userEvent.click(
+      await screen.findByRole("button", { name: "Sign in" }),
+    );
+    expect(mockNavigation).toHaveBeenCalledWith("/auth/login");
+  });
+
+  test("헤더의 회원가입 버튼 경로 이동 테스트", async () => {
+    renderHome.loggedOut();
+    await userEvent.click(
+      await screen.findByRole("button", { name: "Sign up" }),
+    );
+    expect(mockNavigation).toHaveBeenCalledWith("/auth/signup");
   });
 });
