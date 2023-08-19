@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
@@ -26,12 +27,14 @@ interface liveSearchInputProps {
   categoryAddHandler?: (selectedKeyword: string) => void;
   type: "searchModal" | "header";
   isRouter?: boolean;
+  voiceSearch?: string | null;
 }
 
 const LiveSearchInput: React.FC<liveSearchInputProps> = ({
   categoryAddHandler,
   type,
   isRouter,
+  voiceSearch,
 }) => {
   const [isModal, setIsModal] = React.useState<boolean>(false);
   const [displayedResults, setDisplayedResults] = React.useState([]);
@@ -68,7 +71,6 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
 
   const searchKeywordClick = (selectedKeyword: string) => {
     categoryAddHandler && categoryAddHandler(selectedKeyword);
-    setValue("");
     setIsModal((prev) => !prev);
     setFocusedIndex(null);
     isRouter && router.push(`/tech?keyword=${selectedKeyword}`);
@@ -101,6 +103,12 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
     }
   }, [focusedIndex, data, setValue]);
 
+  React.useEffect(() => {
+    if (voiceSearch) {
+      setValue(voiceSearch);
+      searchKeywordClick(voiceSearch);
+    }
+  }, [voiceSearch]);
   React.useEffect(() => {
     setIsModal(Boolean(value));
   }, [value]);

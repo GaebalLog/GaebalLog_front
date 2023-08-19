@@ -6,27 +6,30 @@ import { darkAtom } from "@/constants/global/atoms";
 
 import ICON from "../../public/assets/icons/common";
 
-/**
- *
- * @description
- * useIcon은 아이콘을 가져오는 커스텀 훅입니다.
- * @example
- * import React from "react";
- * import useIcon from "@/hooks/useIcon";
- *
- * const example = () => {
- *  const { getIcon } = useIcon();
- *  const Alarm = getIcon("alarm", 18, 22);
- *  return (
- *    <div>{Alarm}</div>
- *  );
- * };
- * export default NotLoggedInBox;
- */
-
 const useIcon = () => {
   const dark = useRecoilValue(darkAtom);
-
+  /**
+   *
+   * @description
+   * useIcon은 아이콘을 가져오는 커스텀 훅입니다.
+   * @param
+   * name: 아이콘 이름
+   * width: 아이콘 너비
+   * height: 아이콘 높이
+   * option: 아이콘 옵션
+   * @example
+   * import React from "react";
+   * import useIcon from "@/hooks/useIcon";
+   *
+   * const example = () => {
+   *  const { getIcon } = useIcon();
+   *  const Alarm = getIcon("alarm", 18, 22);
+   *  return (
+   *    <div>{Alarm}</div>
+   *  );
+   * };
+   * export default NotLoggedInBox;
+   */
   const getIcon = (
     name: keyof typeof ICON,
     width: number,
