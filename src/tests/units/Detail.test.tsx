@@ -3,18 +3,14 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Detail from "@/app/tech/[title]/page";
-import RootLayout from "@/app/layout";
 import CommentsList from "@/components/detail/CommentsList";
 import ChildComment from "@/components/detail/comment/ChildComment";
 import GrandChildComment from "@/components/detail/comment/GrandChildComment";
+import Provider from "@/components/provider/Provider";
 
 describe("디테일 페이지 렌더링 테스트", () => {
   beforeEach(() => {
-    render(
-      <RootLayout>
-        <Detail params={{ postId: 1 }} />
-      </RootLayout>,
-    );
+    render(<Detail params={{ postId: 1 }} />, { wrapper: Provider });
   });
 
   test("디테일 페이지 본문 렌더링 테스트", async () => {
@@ -75,31 +71,31 @@ describe("삭제된 댓글 렌더링 테스트", () => {
   };
 
   test("댓글 삭제됐을 때 테스트", async () => {
-    render(<CommentsList {...comment} />, { wrapper: RootLayout });
+    render(<CommentsList {...comment} />, { wrapper: Provider });
 
     expect(screen.queryByText("삭제 된 댓글 입니다.")).not.toBeInTheDocument();
 
-    render(<CommentsList {...deletedComment} />, { wrapper: RootLayout });
+    render(<CommentsList {...deletedComment} />, { wrapper: Provider });
 
     expect(await screen.findByText("삭제 된 댓글 입니다.")).toBeInTheDocument();
   });
 
   test("대댓글 삭제됐을 때 테스트", async () => {
-    render(<ChildComment {...comment} />, { wrapper: RootLayout });
+    render(<ChildComment {...comment} />, { wrapper: Provider });
 
     expect(screen.queryByText("삭제 된 댓글 입니다.")).not.toBeInTheDocument();
 
-    render(<ChildComment {...deletedComment} />, { wrapper: RootLayout });
+    render(<ChildComment {...deletedComment} />, { wrapper: Provider });
 
     expect(await screen.findByText("삭제 된 댓글 입니다.")).toBeInTheDocument();
   });
 
   test("대대댓글 삭제됐을 때 테스트", async () => {
-    render(<GrandChildComment {...comment} />, { wrapper: RootLayout });
+    render(<GrandChildComment {...comment} />, { wrapper: Provider });
 
     expect(screen.queryByText("삭제 된 댓글 입니다.")).not.toBeInTheDocument();
 
-    render(<GrandChildComment {...deletedComment} />, { wrapper: RootLayout });
+    render(<GrandChildComment {...deletedComment} />, { wrapper: Provider });
 
     expect(await screen.findByText("삭제 된 댓글 입니다.")).toBeInTheDocument();
   });

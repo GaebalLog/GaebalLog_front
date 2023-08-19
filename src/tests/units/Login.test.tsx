@@ -4,15 +4,15 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
 import Loginpage from "@/app/auth/login/page";
-import RootLayout from "@/app/layout";
 import SnsLogin from "@/app/auth/callback/[...snsType]/page";
+import Provider from "@/components/provider/Provider";
 
 import { mockNavigation } from "../__mocks__/next/navigation";
 import { server } from "../msw/server";
 
 describe("로그인 페이지 테스트", () => {
   beforeEach(() => {
-    render(<Loginpage />, { wrapper: RootLayout });
+    render(<Loginpage />, { wrapper: Provider });
   });
 
   test("로그인 페이지 렌더링 테스트", async () => {

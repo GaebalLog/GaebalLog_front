@@ -3,13 +3,12 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import axios from "axios";
 
-import RootLayout from "@/app/layout";
 import HomePage from "@/app/home/page";
 import KeywordSearch from "@/components/modal/keywordSearch/KeywordSearch";
 import Provider from "@/components/provider/Provider";
 
 test("edit 버튼을 누르면 키워드 검색 모달이 열리고 Cancel 버튼을 누르면 닫힌다.", async () => {
-  render(<HomePage />, { wrapper: RootLayout });
+  render(<HomePage />, { wrapper: Provider });
   await userEvent.click(screen.getByRole("button", { name: /Edit/ }));
   expect(
     await screen.findByRole("button", { name: "Cancel" }),
@@ -23,7 +22,7 @@ test("edit 버튼을 누르면 키워드 검색 모달이 열리고 Cancel 버�
 
 describe("키워드 검색 모달 API 요청 테스트", () => {
   beforeEach(async () => {
-    render(<KeywordSearch />, { wrapper: RootLayout });
+    render(<KeywordSearch />, { wrapper: Provider });
   });
 
   test("현재 나의 키워드 get 요청 테스트", async () => {

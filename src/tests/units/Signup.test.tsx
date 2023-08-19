@@ -2,14 +2,14 @@ import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import RootLayout from "@/app/layout";
 import Signuppage from "@/app/auth/signup/page";
+import Provider from "@/components/provider/Provider";
 
 import { mockNavigation } from "../__mocks__/next/navigation";
 
 describe("로컬 회원가입 테스트", () => {
   beforeEach(() => {
-    render(<Signuppage />, { wrapper: RootLayout });
+    render(<Signuppage />, { wrapper: Provider });
   });
 
   const mockAlert = jest.spyOn(window, "alert").mockImplementation(() => {});
