@@ -11,6 +11,8 @@ import useIcon from "@/hooks/useIcon";
 
 import logo from "../../../public/assets/images/home/logo.png";
 import LiveSearchInput from "../commonUI/LiveSearchInput";
+import VoiceSearch from "../VoiceSearch";
+import Modal from "../modal/Modal";
 
 import LoggedInBox from "./LoggedInBox";
 import NotLoggedInBox from "./NotLoggedInBox";
@@ -33,11 +35,21 @@ const noHeaderPathList = [
 ];
 
 const Header = () => {
+  const [modal, setModal] = React.useState(false);
   const path = usePathname();
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const { getIcon } = useIcon();
   const mike = getIcon("mike", 24, 24);
-
+  const [voiceSearch, setVoiceSearch] = React.useState<string | null>(null);
+  const setVoice = (value: string) => {
+    setVoiceSearch(value);
+  };
+  const toggleModal = () => {
+    setModal((prev) => !prev);
+  };
+  const closeModal = () => {
+    setModal(false);
+  };
   return (
     <header
       className={`flex justify-center w-full border-b-[3px] ${BORDER_COLOR.primary} ${BG_COLOR.background} fixed top-0 z-10`}
@@ -63,9 +75,18 @@ const Header = () => {
                 </Link>
               ))}
               <li>
-                <LiveSearchInput type="header" isRouter />
+                <LiveSearchInput
+                  type="header"
+                  isRouter
+                  voiceSearch={voiceSearch}
+                />
               </li>
-              <li>{mike}</li>
+              <li onClick={toggleModal}>{mike}</li>
+              {modal && (
+                <Modal isBgColor onBackdropClick={toggleModal}>
+                  <VoiceSearch closeModal={closeModal} setVoice={setVoice} />
+                </Modal>
+              )}
             </ul>
           )}
           <ul className={styles.innerUl}>
