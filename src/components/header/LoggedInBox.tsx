@@ -1,11 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import { useSetRecoilState } from "recoil";
+import axios from "axios";
 
 import useIcon from "@/hooks/useIcon";
-import { isLoggedInAtom } from "@/constants/global/atoms";
 
 import Button from "../designSystem/Button";
+import { isLoggedInAtom } from "../provider/SettingsProvider";
 
 const LoggedInBox = () => {
   const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
@@ -14,8 +15,13 @@ const LoggedInBox = () => {
   const alarm = getIcon("alarm", 18, 22);
   const profile = getIcon("profile", 40, 40);
 
-  const logoutHandler = () => {
-    setIsLoggedIn((prev) => !prev);
+  const logoutHandler = async () => {
+    try {
+      await axios.post("/api/auth");
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.log("logout error : ", error);
+    }
   };
 
   return (

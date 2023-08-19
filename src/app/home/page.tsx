@@ -7,12 +7,12 @@ import { useRecoilValue } from "recoil";
 import Link from "next/link";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { isLoggedInAtom } from "@/constants/global/atoms";
 import { TEXT_COLOR } from "@/constants/global/colors";
 import Post from "@/components/commonUI/Post";
 import Button from "@/components/designSystem/Button";
 import SideBar from "@/components/commonUI/SideBar";
 import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
+import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
 
 import mainImage from "../../../public/assets/images/home/main.png";
 

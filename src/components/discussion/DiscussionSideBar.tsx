@@ -2,12 +2,11 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import Link from "next/link";
 
-import { isLoggedInAtom } from "@/constants/global/atoms";
-
 import SideBar from "../commonUI/SideBar";
 import Button from "../designSystem/Button";
 import { LoggedSideBar } from "../commonUI/LoggedSideBar";
 import { NeighborArticleList } from "../commonUI/NeighborArticleList";
+import { isLoggedInAtom } from "../provider/SettingsProvider";
 
 import { MyDsicussionList } from "./MyDsicussionList";
 

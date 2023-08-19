@@ -3,8 +3,8 @@ import type { MutableSnapshot } from "recoil";
 import { render } from "@testing-library/react";
 
 import Provider from "@/components/provider/Provider";
-import { isLoggedInAtom } from "@/constants/global/atoms";
 import Header from "@/components/header/Header";
+import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
 
 const mockInitializeState =
   (isLoggedInValue: boolean) =>

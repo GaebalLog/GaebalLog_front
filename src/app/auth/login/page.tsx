@@ -12,7 +12,7 @@ import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
 import { authAPI } from "@/api/api";
 import useInput from "@/hooks/useInput";
-import { isLoggedInAtom } from "@/constants/global/atoms";
+import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
 
 const styles = {
   container: `flex flex-col items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,

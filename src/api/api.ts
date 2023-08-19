@@ -29,4 +29,8 @@ export const authAPI = {
     const { data } = await instance.post("/auth/nicknameCheck", { nickname });
     return data;
   },
+  isLogin: async () => {
+    const { data } = await instance.get("/auth");
+    return data;
+  },
 };
