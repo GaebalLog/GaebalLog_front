@@ -33,7 +33,11 @@ const SettingsProvider: React.FC<props> = ({ children }) => {
   //   authConfirm();
   // }, [authConfirm, searchParams]);
 
-  return <div onClick={allCloseModal}>{children}</div>;
+  return (
+    <div className="flex flex-col items-center" onClick={allCloseModal}>
+      {children}
+    </div>
+  );
 };
 
 export default SettingsProvider;
