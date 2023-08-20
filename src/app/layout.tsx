@@ -24,7 +24,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className={`flex flex-col items-center`}>
+      <body>
         <Provider>
           <div className="h-[94px]" />
           <Header />
