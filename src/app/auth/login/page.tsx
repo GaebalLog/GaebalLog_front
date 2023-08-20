@@ -80,7 +80,7 @@ const Loginpage = () => {
           <InputWithLabel label="PASSWORD" type="password" {...passwordInput} />
           <p
             className={`-mt-[30px] -mb-7 ${
-              isError ? "text-red-500" : "text-transparent"
+              isError ? TEXT_COLOR.error : "text-transparent"
             }`}
           >
             아이디 또는 비밀번호를 다시 확인하세요.

@@ -26,28 +26,28 @@ describe("로컬 회원가입 테스트", () => {
 
     // 길이가 8이어야 하는지 테스트
     await userEvent.type(passwordInput, "!a12345");
-    expect(validationText).toHaveClass("text-red-500");
+    expect(validationText).toHaveClass("text-[#FF0000]");
     await userEvent.type(passwordInput, "6");
     expect(validationText).toHaveClass("text-[#48483F]");
     await userEvent.clear(passwordInput);
 
     // 영문이 포함되어야 하는지 테스트
     await userEvent.type(passwordInput, "1234567*");
-    expect(validationText).toHaveClass("text-red-500");
+    expect(validationText).toHaveClass("text-[#FF0000]");
     await userEvent.type(passwordInput, "d");
     expect(validationText).toHaveClass("text-[#48483F]");
     await userEvent.clear(passwordInput);
 
     // 숫자가 포함되어야 하는지 테스트
     await userEvent.type(passwordInput, "abcdefgh*");
-    expect(validationText).toHaveClass("text-red-500");
+    expect(validationText).toHaveClass("text-[#FF0000]");
     await userEvent.type(passwordInput, "1");
     expect(validationText).toHaveClass("text-[#48483F]");
     await userEvent.clear(passwordInput);
 
     // 특수문자가 포함되어야 하는지 테스트
     await userEvent.type(passwordInput, "a1234567");
-    expect(validationText).toHaveClass("text-red-500");
+    expect(validationText).toHaveClass("text-[#FF0000]");
     await userEvent.type(passwordInput, "@");
     expect(validationText).toHaveClass("text-[#48483F]");
     await userEvent.clear(passwordInput);
@@ -62,9 +62,9 @@ describe("로컬 회원가입 테스트", () => {
 
     expect(validationText).toHaveClass("text-transparent");
     await userEvent.type(password, "a@123456");
-    expect(validationText).toHaveClass("text-red-500");
+    expect(validationText).toHaveClass("text-[#FF0000]");
     await userEvent.type(passwordConfirm, "a@12345");
-    expect(validationText).toHaveClass("text-red-500");
+    expect(validationText).toHaveClass("text-[#FF0000]");
     await userEvent.type(passwordConfirm, "6");
     expect(validationText).toHaveClass("text-transparent");
   });

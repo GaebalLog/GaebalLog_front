@@ -45,6 +45,7 @@ export const TEXT_COLOR = {
   accentYellow: "text-[#DFAE3D] dark:text-[#DFAE3D]",
   accentPurple: "text-[#967AC3] dark:text-[#967AC3]",
   accentBlue: "text-[#7ECDF3] dark:text-[#7ECDF3]",
+  error: "text-[#FF0000] dark:text-[#E01616]",
 };
 
 export const BORDER_COLOR = {

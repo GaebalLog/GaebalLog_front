@@ -47,7 +47,7 @@ describe("로그인 페이지 테스트", () => {
     );
     expect(
       await screen.findByText("아이디 또는 비밀번호를 다시 확인하세요."),
-    ).toHaveClass("text-red-500");
+    ).toHaveClass("text-[#FF0000]");
   });
 
   test("구글 로그인 테스트", async () => {
