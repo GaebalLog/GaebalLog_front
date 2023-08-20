@@ -70,9 +70,6 @@ describe("로컬 회원가입 테스트", () => {
   });
 
   test("조건 만족 못하면 회원가입 안 되어야 함", async () => {
-    const fileInput = await screen.findByTestId<HTMLInputElement>(
-      "input-upload",
-    );
     const emailInput = await screen.findByLabelText<HTMLInputElement>("E-mail");
     const nicknameInput = await screen.findByLabelText<HTMLInputElement>(
       "Nickname",
@@ -83,6 +80,7 @@ describe("로컬 회원가입 테스트", () => {
     const passwordConfirmInput = await screen.findByLabelText<HTMLInputElement>(
       "Confirm Password",
     );
+    const checkboxInput = await screen.findByTestId("agree");
 
     const createAccountButton = await screen.findByText("Create Account");
 
@@ -112,9 +110,7 @@ describe("로컬 회원가입 테스트", () => {
     expect(mockAlert).toBeCalledTimes(4);
 
     // // 모든 유효성 통과
-    const file = new File(["test image"], "test.png", { type: "image/png" });
-
-    await userEvent.upload(fileInput, file);
+    await userEvent.click(checkboxInput);
     await userEvent.click(createAccountButton);
     await waitFor(() => {
       expect(mockNavigation).toHaveBeenCalledWith("/home");
