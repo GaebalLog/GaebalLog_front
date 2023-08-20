@@ -24,7 +24,7 @@ const TechSideBar = () => {
               + Create Article
             </Button>
           </Link>
-          <LoggedSideBar position="top" />
+          <LoggedSideBar type="tech" position="top" />
           <NeighborArticleList />
         </div>
       ) : (
