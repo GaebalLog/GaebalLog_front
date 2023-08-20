@@ -89,7 +89,7 @@ const CommentsList: React.FC<comment> = ({ ...comment }) => {
           !isDeleted && <NonChildLayout />
         )}
       </div>
-      {activeCommentId === commentId && <SubCommentForm />}
+      {activeCommentId === commentId && <SubCommentForm isMainComment />}
       <hr className={styles.line} />
     </div>
   );
