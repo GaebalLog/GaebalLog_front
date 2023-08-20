@@ -76,8 +76,18 @@ const Loginpage = () => {
       <section className={styles.loginSection.wrapper}>
         <h1 className={styles.loginSection.title}>Log in</h1>
         <form className={styles.loginSection.form}>
-          <InputWithLabel label="E-mail" type="email" {...emailInput} />
-          <InputWithLabel label="PASSWORD" type="password" {...passwordInput} />
+          <InputWithLabel
+            label="E-mail"
+            type="email"
+            value={emailInput.value}
+            onChange={emailInput.onChange}
+          />
+          <InputWithLabel
+            label="PASSWORD"
+            type="password"
+            value={passwordInput.value}
+            onChange={passwordInput.onChange}
+          />
           <p
             className={`-mt-[30px] -mb-7 ${
               isError ? TEXT_COLOR.error : "text-transparent"

@@ -68,7 +68,12 @@ const Signuppage = () => {
         <h1 className="text-[32px] text-center font-hack">Sign up</h1>
         <div className="flex">
           <div className="w-[574px]">
-            <InputWithLabel label="E-mail" type="email" {...emailInput} />
+            <InputWithLabel
+              label="E-mail"
+              type="email"
+              value={emailInput.value}
+              onChange={emailInput.onChange}
+            />
           </div>
           <div className="mt-auto ml-6 mb-1">
             <Button size="tab" color="white" onClick={emailCheckHandler}>
@@ -87,7 +92,11 @@ const Signuppage = () => {
         </p>
         <div className="flex">
           <div className="w-[574px]">
-            <InputWithLabel label="Nickname" {...nicknameInput} />
+            <InputWithLabel
+              label="Nickname"
+              value={nicknameInput.value}
+              onChange={nicknameInput.onChange}
+            />
           </div>
           <div className="mt-auto ml-6 mb-1">
             <Button size="tab" color="white" onClick={nicknameCheckHandler}>
@@ -102,7 +111,8 @@ const Signuppage = () => {
           className="w-[574px]"
           label="Password"
           type="password"
-          {...passwordInput}
+          value={passwordInput.value}
+          onChange={passwordInput.onChange}
         />
         <p
           className={`-mt-[10px] mb-2 ${
@@ -117,7 +127,8 @@ const Signuppage = () => {
           className="w-[574px]"
           label="Confirm Password"
           type="password"
-          {...passwordConfirmInput}
+          value={passwordConfirmInput.value}
+          onChange={passwordConfirmInput.onChange}
         />
         <p
           className={`-mt-[10px] ${

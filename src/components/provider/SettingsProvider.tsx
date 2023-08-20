@@ -7,7 +7,7 @@ import useModalController from "@/hooks/useModalController";
 
 export const isLoggedInAtom = atom({
   key: "isLoggedIn",
-  default: false,
+  default: true,
 });
 
 interface props {
