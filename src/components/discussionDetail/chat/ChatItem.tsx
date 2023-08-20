@@ -16,6 +16,8 @@ const styles = {
   profileButton: `relative w-10 h-10`,
 };
 
+const profileModal = ["이웃추가", "차단하기", "강퇴하기"];
+
 const ChatItem: React.FC<chat> = ({
   chatId,
   userId,
@@ -31,9 +33,13 @@ const ChatItem: React.FC<chat> = ({
   return (
     <div className={`${styles.wrapper} ${bgColor}`}>
       <div className={styles.commentWrapper}>
-        <div className={styles.metaInfoBox}>
+        <div
+          className={styles.metaInfoBox}
+          onClick={(e) => e.stopPropagation()}
+        >
           <button
             className={styles.profileButton}
+            data-testid={`profile_${chatId}`}
             onClick={() => setActiveChatId(chatId)}
           >
             <Image
@@ -46,17 +52,18 @@ const ChatItem: React.FC<chat> = ({
           </button>
           <span>{nickname}</span>
           {activeChatId === chatId && (
-            <NonPortalModal
-              topLeft={{ top: 0, left: 45 }}
-              onBackdropClick={() => setActiveChatId(null)}
-            >
+            <NonPortalModal topLeft={{ top: 0, left: 45 }} nonBackdrop>
               <div className={`flex flex-col ${BORDER_COLOR.button}`}>
-                <Button size="tab" color="white">
-                  강퇴하기
-                </Button>
-                <Button size="tab" color="white">
-                  이웃추가
-                </Button>
+                {profileModal.map((text, i) => (
+                  <Button
+                    key={i}
+                    className={`py-4 px-[30px]`}
+                    size="tab"
+                    color="white"
+                  >
+                    {text}
+                  </Button>
+                ))}
               </div>
             </NonPortalModal>
           )}
