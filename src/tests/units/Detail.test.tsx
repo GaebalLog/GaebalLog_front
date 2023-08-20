@@ -6,11 +6,23 @@ import Detail from "@/app/tech/[title]/page";
 import CommentsList from "@/components/detail/CommentsList";
 import ChildComment from "@/components/detail/comment/ChildComment";
 import GrandChildComment from "@/components/detail/comment/GrandChildComment";
+import { renderLoggedInLayout, renderLoggedOutLayout } from "@/utils/util-test";
 import Provider from "@/components/provider/Provider";
+
+const rederDetail = {
+  loggedOut: (postId: number) => {
+    renderLoggedOutLayout(<Detail params={{ postId }} />, { withHeader: true });
+  },
+  loggedIn: (postId: number) => {
+    renderLoggedInLayout(<Detail params={{ postId }} />, {
+      withHeader: true,
+    });
+  },
+};
 
 describe("디테일 페이지 렌더링 테스트", () => {
   beforeEach(() => {
-    render(<Detail params={{ postId: 1 }} />, { wrapper: Provider });
+    rederDetail.loggedIn(1);
   });
 
   test("디테일 페이지 본문 렌더링 테스트", async () => {
@@ -48,7 +60,6 @@ describe("디테일 페이지 렌더링 테스트", () => {
   });
 });
 
-//
 describe("삭제된 댓글 렌더링 테스트", () => {
   const createdAt = "2023-08-05T14:00:00Z".toLocaleString();
   const comment = {

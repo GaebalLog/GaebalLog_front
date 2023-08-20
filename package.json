@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest --transformIgnorePatterns \"node_modules/(?!axios)/\"",
+    "test": "jest --watch --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "lint": "next lint"
   },
   "dependencies": {
@@ -27,6 +27,7 @@
     "react-icons": "^4.10.1",
     "react-speech-recognition": "^3.10.0",
     "recoil": "^0.7.7",
+    "regenerator-runtime": "^0.14.0",
     "styled-components": "5.2",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6"
@@ -42,8 +43,8 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/axios": "^0.14.0",
-    "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@types/react-speech-recognition": "^3.9.2",
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
     "eslint": "8.45.0",
     "eslint-config-next": "^13.4.12",
     "eslint-config-prettier": "^8.8.0",

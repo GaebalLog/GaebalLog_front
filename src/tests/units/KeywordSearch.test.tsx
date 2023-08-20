@@ -3,12 +3,13 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import axios from "axios";
 
-import HomePage from "@/app/home/page";
 import KeywordSearch from "@/components/modal/keywordSearch/KeywordSearch";
 import Provider from "@/components/provider/Provider";
 
+import { renderHome } from "./Home.test";
+
 test("edit 버튼을 누르면 키워드 검색 모달이 열리고 Cancel 버튼을 누르면 닫힌다.", async () => {
-  render(<HomePage />, { wrapper: Provider });
+  renderHome.loggedIn();
   await userEvent.click(screen.getByRole("button", { name: /Edit/ }));
   expect(
     await screen.findByRole("button", { name: "Cancel" }),
