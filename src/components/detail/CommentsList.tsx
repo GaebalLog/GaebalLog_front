@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilState } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
-import { activeModalIdAtom } from "@/constants/global/atoms";
+import { activeModalIdAtom } from "@/hooks/useModalController";
 
 import CommentCard from "./comment/CommentCard";
 import SubCommentForm from "./form/SubCommentForm";

@@ -2,8 +2,8 @@ import React from "react";
 import { useSetRecoilState } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
-import { activeModalIdAtom } from "@/constants/global/atoms";
 import Button from "@/components/designSystem/Button";
+import { activeModalIdAtom } from "@/hooks/useModalController";
 
 import ArrowInNestedComment from "../icons/ArrowInNestedComment";
 
