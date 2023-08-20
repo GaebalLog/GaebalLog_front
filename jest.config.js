@@ -1,5 +1,14 @@
 const nextJest = require("next/jest");
 
+module.exports = {
+  preset: "ts-jest",
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: [
+    "@testing-library/jest-dom/extend-expect",
+    "regenerator-runtime/runtime",
+  ],
+};
+
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
   dir: "./",
