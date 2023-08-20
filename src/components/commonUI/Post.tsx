@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 
 import useIcon from "@/hooks/useIcon";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import { isLoggedInAtom } from "@/constants/global/atoms";
 
 import Button from "../designSystem/Button";
+import { isLoggedInAtom } from "../provider/SettingsProvider";
 
 const Post: React.FC<{ post: post }> = ({ post }) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);

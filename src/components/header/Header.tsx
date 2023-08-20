@@ -6,13 +6,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import { isLoggedInAtom } from "@/constants/global/atoms";
 import useIcon from "@/hooks/useIcon";
 
 import logo from "../../../public/assets/images/home/logo.png";
 import LiveSearchInput from "../commonUI/LiveSearchInput";
 import VoiceSearch from "../VoiceSearch";
 import Modal from "../modal/Modal";
+import { isLoggedInAtom } from "../provider/SettingsProvider";
 
 import LoggedInBox from "./LoggedInBox";
 import NotLoggedInBox from "./NotLoggedInBox";
@@ -28,7 +28,6 @@ const linkList = [
 // 헤더가 필요없는 경로 추가
 const noHeaderPathList = [
   "/mypage",
-  "signup",
   "/auth/login",
   "/auth/signup",
   "/post/tech",

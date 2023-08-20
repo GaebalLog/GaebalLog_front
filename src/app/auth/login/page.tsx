@@ -12,7 +12,7 @@ import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
 import { authAPI } from "@/api/api";
 import useInput from "@/hooks/useInput";
-import { isLoggedInAtom } from "@/constants/global/atoms";
+import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
 
 const styles = {
   container: `flex flex-col items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
@@ -76,11 +76,21 @@ const Loginpage = () => {
       <section className={styles.loginSection.wrapper}>
         <h1 className={styles.loginSection.title}>Log in</h1>
         <form className={styles.loginSection.form}>
-          <InputWithLabel label="E-mail" type="email" {...emailInput} />
-          <InputWithLabel label="PASSWORD" type="password" {...passwordInput} />
+          <InputWithLabel
+            label="E-mail"
+            type="email"
+            value={emailInput.value}
+            onChange={emailInput.onChange}
+          />
+          <InputWithLabel
+            label="PASSWORD"
+            type="password"
+            value={passwordInput.value}
+            onChange={passwordInput.onChange}
+          />
           <p
             className={`-mt-[30px] -mb-7 ${
-              isError ? "text-red-500" : "text-transparent"
+              isError ? TEXT_COLOR.error : "text-transparent"
             }`}
           >
             아이디 또는 비밀번호를 다시 확인하세요.

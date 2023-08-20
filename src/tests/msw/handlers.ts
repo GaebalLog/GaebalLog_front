@@ -373,4 +373,13 @@ export const handlers = [
       return res(ctx.json({ status: 400, message: "Invalid userId" }));
     }
   }),
+  rest.post("/users/signup", (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
+  rest.post("/auth/login", (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
+  rest.post("/auth/googlelogin", (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
 ];

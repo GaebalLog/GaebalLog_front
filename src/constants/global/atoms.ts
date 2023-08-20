@@ -10,11 +10,6 @@ export const darkAtom = atom({
   default: 0,
 });
 
-export const isLoggedInAtom = atom({
-  key: "isLoggedIn",
-  default: true,
-});
-
 export const activeModalIdAtom = atom<string | number | null>({
   key: "activeModalId",
   default: null,
