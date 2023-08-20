@@ -57,3 +57,7 @@
 .ck-editor__editable {
   height: var(--ckeditorHeight);
 }
+
+input[type="checkbox"]:checked + label > svg {
+  display: block;
+}

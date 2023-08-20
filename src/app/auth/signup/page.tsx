@@ -11,7 +11,7 @@ import useInput from "@/hooks/useInput";
 import useValidation from "@/hooks/useValidation";
 
 const Signuppage = () => {
-  const [file, setFile] = React.useState<File>();
+  const [isConfirm, setIsConfirm] = React.useState(false);
   const router = useRouter();
 
   const emailInput = useInput();
@@ -24,19 +24,13 @@ const Signuppage = () => {
     "password",
   );
 
-  const imageUpLoadHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const emailCheckHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    const files = e.target?.files;
-    if (files && files[0]) {
-      setFile(files[0]);
-    }
-  };
-
-  const emailCheckHandler = async () => {
     const { data } = await authAPI.emailConfirm(emailInput.value);
     console.log("emailCheck ::", data);
   };
-  const nicknameCheckHandler = async () => {
+  const nicknameCheckHandler = async (e: React.FormEvent) => {
+    e.preventDefault();
     const { data } = await authAPI.nicknameConfirm(nicknameInput.value);
     console.log("nicknameCheck ::", data);
   };
@@ -47,13 +41,12 @@ const Signuppage = () => {
     if (
       isEmailValid &&
       isPasswordValid &&
-      file &&
       nicknameInput.value &&
-      passwordInput.value === passwordConfirmInput.value
+      passwordInput.value === passwordConfirmInput.value &&
+      isConfirm
     ) {
       const formData = new FormData();
 
-      formData.append("file", file);
       formData.append("email", emailInput.value);
       formData.append("nickname", nicknameInput.value);
       formData.append("password", passwordInput.value);
@@ -63,7 +56,7 @@ const Signuppage = () => {
       alert("회원가입 성공!");
       router.replace("/home");
     } else {
-      alert("회원가입 실패!");
+      alert("항목들을 전부 확인해주세요!");
     }
   };
 
@@ -73,24 +66,9 @@ const Signuppage = () => {
     >
       <form className="flex flex-col gap-5" onSubmit={onSubmitHandler}>
         <h1 className="text-[32px] text-center font-hack">Sign up</h1>
-        <div className="text-center">
-          <input
-            name="input"
-            data-testid="input-upload"
-            type="file"
-            accept="image/*"
-            className="mb-5"
-            onChange={imageUpLoadHandler}
-          />
-        </div>
         <div className="flex">
-          <div>
-            <InputWithLabel
-              className="w-[574px]"
-              label="E-mail"
-              type="email"
-              {...emailInput}
-            />
+          <div className="w-[574px]">
+            <InputWithLabel label="E-mail" type="email" {...emailInput} />
           </div>
           <div className="mt-auto ml-6 mb-1">
             <Button size="tab" color="white" onClick={emailCheckHandler}>
@@ -98,13 +76,18 @@ const Signuppage = () => {
             </Button>
           </div>
         </div>
+        <p
+          className={`-mt-[10px] ${
+            isEmailValid || emailInput.value === ""
+              ? "text-transparent"
+              : TEXT_COLOR.error
+          }`}
+        >
+          입력한 이메일은 잘못 된 형식입니다.
+        </p>
         <div className="flex">
-          <div>
-            <InputWithLabel
-              className="w-[574px]"
-              label="Nickname"
-              {...nicknameInput}
-            />
+          <div className="w-[574px]">
+            <InputWithLabel label="Nickname" {...nicknameInput} />
           </div>
           <div className="mt-auto ml-6 mb-1">
             <Button size="tab" color="white" onClick={nicknameCheckHandler}>
@@ -112,6 +95,9 @@ const Signuppage = () => {
             </Button>
           </div>
         </div>
+        <p className={`-mt-[10px] mb-2 ${"text-transparent"}`}>
+          사용 가능한 닉네임입니다.
+        </p>
         <InputWithLabel
           className="w-[574px]"
           label="Password"
@@ -142,9 +128,27 @@ const Signuppage = () => {
         >
           비밀번호와 일치시켜주세요.
         </p>
-        <div className="text-center">
+        <div className="flex items-center -mt-[5px]">
+          <input type="checkbox" id="agree" className="hidden" />
+          <label
+            htmlFor="agree"
+            data-testid="agree"
+            className="flex items-center justify-center w-5 h-5 border-2 border-[#967AC3] bg-transparent text-[#967AC3] cursor-pointer"
+            onClick={() => setIsConfirm((prev) => !prev)}
+          >
+            <svg
+              className="w-[14px] h-4 fill-current hidden"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
+            </svg>
+          </label>
+          <span className="ml-2">회원가입에 동의 하겠습니까?</span>
+        </div>
+        <div className="text-center mt-1">
           <Button
-            className="w-[465px] mt-[75px]"
+            className="w-[465px] mt-[0px]"
             size="bigLogin"
             color="white"
             type="submit"
