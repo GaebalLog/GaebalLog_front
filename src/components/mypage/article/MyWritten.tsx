@@ -15,7 +15,7 @@ const MyWritten = () => {
   });
   const postList = data?.data.posts;
   return (
-    <div className="flex w-full flex-col px-[44px] pb-[24px]">
+    <div className="flex w-full h-full flex-col px-[44px] py-[24px]">
       <SortBar tab={tab} setTab={setTab} option="mypage" />
       <article className="flex gap-[24px]">
         {postList?.map((post: post) => {
