@@ -3,11 +3,15 @@ import { atom } from "recoil";
 
 interface Atom {
   headerSearch: boolean;
+  discussionMore: boolean;
+  discussionExit: boolean;
 }
 export const modalControlAtom = atom<Atom>({
   key: "modalController",
   default: {
     headerSearch: false,
+    discussionMore: false,
+    discussionExit: false,
   },
 });
 export const activeModalIdAtom = atom<string | number | null>({
