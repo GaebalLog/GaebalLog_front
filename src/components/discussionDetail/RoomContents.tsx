@@ -59,7 +59,7 @@ const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
   const { getIcon } = useIcon();
   const like = getIcon("like", 18, 18);
   const more = getIcon("more", 5, 5);
-  const default_close = getIcon("default_close", 18, 18);
+  const defaultClose = getIcon("default_close", 18, 18);
 
   const moreOptionModalHandler = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -175,7 +175,7 @@ const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
             onClick={(e) => e.stopPropagation()}
           >
             <button className="self-end m-6" onClick={() => allCloseModal()}>
-              {default_close}
+              {defaultClose}
             </button>
             <h1 className="text-2xl font-bold mt-[34px]">
               이 토의에 대한 알림을 받으시겠습니까?
