@@ -1,8 +1,14 @@
 "use client";
 import React from "react";
 
-import MyInfo from "@/components/mypage/MyInfo";
 import Button from "@/components/designSystem/Button";
+import MyInfo from "@/components/mypage/article/MyInfo";
+import MySettings from "@/components/mypage/article/MySettings";
+import MyWritten from "@/components/mypage/article/MyWritten";
+import Mydiscussions from "@/components/mypage/article/Mydiscussions";
+import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+
+const boxOption = `${BG_COLOR.general02} ${TEXT_COLOR.primary}`;
 
 const sortTab = [
   "내 정보",
@@ -18,13 +24,13 @@ const MyPagePage = () => {
       case "내 정보":
         return <MyInfo />;
       case "내가 쓴 글":
-        return <div>내가 쓴 글</div>;
+        return <MyWritten />;
       case "내가 추가한 이웃":
-        return <div>내가 추가한 이웃</div>;
+        return <MyWritten />;
       case "참여중인 토의":
-        return <div>참여중인 토의</div>;
+        return <Mydiscussions />;
       case "설정":
-        return <div>설정</div>;
+        return <MySettings />;
     }
   };
   const render = renderPage();
@@ -43,7 +49,9 @@ const MyPagePage = () => {
           </div>
         ))}
       </div>
-      {render}
+      <div className={`flex items-center w-[1632px] h-[416px] ${boxOption}`}>
+        {render}
+      </div>
     </div>
   );
 };
