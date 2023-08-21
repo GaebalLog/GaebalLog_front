@@ -5,7 +5,6 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 
-import MyPageSideBar from "@/components/mypage/MyPageSideBar";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
 import Label from "@/components/commonUI/Label";
@@ -39,7 +38,6 @@ const MyPagePage = () => {
   const userInfo = data?.data as myInfo;
   return (
     <div className="w-[1632px] flex justify-between mt-[20px]">
-      <MyPageSideBar />
       <div className="flex flex-col gap-[20px]">
         <div className={`flex w-[1200px] h-[416px] ${boxOption}`}>
           <div className="flex flex-col items-center gap-[40px] w-[350px] px-[40px] py-[70px]">

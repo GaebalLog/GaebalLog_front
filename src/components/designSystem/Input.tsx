@@ -11,8 +11,12 @@ const styles = {
     input: "w-full h-full pl-[30px] pr-[55px] rounded-full",
   },
   header: {
-    container: `flex relative w-[666px] h-[48px] rounded-[24px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.general06}`,
+    container: `flex relative w-[666px] h-[48px] rounded-[24px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.general06} ${BG_COLOR.primary}`,
     input: "w-[666px] h-[48px] px-[15px] rounded-r-[24px] bg-transparent",
+  },
+  mypage: {
+    container: `flex relative w-[1325px] h-[48px] rounded-[24px] border border-solid mb-[32px] ${BORDER_COLOR.container} ${TEXT_COLOR.general06} ${BG_COLOR.primary}`,
+    input: `w-[1325px] h-[48px] px-[15px] rounded-r-[24px] bg-transparent`,
   },
   icon: `absolute top-[15px] right-[15px] cursor-pointer`,
   dropDown: {
@@ -23,7 +27,7 @@ const styles = {
   },
 };
 interface InputProps {
-  type: "searchModal" | "header";
+  type: "searchModal" | "header" | "mypage";
   value: string;
   placeholder?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
