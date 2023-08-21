@@ -6,10 +6,9 @@ import axios from "axios";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import { utilResizeArray } from "@/utils/util-resizeArray";
 import useIcon from "@/hooks/useIcon";
+import Input from "@/components/designSystem/Input";
 
-import Input from "../designSystem/Input";
-
-import TimeOfLearning from "./TimeOfLearning";
+import TimeOfLearning from "../TimeOfLearning";
 
 const MyPageCategory = () => {
   const [page, setPage] = React.useState<number>(0);

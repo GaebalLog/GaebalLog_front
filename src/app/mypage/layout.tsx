@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 
-import MyPageCategory from "@/components/mypage/MyPageCategory";
+import MyPageCategory from "@/components/mypage/article/MyPageCategory";
 
 export const metadata: Metadata = {
   title: "마이 페이지",
