@@ -10,7 +10,7 @@ import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 
 const boxOption = `${BG_COLOR.general02} ${TEXT_COLOR.primary}`;
 
-const sortTab = [
+const mypageTab = [
   "내 정보",
   "내가 쓴 글",
   "내가 추가한 이웃",
@@ -18,7 +18,7 @@ const sortTab = [
   "설정",
 ] as const;
 const MyPagePage = () => {
-  const [tab, setTab] = React.useState<(typeof sortTab)[number]>("내 정보");
+  const [tab, setTab] = React.useState<(typeof mypageTab)[number]>("내 정보");
   const renderPage = () => {
     switch (tab) {
       case "내 정보":
@@ -37,7 +37,7 @@ const MyPagePage = () => {
   return (
     <div className="w-[1632px] flex flex-col mt-[20px]">
       <div className="flex p-[10px]">
-        {sortTab.map((item) => (
+        {mypageTab.map((item) => (
           <div key={`${item}tab`} className="px-[40px] pb-[16px]">
             <Button
               size="subTab"
@@ -49,7 +49,7 @@ const MyPagePage = () => {
           </div>
         ))}
       </div>
-      <div className={`flex items-center w-[1632px] h-[416px] ${boxOption}`}>
+      <div className={`flex items-center w-[1632px] h-[458px] ${boxOption}`}>
         {render}
       </div>
     </div>
