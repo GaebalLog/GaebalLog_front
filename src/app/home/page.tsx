@@ -39,7 +39,7 @@ const HomePage = () => {
       />
       <div className="flex justify-between">
         {isLoggedIn ? (
-          <LoggedSideBar position="bottom" sticky />
+          <LoggedSideBar type="tech" position="bottom" sticky />
         ) : (
           <SideBar sticky />
         )}

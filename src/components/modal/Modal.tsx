@@ -24,6 +24,8 @@ interface modalProps {
   isBgColor?: boolean;
   blockScroll?: boolean;
   onBackdropClick?: () => void;
+  nonBackdrop?: boolean;
+  topLeft?: { top: number; left: number };
   children: React.ReactNode;
 }
 
@@ -31,6 +33,8 @@ const Modal: React.FC<modalProps> = ({
   isFixed,
   isBgColor,
   blockScroll,
+  topLeft,
+  nonBackdrop,
   onBackdropClick, // 모달 닫을 때 사용하는 함수
   children,
 }) => {
@@ -39,6 +43,11 @@ const Modal: React.FC<modalProps> = ({
     contentsBox: `${
       isFixed ? "fixed" : "absolute"
     } ${`top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20`}`,
+  };
+
+  const onClickHandler = (e: React.MouseEvent) => {
+    onBackdropClick && onBackdropClick();
+    !onBackdropClick && e.stopPropagation();
   };
 
   React.useEffect(() => {
@@ -52,13 +61,17 @@ const Modal: React.FC<modalProps> = ({
 
   return (
     <Portal>
-      <div
-        className={`${styles.backdrop} ${
-          isBgColor && `${BG_COLOR.inverse} opacity-40`
-        }`}
-        onClick={onBackdropClick}
-      />
-      <div className={styles.contentsBox}>{children}</div>
+      {!nonBackdrop && (
+        <div
+          className={`${styles.backdrop} ${
+            isBgColor && `${BG_COLOR.inverse} opacity-40`
+          }`}
+          onClick={onClickHandler}
+        />
+      )}
+      <div className={styles.contentsBox} style={topLeft}>
+        {children}
+      </div>
     </Portal>
   );
 };

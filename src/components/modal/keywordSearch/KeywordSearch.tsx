@@ -67,7 +67,7 @@ const KeywordSearch = () => {
   }, []);
 
   return (
-    <Modal isBgColor onBackdropClick={() => setIsModal(false)}>
+    <Modal isBgColor>
       <div className={styles.container}>
         <div className={styles.widthWrapper}>
           <span className={styles.title}>Add my keywords</span>

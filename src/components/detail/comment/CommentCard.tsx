@@ -2,8 +2,8 @@ import React from "react";
 import { useRecoilState } from "recoil";
 
 import utilConvertTime from "@/utils/util-datetime";
-import { activeModalIdAtom } from "@/constants/global/atoms";
 import Button from "@/components/designSystem/Button";
+import { activeModalIdAtom } from "@/hooks/useModalController";
 
 const style = {
   commentHeader: `flex justify-between`,
