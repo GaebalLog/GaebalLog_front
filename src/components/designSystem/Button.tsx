@@ -17,6 +17,7 @@ const BUTTON_VARIANT = {
   login: `text-[11.137px] leading-[16.71px] py-[9.74px] px-[22.27px] rounded-[3px] font-hack`,
   confirm: `text-[24px] leading-[27.94pxpx] py-[10px] px-6 rounded-[3px] font-hack`,
   button: `text-[16px] py-[10px] px-[20px] rounded-[3px]`,
+  subTab: `text-[20px] py-[4px]`,
 };
 
 const COLOR_VARIANT = {
@@ -27,6 +28,7 @@ const COLOR_VARIANT = {
   background: `${BG_COLOR.background} ${TEXT_COLOR.primary}`,
   category: `${BG_COLOR.etcColor01} ${TEXT_COLOR.primary}`,
   cancelButton: `${BG_COLOR.primary} ${TEXT_COLOR.general08}`,
+  checkTab: `${BG_COLOR.primary} ${TEXT_COLOR.primary} ${BORDER_COLOR.checkTab}`,
 };
 
 interface buttonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest --watch --transformIgnorePatterns \"node_modules/(?!axios)/\"",
+    "test:ci": "jest --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "lint": "next lint"
   },
   "dependencies": {
