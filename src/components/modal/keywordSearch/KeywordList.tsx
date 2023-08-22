@@ -66,14 +66,16 @@ const KeywordList: React.FC<keywordListProps> = ({
       {data?.map((category: string) => (
         <li key={`${type}_${category}`} className="mb-[6px]">
           <Button
-            className="flex items-center"
+            className="flex items-center gap-[10px]"
             data-testid={`${type}_${category}`}
             size="category"
             color="background"
             rounded
             onClick={!nonIcon ? () => mutate(category) : undefined}
           >
-            <span>#{category}</span>
+            <div className="max-w-[374px] truncate">
+              <span>#{category}</span>
+            </div>
             {!nonIcon && <div>{close}</div>}
           </Button>
         </li>

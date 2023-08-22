@@ -32,6 +32,14 @@ import default_profile_light from "./default_profile_light.png";
 import default_profile_dark from "./default_profile_dark.png";
 import arrow_light from "./arrow_light.png";
 import arrow_dark from "./arrow_dark.png";
+import prevBtn_light from "./prevBtn_light.png";
+import prevBtn_dark from "./prevBtn_dark.png";
+import nextBtn_light from "./nextBtn_light.png";
+import nextBtn_dark from "./nextBtn_dark.png";
+import more_light from "./more_light.png";
+import more_dark from "./more_dark.png";
+import default_close_light from "./default_close_light.png";
+import default_close_dark from "./default_close_dark.png";
 
 const ICON = {
   alarm: [alarm_light, alarm_dark],
@@ -52,5 +60,9 @@ const ICON = {
   github: [github_light, github_dark],
   like: [like_light, like_dark],
   arrow: [arrow_light, arrow_dark],
+  prevBtn: [prevBtn_light, prevBtn_dark],
+  nextBtn: [nextBtn_light, nextBtn_dark],
+  more: [more_light, more_dark],
+  default_close: [default_close_light, default_close_dark],
 };
 export default ICON;
