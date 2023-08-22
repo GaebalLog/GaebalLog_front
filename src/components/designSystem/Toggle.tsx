@@ -1,0 +1,52 @@
+import React from "react";
+
+import { TEXT_COLOR } from "@/constants/global/colors";
+
+interface props {
+  onSuccess: () => void;
+  onFail: () => void;
+  option?: { dark?: boolean };
+}
+
+const Toggle: React.FC<props> = ({ onSuccess, onFail, option }) => {
+  const [checked, setChecked] = React.useState(false);
+  const makeDark = () => {
+    document.documentElement.classList.add("dark");
+    onSuccess();
+  };
+  const makeLight = () => {
+    document.documentElement.classList.remove("dark");
+    onFail();
+  };
+  const changeChecked = () => {
+    setChecked((prev) => !prev);
+    checked ? makeLight() : makeDark();
+  };
+  return (
+    <label className="relative inline-flex items-center cursor-pointer">
+      <input
+        type="checkbox"
+        value=""
+        className="sr-only peer"
+        onClick={changeChecked}
+        checked={checked}
+      />
+      <div
+        className={`${
+          option?.dark
+            ? "w-[80px] h-[30px] after:h-[25px] after:w-[25px] peer-checked:after:translate-x-[50px]"
+            : "w-[100px] h-[40px] after:h-[35px] after:w-[35px] peer-checked:after:translate-x-[60px]"
+        } bg-[#D3D3D3] rounded-full peer peer-focus:ring-1 peer-focus:ring-gray-400 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:transition-all dark:border-gray-600 peer-checked:bg-black`}
+      />
+      {option?.dark && (
+        <span
+          className={`absolute left-[50%] transition-transform translate-x-[-50%] text-sm font-medium ${TEXT_COLOR.primary} dark:text-gray-300`}
+        >
+          {checked ? "Dark" : "Light"}
+        </span>
+      )}
+    </label>
+  );
+};
+
+export default Toggle;
