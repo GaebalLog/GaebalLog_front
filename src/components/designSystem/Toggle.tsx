@@ -1,6 +1,8 @@
 import React from "react";
+import { useSetRecoilState } from "recoil";
 
 import { TEXT_COLOR } from "@/constants/global/colors";
+import { darkAtom } from "@/constants/global/atoms";
 
 interface props {
   onSuccess: () => void;
@@ -10,17 +12,24 @@ interface props {
 
 const Toggle: React.FC<props> = ({ onSuccess, onFail, option }) => {
   const [checked, setChecked] = React.useState(false);
-  const makeDark = () => {
-    document.documentElement.classList.add("dark");
+  const setDarkMode = useSetRecoilState(darkAtom);
+  const makeChecked = () => {
+    if (option?.dark) {
+      document.documentElement.classList.add("dark");
+      setDarkMode(1);
+    }
     onSuccess();
   };
-  const makeLight = () => {
-    document.documentElement.classList.remove("dark");
+  const makeNonChecked = () => {
+    if (option?.dark) {
+      document.documentElement.classList.remove("dark");
+      setDarkMode(0);
+    }
     onFail();
   };
   const changeChecked = () => {
     setChecked((prev) => !prev);
-    checked ? makeLight() : makeDark();
+    checked ? makeNonChecked() : makeChecked();
   };
   return (
     <label className="relative inline-flex items-center cursor-pointer">
