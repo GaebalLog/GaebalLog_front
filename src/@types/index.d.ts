@@ -66,6 +66,8 @@ declare global {
     alarm_neighbors: boolean;
     alarm_discussion: boolean;
   }
+  const sortList = ["정확도 순", "조회 순", "최신순"] as const;
+  type sortTab = (typeof sortTab)[number];
 }
 
 declare module "ckeditor5-custom-build/build/ckeditor" {

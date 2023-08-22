@@ -7,10 +7,11 @@ import MySettings from "@/components/mypage/article/MySettings";
 import MyWritten from "@/components/mypage/article/MyWritten";
 import Mydiscussions from "@/components/mypage/article/Mydiscussions";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { MyNeighbors } from "@/components/mypage/article/MyNeighbors";
 
 const boxOption = `${BG_COLOR.general02} ${TEXT_COLOR.primary}`;
 
-const sortTab = [
+const mypageTab = [
   "내 정보",
   "내가 쓴 글",
   "내가 추가한 이웃",
@@ -18,7 +19,7 @@ const sortTab = [
   "설정",
 ] as const;
 const MyPagePage = () => {
-  const [tab, setTab] = React.useState<(typeof sortTab)[number]>("내 정보");
+  const [tab, setTab] = React.useState<(typeof mypageTab)[number]>("내 정보");
   const renderPage = () => {
     switch (tab) {
       case "내 정보":
@@ -26,7 +27,7 @@ const MyPagePage = () => {
       case "내가 쓴 글":
         return <MyWritten />;
       case "내가 추가한 이웃":
-        return <MyWritten />;
+        return <MyNeighbors />;
       case "참여중인 토의":
         return <Mydiscussions />;
       case "설정":
@@ -37,7 +38,7 @@ const MyPagePage = () => {
   return (
     <div className="w-[1632px] flex flex-col mt-[20px]">
       <div className="flex p-[10px]">
-        {sortTab.map((item) => (
+        {mypageTab.map((item) => (
           <div key={`${item}tab`} className="px-[40px] pb-[16px]">
             <Button
               size="subTab"
@@ -49,7 +50,7 @@ const MyPagePage = () => {
           </div>
         ))}
       </div>
-      <div className={`flex items-center w-[1632px] h-[416px] ${boxOption}`}>
+      <div className={`flex items-center w-[1632px] h-[458px] ${boxOption}`}>
         {render}
       </div>
     </div>

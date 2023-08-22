@@ -59,12 +59,22 @@ const MyPageCategory = () => {
           />
         ))}
       </div>
-      <button className="absolute top-[240px] left-0" onClick={prevBtnHandler}>
-        {prevBtn}
-      </button>
-      <button className="absolute top-[240px] right-0" onClick={nextBtnHandler}>
-        {nextBtn}
-      </button>
+      {page !== 0 && (
+        <button
+          className="absolute top-[240px] left-0"
+          onClick={prevBtnHandler}
+        >
+          {prevBtn}
+        </button>
+      )}
+      {page < devidedList.length - 1 && (
+        <button
+          className="absolute top-[240px] right-0"
+          onClick={nextBtnHandler}
+        >
+          {nextBtn}
+        </button>
+      )}
     </div>
   );
 };
