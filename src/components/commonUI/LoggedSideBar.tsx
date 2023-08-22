@@ -2,6 +2,7 @@
 import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
@@ -14,10 +15,11 @@ interface props {
   position: "top" | "bottom" | "disussion";
   height?: `h-[${string}]`;
   sticky?: boolean;
+  type: "tech" | "discussion";
 }
 const colorSettings = `relative ${BG_COLOR.general02} ${BORDER_COLOR.container}`;
 
-const LoggedSide: React.FC<props> = ({ height, sticky, position }) => {
+const LoggedSide: React.FC<props> = ({ height, sticky, position, type }) => {
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.KEYWORDLIST],
     queryFn: async () => await axios.get("/api/usercategories"),
@@ -45,14 +47,11 @@ const LoggedSide: React.FC<props> = ({ height, sticky, position }) => {
         <h1 className="font-hack text-[24px] mb-[32px]">My Keyword</h1>
         <div className="flex gap-3 flex-wrap content-start">
           {keywordList?.map((keyword: string) => (
-            <Button
-              size="category"
-              color="white"
-              key={`logged${keyword}`}
-              rounded
-            >
-              #{keyword}
-            </Button>
+            <Link key={`logged${keyword}`} href={`/${type}?keyword=${keyword}`}>
+              <Button size="category" color="white" rounded>
+                #{keyword}
+              </Button>
+            </Link>
           ))}
           <EditBtn position={position} />
         </div>

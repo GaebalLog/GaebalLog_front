@@ -27,7 +27,7 @@ const DiscussionSideBar = () => {
             </Button>
           </Link>
           <MyDsicussionList />
-          <LoggedSideBar position="disussion" />
+          <LoggedSideBar type="discussion" position="disussion" />
           <NeighborArticleList discussion />
         </div>
       ) : (

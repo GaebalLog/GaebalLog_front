@@ -13,7 +13,7 @@ const styles = {
   container: `overflow-y-auto relative flex flex-col justify-between w-[493px] h-full ${BORDER_COLOR.button} ${BG_COLOR.primary}`,
   chatList: `flex flex-col items-center p-4`,
   inputBox: {
-    wrapper: `sticky bottom-0 flex h-[77px] p-4 z-20 ${BG_COLOR.primary}`,
+    wrapper: `sticky bottom-0 flex h-[77px] p-4 z-10 ${BG_COLOR.primary}`,
     input: `w-[367px] h-[45px] mr-2 py-3 px-4 ${BG_COLOR.general03} ${TEXT_COLOR.primary}`,
     button: `flex-shrink-0 h-[45px]`,
   },
