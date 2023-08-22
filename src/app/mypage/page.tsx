@@ -7,6 +7,7 @@ import MySettings from "@/components/mypage/article/MySettings";
 import MyWritten from "@/components/mypage/article/MyWritten";
 import Mydiscussions from "@/components/mypage/article/Mydiscussions";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import MyNeighbors from "@/components/mypage/article/MyNeighbors";
 
 const boxOption = `${BG_COLOR.general02} ${TEXT_COLOR.primary}`;
 
@@ -26,7 +27,7 @@ const MyPagePage = () => {
       case "내가 쓴 글":
         return <MyWritten />;
       case "내가 추가한 이웃":
-        return <MyWritten />;
+        return <MyNeighbors />;
       case "참여중인 토의":
         return <Mydiscussions />;
       case "설정":

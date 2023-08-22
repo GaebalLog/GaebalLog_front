@@ -30,11 +30,9 @@ const MyPost: React.FC<{ post: post }> = ({ post }) => {
   ];
 
   const onClickHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    // 35번째 코드로 인한 타입 가드
     if (!(e.target instanceof HTMLElement)) {
       return;
-    }
-    if (e.target.closest(".excluded")) {
+    } else if (e.target.closest(".excluded")) {
       return;
     }
     router.push(`/tech/${post.postId}`);
@@ -61,7 +59,7 @@ const MyPost: React.FC<{ post: post }> = ({ post }) => {
           <p
             className={`${TEXT_COLOR.text} text-[16px] w-[320px] whitespace-normal break-words`}
           >
-            adfasdfasdfasdfasdfasdfasdfasdfasdfasdf{post.content}
+            {post.content}
           </p>
         </div>
         <div className="flex items-center gap-[16px]">
