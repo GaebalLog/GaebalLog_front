@@ -32,7 +32,7 @@ const NonPortalModal: React.FC<nonPortalModalProps> = ({
 }) => {
   const styles = {
     backdrop: `fixed w-full h-full inset-0`,
-    contentsBox: `absolute`,
+    contentsBox: `absolute z-10`,
   };
 
   return (
