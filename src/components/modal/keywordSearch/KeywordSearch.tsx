@@ -74,6 +74,7 @@ const KeywordSearch = () => {
           <LiveSearchInput
             type="searchModal"
             categoryAddHandler={categoryAddHandler}
+            placeholder="키워드를 추가하여 나만의 키워드를 만들어 보세요."
           />
           <div className={styles.keywordBox}>
             <span className={styles.keywordBoxTitle}>현재 나의 키워드</span>

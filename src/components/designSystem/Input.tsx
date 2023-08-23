@@ -11,8 +11,8 @@ const styles = {
     input: "w-full h-full pl-[30px] pr-[55px] rounded-full",
   },
   header: {
-    container: `flex relative w-[666px] h-[48px] rounded-[24px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.general06} ${BG_COLOR.primary}`,
-    input: "w-[666px] h-[48px] px-[15px] rounded-r-[24px] bg-transparent",
+    container: `flex relative w-[400px] h-[48px] rounded-[24px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.general06} ${BG_COLOR.primary}`,
+    input: "w-[400px] h-[48px] px-[15px] rounded-r-[24px] bg-transparent",
   },
   mypage: {
     container: `flex relative w-[1325px] h-[48px] rounded-[24px] border border-solid mb-[32px] ${BORDER_COLOR.container} ${TEXT_COLOR.general06} ${BG_COLOR.primary}`,
@@ -20,7 +20,7 @@ const styles = {
   },
   icon: `absolute top-[15px] right-[15px] cursor-pointer`,
   dropDown: {
-    drop: "w-[100px] h-[48px] cursor-pointer  flex items-center justify-center text-[18px] ",
+    drop: "w-[100px] h-[48px] cursor-pointer flex items-center justify-end text-[18px] gap-[16px]",
     ul: `absolute top-[48px] left-0 z-10 w-[100px] max-h-[100px] overflow-y-auto rounded-[10px] text-[18px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.primary}`,
     noSelected: `w-full h-[48px] px-[30px] flex items-center cursor-pointer ${BG_COLOR.general01}`,
     selected: `w-full h-[48px] px-[30px] flex items-center cursor-pointer ${BG_COLOR.general06}`,
@@ -51,7 +51,7 @@ const Input: React.FC<InputProps> = ({
   const [hoveredItem, setHoveredItem] =
     React.useState<(typeof sortList)[number]>(); // 현재 hover 중인 항목을 추적하는 상태
   const search = getIcon("search", 18, 18);
-
+  const downBtn = getIcon("downBtn", 8, 12);
   const handleIconClick = () => {
     onClick && onClick(value);
   };
@@ -67,6 +67,7 @@ const Input: React.FC<InputProps> = ({
           onClick={() => toggleModal("headerSearch")}
         >
           {searchSort}
+          {downBtn}
         </span>
       )}
       {modal.headerSearch && (
