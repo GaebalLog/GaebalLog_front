@@ -18,7 +18,8 @@ import LoggedInBox from "./LoggedInBox";
 import NotLoggedInBox from "./NotLoggedInBox";
 
 const styles = {
-  innerUl: "flex items-center justify-between gap-[22px]",
+  navUl: "flex items-center justify-between gap-[65px]",
+  profileUl: "flex items-center justify-between gap-[30px]",
 };
 const linkList = [
   { href: "discussion", text: "Discussions" },
@@ -38,7 +39,7 @@ const Header = () => {
   const path = usePathname();
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const { getIcon } = useIcon();
-  const mike = getIcon("mike", 24, 24);
+  const mike = getIcon("mike", 48, 48, "cursor hover");
   const [voiceSearch, setVoiceSearch] = React.useState<string | null>(null);
   const setVoice = (value: string) => {
     setVoiceSearch(value);
@@ -54,8 +55,11 @@ const Header = () => {
       className={`flex justify-center w-full border-b-[3px] ${BORDER_COLOR.primary} ${BG_COLOR.background} fixed top-0 z-10`}
     >
       <ul className="flex items-center justify-between w-[1632px] h-[94px] p-[20px] gap-[88px]">
-        <Link href="/home">
-          <Image src={logo} width={188} height={28} alt="logo" />
+        <Link href="/home" className="flex gap-2 w-auto items-center">
+          <Image src={logo} alt="logo" width={80} height={80} />
+          <span className="font-hack w-[195px] text-[24px]">
+            &lt;gabal.log /&gt;
+          </span>
         </Link>
         <nav
           className={`flex items-center ${
@@ -63,7 +67,7 @@ const Header = () => {
           } w-[80%]`}
         >
           {!noHeaderPathList.includes(path) && (
-            <ul className={styles.innerUl}>
+            <ul className={styles.navUl}>
               {linkList.map((link) => (
                 <Link
                   key={`${link.href}header`}
@@ -73,14 +77,14 @@ const Header = () => {
                   {link.text}
                 </Link>
               ))}
-              <li>
+              <li className="flex gap-[16px] items-center">
                 <LiveSearchInput
                   type="header"
                   isRouter
                   voiceSearch={voiceSearch}
                 />
+                <div onClick={toggleModal}>{mike}</div>
               </li>
-              <li onClick={toggleModal}>{mike}</li>
               {modal && (
                 <Modal isBgColor onBackdropClick={toggleModal}>
                   <VoiceSearch closeModal={closeModal} setVoice={setVoice} />
@@ -88,7 +92,7 @@ const Header = () => {
               )}
             </ul>
           )}
-          <ul className={styles.innerUl}>
+          <ul className={styles.profileUl}>
             {isLoggedIn ? <LoggedInBox /> : <NotLoggedInBox />}
           </ul>
         </nav>

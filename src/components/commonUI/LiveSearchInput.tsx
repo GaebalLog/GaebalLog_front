@@ -19,7 +19,7 @@ const typeStyles = {
   },
   header: {
     topLeft: { top: 48, left: 19.5 },
-    modalWidth: "w-[623px]",
+    modalWidth: "w-[400px]",
   },
 };
 
@@ -28,6 +28,7 @@ interface liveSearchInputProps {
   type: "searchModal" | "header";
   isRouter?: boolean;
   voiceSearch?: string | null;
+  placeholder?: string;
 }
 
 const LiveSearchInput: React.FC<liveSearchInputProps> = ({
@@ -35,6 +36,7 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
   type,
   isRouter,
   voiceSearch,
+  placeholder,
 }) => {
   const [isModal, setIsModal] = React.useState<boolean>(false);
   const [displayedResults, setDisplayedResults] = React.useState([]);
@@ -128,7 +130,7 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
       >
         <Input
           type={type}
-          placeholder="키워드를 추가하여 나만의 키워드를 만들어 보세요."
+          placeholder={placeholder}
           value={value}
           onChange={onChange}
           onClick={searchKeywordClick}

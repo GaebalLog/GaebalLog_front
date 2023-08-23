@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import "regenerator-runtime/runtime";
 import Provider from "@/components/provider/Provider";
 import Header from "@/components/header/Header";
+import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 
 // const gothic = Gothic_A1({ subsets: ["latin"], weight: "400" });
 
@@ -24,7 +25,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body>
+      <body className={`${BG_COLOR.primary} ${TEXT_COLOR.primary}`}>
         <Provider>
           <div className="h-[94px]" />
           <Header />

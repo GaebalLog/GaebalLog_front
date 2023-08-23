@@ -11,7 +11,7 @@ const styles = {
     input: "w-full h-full pl-[30px] pr-[55px] rounded-full",
   },
   header: {
-    container: `flex relative w-[666px] h-[48px] rounded-[24px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.general06} ${BG_COLOR.primary}`,
+    container: `flex relative w-[400px] h-[48px] rounded-[24px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.general06} ${BG_COLOR.primary}`,
     input: "w-[666px] h-[48px] px-[15px] rounded-r-[24px] bg-transparent",
   },
   mypage: {
