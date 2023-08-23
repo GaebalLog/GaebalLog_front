@@ -28,14 +28,14 @@ const SearchCategory: React.FC<props> = ({
 }) => {
   const { getIcon } = useIcon();
   const search = getIcon("search", 18, 22);
+
   return (
     <NonPortalModal topLeft={modalPosition.topLeft} nonBackdrop>
       <ul className={styles.searchUl}>
-        {displayedResults?.length &&
+        {displayedResults?.length !== 0 &&
           displayedResults?.map((result: string, i: number) => {
             const bgColor =
               focusedIndex === i ? BG_COLOR.general03 : BG_COLOR.primary;
-
             return (
               <li
                 key={i}
