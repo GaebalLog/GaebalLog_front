@@ -40,6 +40,8 @@ import more_light from "./more_light.png";
 import more_dark from "./more_dark.png";
 import default_close_light from "./default_close_light.png";
 import default_close_dark from "./default_close_dark.png";
+import downBtn_light from "./downBtn_light.png";
+import downBtn_dark from "./downBtn_dark.png";
 
 const ICON = {
   alarm: [alarm_light, alarm_dark],
@@ -64,5 +66,6 @@ const ICON = {
   nextBtn: [nextBtn_light, nextBtn_dark],
   more: [more_light, more_dark],
   default_close: [default_close_light, default_close_dark],
+  downBtn: [downBtn_light, downBtn_dark],
 };
 export default ICON;

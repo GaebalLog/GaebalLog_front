@@ -72,7 +72,9 @@ const Header = () => {
                 <Link
                   key={`${link.href}header`}
                   href={`/${link.href}`}
-                  className={`${TEXT_COLOR.text} text-[24px] font-bold`}
+                  className={`${TEXT_COLOR.text} ${
+                    path === `/${link.href}` && BORDER_COLOR.checkTab
+                  } text-[24px] font-bold py-[8px]`}
                 >
                   {link.text}
                 </Link>
