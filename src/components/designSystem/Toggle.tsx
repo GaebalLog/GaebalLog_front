@@ -37,7 +37,7 @@ const Toggle: React.FC<props> = ({ onSuccess, onFail, option }) => {
         type="checkbox"
         value=""
         className="sr-only peer"
-        onClick={changeChecked}
+        onChange={changeChecked}
         checked={checked}
       />
       <div
