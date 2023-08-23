@@ -54,7 +54,7 @@ const Header = () => {
     <header
       className={`flex justify-center w-full border-b-[3px] ${BORDER_COLOR.primary} ${BG_COLOR.background} fixed top-0 z-10`}
     >
-      <ul className="flex items-center justify-between w-[1632px] h-[94px] p-[20px] gap-[88px]">
+      <ul className="flex items-center justify-between w-[1632px] h-[94px] p-[20px]">
         <Link href="/home" className="flex gap-2 w-auto items-center">
           <Image src={logo} alt="logo" width={80} height={80} />
           <span className="font-hack w-[195px] text-[24px]">
