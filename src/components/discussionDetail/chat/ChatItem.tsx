@@ -1,11 +1,11 @@
-import Image from "next/image";
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import NonPortalModal from "@/components/modal/NonPortalModal";
 import Button from "@/components/designSystem/Button";
 import { activeModalIdAtom } from "@/hooks/useModalController";
+import ProfileImage from "@/components/designSystem/ProfileImage";
 
 import ChatTail from "./ChatTail";
 
@@ -13,7 +13,6 @@ const styles = {
   wrapper: `w-[375px] h-[124px] py-5 px-[18px] mb-[60px] relative`,
   commentWrapper: `relative z-10`,
   metaInfoBox: `flex items-center gap-[10px] mb-6`,
-  profileButton: `relative w-10 h-10`,
 };
 
 const profileModal = ["이웃추가", "차단하기", "강퇴하기"];
@@ -25,7 +24,7 @@ const ChatItem: React.FC<chat> = ({
   profileImage,
   content,
 }) => {
-  const [activeChatId, setActiveChatId] = useRecoilState(activeModalIdAtom);
+  const activeIdforModal = useRecoilValue(activeModalIdAtom);
 
   const isMe = userId === 1;
   const bgColor = isMe ? BG_COLOR.general03 : BG_COLOR.general01;
@@ -37,21 +36,9 @@ const ChatItem: React.FC<chat> = ({
           className={styles.metaInfoBox}
           onClick={(e) => e.stopPropagation()}
         >
-          <button
-            className={styles.profileButton}
-            data-testid={`profile_${chatId}`}
-            onClick={() => setActiveChatId(chatId)}
-          >
-            <Image
-              className="rounded-full object-cover"
-              src={profileImage}
-              fill
-              sizes="80px"
-              alt="프사"
-            />
-          </button>
+          <ProfileImage idForModal={chatId} profileImage={profileImage} />
           <span>{nickname}</span>
-          {activeChatId === chatId && (
+          {activeIdforModal === chatId && (
             <NonPortalModal topLeft={{ top: 0, left: 45 }} nonBackdrop>
               <div className={`flex flex-col ${BORDER_COLOR.button}`}>
                 {profileModal.map((text, i) => (
