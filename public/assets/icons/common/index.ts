@@ -42,7 +42,8 @@ import default_close_light from "./default_close_light.png";
 import default_close_dark from "./default_close_dark.png";
 import downBtn_light from "./downBtn_light.png";
 import downBtn_dark from "./downBtn_dark.png";
-
+import voiceSearch_light from "./voiceSearch_light.png";
+import voiceSearch_dark from "./voiceSearch_dark.png";
 const ICON = {
   alarm: [alarm_light, alarm_dark],
   close: [close_light, close_dark],
@@ -67,5 +68,6 @@ const ICON = {
   more: [more_light, more_dark],
   default_close: [default_close_light, default_close_dark],
   downBtn: [downBtn_light, downBtn_dark],
+  voiceSearch: [voiceSearch_light, voiceSearch_dark],
 };
 export default ICON;
