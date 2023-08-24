@@ -9,6 +9,26 @@ import GrandChildComment from "@/components/detail/comment/GrandChildComment";
 import { renderLoggedInLayout, renderLoggedOutLayout } from "@/utils/util-test";
 import Provider from "@/components/provider/Provider";
 
+const createdAt = "2023-08-05T14:00:00Z".toLocaleString();
+const comment = {
+  commentId: "1",
+  nickname: "1yoouoo",
+  profileImage: "",
+  contents: "정말 유익한 글이었습니다.",
+  createdAt,
+  isDeleted: false,
+  childComments: [],
+};
+const deletedComment = {
+  commentId: "1",
+  nickname: "1yoouoo",
+  profileImage: "",
+  contents: "정말 유익한 글이었습니다.",
+  createdAt,
+  isDeleted: true,
+  childComments: [],
+};
+
 const rederDetail = {
   loggedOut: (postId: number) => {
     renderLoggedOutLayout(<Detail params={{ postId }} />, { withHeader: true });
@@ -33,26 +53,19 @@ describe("디테일 페이지 렌더링 테스트", () => {
     expect(await screen.findByText("yeon")).toBeInTheDocument();
   });
 
-  test("대댓글이 없다면 댓글쓰기 대신 답글 달기가 보여야 함.", async () => {
-    expect(screen.queryByTestId("smallAddComment_1")).not.toBeInTheDocument();
-    expect(await screen.findByTestId("bigAddComment_1")).toBeInTheDocument();
-    expect(await screen.findByTestId("smallAddComment_2")).toBeInTheDocument();
-    expect(screen.queryByTestId("bigAddComment_2")).not.toBeInTheDocument();
-  });
-
-  test("답글 달기와 댓글쓰기를 누르면 댓글 작성창이 1개만 렌더링 되어야함. 기본 댓글창까지 최종 2개만 렌더링을 확인", async () => {
+  test("답글쓰기를 누르면 댓글 작성창이 1개만 렌더링 되어야함. 기본 댓글창까지 최종 2개가 렌더링 되는 것을 확인", async () => {
     expect(
       (await screen.findAllByPlaceholderText("댓글을 입력해주세요.")).length,
     ).toBe(1);
 
-    await userEvent.click(await screen.findByTestId("bigAddComment_1"));
-    await userEvent.click(await screen.findByTestId("smallAddComment_2"));
+    await userEvent.click(await screen.findByTestId("addCommentButton_1"));
+    await userEvent.click(await screen.findByTestId("addCommentButton_2"));
 
     expect(
       (await screen.findAllByPlaceholderText("댓글을 입력해주세요.")).length,
     ).toBe(2);
 
-    await userEvent.click(await screen.findByTestId("bigAddComment_1"));
+    await userEvent.click(await screen.findByTestId("addCommentButton_1"));
 
     expect(
       (await screen.findAllByPlaceholderText("댓글을 입력해주세요.")).length,
@@ -61,26 +74,6 @@ describe("디테일 페이지 렌더링 테스트", () => {
 });
 
 describe("삭제된 댓글 렌더링 테스트", () => {
-  const createdAt = "2023-08-05T14:00:00Z".toLocaleString();
-  const comment = {
-    commentId: "1",
-    nickname: "1yoouoo",
-    profileImage: "",
-    contents: "정말 유익한 글이었습니다.",
-    createdAt,
-    isDeleted: false,
-    childComments: [],
-  };
-  const deletedComment = {
-    commentId: "1",
-    nickname: "1yoouoo",
-    profileImage: "",
-    contents: "정말 유익한 글이었습니다.",
-    createdAt,
-    isDeleted: true,
-    childComments: [],
-  };
-
   test("댓글 삭제됐을 때 테스트", async () => {
     render(<CommentsList {...comment} />, { wrapper: Provider });
 
@@ -110,4 +103,9 @@ describe("삭제된 댓글 렌더링 테스트", () => {
 
     expect(await screen.findByText("삭제 된 댓글 입니다.")).toBeInTheDocument();
   });
+});
+
+test("대대댓글은 답글쓰기가 보이지 않아야 함.", async () => {
+  render(<GrandChildComment {...comment} />, { wrapper: Provider });
+  expect(screen.queryByText("답글쓰기")).not.toBeInTheDocument();
 });

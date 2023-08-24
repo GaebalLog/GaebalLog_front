@@ -20,7 +20,7 @@ const ProfileImage: React.FC<profileImage> = ({ idForModal, profileImage }) => {
     >
       <Image
         className="rounded-full object-cover"
-        src={profileImage}
+        src={profileImage ?? ""}
         fill
         sizes="80px"
         alt="프사"

@@ -59,7 +59,7 @@ const CommentCard: React.FC<commentCardProps> = ({
           </button>
           {!grandChildComment && (
             <button
-              data-testid={`smallAddComment_${commentId}`}
+              data-testid={`addCommentButton_${commentId}`}
               className="ml-10"
               onClick={onAddCommentClick}
             >
