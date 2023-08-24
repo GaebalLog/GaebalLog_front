@@ -4,11 +4,11 @@ import { useRecoilState } from "recoil";
 import utilConvertTime from "@/utils/util-datetime";
 import Button from "@/components/designSystem/Button";
 import { activeModalIdAtom } from "@/hooks/useModalController";
+import ProfileImage from "@/components/designSystem/ProfileImage";
 
 const styles = {
   commentHeader: `flex justify-between`,
   metaInfoWrapper: `flex items-center`,
-  profileImage: `w-[40px] h-[40px] rounded-full bg-[#D3D3D3]`,
   nickname: `ml-4 text-xl font-bold`,
   buttonBox: `flex gap-4 ml-auto`,
   date: `mt-2 ml-14`,
@@ -25,7 +25,7 @@ const CommentCard: React.FC<commentCardProps> = ({
   isChildComment,
   commentId,
   nickname,
-  // profileImage,
+  profileImage,
   createdAt,
   contents,
   grandChildComment,
@@ -46,13 +46,7 @@ const CommentCard: React.FC<commentCardProps> = ({
     <div className={isChildComment ? "mt-4" : ""}>
       <div className={styles.commentHeader}>
         <div className={styles.metaInfoWrapper}>
-          <div className={styles.profileImage} />
-          {/* <Image
-      src={profileImage ?? ""}
-      width={40}
-      height={40}
-      alt="프사"
-    /> */}
+          <ProfileImage idForModal={commentId} profileImage={profileImage} />
           <span className={styles.nickname}>{nickname}</span>
           <button className="ml-10">차단하기</button>
           {!grandChildComment && (
