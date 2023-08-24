@@ -25,7 +25,7 @@ const GrandChildComment: React.FC<comment> = ({ ...comment }) => {
       ) : (
         <div className={styles.childCommentList}>
           <ArrowInNestedComment className="mr-[22.6px]" />
-          <CommentCard {...comment} />
+          <CommentCard grandChildComment {...comment} />
         </div>
       )}
       {activeCommentId === commentId && <SubCommentForm />}

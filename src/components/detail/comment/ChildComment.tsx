@@ -29,6 +29,7 @@ const ChildComment: React.FC<comment> = ({ ...comment }) => {
           <CommentCard {...comment} />
         </div>
       )}
+      {activeCommentId === commentId && <SubCommentForm />}
       <ul>
         {childComments?.map((comment: comment) => (
           <li key={comment.commentId}>
@@ -36,7 +37,6 @@ const ChildComment: React.FC<comment> = ({ ...comment }) => {
           </li>
         ))}
       </ul>
-      {activeCommentId === commentId && <SubCommentForm />}
     </>
   );
 };
