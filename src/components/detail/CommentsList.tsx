@@ -1,8 +1,8 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
-import { activeModalIdAtom } from "@/hooks/useModalController";
+import { openCommentEditorAtom } from "@/constants/global/atoms";
 
 import CommentCard from "./comment/CommentCard";
 import SubCommentForm from "./form/SubCommentForm";
@@ -21,20 +21,10 @@ const styles = {
 const CommentsList: React.FC<comment> = ({ ...comment }) => {
   const [isChildCommentVisible, setIsChildCommentVisible] =
     React.useState(true);
-  const [activeCommentId, setActiveCommentId] =
-    useRecoilState(activeModalIdAtom);
+  const selectedCommentId = useRecoilValue(openCommentEditorAtom);
 
   const { commentId, isDeleted, childComments } = comment;
   const hasChildComments = childComments && childComments?.length > 0;
-
-  const onAddCommentClick = () => {
-    if (activeCommentId === commentId) {
-      setActiveCommentId(null);
-    } else {
-      setActiveCommentId(commentId);
-    }
-  };
-  console.log(activeCommentId);
 
   const HasChildLayout: React.FC = () => {
     return (
@@ -48,6 +38,7 @@ const CommentsList: React.FC<comment> = ({ ...comment }) => {
           <span>{`답글 ${childComments?.length}개 더보기 `}</span>
           <Arrow up={isChildCommentVisible} down={!isChildCommentVisible} />
         </button>
+        {selectedCommentId === commentId && <SubCommentForm parentComment />}
         {isChildCommentVisible && (
           <ul>
             {childComments?.map((comment) => (
@@ -57,21 +48,6 @@ const CommentsList: React.FC<comment> = ({ ...comment }) => {
             ))}
           </ul>
         )}
-      </>
-    );
-  };
-
-  const NonChildLayout: React.FC = () => {
-    return (
-      <>
-        <button
-          data-testid={`bigAddComment_${comment.commentId}`}
-          className={styles.commentAddButton}
-          onClick={onAddCommentClick}
-        >
-          <span className={styles.plusIcon}>+</span>
-          <span>답글 달기</span>
-        </button>
       </>
     );
   };
@@ -87,10 +63,9 @@ const CommentsList: React.FC<comment> = ({ ...comment }) => {
         {hasChildComments ? (
           <HasChildLayout />
         ) : (
-          !isDeleted && <NonChildLayout />
+          selectedCommentId === commentId && <SubCommentForm parentComment />
         )}
       </div>
-      {activeCommentId === commentId && <SubCommentForm isMainComment />}
       <hr className={styles.line} />
     </div>
   );

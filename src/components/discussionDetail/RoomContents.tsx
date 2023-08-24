@@ -14,6 +14,7 @@ import useModalController from "@/hooks/useModalController";
 import Button from "../designSystem/Button";
 import LoadingSpinner from "../LoadingSpinner";
 import Modal from "../modal/Modal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 
 const styles = {
   container: `relative overflow-y-auto w-[1100px] h-[62%] p-4 ${BORDER_COLOR.button}`,
@@ -59,7 +60,6 @@ const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
   const { getIcon } = useIcon();
   const like = getIcon("like", 18, 18);
   const more = getIcon("more", 5, 5);
-  const defaultClose = getIcon("default_close", 18, 18);
 
   const moreOptionModalHandler = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -169,40 +169,12 @@ const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
         />
       </div>
       {modal.discussionExit && (
-        <Modal isBgColor>
-          <div
-            className={`flex flex-col items-center w-[780px] h-[400px] ${BG_COLOR.general02}`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button className="self-end m-6" onClick={() => allCloseModal()}>
-              {defaultClose}
-            </button>
-            <h1 className="text-2xl font-bold mt-[34px]">
-              이 토의에 대한 알림을 받으시겠습니까?
-            </h1>
-            <p className="mt-14">
-              토의의 끝나는 내용을 공유받으실 수 있습니다.
-            </p>
-            <div className="flex gap-[105px] mt-[68px]">
-              <Button
-                className="w-[224px]"
-                size="bigLogin"
-                color="white"
-                onClick={() => router.back()}
-              >
-                아니오
-              </Button>
-              <Button
-                className="w-[224px]"
-                size="bigLogin"
-                color="white"
-                onClick={() => router.back()}
-              >
-                예
-              </Button>
-            </div>
-          </div>
-        </Modal>
+        <ConfirmModal
+          title="이 토의에 대한 알림을 받으시겠습니까?"
+          content="토의의 끝나는 내용을 공유받으실 수 있습니다."
+          onNegativeClick={() => router.back()}
+          onPositiveClick={() => router.back()}
+        />
       )}
     </section>
   );
