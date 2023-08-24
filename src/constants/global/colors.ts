@@ -54,4 +54,5 @@ export const BORDER_COLOR = {
   button: "border border-[#D3D3D3] dark:border-[#6A6A6A]",
   checkTab: "border-b-[4px] border-[#000000] dark:border-[#FFFFFF]",
   containerBottom: "border-b-[2px] border-[#DCDCDC] dark:border-[#2A2A2A]",
+  containerRight: "border-r-[3px] border-[#F5F5F5] dark:border-[#282828]",
 };
