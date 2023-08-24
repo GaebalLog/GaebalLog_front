@@ -2,6 +2,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { atom } from "recoil";
 
 interface Atom {
+  defaultModal: boolean;
   headerSearch: boolean;
   mypageSearch: boolean;
   discussionMore: boolean;
@@ -10,6 +11,7 @@ interface Atom {
 export const modalControlAtom = atom<Atom>({
   key: "modalController",
   default: {
+    defaultModal: false,
     headerSearch: false,
     mypageSearch: false,
     discussionMore: false,

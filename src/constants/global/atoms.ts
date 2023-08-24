@@ -14,3 +14,8 @@ export const openCommentEditorAtom = atom<string | number | null>({
   key: "openCommentEditorId",
   default: null,
 });
+
+export const nicknameAtom = atom({
+  key: "nickname",
+  default: "",
+});

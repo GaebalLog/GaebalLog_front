@@ -11,7 +11,8 @@ const styles = {
   wrapper: `flex flex-col items-center w-[780px] h-[400px]`,
   closeIcon: `self-end m-6`,
   title: `text-2xl font-bold mt-[34px]`,
-  buttonBox: `flex gap-[105px] mt-[68px]`,
+  content: `text-center mt-14`,
+  buttonBox: `flex mt-auto mb-[50px] gap-[105px]`,
 };
 
 interface confirmModalProps {
@@ -32,7 +33,7 @@ const ConfirmModal: React.FC<confirmModalProps> = ({
   const defaultClose = getIcon("default_close", 18, 18);
 
   return (
-    <Modal isBgColor>
+    <Modal isFixed isBgColor>
       <div
         className={`${styles.wrapper} ${BG_COLOR.general02}`}
         onClick={(e) => e.stopPropagation()}
@@ -41,7 +42,7 @@ const ConfirmModal: React.FC<confirmModalProps> = ({
           {defaultClose}
         </button>
         <h1 className={styles.title}>{title}</h1>
-        <div className="mt-14">{content}</div>
+        <div className={styles.content}>{content}</div>
         <div className={styles.buttonBox}>
           <Button
             className="w-[224px]"

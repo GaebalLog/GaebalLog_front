@@ -1,10 +1,11 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 import utilConvertTime from "@/utils/util-datetime";
 import Button from "@/components/designSystem/Button";
 import ProfileImage from "@/components/designSystem/ProfileImage";
-import { openCommentEditorAtom } from "@/constants/global/atoms";
+import { nicknameAtom, openCommentEditorAtom } from "@/constants/global/atoms";
+import useModalController from "@/hooks/useModalController";
 
 const styles = {
   commentHeader: `flex justify-between`,
@@ -30,17 +31,21 @@ const CommentCard: React.FC<commentCardProps> = ({
   contents,
   grandChildComment,
 }) => {
+  const setNickname = useSetRecoilState(nicknameAtom);
   const [selectedCommentId, setSelectedCommentId] = useRecoilState(
     openCommentEditorAtom,
   );
+
+  const { openModal } = useModalController();
   const time = utilConvertTime(createdAt);
 
   const onAddCommentClick = () => {
-    if (selectedCommentId === commentId) {
-      setSelectedCommentId(null);
-    } else {
-      setSelectedCommentId(commentId);
-    }
+    if (selectedCommentId === commentId) return setSelectedCommentId(null);
+    return setSelectedCommentId(commentId);
+  };
+  const onBlockClick = () => {
+    setNickname(nickname);
+    openModal("defaultModal");
   };
 
   return (
@@ -49,7 +54,9 @@ const CommentCard: React.FC<commentCardProps> = ({
         <div className={styles.metaInfoWrapper}>
           <ProfileImage idForModal={commentId} profileImage={profileImage} />
           <span className={styles.nickname}>{nickname}</span>
-          <button className="ml-10">차단하기</button>
+          <button className="ml-10" onClick={onBlockClick}>
+            차단하기
+          </button>
           {!grandChildComment && (
             <button
               data-testid={`smallAddComment_${commentId}`}
