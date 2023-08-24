@@ -14,7 +14,7 @@ import LiveSearchInput from "../../commonUI/LiveSearchInput";
 import KeywordList from "./KeywordList";
 
 const styles = {
-  container: `flex justify-center w-[1330px] h-[700px] ${BG_COLOR.general02}}`,
+  container: `flex justify-center w-[1330px] h-[700px] ${BG_COLOR.general02}`,
   widthWrapper: `flex flex-col items-center w-11/12`,
   title: `text-2xl mt-6 mb-8 font-hack`,
   keywordBox: `self-start w-full h-[155px]`,
