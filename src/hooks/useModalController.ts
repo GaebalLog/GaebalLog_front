@@ -16,7 +16,7 @@ export const modalControlAtom = atom<Atom>({
     discussionExit: false,
   },
 });
-export const activeModalIdAtom = atom<string | number | null>({
+export const activatedModalIdAtom = atom<string | number | null>({
   key: "activeModalId",
   default: null,
 });
@@ -32,7 +32,7 @@ type ModalType = keyof Atom;
 
 const useModalController = () => {
   const [modal, modalControl] = useRecoilState(modalControlAtom);
-  const setActiveModalId = useSetRecoilState(activeModalIdAtom);
+  const setActiveModalId = useSetRecoilState(activatedModalIdAtom);
   const openModal = (type: ModalType) => {
     modalControl((prev) => ({
       ...prev,

@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 
 import utilConvertTime from "@/utils/util-datetime";
 import Button from "@/components/designSystem/Button";
-import { activeModalIdAtom } from "@/hooks/useModalController";
+import { activatedModalIdAtom } from "@/hooks/useModalController";
 import ProfileImage from "@/components/designSystem/ProfileImage";
 
 const styles = {
@@ -31,7 +31,7 @@ const CommentCard: React.FC<commentCardProps> = ({
   grandChildComment,
 }) => {
   const [activeCommentId, setActiveCommentId] =
-    useRecoilState(activeModalIdAtom);
+    useRecoilState(activatedModalIdAtom);
   const time = utilConvertTime(createdAt);
 
   const onAddCommentClick = () => {

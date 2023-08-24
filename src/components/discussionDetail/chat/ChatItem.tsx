@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import NonPortalModal from "@/components/modal/NonPortalModal";
 import Button from "@/components/designSystem/Button";
-import { activeModalIdAtom } from "@/hooks/useModalController";
+import { activatedModalIdAtom } from "@/hooks/useModalController";
 import ProfileImage from "@/components/designSystem/ProfileImage";
 
 import ChatTail from "./ChatTail";
@@ -24,7 +24,7 @@ const ChatItem: React.FC<chat> = ({
   profileImage,
   content,
 }) => {
-  const activeIdforModal = useRecoilValue(activeModalIdAtom);
+  const activatedId = useRecoilValue(activatedModalIdAtom);
 
   const isMe = userId === 1;
   const bgColor = isMe ? BG_COLOR.general03 : BG_COLOR.general01;
@@ -38,7 +38,7 @@ const ChatItem: React.FC<chat> = ({
         >
           <ProfileImage idForModal={chatId} profileImage={profileImage} />
           <span>{nickname}</span>
-          {activeIdforModal === chatId && (
+          {activatedId === chatId && (
             <NonPortalModal topLeft={{ top: 0, left: 45 }} nonBackdrop>
               <div className={`flex flex-col ${BORDER_COLOR.button}`}>
                 {profileModal.map((text, i) => (

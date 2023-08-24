@@ -3,7 +3,7 @@ import { useSetRecoilState } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
-import { activeModalIdAtom } from "@/hooks/useModalController";
+import { activatedModalIdAtom } from "@/hooks/useModalController";
 
 import ArrowInNestedComment from "../icons/ArrowInNestedComment";
 
@@ -16,7 +16,7 @@ const style = {
 const SubCommentForm: React.FC<{ parentComment?: boolean }> = ({
   parentComment,
 }) => {
-  const setActivCommentId = useSetRecoilState(activeModalIdAtom);
+  const setActivCommentId = useSetRecoilState(activatedModalIdAtom);
 
   return (
     <form className="mt-8 mb-5">

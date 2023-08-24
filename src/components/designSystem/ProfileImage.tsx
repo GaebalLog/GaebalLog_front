@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { useSetRecoilState } from "recoil";
 
-import { activeModalIdAtom } from "@/hooks/useModalController";
+import { activatedModalIdAtom } from "@/hooks/useModalController";
 
 interface profileImage {
   idForModal: string | number;
@@ -10,13 +10,13 @@ interface profileImage {
 }
 
 const ProfileImage: React.FC<profileImage> = ({ idForModal, profileImage }) => {
-  const setActiveModalId = useSetRecoilState(activeModalIdAtom);
+  const setActivatedModalIdAtom = useSetRecoilState(activatedModalIdAtom);
 
   return (
     <button
       className={`relative w-10 h-10`}
       data-testid={`profile_${idForModal}`}
-      onClick={() => setActiveModalId(idForModal)}
+      onClick={() => setActivatedModalIdAtom(idForModal)}
     >
       <Image
         className="rounded-full object-cover"
