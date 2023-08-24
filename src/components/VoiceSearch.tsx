@@ -3,7 +3,7 @@ import SpeechRecognition from "react-speech-recognition";
 import { useSpeechRecognition } from "react-speech-recognition";
 
 import useIcon from "@/hooks/useIcon";
-import { BG_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 interface props {
   closeModal: () => void;
   setVoice: (value: string) => void;
@@ -49,8 +49,14 @@ const VoiceSearch: React.FC<props> = ({ closeModal, setVoice }) => {
           </h2>
         </div>
       )}
-      {isMicrophoneAvailable && <div className="text-[24px]">듣는 중...</div>}
-      <span>검색어 : {transcript}</span>
+      {isMicrophoneAvailable && (
+        <>
+          <p className="text-[24px]">듣는 중...</p>
+          <p className={`text-[20px] pt-[40px] ${TEXT_COLOR.general04}`}>
+            검색어 : {transcript}
+          </p>
+        </>
+      )}
       <button onClick={closeModal} className="absolute top-[24px] right-[24px]">
         {close}
       </button>
