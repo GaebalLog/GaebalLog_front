@@ -10,13 +10,13 @@ interface profileImage {
 }
 
 const ProfileImage: React.FC<profileImage> = ({ idForModal, profileImage }) => {
-  const setActivatedModalIdAtom = useSetRecoilState(activatedModalIdAtom);
+  const setActivatedId = useSetRecoilState(activatedModalIdAtom);
 
   return (
     <button
       className={`relative w-10 h-10`}
       data-testid={`profile_${idForModal}`}
-      onClick={() => setActivatedModalIdAtom(idForModal)}
+      onClick={() => setActivatedId(idForModal)}
     >
       <Image
         className="rounded-full object-cover"

@@ -3,8 +3,8 @@ import { useRecoilState } from "recoil";
 
 import utilConvertTime from "@/utils/util-datetime";
 import Button from "@/components/designSystem/Button";
-import { activatedModalIdAtom } from "@/hooks/useModalController";
 import ProfileImage from "@/components/designSystem/ProfileImage";
+import { openCommentEditorAtom } from "@/constants/global/atoms";
 
 const styles = {
   commentHeader: `flex justify-between`,
@@ -30,15 +30,16 @@ const CommentCard: React.FC<commentCardProps> = ({
   contents,
   grandChildComment,
 }) => {
-  const [activeCommentId, setActiveCommentId] =
-    useRecoilState(activatedModalIdAtom);
+  const [selectedCommentId, setSelectedCommentId] = useRecoilState(
+    openCommentEditorAtom,
+  );
   const time = utilConvertTime(createdAt);
 
   const onAddCommentClick = () => {
-    if (activeCommentId === commentId) {
-      setActiveCommentId(null);
+    if (selectedCommentId === commentId) {
+      setSelectedCommentId(null);
     } else {
-      setActiveCommentId(commentId);
+      setSelectedCommentId(commentId);
     }
   };
 

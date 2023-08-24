@@ -3,7 +3,7 @@ import { useSetRecoilState } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
-import { activatedModalIdAtom } from "@/hooks/useModalController";
+import { openCommentEditorAtom } from "@/constants/global/atoms";
 
 import ArrowInNestedComment from "../icons/ArrowInNestedComment";
 
@@ -16,7 +16,7 @@ const style = {
 const SubCommentForm: React.FC<{ parentComment?: boolean }> = ({
   parentComment,
 }) => {
-  const setActivCommentId = useSetRecoilState(activatedModalIdAtom);
+  const setSelectedCommentId = useSetRecoilState(openCommentEditorAtom);
 
   return (
     <form className="mt-8 mb-5">
@@ -33,7 +33,7 @@ const SubCommentForm: React.FC<{ parentComment?: boolean }> = ({
         <Button
           size="tab"
           color="black"
-          onClick={() => setActivCommentId(null)}
+          onClick={() => setSelectedCommentId(null)}
         >
           취소
         </Button>

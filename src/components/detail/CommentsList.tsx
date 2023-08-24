@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
-import { activatedModalIdAtom } from "@/hooks/useModalController";
+import { openCommentEditorAtom } from "@/constants/global/atoms";
 
 import CommentCard from "./comment/CommentCard";
 import SubCommentForm from "./form/SubCommentForm";
@@ -21,7 +21,7 @@ const styles = {
 const CommentsList: React.FC<comment> = ({ ...comment }) => {
   const [isChildCommentVisible, setIsChildCommentVisible] =
     React.useState(true);
-  const activeCommentId = useRecoilValue(activatedModalIdAtom);
+  const selectedCommentId = useRecoilValue(openCommentEditorAtom);
 
   const { commentId, isDeleted, childComments } = comment;
   const hasChildComments = childComments && childComments?.length > 0;
@@ -38,7 +38,7 @@ const CommentsList: React.FC<comment> = ({ ...comment }) => {
           <span>{`답글 ${childComments?.length}개 더보기 `}</span>
           <Arrow up={isChildCommentVisible} down={!isChildCommentVisible} />
         </button>
-        {activeCommentId === commentId && <SubCommentForm parentComment />}
+        {selectedCommentId === commentId && <SubCommentForm parentComment />}
         {isChildCommentVisible && (
           <ul>
             {childComments?.map((comment) => (
@@ -63,7 +63,7 @@ const CommentsList: React.FC<comment> = ({ ...comment }) => {
         {hasChildComments ? (
           <HasChildLayout />
         ) : (
-          activeCommentId === commentId && <SubCommentForm parentComment />
+          selectedCommentId === commentId && <SubCommentForm parentComment />
         )}
       </div>
       <hr className={styles.line} />
