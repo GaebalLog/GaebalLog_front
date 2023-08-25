@@ -4,6 +4,8 @@ import { useSetRecoilState } from "recoil";
 
 import { activatedModalIdAtom } from "@/hooks/useModalController";
 
+import profile from "../../../public/assets/icons/common/profile_light.png";
+
 interface profileImage {
   idForModal: string | number;
   profileImage: string;
@@ -20,7 +22,7 @@ const ProfileImage: React.FC<profileImage> = ({ idForModal, profileImage }) => {
     >
       <Image
         className="rounded-full object-cover"
-        src={profileImage ?? ""}
+        src={profileImage ?? profile}
         fill
         sizes="80px"
         alt="프사"

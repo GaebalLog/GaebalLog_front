@@ -17,7 +17,7 @@ const styles = {
 
 interface confirmModalProps {
   title: string;
-  content: React.ReactNode;
+  content: string | React.ReactNode;
   onNegativeClick: () => void;
   onPositiveClick: () => void;
 }
