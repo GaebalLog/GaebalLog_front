@@ -37,7 +37,10 @@ const MyPagePage = withAuth(() => {
   };
   const render = renderPage();
   return (
-    <div className="w-[1632px] flex flex-col mt-[20px]">
+    <div
+      className="w-[1632px] flex flex-col mt-[20px]"
+      data-testid="renderedMypage"
+    >
       <div className="flex p-[10px]">
         {mypageTab.map((item) => (
           <div key={`${item}tab`} className="px-[40px] pb-[16px]">

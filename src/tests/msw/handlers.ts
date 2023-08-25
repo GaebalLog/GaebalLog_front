@@ -382,4 +382,35 @@ export const handlers = [
   rest.post("/auth/googlelogin", (req, res, ctx) => {
     return res(ctx.status(200));
   }),
+  // 마이페이지
+  rest.get("/api/users", (req, res, ctx) => {
+    const myinfo = {
+      nickname: "닉네임",
+      profileImg:
+        "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
+      postsno: 1,
+      chatlistno: 3,
+      alarm_reply: true,
+      alarm_neighbors: true,
+      alarm_discussion: false,
+    };
+    return res(ctx.status(200), ctx.json(myinfo));
+  }),
+  rest.get("/api/users/times", (req, res, ctx) => {
+    const categories: timeOfLearning[] = [
+      {
+        category: "채팅방입니다1",
+        timespent: 1,
+      },
+      {
+        category: "채팅방2",
+        timespent: 20000,
+      },
+      {
+        category: "채팅방3",
+        timespent: 3,
+      },
+    ];
+    return res(ctx.status(200), ctx.json({ categories }));
+  }),
 ];
