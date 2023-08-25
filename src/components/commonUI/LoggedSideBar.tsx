@@ -13,13 +13,10 @@ import EditBtn from "./EditBtn";
 
 interface props {
   position: "top" | "bottom" | "disussion";
-  height?: `h-[${string}]`;
-  sticky?: boolean;
   type: "tech" | "discussion";
 }
-const colorSettings = `relative ${BG_COLOR.general02} ${BORDER_COLOR.container}`;
 
-const LoggedSide: React.FC<props> = ({ height, sticky, position, type }) => {
+const LoggedSide: React.FC<props> = ({ position, type }) => {
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.KEYWORDLIST],
     queryFn: async () => await axios.get("/api/usercategories"),
@@ -33,16 +30,11 @@ const LoggedSide: React.FC<props> = ({ height, sticky, position, type }) => {
       ? "h-[409px]"
       : "h-[280px]"
   }`;
-  const styles = height
-    ? sticky
-      ? `w-[380px] sticky top-[114px] overflow-auto ${colorSettings} ${heightValue}`
-      : `w-[380px] overflow-auto ${colorSettings} ${heightValue}`
-    : sticky
-    ? `w-[380px] sticky top-[114px] overflow-auto ${colorSettings} ${heightValue}`
-    : `w-[380px] overflow-auto ${colorSettings} ${heightValue}`;
 
   return (
-    <div className={styles}>
+    <div
+      className={`relative w-[380px] ${BG_COLOR.general02} ${BORDER_COLOR.container} ${heightValue}`}
+    >
       <div className="px-[16px] py-[24px]">
         <h1 className="font-hack text-[24px] mb-[32px]">My Keyword</h1>
         <div className="flex gap-3 flex-wrap content-start">
