@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 
 import CommentsList from "@/components/detail/CommentsList";
-import { BG_COLOR } from "@/constants/global/colors";
 import CommentForm from "@/components/detail/form/CommentForm";
 import Contents from "@/components/detail/Contents";
 import ConfirmModal from "@/components/modal/common/ConfirmModal";
@@ -18,7 +17,6 @@ const styles = {
     wrapper: `flex flex-col items-center w-[1632px]`,
     inner: `w-[909px] mt-[60px]`,
   },
-  line: `w-full h-[3px] mt-[63px] mb-8 ${BG_COLOR.general01}`,
   comment: {
     wrapper: `w-full`,
   },
@@ -53,7 +51,6 @@ const Detail = ({ params: { postId } }: detailParams) => {
       <hr className={styles.line} />
       <aside className={styles.comment.wrapper}>
         <CommentForm count={comments?.data.length} />
-        <hr className={styles.line} />
         <ul>
           {comments?.data.map((comment: comment) => (
             <li key={`comment_${comment.commentId}`}>
