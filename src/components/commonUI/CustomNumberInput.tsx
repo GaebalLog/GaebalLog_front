@@ -5,8 +5,7 @@ import { BORDER_COLOR } from "@/constants/global/colors";
 
 interface CustomNumberInputProps {
   type: "halfDay" | "hour" | "minutes" | "month" | "days";
-  value?: string | number;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  value: string | number;
   setValue: React.Dispatch<React.SetStateAction<string | number>>;
 }
 
@@ -14,7 +13,6 @@ const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
   type,
   value,
   setValue,
-  onChange,
 }) => {
   const { getIcon } = useIcon();
   const upArrow = getIcon("upArrow", 10, 10);
@@ -49,6 +47,30 @@ const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
     decreaseSetValue[type]();
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    const onlyNumberValue = inputValue.replace(/[^\d]/g, "");
+    const truncatedValue = onlyNumberValue.substring(0, 2);
+
+    if (type === "hour" && (+truncatedValue > 12 || +truncatedValue < 0))
+      return;
+    if (type === "minutes" && (+truncatedValue > 59 || +truncatedValue < 0))
+      return;
+    if (type === "month" && (+truncatedValue > 12 || +truncatedValue < 0))
+      return;
+    if (type === "days" && (+truncatedValue > lastDay || +truncatedValue < 0))
+      return;
+
+    setValue(truncatedValue);
+  };
+
+  const handleBlur = () => {
+    if (value === "") return setValue("01");
+    if (typeof value === "string" && value.length === 1) {
+      return setValue(`0${value}`);
+    }
+  };
+
   const showValue = () => {
     if (typeof value === "number" && value < 10) return `0${value}`;
     return value;
@@ -65,9 +87,12 @@ const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
   return (
     <div className={`flex items-center ${BORDER_COLOR.button}`}>
       <input
-        className="flex-grow w-[76px] px-4 py-[10px] text-center outline-none"
+        data-testid="input"
+        className={`w-[76px] px-4 py-[10px] text-center outline-none`}
+        readOnly={type === "halfDay"}
         value={`${showValue()}${showTimeUnits()}`}
-        onChange={onChange}
+        onChange={handleInputChange}
+        onBlur={handleBlur}
       />
       <div className="flex flex-col gap-3 pr-1">
         <button data-testid={`${type}_up`} onClick={handleIncrease}>
