@@ -5,9 +5,10 @@ import { useRouter } from "next/navigation";
 
 import { isLoggedInAtom } from "./SettingsProvider";
 
-/** pivate route 기능 구현 */
-const withAuth = (Component: React.FC) => {
-  const Auth = () => {
+const withAuth = <P extends object>(
+  Component: React.ComponentType<P>,
+): React.ComponentType<P> => {
+  const Auth: React.FunctionComponent<P> = (props) => {
     const isLoggedIn = useRecoilValue(isLoggedInAtom);
     const router = useRouter();
 
@@ -18,12 +19,12 @@ const withAuth = (Component: React.FC) => {
     }, [isLoggedIn, router]);
 
     if (!isLoggedIn) {
-      return;
+      return null;
     }
 
-    return <Component />;
+    return <Component {...props} />;
   };
+
   return Auth;
 };
-
 export default withAuth;
