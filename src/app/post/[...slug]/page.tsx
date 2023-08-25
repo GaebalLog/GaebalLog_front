@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import PostEditor from "@/components/post/PostEditor";
 import Button from "@/components/designSystem/Button";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import NonPortalModal from "@/components/modal/NonPortalModal";
+import AddTagInput from "@/components/commonUI/AddTagInput";
 
 export interface postpageParams {
   params: {
@@ -32,7 +32,6 @@ const styles = {
 };
 
 const Postpage: React.FC<postpageParams> = ({ params: { slug } }) => {
-  const [isModal, setIsModal] = React.useState(false);
   const titleRef = React.useRef<HTMLInputElement | null>(null);
   const editorDataRef = React.useRef("");
   console.log(editorDataRef);
@@ -69,21 +68,7 @@ const Postpage: React.FC<postpageParams> = ({ params: { slug } }) => {
         </div>
         <PostEditor />
         <div className={styles.bottomBox.wrapper}>
-          <div className={styles.bottomBox.tagDiv}>
-            <input
-              placeholder="태그는 최대 3개까지 입력할 수 있습니다."
-              onFocus={() => setIsModal(true)}
-              onBlur={() => setIsModal(false)}
-              className={styles.bottomBox.input}
-            />
-            {isModal && (
-              <NonPortalModal topLeft={{ top: -70, left: 0 }} nonBackdrop>
-                <div className={styles.bottomBox.modal}>
-                  해쉬태그 또는 엔터를 입력하여 태그를 등록할 수 있습니다.
-                </div>
-              </NonPortalModal>
-            )}
-          </div>
+          <AddTagInput />
           <div className={styles.bottomBox.buttonDiv}>
             <Button className="px-12" size="bigLogin" color="lightGrey">
               임시 저장
