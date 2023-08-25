@@ -1,7 +1,6 @@
 import React from "react";
 
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import useInput from "@/hooks/useInput";
 import useIcon from "@/hooks/useIcon";
 
 import NonPortalModal from "../modal/NonPortalModal";
@@ -13,17 +12,26 @@ const styles = {
   tag: `flex gap-[6px] mr-1 px-3`,
 };
 
-const AddTagInput = () => {
+interface addTagInputProps {
+  value?: string | number;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  setValue: React.Dispatch<React.SetStateAction<string | number>>;
+}
+
+const AddTagInput: React.FC<addTagInputProps> = ({
+  value,
+  onChange,
+  setValue,
+}) => {
   const [tags, setTags] = React.useState<string[]>([]);
   const [isModal, setIsModal] = React.useState<boolean>(false);
 
-  const { value, onChange, setValue } = useInput();
   const { getIcon } = useIcon();
   const close = getIcon("default_close", 9, 9);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" && value.trim() !== "" && tags.length < 3) {
-      setTags((prevTags) => [...prevTags, `#${value.trim()}`]);
+    if (event.key === "Enter" && value !== "" && tags.length < 3) {
+      setTags((prevTags) => [...prevTags, `#${value}`]);
       setValue("");
     }
   };

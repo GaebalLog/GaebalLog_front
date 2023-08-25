@@ -7,6 +7,8 @@ import PostEditor from "@/components/post/PostEditor";
 import Button from "@/components/designSystem/Button";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import AddTagInput from "@/components/commonUI/AddTagInput";
+import TimeSetting from "@/components/commonUI/TimeSetting";
+import useInput from "@/hooks/useInput";
 
 export interface postpageParams {
   params: {
@@ -20,7 +22,7 @@ const styles = {
   titleBox: {
     wrapper: `flex items-center mt-5 mb-[31px]`,
     title: `w-[1102px] px-1 py-[26px] mr-[30px] text-xl border-b focus:outline-none`,
-    timeSetting: `py-[10px] px-[20px] border ${BORDER_COLOR.button}`,
+    timeSetting: `flex items-center gap-[11px] py-[9px] px-[19px] border ${BORDER_COLOR.button}`,
   },
   bottomBox: {
     wrapper: `flex justify-between items-center mt-[74px] mb-[60px]`,
@@ -35,6 +37,8 @@ const Postpage: React.FC<postpageParams> = ({ params: { slug } }) => {
   const titleRef = React.useRef<HTMLInputElement | null>(null);
   const editorDataRef = React.useRef("");
   console.log(editorDataRef);
+
+  const tagInput = useInput();
 
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
@@ -68,7 +72,7 @@ const Postpage: React.FC<postpageParams> = ({ params: { slug } }) => {
         </div>
         <PostEditor />
         <div className={styles.bottomBox.wrapper}>
-          <AddTagInput />
+          <AddTagInput {...tagInput} />
           <div className={styles.bottomBox.buttonDiv}>
             <Button className="px-12" size="bigLogin" color="lightGrey">
               임시 저장
