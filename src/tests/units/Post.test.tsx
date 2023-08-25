@@ -86,7 +86,7 @@ describe("태그 인풋 테스트", () => {
   });
 });
 
-describe("토의 시간 설정 증가/감소 버튼 클릭 테스트", () => {
+describe("토의 시간 설정 테스트", () => {
   const TestComponent: React.FC<{
     type: "halfDay" | "hour" | "minutes" | "month" | "days";
     initialState: string | number;
@@ -152,5 +152,38 @@ describe("토의 시간 설정 증가/감소 버튼 클릭 테스트", () => {
     await userEvent.click(await screen.findByTestId("days_down"));
     await userEvent.click(await screen.findByTestId("days_down"));
     expect(await screen.findByDisplayValue(/2/)).toBeInTheDocument();
+  });
+
+  test("수동으로 인풋값 바꿨을 때 두 자리 숫자까지만 입력돼야 함", async () => {
+    render(<TestComponent type="hour" initialState={12} />, {
+      wrapper: Provider,
+    });
+
+    const input = await screen.findByTestId("input");
+
+    await userEvent.clear(input);
+    await userEvent.type(input, "11");
+    expect(await screen.findByDisplayValue("11시")).toBeInTheDocument();
+    await userEvent.clear(input);
+    await userEvent.type(input, "111");
+    expect(await screen.findByDisplayValue("11시")).toBeInTheDocument();
+  });
+
+  test("인풋에 아무것도 입력 안 하고 넘어가면 '01'이 되어야 함", async () => {
+    render(
+      <>
+        <TestComponent type="hour" initialState={12} />
+        <div>다른 거 클릭</div>
+      </>,
+      {
+        wrapper: Provider,
+      },
+    );
+
+    const input = await screen.findByTestId("input");
+
+    await userEvent.clear(input);
+    await userEvent.click(await screen.findByText("다른 거 클릭"));
+    expect(await screen.findByDisplayValue("01시")).toBeInTheDocument();
   });
 });
