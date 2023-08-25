@@ -60,15 +60,7 @@ const Postpage: React.FC<postpageParams> = ({ params: { slug } }) => {
             ref={titleRef}
             placeholder="제목을 입력해주세요."
           />
-          {slug[0] === "discussion" && (
-            <div>
-              <label htmlFor="time">
-                <select className={styles.titleBox.timeSetting} id="time">
-                  <option value="">토의 시간 설정</option>
-                </select>
-              </label>
-            </div>
-          )}
+          {slug[0] === "discussion" && <TimeSetting />}
         </div>
         <PostEditor />
         <div className={styles.bottomBox.wrapper}>
