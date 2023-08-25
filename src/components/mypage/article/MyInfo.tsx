@@ -10,7 +10,9 @@ import Button from "@/components/designSystem/Button";
 import Label from "@/components/commonUI/Label";
 
 const MyInfo = () => {
-  const [profileImg, setProfileImg] = React.useState<string>("");
+  const [profileImg, setProfileImg] = React.useState<string>(
+    "/assets/images/common/default_profile.png",
+  );
   const [newProfileImg, setNewProfileImg] = React.useState<string>("");
   const imgRef = React.useRef<HTMLInputElement>(null);
 
@@ -31,7 +33,7 @@ const MyInfo = () => {
     queryKey: ["myInfo"],
     queryFn: async () => await axios.get("/api/users"),
     onSuccess: (res) => {
-      setProfileImg(res.data.profileImg);
+      if (res.data.profile) setProfileImg(res.data.profileImg);
     },
   });
   const userInfo = data?.data as myInfo;
@@ -44,8 +46,6 @@ const MyInfo = () => {
           width={200}
           height={200}
           className="h-[200px] !important"
-          layout="fixed"
-          objectFit="cover"
         />
         <div className="flex items-center gap-[20px]">
           <div className="h-full relative">

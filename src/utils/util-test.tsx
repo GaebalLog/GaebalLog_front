@@ -5,6 +5,7 @@ import { render } from "@testing-library/react";
 import Provider from "@/components/provider/Provider";
 import Header from "@/components/header/Header";
 import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
+import MyPageCategory from "@/components/mypage/article/MyPageCategory";
 
 const mockInitializeState =
   (isLoggedInValue: boolean) =>
@@ -18,7 +19,8 @@ const mockInitializeState =
  * renderLoggedInLayout(<HomePage />);
  */
 interface option {
-  withHeader: boolean;
+  withHeader?: boolean;
+  mypage?: boolean;
 }
 export const renderLoggedInLayout = (
   component: React.JSX.Element,
@@ -26,7 +28,8 @@ export const renderLoggedInLayout = (
 ) => {
   render(
     <Provider initializeState={mockInitializeState(true)}>
-      {option?.withHeader && <Header />}
+      {(option?.withHeader || option?.mypage) && <Header />}
+      {option?.mypage && <MyPageCategory />}
       {component}
     </Provider>,
   );
@@ -42,7 +45,8 @@ export const renderLoggedOutLayout = (
 ) => {
   render(
     <Provider initializeState={mockInitializeState(false)}>
-      {option?.withHeader && <Header />}
+      {(option?.withHeader || option?.mypage) && <Header />}
+      {option?.mypage && <MyPageCategory />}
       {component}
     </Provider>,
   );

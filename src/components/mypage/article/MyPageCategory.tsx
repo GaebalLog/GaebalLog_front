@@ -106,7 +106,7 @@ const MyPageCategory = () => {
       <div className="relative">
         <Input
           type="mypage"
-          placeholder="Search"
+          placeholder="내가 추가한 나만의 키워드를 검색해보세요."
           value={keyword}
           onChange={(e) => {
             e.target.value.length > 0
