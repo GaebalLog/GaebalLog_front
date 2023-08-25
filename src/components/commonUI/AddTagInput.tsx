@@ -2,6 +2,7 @@ import React from "react";
 
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
+import useInput from "@/hooks/useInput";
 
 import NonPortalModal from "../modal/NonPortalModal";
 
@@ -13,24 +14,20 @@ const styles = {
 };
 
 interface addTagInputProps {
-  value?: string | number;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  setValue: React.Dispatch<React.SetStateAction<string | number>>;
+  tagDataRef: React.MutableRefObject<string[]>;
 }
 
-const AddTagInput: React.FC<addTagInputProps> = ({
-  value,
-  onChange,
-  setValue,
-}) => {
+const AddTagInput: React.FC<addTagInputProps> = ({ tagDataRef }) => {
   const [tags, setTags] = React.useState<string[]>([]);
   const [isModal, setIsModal] = React.useState<boolean>(false);
 
+  const { value, setValue, onChange } = useInput();
   const { getIcon } = useIcon();
   const close = getIcon("default_close", 9, 9);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" && value !== "" && tags.length < 3) {
+      event.preventDefault();
       setTags((prevTags) => [...prevTags, `#${value}`]);
       setValue("");
     }
@@ -38,6 +35,10 @@ const AddTagInput: React.FC<addTagInputProps> = ({
   const handleTagDelete = (selectedTag: string) => {
     setTags((prevTags) => prevTags.filter((tag) => tag !== selectedTag));
   };
+
+  React.useEffect(() => {
+    tagDataRef.current = tags;
+  }, [tags, tagDataRef]);
 
   return (
     <div className={styles.tagDiv}>

@@ -8,7 +8,6 @@ import Button from "@/components/designSystem/Button";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import AddTagInput from "@/components/commonUI/AddTagInput";
 import TimeSetting from "@/components/commonUI/TimeSetting";
-import useInput from "@/hooks/useInput";
 
 export interface postpageParams {
   params: {
@@ -36,14 +35,14 @@ const styles = {
 const Postpage: React.FC<postpageParams> = ({ params: { slug } }) => {
   const titleRef = React.useRef<HTMLInputElement | null>(null);
   const editorDataRef = React.useRef("");
-  console.log(editorDataRef);
-
-  const tagInput = useInput();
+  const tagDataRef = React.useRef([]);
 
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
     if (titleRef.current) {
-      console.log(titleRef.current.value);
+      console.log("title ::", titleRef.current.value);
+      console.log("editor ::", editorDataRef.current);
+      console.log("tag ::", tagDataRef.current);
     }
   };
 
@@ -64,7 +63,7 @@ const Postpage: React.FC<postpageParams> = ({ params: { slug } }) => {
         </div>
         <PostEditor />
         <div className={styles.bottomBox.wrapper}>
-          <AddTagInput {...tagInput} />
+          <AddTagInput tagDataRef={tagDataRef} />
           <div className={styles.bottomBox.buttonDiv}>
             <Button className="px-12" size="bigLogin" color="lightGrey">
               임시 저장
