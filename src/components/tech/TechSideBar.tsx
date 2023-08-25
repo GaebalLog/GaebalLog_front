@@ -7,11 +7,12 @@ import Button from "../designSystem/Button";
 import { LoggedSideBar } from "../commonUI/LoggedSideBar";
 import { NeighborArticleList } from "../commonUI/NeighborArticleList";
 import { isLoggedInAtom } from "../provider/SettingsProvider";
+import StickyStyle from "../commonUI/StickyStyle";
 
 const TechSideBar = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   return (
-    <div className="sticky top-[114px] h-[500px]">
+    <StickyStyle>
       {isLoggedIn ? (
         <div className="flex flex-col gap-[16px]">
           <Link href="/post/tech">
@@ -30,7 +31,7 @@ const TechSideBar = () => {
       ) : (
         <SideBar />
       )}
-    </div>
+    </StickyStyle>
   );
 };
 

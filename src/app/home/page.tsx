@@ -13,6 +13,7 @@ import Button from "@/components/designSystem/Button";
 import SideBar from "@/components/commonUI/SideBar";
 import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
 import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
+import StickyStyle from "@/components/commonUI/StickyStyle";
 
 import mainImage from "../../../public/assets/images/home/main.png";
 
@@ -38,11 +39,13 @@ const HomePage = () => {
         alt="메인 이미지"
       />
       <div className="flex justify-between">
-        {isLoggedIn ? (
-          <LoggedSideBar type="tech" position="bottom" sticky />
-        ) : (
-          <SideBar sticky />
-        )}
+        <StickyStyle>
+          {isLoggedIn ? (
+            <LoggedSideBar type="tech" position="bottom" />
+          ) : (
+            <SideBar sticky />
+          )}
+        </StickyStyle>
         <div>
           {isLoggedIn && (
             <div className="relative flex gap-[40px] pt-[34px] mb-[20px]">
