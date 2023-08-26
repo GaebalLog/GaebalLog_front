@@ -46,7 +46,7 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
   const router = useRouter();
 
   const { value, onChange, setValue } = useInput();
-  const debouncedValue = useDebounce(value);
+  const debouncedValue = useDebounce(value + "");
   const { data } = useQuery({
     queryKey: ["liveSearch", debouncedValue],
     queryFn: () => axios.get(`/api/liveSearch?value=${debouncedValue}`),
@@ -131,7 +131,7 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
         <Input
           type={type}
           placeholder={placeholder}
-          value={value}
+          value={value + ""}
           onChange={onChange}
           onClick={searchKeywordClick}
         />

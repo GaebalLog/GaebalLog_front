@@ -18,20 +18,23 @@ const Signuppage = () => {
   const nicknameInput = useInput();
   const passwordInput = useInput();
   const passwordConfirmInput = useInput();
-  const { isPassed: isEmailValid } = useValidation(emailInput.value, "email");
+  const { isPassed: isEmailValid } = useValidation(
+    emailInput.value + "",
+    "email",
+  );
   const { isPassed: isPasswordValid } = useValidation(
-    passwordInput.value,
+    passwordInput.value + "",
     "password",
   );
 
   const emailCheckHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { data } = await authAPI.emailConfirm(emailInput.value);
+    const { data } = await authAPI.emailConfirm(emailInput.value + "");
     console.log("emailCheck ::", data);
   };
   const nicknameCheckHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { data } = await authAPI.nicknameConfirm(nicknameInput.value);
+    const { data } = await authAPI.nicknameConfirm(nicknameInput.value + "");
     console.log("nicknameCheck ::", data);
   };
 
@@ -47,9 +50,9 @@ const Signuppage = () => {
     ) {
       const formData = new FormData();
 
-      formData.append("email", emailInput.value);
-      formData.append("nickname", nicknameInput.value);
-      formData.append("password", passwordInput.value);
+      formData.append("email", emailInput.value + "");
+      formData.append("nickname", nicknameInput.value + "");
+      formData.append("password", passwordInput.value + "");
 
       const { data } = await authAPI.localSignup(formData);
       console.log(data);
@@ -71,7 +74,7 @@ const Signuppage = () => {
             <InputWithLabel
               label="E-mail"
               type="email"
-              value={emailInput.value}
+              value={emailInput.value + ""}
               onChange={emailInput.onChange}
             />
           </div>
@@ -94,7 +97,7 @@ const Signuppage = () => {
           <div className="w-[574px]">
             <InputWithLabel
               label="Nickname"
-              value={nicknameInput.value}
+              value={nicknameInput.value + ""}
               onChange={nicknameInput.onChange}
             />
           </div>
@@ -111,7 +114,7 @@ const Signuppage = () => {
           className="w-[574px]"
           label="Password"
           type="password"
-          value={passwordInput.value}
+          value={passwordInput.value + ""}
           onChange={passwordInput.onChange}
         />
         <p
@@ -127,7 +130,7 @@ const Signuppage = () => {
           className="w-[574px]"
           label="Confirm Password"
           type="password"
-          value={passwordConfirmInput.value}
+          value={passwordConfirmInput.value + ""}
           onChange={passwordConfirmInput.onChange}
         />
         <p
