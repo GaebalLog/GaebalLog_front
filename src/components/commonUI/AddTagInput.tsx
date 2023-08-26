@@ -27,7 +27,6 @@ const AddTagInput: React.FC<addTagInputProps> = ({ tagDataRef }) => {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" && value !== "" && tags.length < 3) {
-      event.preventDefault();
       setTags((prevTags) => [...prevTags, `#${value}`]);
       setValue("");
     }

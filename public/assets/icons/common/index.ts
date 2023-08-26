@@ -48,6 +48,9 @@ import upArrow_light from "./upArrow_light.png";
 import upArrow_dark from "./upArrow_dark.png";
 import downArrow_light from "./downArrow_light.png";
 import downArrow_dark from "./downArrow_dark.png";
+import calendar_light from "./calendar_light.png";
+import calendar_dark from "./calendar_dark.png";
+import calendar_focus from "./calendar_focus.png";
 const ICON = {
   alarm: [alarm_light, alarm_dark],
   close: [close_light, close_dark],
@@ -75,5 +78,7 @@ const ICON = {
   voiceSearch: [voiceSearch_light, voiceSearch_dark],
   upArrow: [upArrow_light, upArrow_dark],
   downArrow: [downArrow_light, downArrow_dark],
+  calendar: [calendar_light, calendar_dark],
+  calendar_focus: [calendar_focus, calendar_focus],
 };
 export default ICON;

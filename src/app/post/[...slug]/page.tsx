@@ -37,8 +37,7 @@ const Postpage: React.FC<postpageParams> = ({ params: { slug } }) => {
   const editorDataRef = React.useRef("");
   const tagDataRef = React.useRef([]);
 
-  const submitHandler = (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = () => {
     if (titleRef.current) {
       console.log("title ::", titleRef.current.value);
       console.log("editor ::", editorDataRef.current);
@@ -52,7 +51,7 @@ const Postpage: React.FC<postpageParams> = ({ params: { slug } }) => {
 
   return (
     <main className={styles.wrapper}>
-      <form onSubmit={submitHandler} className={styles.form}>
+      <div className={styles.form}>
         <div className={styles.titleBox.wrapper}>
           <input
             className={styles.titleBox.title}
@@ -73,12 +72,13 @@ const Postpage: React.FC<postpageParams> = ({ params: { slug } }) => {
               className="px-12"
               size="bigLogin"
               color="black"
+              onClick={handleSubmit}
             >
               작성 완료
             </Button>
           </div>
         </div>
-      </form>
+      </div>
     </main>
   );
 };

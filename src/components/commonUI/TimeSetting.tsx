@@ -15,9 +15,13 @@ const styles = {
 };
 
 const TimeSetting: React.FC = () => {
+  const [isFocusedCalendar, setIsFocusedCalendar] = React.useState(false);
+
   const { modal, openModal, closeModal } = useModalController();
   const { getIcon } = useIcon();
   const downArrow = getIcon("downBtn", 10, 10);
+  const calendar = getIcon("calendar", 24, 24);
+  const focusedCalendar = getIcon("calendar_focus", 24, 24);
 
   const startHalfDay = useInput("오전");
   const startHour = useInput(12);
@@ -85,6 +89,12 @@ const TimeSetting: React.FC = () => {
                   monthValue={month.value}
                   {...days}
                 />
+                <div
+                  className={`flex justify-center items-center w-[45px] h-[45px] ${BORDER_COLOR.button} cursor-pointer`}
+                  onClick={() => setIsFocusedCalendar((prev) => !prev)}
+                >
+                  {isFocusedCalendar ? focusedCalendar : calendar}
+                </div>
               </div>
             </div>
           </div>
