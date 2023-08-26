@@ -11,9 +11,10 @@ import CustomNumberInput from "./CustomNumberInput";
 
 const styles = {
   settingOpenButton: `flex items-center gap-[11px] py-[9px] px-[19px] border ${BORDER_COLOR.button}`,
+  settingModalWrapper: `flex flex-col w-[445px] px-5 py-[30px] gap-[30px] ${BG_COLOR.primary} ${BORDER_COLOR.button}`,
 };
 
-const TimeSetting = () => {
+const TimeSetting: React.FC = () => {
   const { modal, openModal, closeModal } = useModalController();
   const { getIcon } = useIcon();
   const downArrow = getIcon("downBtn", 10, 10);
@@ -43,9 +44,7 @@ const TimeSetting = () => {
       </button>
       {modal.defaultModal && (
         <NonPortalModal topLeft={{ top: 44, left: 0 }} nonBackdrop>
-          <div
-            className={`flex flex-col w-[445px] px-5 py-[30px] gap-[30px] ${BG_COLOR.primary} ${BORDER_COLOR.button}`}
-          >
+          <div className={styles.settingModalWrapper}>
             <div>
               <p className="mb-5">
                 <span className="text-xl">시작 시간</span>
@@ -74,8 +73,18 @@ const TimeSetting = () => {
                 (시작 기간을 설정하여 예약할 수 있습니다.)
               </p>
               <div className="flex gap-4">
-                <CustomNumberInput type="month" {...month} />
-                <CustomNumberInput type="days" {...days} />
+                <CustomNumberInput
+                  type="month"
+                  daysValue={days.value}
+                  monthValue={month.value}
+                  setDays={days.setValue}
+                  {...month}
+                />
+                <CustomNumberInput
+                  type="days"
+                  monthValue={month.value}
+                  {...days}
+                />
               </div>
             </div>
           </div>
