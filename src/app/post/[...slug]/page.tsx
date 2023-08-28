@@ -2,19 +2,17 @@
 
 import React from "react";
 import { notFound } from "next/navigation";
+import dynamic from "next/dynamic";
 
 import PostEditor from "@/components/post/PostEditor";
 import Button from "@/components/designSystem/Button";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import AddTagInput from "@/components/commonUI/AddTagInput";
-import TimeSetting from "@/components/commonUI/TimeSetting";
 import withAuth from "@/components/provider/withAuth";
 
-export interface postpageParams {
-  params: {
-    slug: string[];
-  };
-}
+const TimeSetting = dynamic(
+  () => import("../../../components/commonUI/TimeSetting"),
+);
 
 const styles = {
   wrapper: `w-full h-[calc(100vh-94px)] flex justify-center`,
@@ -32,6 +30,12 @@ const styles = {
     buttonDiv: `flex gap-[30px]`,
   },
 };
+
+export interface postpageParams {
+  params: {
+    slug: string[];
+  };
+}
 
 const Postpage: React.ComponentType<postpageParams> = withAuth(
   ({ params: { slug } }) => {

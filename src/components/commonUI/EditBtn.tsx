@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import { modalAtom } from "@/constants/global/atoms";
 import { TEXT_COLOR } from "@/constants/global/colors";
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const KeywordSearch = dynamic(
   () => import("../../components/modal/keywordSearch/KeywordSearch"),
 );

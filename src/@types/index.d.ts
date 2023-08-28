@@ -71,7 +71,6 @@ declare global {
 }
 
 declare module "ckeditor5-custom-build/build/ckeditor" {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   const CustomEditorBuild: {
     create(
       elementOrData: HTMLElement | string,
