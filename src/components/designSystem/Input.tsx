@@ -49,7 +49,7 @@ const Input: React.FC<InputProps> = ({
   const [searchSort, setSearchSort] =
     React.useState<(typeof sortList)[number]>("토의");
   const [hoveredItem, setHoveredItem] =
-    React.useState<(typeof sortList)[number]>(); // 현재 hover 중인 항목을 추적하는 상태
+    React.useState<(typeof sortList)[number]>();
   const search = getIcon("search", 18, 18);
   const downBtn = getIcon("downBtn", 8, 12);
   const handleIconClick = () => {
