@@ -19,9 +19,9 @@ const DiscussionPage = () => {
   return (
     <div className="w-[1632px] flex justify-between mt-[20px]">
       <DiscussionSideBar />
-      <div>
+      <div className="w-full">
         <SortBar tab={tab} setTab={setTab} />
-        <div className="flex flex-col gap-[20px]">
+        <div className="flex flex-col items-end gap-[20px]">
           {discussionList?.map((discussion: discussion) => {
             return (
               <Discussion
