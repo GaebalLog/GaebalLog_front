@@ -12,6 +12,10 @@ import ConfirmModal from "@/components/modal/common/ConfirmModal";
 import useModalController from "@/hooks/useModalController";
 import { nicknameAtom } from "@/constants/global/atoms";
 import { BG_COLOR } from "@/constants/global/colors";
+import { postAPI } from "@/api/postAPI";
+import utilConvertTime from "@/utils/util-datetime";
+import Button from "@/components/designSystem/Button";
+import DeleteConfirm from "@/components/modal/common/DeleteConfirm";
 
 const styles = {
   contents: {
@@ -29,27 +33,63 @@ export interface detailParams {
     postId: number;
   };
 }
+interface postDetail {
+  post_id: number;
+  title: string;
+  content: string;
+  nickname: string;
+  view: number;
+  like: number;
+  img: string;
+  categories: string[];
+  createdDt: string;
+}
 
 const Detail = ({ params: { postId } }: detailParams) => {
+  console.log(postId);
   const nickname = useRecoilValue(nicknameAtom);
-
+  const { modal, openModal } = useModalController();
   const { data: detailContents } = useQuery({
     queryKey: ["detailContents", postId],
-    queryFn: () => axios.get("/api/detailcontents"),
+    queryFn: () => postAPI.getDetail(postId),
   });
-
+  const detailData = detailContents?.data.data as postDetail;
+  console.log(detailData);
   const { data: comments } = useQuery({
     queryKey: ["comments", postId],
     queryFn: () => axios.get("/api/comments"),
   });
 
-  const { modal, allCloseModal } = useModalController();
-
   return (
     <div className={styles.contents.wrapper}>
       <article className={styles.contents.inner}>
-        <Contents contents={detailContents?.data} />
+        <p className="text-[36px] text-center font-bold">{detailData?.title}</p>
+        <div className="flex gap-[32px] items-center">
+          <span className="text-[20px]">{detailData?.nickname}</span>
+          {detailData?.createdDt && (
+            <span>{utilConvertTime(detailData?.createdDt)}</span>
+          )}
+        </div>
+        <Contents contents={detailData?.content} />
       </article>
+      <hr className={styles.line} />
+      <div className="w-full flex justify-center gap-[16px]">
+        <Button size="tab" color="white" border>
+          글 수정
+        </Button>
+        <Button
+          size="tab"
+          color="white"
+          onClick={(e) => {
+            e.stopPropagation();
+            openModal("deleteModal");
+          }}
+          border
+        >
+          글 삭제
+        </Button>
+      </div>
+      {modal.deleteModal && <DeleteConfirm mode="tech" postId={postId} />}
       <hr className={styles.line} />
       <aside className={styles.comment.wrapper}>
         <CommentForm count={comments?.data.length} />
@@ -70,8 +110,8 @@ const Detail = ({ params: { postId } }: detailParams) => {
               <p>이후 내 글에 댓글을 쓰거나 나와의 토의를 할 수 없게 됩니다.</p>
             </>
           }
-          onNegativeClick={() => allCloseModal()}
-          onPositiveClick={() => allCloseModal()}
+          onNegativeClick={() => {}}
+          onPositiveClick={() => {}}
         />
       )}
     </div>

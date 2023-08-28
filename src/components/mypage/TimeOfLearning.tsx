@@ -14,7 +14,7 @@ const TimeOfLearning: React.FC<{ category: timeOfLearning }> = ({
       className="flex justify-between items-center gap-[16px] h-[60px] px-[16px] py-[8px] text-[16px]"
     >
       <Button
-        size="category"
+        size="myCategory"
         color="white"
         rounded
         border

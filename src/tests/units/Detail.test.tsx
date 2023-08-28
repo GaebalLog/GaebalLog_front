@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import Detail from "@/app/tech/[title]/page";
+import Detail from "@/app/tech/[postId]/page";
 import CommentsList from "@/components/detail/CommentsList";
 import ChildComment from "@/components/detail/comment/ChildComment";
 import GrandChildComment from "@/components/detail/comment/GrandChildComment";
