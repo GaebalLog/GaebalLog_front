@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Gothic A1", sans-serif;
+}
+
 .no-tailwind h1 {
   font-size: 2.5em;
   font-weight: bold;

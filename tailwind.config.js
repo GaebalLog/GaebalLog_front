@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        hack: ["Hack", "monospace"],
+        hack: ["Hack", "Gothic A1"],
       },
       animation: {
         changeColor: "changeColor 0.8s steps(1, end) infinite",

@@ -2,14 +2,11 @@ import React from "react";
 import "./globals.css";
 import type { Metadata } from "next";
 
-// import { Gothic_A1 } from "next/font/google";
 import "regenerator-runtime/runtime";
 import Provider from "@/components/provider/Provider";
 import Header from "@/components/header/Header";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import Footer from "@/components/footer/Footer";
-
-// const gothic = Gothic_A1({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "개발자들의 소통공간, 개발로그",
@@ -20,8 +17,18 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
-          href="https://cdnjs.cloudflare.com/ajax/libs/hack-font/3.3.0/web/hack.css"
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/hack-font/3.3.0/web/hack-subset.css"
           rel="stylesheet"
         />
         <link rel="icon" href="/favicon.ico" />
