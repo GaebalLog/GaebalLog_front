@@ -4,6 +4,13 @@ import { useSetRecoilState } from "recoil";
 import { TEXT_COLOR } from "@/constants/global/colors";
 import { selectedDayAtom } from "@/constants/global/atoms";
 
+const styles = {
+  wrapper: `grid grid-cols-7`,
+  daysDiv: `h-[34px] flex items-center justify-center`,
+  currentDays: `w-[34px] h-[34px] flex items-center justify-center`,
+  surroundingDays: `w-[34px] h-[34px] flex items-center justify-center text-gray-400`,
+};
+
 interface DayProps {
   today: { year: number; month: number; day: number };
   selectedYear: number;
@@ -61,11 +68,9 @@ const Days: React.FC<DayProps> = ({
           data-testid={`prevMonthDay_${p}`}
           key={`prevMonthDay_${p}`}
           onClick={prevMonth}
-          className="h-[34px] flex items-center justify-center"
+          className={styles.daysDiv}
         >
-          <p className="w-[34px] h-[34px] flex items-center justify-center text-gray-400">
-            {p}
-          </p>
+          <p className={styles.surroundingDays}>{p}</p>
         </div>,
       );
     }
@@ -81,13 +86,9 @@ const Days: React.FC<DayProps> = ({
           onClick={() =>
             setSelectedDay({ year: selectedYear, month: selectedMonth, day: i })
           }
-          className={`h-[34px] flex items-center justify-center`}
+          className={styles.daysDiv}
         >
-          <p
-            className={`w-[34px] h-[34px] flex items-center justify-center ${getCurrentDayBorderColor(
-              i,
-            )}`}
-          >
+          <p className={`${styles.currentDays} ${getCurrentDayBorderColor(i)}`}>
             {i}
           </p>
         </div>,
@@ -104,18 +105,16 @@ const Days: React.FC<DayProps> = ({
           data-testid={`nextMonthDay_${n}`}
           key={`nextMonthDay_${n}`}
           onClick={nextMonth}
-          className="h-[34px] flex items-center justify-center"
+          className={styles.daysDiv}
         >
-          <p className="w-[34px] h-[34px] flex items-center justify-center text-gray-400">
-            {n}
-          </p>
+          <p className={styles.surroundingDays}>{n}</p>
         </div>,
       );
     }
     return days;
   };
 
-  return <div className="grid grid-cols-7">{returnDays()}</div>;
+  return <div className={styles.wrapper}>{returnDays()}</div>;
 };
 
 export default Days;
