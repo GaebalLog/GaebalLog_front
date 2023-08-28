@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
-import { activeModalIdAtom } from "@/hooks/useModalController";
+import { openCommentEditorAtom } from "@/constants/global/atoms";
 
 import ArrowInNestedComment from "../icons/ArrowInNestedComment";
 import SubCommentForm from "../form/SubCommentForm";
@@ -16,7 +16,7 @@ const styles = {
 };
 
 const ChildComment: React.FC<comment> = ({ ...comment }) => {
-  const activeCommentId = useRecoilValue(activeModalIdAtom);
+  const selectedCommentId = useRecoilValue(openCommentEditorAtom);
 
   const { commentId, isDeleted, childComments } = comment;
   return (
@@ -29,6 +29,7 @@ const ChildComment: React.FC<comment> = ({ ...comment }) => {
           <CommentCard {...comment} />
         </div>
       )}
+      {selectedCommentId === commentId && <SubCommentForm />}
       <ul>
         {childComments?.map((comment: comment) => (
           <li key={comment.commentId}>
@@ -36,7 +37,6 @@ const ChildComment: React.FC<comment> = ({ ...comment }) => {
           </li>
         ))}
       </ul>
-      {activeCommentId === commentId && <SubCommentForm />}
     </>
   );
 };

@@ -3,7 +3,7 @@ import { useSetRecoilState } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
-import { activeModalIdAtom } from "@/hooks/useModalController";
+import { openCommentEditorAtom } from "@/constants/global/atoms";
 
 import ArrowInNestedComment from "../icons/ArrowInNestedComment";
 
@@ -13,17 +13,17 @@ const style = {
   buttonBox: `flex justify-end gap-1 mt-4 self-end`,
 };
 
-const SubCommentForm: React.FC<{ isMainComment?: boolean }> = ({
-  isMainComment,
+const SubCommentForm: React.FC<{ parentComment?: boolean }> = ({
+  parentComment,
 }) => {
-  const setActivCommentId = useSetRecoilState(activeModalIdAtom);
+  const setSelectedCommentId = useSetRecoilState(openCommentEditorAtom);
 
   return (
     <form className="mt-8 mb-5">
       <div className="flex">
-        {!isMainComment && (
-          <ArrowInNestedComment className="ml-48 mr-[22.6px]" />
-        )}
+        <ArrowInNestedComment
+          className={`${parentComment ? "ml-14" : "ml-32"} mr-[22.6px]`}
+        />
         <textarea
           className={style.textarea}
           placeholder="댓글을 입력해주세요."
@@ -33,7 +33,7 @@ const SubCommentForm: React.FC<{ isMainComment?: boolean }> = ({
         <Button
           size="tab"
           color="black"
-          onClick={() => setActivCommentId(null)}
+          onClick={() => setSelectedCommentId(null)}
         >
           취소
         </Button>

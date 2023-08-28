@@ -2,6 +2,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { atom } from "recoil";
 
 interface Atom {
+  defaultModal: boolean;
   headerSearch: boolean;
   mypageSearch: boolean;
   discussionMore: boolean;
@@ -10,13 +11,14 @@ interface Atom {
 export const modalControlAtom = atom<Atom>({
   key: "modalController",
   default: {
+    defaultModal: false,
     headerSearch: false,
     mypageSearch: false,
     discussionMore: false,
     discussionExit: false,
   },
 });
-export const activeModalIdAtom = atom<string | number | null>({
+export const activatedModalIdAtom = atom<string | number | null>({
   key: "activeModalId",
   default: null,
 });
@@ -32,7 +34,7 @@ type ModalType = keyof Atom;
 
 const useModalController = () => {
   const [modal, modalControl] = useRecoilState(modalControlAtom);
-  const setActiveModalId = useSetRecoilState(activeModalIdAtom);
+  const setActivatedId = useSetRecoilState(activatedModalIdAtom);
   const openModal = (type: ModalType) => {
     modalControl((prev) => ({
       ...prev,
@@ -58,7 +60,7 @@ const useModalController = () => {
     for (const key in modal) {
       closeModal(key as ModalType);
     }
-    setActiveModalId(null);
+    setActivatedId(null);
   };
   return { modal, openModal, closeModal, toggleModal, allCloseModal };
 };
