@@ -7,7 +7,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import useIcon from "@/hooks/useIcon";
 
 const styles = {
-  keywordList: `flex flex-wrap gap-[10px] mt-[22px]`,
+  keywordList: `relative flex flex-wrap gap-[10px] h-[100px] mt-[22px] overflow-y-hidden`,
   exceptionUI: `flex justify-center items-center w-full h-[130.5px] text-xl`,
 };
 
@@ -28,29 +28,32 @@ const KeywordList: React.FC<keywordListProps> = ({
 }) => {
   const queryClient = useQueryClient();
 
+  const cachedMyCategory = queryClient.getQueryData<{ data: string[] }>([
+    "userCategories",
+  ])?.data;
+
+  const { getIcon } = useIcon();
+  const close = getIcon("close", 18, 18);
+
   const { mutate } = useMutation({
     mutationFn: (selectedCategory: string) =>
       axios.delete(`/api/usercategories/${selectedCategory}`),
     onSuccess: (_, selectedCategory) => {
-      const myCategory = queryClient.getQueryData<{ data: string[] }>([
-        "userCategories",
-      ])?.data;
-
-      const deletedResult = myCategory?.filter(
+      const deletedResult = cachedMyCategory?.filter(
         (category) => category !== selectedCategory,
       );
 
-      if (!deletedResult || !setMyCategories) return;
-
-      setMyCategories(deletedResult);
-      queryClient.setQueryData(["userCategories"], {
-        data: deletedResult,
-      });
+      replaceMyCategories(deletedResult ?? []);
     },
   });
 
-  const { getIcon } = useIcon();
-  const close = getIcon("close", 18, 18);
+  const replaceMyCategories = (deletedResult: string[]) => {
+    if (!deletedResult || !setMyCategories) return;
+    setMyCategories(deletedResult);
+    queryClient.setQueryData(["userCategories"], {
+      data: deletedResult,
+    });
+  };
 
   if (isLoading)
     return (
