@@ -8,6 +8,7 @@ import Button from "@/components/designSystem/Button";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import AddTagInput from "@/components/commonUI/AddTagInput";
 import TimeSetting from "@/components/commonUI/TimeSetting";
+import withAuth from "@/components/provider/withAuth";
 
 export interface postpageParams {
   params: {
@@ -32,55 +33,57 @@ const styles = {
   },
 };
 
-const Postpage: React.FC<postpageParams> = ({ params: { slug } }) => {
-  const titleRef = React.useRef<HTMLInputElement | null>(null);
-  const editorDataRef = React.useRef("");
-  const tagDataRef = React.useRef([]);
+const Postpage: React.ComponentType<postpageParams> = withAuth(
+  ({ params: { slug } }) => {
+    const titleRef = React.useRef<HTMLInputElement | null>(null);
+    const editorDataRef = React.useRef("");
+    const tagDataRef = React.useRef([]);
 
-  const handleSubmit = () => {
-    if (titleRef.current) {
-      console.log("title ::", titleRef.current.value);
-      console.log("editor ::", editorDataRef.current);
-      console.log("tag ::", tagDataRef.current);
-    }
-  };
+    const handleSubmit = () => {
+      if (titleRef.current) {
+        console.log("title ::", titleRef.current.value);
+        console.log("editor ::", editorDataRef.current);
+        console.log("tag ::", tagDataRef.current);
+      }
+    };
 
-  React.useEffect(() => {
-    if (slug[0] !== "tech" && slug[0] !== "discussion") return notFound();
-  }, [slug]);
+    React.useEffect(() => {
+      if (slug[0] !== "tech" && slug[0] !== "discussion") return notFound();
+    }, [slug]);
 
-  return (
-    <main className={styles.wrapper}>
-      <div className={styles.form}>
-        <div className={styles.titleBox.wrapper}>
-          <input
-            className={styles.titleBox.title}
-            ref={titleRef}
-            placeholder="제목을 입력해주세요."
-          />
-          {slug[0] === "discussion" && <TimeSetting />}
-        </div>
-        <PostEditor />
-        <div className={styles.bottomBox.wrapper}>
-          <AddTagInput tagDataRef={tagDataRef} />
-          <div className={styles.bottomBox.buttonDiv}>
-            <Button className="px-12" size="bigLogin" color="lightGrey">
-              임시 저장
-            </Button>
-            <Button
-              type="submit"
-              className="px-12"
-              size="bigLogin"
-              color="black"
-              onClick={handleSubmit}
-            >
-              작성 완료
-            </Button>
+    return (
+      <main className={styles.wrapper}>
+        <div className={styles.form}>
+          <div className={styles.titleBox.wrapper}>
+            <input
+              className={styles.titleBox.title}
+              ref={titleRef}
+              placeholder="제목을 입력해주세요."
+            />
+            {slug[0] === "discussion" && <TimeSetting />}
+          </div>
+          <PostEditor />
+          <div className={styles.bottomBox.wrapper}>
+            <AddTagInput tagDataRef={tagDataRef} />
+            <div className={styles.bottomBox.buttonDiv}>
+              <Button className="px-12" size="bigLogin" color="lightGrey">
+                임시 저장
+              </Button>
+              <Button
+                type="submit"
+                className="px-12"
+                size="bigLogin"
+                color="black"
+                onClick={handleSubmit}
+              >
+                작성 완료
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
-  );
-};
+      </main>
+    );
+  },
+);
 
 export default Postpage;

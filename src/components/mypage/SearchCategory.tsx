@@ -33,19 +33,18 @@ const SearchCategory: React.FC<props> = ({
     <NonPortalModal topLeft={modalPosition.topLeft} nonBackdrop>
       <ul className={styles.searchUl}>
         {displayedResults?.length !== 0 &&
-          displayedResults?.map((result: string, i: number) => {
+          displayedResults?.map((category: string, i: number) => {
             const bgColor =
               focusedIndex === i ? BG_COLOR.general03 : BG_COLOR.primary;
             return (
               <li
-                key={i}
-                data-testid={`item-${i}`}
+                key={`카테고리 ${category}`}
                 className={`${styles.searchList} ${bgColor}`}
-                onClick={() => keywordHandler(result)}
+                onClick={() => keywordHandler(category)}
                 onMouseEnter={() => setFocusedIndex(i)}
               >
                 {search}
-                <span className="px-[5px]">{result}</span>
+                <span className="px-[5px]">{category}</span>
               </li>
             );
           })}

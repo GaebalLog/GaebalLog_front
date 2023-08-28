@@ -10,10 +10,13 @@ import Button from "@/components/designSystem/Button";
 import Label from "@/components/commonUI/Label";
 
 const MyInfo = () => {
-  const [profileImg, setProfileImg] = React.useState<string>("");
+  const [profileImg, setProfileImg] = React.useState<string>(
+    "/assets/images/common/default_profile.png",
+  );
   const [newProfileImg, setNewProfileImg] = React.useState<string>("");
   const imgRef = React.useRef<HTMLInputElement>(null);
 
+  // setNewProfileImg 훅이 필요(수정될때마다 서버와 동기화)
   const onChangeImgHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     const imgSrc = e.target.files && e.target.files[0];
     if (!imgSrc) return;
@@ -24,14 +27,13 @@ const MyInfo = () => {
     };
   };
   const removeImgHandler = () => {
-    setNewProfileImg("");
-    setProfileImg("");
+    setNewProfileImg("/assets/images/common/default_profile.png");
   };
   const { data } = useQuery({
     queryKey: ["myInfo"],
     queryFn: async () => await axios.get("/api/users"),
     onSuccess: (res) => {
-      setProfileImg(res.data.profileImg);
+      if (res.data.profile) setProfileImg(res.data.profileImg);
     },
   });
   const userInfo = data?.data as myInfo;
@@ -44,8 +46,6 @@ const MyInfo = () => {
           width={200}
           height={200}
           className="h-[200px] !important"
-          layout="fixed"
-          objectFit="cover"
         />
         <div className="flex items-center gap-[20px]">
           <div className="h-full relative">
@@ -71,6 +71,7 @@ const MyInfo = () => {
           </h1>
           <div className={`flex ${TEXT_COLOR.primary}`}>
             <input
+              data-testid="nicknameInput"
               placeholder={userInfo?.nickname}
               className={`w-[200px] bg-inherit py-[12px] ${BORDER_COLOR.containerBottom}`}
             />
