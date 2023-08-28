@@ -8,6 +8,7 @@ import useInput from "@/hooks/useInput";
 import NonPortalModal from "../modal/NonPortalModal";
 
 import CustomNumberInput from "./CustomNumberInput";
+import Calendar from "./calendar/Calendar";
 
 const styles = {
   settingOpenButton: `flex items-center gap-[11px] py-[9px] px-[19px] border ${BORDER_COLOR.button}`,
@@ -90,10 +91,15 @@ const TimeSetting: React.FC = () => {
                   {...days}
                 />
                 <div
-                  className={`flex justify-center items-center w-[45px] h-[45px] ${BORDER_COLOR.button} cursor-pointer`}
+                  className={`relative flex justify-center items-center w-[45px] h-[45px] ${BORDER_COLOR.button} cursor-pointer`}
                   onClick={() => setIsFocusedCalendar((prev) => !prev)}
                 >
                   {isFocusedCalendar ? focusedCalendar : calendar}
+                  {isFocusedCalendar && (
+                    <NonPortalModal topLeft={{ top: 43, left: -130 }}>
+                      <Calendar />
+                    </NonPortalModal>
+                  )}
                 </div>
               </div>
             </div>
