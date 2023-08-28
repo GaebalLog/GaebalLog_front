@@ -16,6 +16,7 @@ const MyInfo = () => {
   const [newProfileImg, setNewProfileImg] = React.useState<string>("");
   const imgRef = React.useRef<HTMLInputElement>(null);
 
+  // setNewProfileImg 훅이 필요(수정될때마다 서버와 동기화)
   const onChangeImgHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     const imgSrc = e.target.files && e.target.files[0];
     if (!imgSrc) return;
@@ -26,8 +27,7 @@ const MyInfo = () => {
     };
   };
   const removeImgHandler = () => {
-    setNewProfileImg("");
-    setProfileImg("");
+    setNewProfileImg("/assets/images/common/default_profile.png");
   };
   const { data } = useQuery({
     queryKey: ["myInfo"],
@@ -71,6 +71,7 @@ const MyInfo = () => {
           </h1>
           <div className={`flex ${TEXT_COLOR.primary}`}>
             <input
+              data-testid="nicknameInput"
               placeholder={userInfo?.nickname}
               className={`w-[200px] bg-inherit py-[12px] ${BORDER_COLOR.containerBottom}`}
             />
