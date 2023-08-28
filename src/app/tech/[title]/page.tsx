@@ -6,12 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 
 import CommentsList from "@/components/detail/CommentsList";
-import { BG_COLOR } from "@/constants/global/colors";
 import CommentForm from "@/components/detail/form/CommentForm";
 import Contents from "@/components/detail/Contents";
 import ConfirmModal from "@/components/modal/common/ConfirmModal";
 import useModalController from "@/hooks/useModalController";
 import { nicknameAtom } from "@/constants/global/atoms";
+import { BG_COLOR } from "@/constants/global/colors";
 
 const styles = {
   contents: {
@@ -53,7 +53,6 @@ const Detail = ({ params: { postId } }: detailParams) => {
       <hr className={styles.line} />
       <aside className={styles.comment.wrapper}>
         <CommentForm count={comments?.data.length} />
-        <hr className={styles.line} />
         <ul>
           {comments?.data.map((comment: comment) => (
             <li key={`comment_${comment.commentId}`}>

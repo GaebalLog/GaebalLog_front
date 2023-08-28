@@ -58,8 +58,8 @@ const Loginpage = () => {
     e.preventDefault();
     try {
       const { data } = await authAPI.localLogin(
-        emailInput.value,
-        passwordInput.value,
+        emailInput.value + "",
+        passwordInput.value + "",
       );
       console.log(data);
 
@@ -79,13 +79,13 @@ const Loginpage = () => {
           <InputWithLabel
             label="E-mail"
             type="email"
-            value={emailInput.value}
+            value={emailInput.value + ""}
             onChange={emailInput.onChange}
           />
           <InputWithLabel
             label="PASSWORD"
             type="password"
-            value={passwordInput.value}
+            value={passwordInput.value + ""}
             onChange={passwordInput.onChange}
           />
           <p

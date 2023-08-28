@@ -2,18 +2,17 @@
 
 import React from "react";
 import { notFound } from "next/navigation";
+import dynamic from "next/dynamic";
 
 import PostEditor from "@/components/post/PostEditor";
 import Button from "@/components/designSystem/Button";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import NonPortalModal from "@/components/modal/NonPortalModal";
+import AddTagInput from "@/components/commonUI/AddTagInput";
 import withAuth from "@/components/provider/withAuth";
 
-export interface postpageParams {
-  params: {
-    slug: string[];
-  };
-}
+const TimeSetting = dynamic(
+  () => import("../../../components/commonUI/TimeSetting"),
+);
 
 const styles = {
   wrapper: `w-full h-[calc(100vh-94px)] flex justify-center`,
@@ -21,7 +20,7 @@ const styles = {
   titleBox: {
     wrapper: `flex items-center mt-5 mb-[31px]`,
     title: `w-[1102px] px-1 py-[26px] mr-[30px] text-xl border-b focus:outline-none`,
-    timeSetting: `py-[10px] px-[20px] border ${BORDER_COLOR.button}`,
+    timeSetting: `flex items-center gap-[11px] py-[9px] px-[19px] border ${BORDER_COLOR.button}`,
   },
   bottomBox: {
     wrapper: `flex justify-between items-center mt-[74px] mb-[60px]`,
@@ -32,17 +31,23 @@ const styles = {
   },
 };
 
+export interface postpageParams {
+  params: {
+    slug: string[];
+  };
+}
+
 const Postpage: React.ComponentType<postpageParams> = withAuth(
   ({ params: { slug } }) => {
-    const [isModal, setIsModal] = React.useState(false);
     const titleRef = React.useRef<HTMLInputElement | null>(null);
     const editorDataRef = React.useRef("");
-    console.log(editorDataRef);
+    const tagDataRef = React.useRef([]);
 
-    const submitHandler = (event: React.FormEvent) => {
-      event.preventDefault();
+    const handleSubmit = () => {
       if (titleRef.current) {
-        console.log(titleRef.current.value);
+        console.log("title ::", titleRef.current.value);
+        console.log("editor ::", editorDataRef.current);
+        console.log("tag ::", tagDataRef.current);
       }
     };
 
@@ -52,40 +57,18 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
 
     return (
       <main className={styles.wrapper}>
-        <form onSubmit={submitHandler} className={styles.form}>
+        <div className={styles.form}>
           <div className={styles.titleBox.wrapper}>
             <input
               className={styles.titleBox.title}
               ref={titleRef}
               placeholder="제목을 입력해주세요."
             />
-            {slug[0] === "discussion" && (
-              <div>
-                <label htmlFor="time">
-                  <select className={styles.titleBox.timeSetting} id="time">
-                    <option value="">토의 시간 설정</option>
-                  </select>
-                </label>
-              </div>
-            )}
+            {slug[0] === "discussion" && <TimeSetting />}
           </div>
           <PostEditor />
           <div className={styles.bottomBox.wrapper}>
-            <div className={styles.bottomBox.tagDiv}>
-              <input
-                placeholder="태그는 최대 3개까지 입력할 수 있습니다."
-                onFocus={() => setIsModal(true)}
-                onBlur={() => setIsModal(false)}
-                className={styles.bottomBox.input}
-              />
-              {isModal && (
-                <NonPortalModal topLeft={{ top: -70, left: 0 }} nonBackdrop>
-                  <div className={styles.bottomBox.modal}>
-                    해쉬태그 또는 엔터를 입력하여 태그를 등록할 수 있습니다.
-                  </div>
-                </NonPortalModal>
-              )}
-            </div>
+            <AddTagInput tagDataRef={tagDataRef} />
             <div className={styles.bottomBox.buttonDiv}>
               <Button className="px-12" size="bigLogin" color="lightGrey">
                 임시 저장
@@ -95,12 +78,13 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
                 className="px-12"
                 size="bigLogin"
                 color="black"
+                onClick={handleSubmit}
               >
                 작성 완료
               </Button>
             </div>
           </div>
-        </form>
+        </div>
       </main>
     );
   },

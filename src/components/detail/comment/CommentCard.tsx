@@ -1,11 +1,12 @@
 import React from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import utilConvertTime from "@/utils/util-datetime";
 import Button from "@/components/designSystem/Button";
 import ProfileImage from "@/components/designSystem/ProfileImage";
 import { nicknameAtom, openCommentEditorAtom } from "@/constants/global/atoms";
 import useModalController from "@/hooks/useModalController";
+import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
 
 const styles = {
   commentHeader: `flex justify-between`,
@@ -32,6 +33,7 @@ const CommentCard: React.FC<commentCardProps> = ({
   grandChildComment,
 }) => {
   const setNickname = useSetRecoilState(nicknameAtom);
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const [selectedCommentId, setSelectedCommentId] = useRecoilState(
     openCommentEditorAtom,
   );
@@ -54,17 +56,21 @@ const CommentCard: React.FC<commentCardProps> = ({
         <div className={styles.metaInfoWrapper}>
           <ProfileImage idForModal={commentId} profileImage={profileImage} />
           <span className={styles.nickname}>{nickname}</span>
-          <button className="ml-10" onClick={onBlockClick}>
-            차단하기
-          </button>
-          {!grandChildComment && (
-            <button
-              data-testid={`addCommentButton_${commentId}`}
-              className="ml-10"
-              onClick={onAddCommentClick}
-            >
-              답글쓰기
-            </button>
+          {isLoggedIn && (
+            <>
+              <button className="ml-10" onClick={onBlockClick}>
+                차단하기
+              </button>
+              {!grandChildComment && (
+                <button
+                  data-testid={`addCommentButton_${commentId}`}
+                  className="ml-10"
+                  onClick={onAddCommentClick}
+                >
+                  답글쓰기
+                </button>
+              )}
+            </>
           )}
         </div>
         <div className={styles.buttonBox}>
