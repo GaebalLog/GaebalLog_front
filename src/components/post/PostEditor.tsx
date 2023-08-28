@@ -39,8 +39,8 @@ const PostEditor = () => {
         }}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log({ event, editor, data });
           editorDataRef.current = data;
+          console.log(data);
         }}
         // 필요한 다른 이벤트 핸들러들...
       />

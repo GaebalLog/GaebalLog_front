@@ -54,8 +54,25 @@
   box-sizing: border-box;
 }
 
-.ck-editor__editable {
+.ck.ck-content {
   height: var(--ckeditorHeight);
+}
+
+.ck-content h2 {
+  font-size: 2em;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.ck-content h3 {
+  font-size: 1.75em;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.ck-content h4 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
 }
 
 input[type="checkbox"]:checked + label > svg {

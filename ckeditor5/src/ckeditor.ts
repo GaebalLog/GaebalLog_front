@@ -7,7 +7,6 @@ import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
 
 import { Alignment } from '@ckeditor/ckeditor5-alignment';
 import { Autoformat } from '@ckeditor/ckeditor5-autoformat';
-import { Autosave } from '@ckeditor/ckeditor5-autosave';
 import { Bold, Italic, Strikethrough, Underline } from '@ckeditor/ckeditor5-basic-styles';
 import { BlockQuote } from '@ckeditor/ckeditor5-block-quote';
 import { CodeBlock } from '@ckeditor/ckeditor5-code-block';
@@ -16,17 +15,27 @@ import { FontBackgroundColor, FontColor, FontFamily, FontSize } from '@ckeditor/
 import { Heading } from '@ckeditor/ckeditor5-heading';
 import { HorizontalLine } from '@ckeditor/ckeditor5-horizontal-line';
 import {
-	AutoImage,
 	Image,
 	ImageCaption,
+	ImageInsert,
+	ImageResize,
+	ImageStyle,
 	ImageToolbar,
 	ImageUpload
 } from '@ckeditor/ckeditor5-image';
 import { Indent, IndentBlock } from '@ckeditor/ckeditor5-indent';
-import { List, TodoList } from '@ckeditor/ckeditor5-list';
+import { AutoLink, Link } from '@ckeditor/ckeditor5-link';
+import { List, ListProperties, TodoList } from '@ckeditor/ckeditor5-list';
 import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
-import { Table, TableToolbar } from '@ckeditor/ckeditor5-table';
+import { PasteFromOffice } from '@ckeditor/ckeditor5-paste-from-office';
+import {
+	Table,
+	TableCellProperties,
+	TableColumnResize,
+	TableProperties,
+	TableToolbar
+} from '@ckeditor/ckeditor5-table';
 import { TextTransformation } from '@ckeditor/ckeditor5-typing';
 import { Base64UploadAdapter } from '@ckeditor/ckeditor5-upload';
 
@@ -36,9 +45,8 @@ import { Base64UploadAdapter } from '@ckeditor/ckeditor5-upload';
 class Editor extends ClassicEditor {
 	public static override builtinPlugins = [
 		Alignment,
-		AutoImage,
+		AutoLink,
 		Autoformat,
-		Autosave,
 		Base64UploadAdapter,
 		BlockQuote,
 		Bold,
@@ -52,16 +60,25 @@ class Editor extends ClassicEditor {
 		HorizontalLine,
 		Image,
 		ImageCaption,
+		ImageInsert,
+		ImageResize,
+		ImageStyle,
 		ImageToolbar,
 		ImageUpload,
 		Indent,
 		IndentBlock,
 		Italic,
+		Link,
 		List,
+		ListProperties,
 		MediaEmbed,
 		Paragraph,
+		PasteFromOffice,
 		Strikethrough,
 		Table,
+		TableCellProperties,
+		TableColumnResize,
+		TableProperties,
 		TableToolbar,
 		TextTransformation,
 		TodoList,
@@ -74,43 +91,48 @@ class Editor extends ClassicEditor {
 				'undo',
 				'redo',
 				'heading',
+				'bold',
+				'italic',
+				'strikethrough',
+				'underline',
 				'|',
 				'fontFamily',
 				'fontSize',
-				'bold',
-				'italic',
-				'underline',
-				'strikethrough',
 				'fontColor',
 				'fontBackgroundColor',
 				'|',
-				'imageUpload',
-				'mediaEmbed',
-				'codeBlock',
-				'insertTable',
 				'horizontalLine',
-				'|',
-				'alignment',
 				'blockQuote',
+				'link',
+				'codeBlock',
+				'imageInsert',
+				'insertTable',
+				'|',
+				'indent',
+				'outdent',
+				'alignment',
 				'bulletedList',
 				'numberedList',
-				'todoList',
-				'indent',
-				'outdent'
+				'todoList'
 			]
 		},
 		language: 'ko',
 		image: {
 			toolbar: [
 				'imageTextAlternative',
-				'toggleImageCaption'
+				'toggleImageCaption',
+				'imageStyle:inline',
+				'imageStyle:block',
+				'imageStyle:side'
 			]
 		},
 		table: {
 			contentToolbar: [
 				'tableColumn',
 				'tableRow',
-				'mergeTableCells'
+				'mergeTableCells',
+				'tableCellProperties',
+				'tableProperties'
 			]
 		}
 	};
