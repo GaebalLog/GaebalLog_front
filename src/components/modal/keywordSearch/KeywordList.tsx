@@ -17,6 +17,7 @@ interface keywordListProps {
   nonIcon?: boolean;
   isLoading?: boolean;
   setMyCategories?: React.Dispatch<React.SetStateAction<string[]>>;
+  myCategoriesContainerRef?: React.MutableRefObject<HTMLUListElement | null>;
 }
 
 const KeywordList: React.FC<keywordListProps> = ({
@@ -25,6 +26,7 @@ const KeywordList: React.FC<keywordListProps> = ({
   nonIcon,
   isLoading,
   setMyCategories,
+  myCategoriesContainerRef,
 }) => {
   const queryClient = useQueryClient();
 
@@ -65,9 +67,9 @@ const KeywordList: React.FC<keywordListProps> = ({
     return <div className={styles.exceptionUI}>데이터 없음</div>;
 
   return (
-    <ul className={styles.keywordList}>
+    <ul ref={myCategoriesContainerRef} className={styles.keywordList}>
       {data?.map((category: string) => (
-        <li key={`${type}_${category}`} className="mb-[6px]">
+        <li key={`${type}_${category}`} className="category mb-[6px]">
           <Button
             className="flex items-center gap-[10px]"
             data-testid={`${type}_${category}`}
