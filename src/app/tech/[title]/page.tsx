@@ -11,12 +11,14 @@ import Contents from "@/components/detail/Contents";
 import ConfirmModal from "@/components/modal/common/ConfirmModal";
 import useModalController from "@/hooks/useModalController";
 import { nicknameAtom } from "@/constants/global/atoms";
+import { BG_COLOR } from "@/constants/global/colors";
 
 const styles = {
   contents: {
     wrapper: `flex flex-col items-center w-[1632px]`,
     inner: `w-[909px] mt-[60px]`,
   },
+  line: `w-full h-[3px] mt-[63px] mb-8 ${BG_COLOR.general01}`,
   comment: {
     wrapper: `w-full`,
   },
