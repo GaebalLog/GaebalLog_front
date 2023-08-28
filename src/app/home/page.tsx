@@ -38,7 +38,7 @@ const HomePage = () => {
         height={400}
         alt="메인 이미지"
       />
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-[32px]">
         <StickyStyle>
           {isLoggedIn ? (
             <LoggedSideBar type="tech" position="bottom" />
@@ -46,7 +46,7 @@ const HomePage = () => {
             <SideBar sticky />
           )}
         </StickyStyle>
-        <div>
+        <div className="w-full">
           {isLoggedIn && (
             <div className="relative flex gap-[40px] pt-[34px] mb-[20px]">
               <Link href="/post/tech">
@@ -70,7 +70,7 @@ const HomePage = () => {
                 ))}
             </div>
           )}
-          <div className="flex flex-col gap-[20px]">
+          <div className="flex flex-col items-end gap-[20px]">
             {postList?.map((post: post) => {
               return <Post post={post} key={`postlist${post.postId}`} />;
             })}

@@ -5,6 +5,7 @@ interface Atom {
   defaultModal: boolean;
   headerSearch: boolean;
   mypageSearch: boolean;
+  myNeightborsType: boolean;
   discussionMore: boolean;
   discussionExit: boolean;
 }
@@ -14,6 +15,7 @@ export const modalControlAtom = atom<Atom>({
     defaultModal: false,
     headerSearch: false,
     mypageSearch: false,
+    myNeightborsType: false,
     discussionMore: false,
     discussionExit: false,
   },
@@ -30,8 +32,9 @@ type ModalType = keyof Atom;
  * const { modal, openModal, closeModal } = useModalControll();
  * openModal("explain");
  * closeModal("explain");
+ * @important
+ * modal 상태를 사용하는 부모 컴포넌트에 onClick={(e) => e.stopPropagation()} 필수
  */
-
 const useModalController = () => {
   const [modal, modalControl] = useRecoilState(modalControlAtom);
   const setActivatedId = useSetRecoilState(activatedModalIdAtom);
