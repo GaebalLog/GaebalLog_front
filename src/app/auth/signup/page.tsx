@@ -44,7 +44,7 @@ const Signuppage = () => {
     if (
       isEmailValid &&
       isPasswordValid &&
-      nicknameInput.value &&
+      nicknameInput.value !== "" &&
       passwordInput.value === passwordConfirmInput.value &&
       isConfirm
     ) {
