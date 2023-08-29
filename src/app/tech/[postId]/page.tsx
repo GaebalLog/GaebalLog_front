@@ -46,15 +46,14 @@ export interface postDetail {
 }
 
 const Detail = ({ params: { postId } }: detailParams) => {
-  console.log(postId);
   const nickname = useRecoilValue(nicknameAtom);
   const { modal, openModal } = useModalController();
   const { data: detailContents } = useQuery({
     queryKey: ["detailContents", postId],
     queryFn: () => postAPI.getDetail(postId),
   });
-  const detailData = detailContents?.data.data as postDetail;
-  console.log(detailData);
+  const detailData = detailContents?.data as postDetail;
+  console.log(detailContents);
   const { data: comments } = useQuery({
     queryKey: ["comments", postId],
     queryFn: () => axios.get("/api/comments"),

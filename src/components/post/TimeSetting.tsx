@@ -8,6 +8,7 @@ import useInput from "@/hooks/useInput";
 import NonPortalModal from "../modal/NonPortalModal";
 
 import CustomNumberInput from "./CustomNumberInput";
+import Calendar from "./calendar/Calendar";
 
 const styles = {
   settingOpenButton: `flex items-center gap-[11px] py-[9px] px-[19px] border ${BORDER_COLOR.button}`,
@@ -15,8 +16,6 @@ const styles = {
 };
 
 const TimeSetting: React.FC = () => {
-  const [isFocusedCalendar, setIsFocusedCalendar] = React.useState(false);
-
   const { modal, openModal, closeModal } = useModalController();
   const { getIcon } = useIcon();
   const downArrow = getIcon("downBtn", 10, 10);
@@ -90,10 +89,25 @@ const TimeSetting: React.FC = () => {
                   {...days}
                 />
                 <div
-                  className={`flex justify-center items-center w-[45px] h-[45px] ${BORDER_COLOR.button} cursor-pointer`}
-                  onClick={() => setIsFocusedCalendar((prev) => !prev)}
+                  className={`relative flex justify-center items-center w-[45px] h-[45px] ${BORDER_COLOR.button} cursor-pointer`}
+                  onClick={() => openModal("calendarModal")}
                 >
-                  {isFocusedCalendar ? focusedCalendar : calendar}
+                  {modal.calendarModal ? focusedCalendar : calendar}
+                  {modal.calendarModal && (
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <NonPortalModal
+                        topLeft={{ top: 43, left: -130 }}
+                        onBackdropClick={() => closeModal("calendarModal")}
+                      >
+                        <Calendar
+                          monthValue={+month.value}
+                          daysValue={+days.value}
+                          setMonthValue={month.setValue}
+                          setDaysValue={days.setValue}
+                        />
+                      </NonPortalModal>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

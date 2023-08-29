@@ -9,6 +9,7 @@ interface Atom {
   discussionMore: boolean;
   discussionExit: boolean;
   deleteModal: boolean;
+  calendarModal: boolean;
 }
 export const modalControlAtom = atom<Atom>({
   key: "modalController",
@@ -20,6 +21,7 @@ export const modalControlAtom = atom<Atom>({
     discussionMore: false,
     discussionExit: false,
     deleteModal: false,
+    calendarModal: false,
   },
 });
 export const activatedModalIdAtom = atom<string | number | null>({

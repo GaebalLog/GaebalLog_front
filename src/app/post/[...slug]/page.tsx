@@ -7,12 +7,12 @@ import dynamic from "next/dynamic";
 import PostEditor from "@/components/post/PostEditor";
 import Button from "@/components/designSystem/Button";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import AddTagInput from "@/components/commonUI/AddTagInput";
+import AddTagInput from "@/components/post/AddTagInput";
 import withAuth from "@/components/provider/withAuth";
 import { postAPI } from "@/api/postAPI";
 
 const TimeSetting = dynamic(
-  () => import("../../../components/commonUI/TimeSetting"),
+  () => import("../../../components/post/TimeSetting"),
 );
 
 const styles = {

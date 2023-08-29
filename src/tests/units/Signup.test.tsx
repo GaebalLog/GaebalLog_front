@@ -84,7 +84,7 @@ describe("로컬 회원가입 테스트", () => {
 
     const createAccountButton = await screen.findByText("Create Account");
 
-    // 이미지 누락 및 유효성 통과 안 되는 값들 입력
+    // 유효성 통과 안 되는 값들 입력
     await userEvent.type(emailInput, "dddd");
     await userEvent.type(nicknameInput, "dd");
     await userEvent.type(passwordInput, "123456");

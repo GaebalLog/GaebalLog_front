@@ -15,8 +15,7 @@ const TechPage = () => {
     queryKey: [QUERY_KEYS.POSTLIST_HOME],
     queryFn: async () => await postAPI.getAll(),
   });
-  const postList = data?.data.posts;
-  console.log(data);
+  const postList = data?.data;
   return (
     <div className="w-[1632px] flex justify-between mt-[20px]">
       <TechSideBar />

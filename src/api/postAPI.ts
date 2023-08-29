@@ -9,20 +9,20 @@ interface createPost {
   categories: string[];
   img: string;
 }
-interface detailPost {
+export interface detailPost {
   data: postDetail;
 }
 export const postAPI = {
   create: (data: createPost) => {
-    return instance.post("/api/post", data);
+    return instance.post("/post", data);
   },
   getAll: () => {
-    return instance.get("/api/posts");
+    return instance.get("/posts");
   },
   getDetail: (id: number) => {
-    return instance.get<detailPost>(`/api/post?id=${id}`);
+    return instance.get<postDetail>(`/post?id=${id}`);
   },
   delete: (id: number) => {
-    return instance.delete(`/api/post/${id}`);
+    return instance.delete(`/post/${id}`);
   },
 };

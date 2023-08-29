@@ -11,7 +11,7 @@ const TimeOfLearning: React.FC<{ category: timeOfLearning }> = ({
   return (
     <div
       key={`mypage${category.category}`}
-      className="flex justify-between items-center gap-[16px] h-[60px] px-[16px] py-[8px] text-[16px]"
+      className="category flex justify-between items-center gap-[16px] h-[60px] px-[16px] py-[8px] text-[16px]"
     >
       <Button
         size="myCategory"

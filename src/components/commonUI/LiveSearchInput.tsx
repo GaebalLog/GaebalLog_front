@@ -24,7 +24,7 @@ const typeStyles = {
 };
 
 interface liveSearchInputProps {
-  categoryAddHandler?: (selectedKeyword: string) => void;
+  addCategory?: (selectedKeyword: string) => void;
   type: "searchModal" | "header";
   isRouter?: boolean;
   voiceSearch?: string | null;
@@ -32,7 +32,7 @@ interface liveSearchInputProps {
 }
 
 const LiveSearchInput: React.FC<liveSearchInputProps> = ({
-  categoryAddHandler,
+  addCategory,
   type,
   isRouter,
   voiceSearch,
@@ -72,7 +72,7 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
   }, []);
 
   const searchKeywordClick = (selectedKeyword: string) => {
-    categoryAddHandler && categoryAddHandler(selectedKeyword);
+    addCategory && addCategory(selectedKeyword);
     setIsModal((prev) => !prev);
     setFocusedIndex(null);
     isRouter && router.push(`/tech?keyword=${selectedKeyword}`);

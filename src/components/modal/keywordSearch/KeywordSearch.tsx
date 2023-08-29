@@ -6,7 +6,7 @@ import axios from "axios";
 import { BG_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
 import { modalAtom } from "@/constants/global/atoms";
-import { scrollHandler } from "@/utils/util-scrollhandler";
+import useIcon from "@/hooks/useIcon";
 
 import Modal from "../Modal";
 import LiveSearchInput from "../../commonUI/LiveSearchInput";
@@ -24,9 +24,16 @@ const styles = {
 };
 
 const KeywordSearch = () => {
+  const setIsModal = useSetRecoilState(modalAtom);
   const [addedCategories, setAddedCategories] = React.useState<string[]>([]);
   const [myCategories, setMyCategories] = React.useState<string[]>([]);
-  const setIsModal = useSetRecoilState(modalAtom);
+  const [remainingCategoryCount, setRemainingCategoryCount] = React.useState(0);
+  const [startIndex, setStartIndex] = React.useState(0);
+  const [renderedItemCount, setRenderedItemCount] = React.useState(0);
+  const [renderedItemCountArray, setRenderedItemCountArray] = React.useState<
+    number[]
+  >([]);
+  const myCategoriesContainerRef = React.useRef<HTMLUListElement | null>(null);
   const queryClient = useQueryClient();
 
   const { isLoading: myCategoriesLoading } = useQuery({
@@ -44,7 +51,33 @@ const KeywordSearch = () => {
     },
   );
 
-  const categoryAddHandler = async (selectedKeyword: string) => {
+  const { getIcon } = useIcon();
+  const prevBtn = getIcon("prevBtn", 35, 35, "cursor");
+  const nextBtn = getIcon("nextBtn", 35, 35, "cursor");
+  const slicedMyCategories = myCategories.slice(startIndex);
+  const isFirsPage = remainingCategoryCount === myCategories.length;
+  const isLastPage = startIndex + renderedItemCount < myCategories.length;
+
+  const handleNext = () => {
+    setStartIndex((prev) => prev + renderedItemCount);
+    setRemainingCategoryCount((prev) =>
+      prev > 0 ? prev - renderedItemCount : 0,
+    );
+    setRenderedItemCountArray((prev) => [...prev, renderedItemCount]);
+  };
+
+  const handlePrev = () => {
+    const lastRenderedItemCount =
+      renderedItemCountArray[renderedItemCountArray.length - 1];
+    setStartIndex((prev) => prev - lastRenderedItemCount);
+    setRemainingCategoryCount((prev) => prev + lastRenderedItemCount);
+    setRenderedItemCountArray((prev) => {
+      prev.pop();
+      return prev;
+    });
+  };
+
+  const addCategory = (selectedKeyword: string) => {
     const addedResult = (prev: string[]) => [...prev, selectedKeyword];
 
     if (!addedCategories.includes(selectedKeyword)) {
@@ -56,34 +89,65 @@ const KeywordSearch = () => {
     }
   };
 
-  const addedCategorySubmitHandler = () => {
+  const handleSubmit = () => {
     setAddedCategories([]);
     setIsModal((prev) => !prev);
   };
 
   React.useEffect(() => {
-    scrollHandler.disabledScroll();
-    return () => scrollHandler.enabledScroll();
-  }, []);
+    const container = myCategoriesContainerRef.current;
+    if (container) {
+      const totalMyCategories = Array.from(
+        container.getElementsByClassName("category"),
+      ) as HTMLDivElement[];
+      const renderedItems = totalMyCategories.filter(
+        (item) => item.offsetTop < container.clientHeight,
+      );
+      setRenderedItemCount(renderedItems.length);
+    }
+  }, [myCategories, startIndex]);
+
+  React.useEffect(() => {
+    setRemainingCategoryCount(myCategories.length);
+  }, [myCategories]);
 
   return (
-    <Modal isBgColor>
+    <Modal isBgColor isFixed blockScroll>
       <div className={styles.container}>
         <div className={styles.widthWrapper}>
           <span className={styles.title}>Add my keywords</span>
           <LiveSearchInput
             type="searchModal"
-            categoryAddHandler={categoryAddHandler}
+            addCategory={addCategory}
             placeholder="키워드를 추가하여 나만의 키워드를 만들어 보세요."
           />
           <div className={styles.keywordBox}>
             <span className={styles.keywordBoxTitle}>현재 나의 키워드</span>
-            <KeywordList
-              data={myCategories}
-              type="myCategory"
-              isLoading={myCategoriesLoading}
-              setMyCategories={setMyCategories}
-            />
+            <div className="relative flex">
+              {!isFirsPage && (
+                <button
+                  className="absolute top-12 -left-10"
+                  onClick={handlePrev}
+                >
+                  {prevBtn}
+                </button>
+              )}
+              <KeywordList
+                myCategoriesContainerRef={myCategoriesContainerRef}
+                data={isFirsPage ? myCategories : slicedMyCategories}
+                type="myCategory"
+                isLoading={myCategoriesLoading}
+                setMyCategories={setMyCategories}
+              />
+              {isLastPage && (
+                <button
+                  className="absolute top-12 -right-10"
+                  onClick={handleNext}
+                >
+                  {nextBtn}
+                </button>
+              )}
+            </div>
           </div>
           <hr className={styles.line} />
           <div className={styles.keywordBox}>
@@ -100,7 +164,7 @@ const KeywordSearch = () => {
               className="mr-6"
               size="confirm"
               color="black"
-              onClick={addedCategorySubmitHandler}
+              onClick={handleSubmit}
             >
               Ok
             </Button>

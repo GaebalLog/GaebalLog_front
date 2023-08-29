@@ -12,7 +12,7 @@ export const generateMetadata = async ({
   params: { postId },
 }: detailParams) => {
   const postInfo = await postAPI.getDetail(postId);
-  const { title, content } = postInfo.data.data;
+  const { title, content } = postInfo.data;
   return {
     title,
     describe: content,
