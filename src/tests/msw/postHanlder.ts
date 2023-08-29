@@ -1,10 +1,9 @@
 import { rest } from "msw";
 
 import type { createPost } from "@/api/postAPI";
-const serverURL = process.env.NEXT_PUBLIC_MAIN_SERVER;
 
 export const postHandler = [
-  rest.get(`${serverURL}/post`, (req, res, ctx) => {
+  rest.get("/post", (req, res, ctx) => {
     const postId = req.url.searchParams.get("id");
 
     if (postId == "37") {
@@ -27,12 +26,12 @@ export const postHandler = [
     }
   }),
 
-  rest.delete(`${serverURL}/post/:id`, (req, res, ctx) => {
+  rest.delete("/post/:id", (req, res, ctx) => {
     const postId = req.params.id;
     if (postId == "37") return res(ctx.status(200), ctx.json({ result: true }));
   }),
 
-  rest.post(`${serverURL}/post`, (req, res, ctx) => {
+  rest.post("/post", (req, res, ctx) => {
     const isCreatePost = (data: createPost) => {
       return (
         typeof data.user_id === "number" &&

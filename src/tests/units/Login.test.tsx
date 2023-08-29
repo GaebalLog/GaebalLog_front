@@ -9,7 +9,6 @@ import Provider from "@/components/provider/Provider";
 
 import { mockNavigation } from "../__mocks__/next/navigation";
 import { server } from "../msw/server";
-import { serverURL } from "../msw/handlers";
 
 import { renderHome } from "./Home.test";
 describe("로그인 페이지 테스트", () => {
@@ -36,7 +35,7 @@ describe("로그인 페이지 테스트", () => {
 
   test("로그인 실패 테스트", async () => {
     server.use(
-      rest.post(`${serverURL}/auth/login`, (req, res, ctx) => {
+      rest.post("/auth/login", (req, res, ctx) => {
         return res(ctx.status(500));
       }),
     );
