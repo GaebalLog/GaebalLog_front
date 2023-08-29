@@ -1,8 +1,7 @@
 import React from "react";
-import { useSetRecoilState } from "recoil";
 
 import { TEXT_COLOR } from "@/constants/global/colors";
-import { selectedDayAtom } from "@/constants/global/atoms";
+import useModalController from "@/hooks/useModalController";
 
 const styles = {
   wrapper: `grid grid-cols-7`,
@@ -12,21 +11,25 @@ const styles = {
 };
 
 interface DayProps {
-  today: { year: number; month: number; day: number };
+  selectedDate: { year: number; month: number; day: number };
   selectedYear: number;
   selectedMonth: number;
   prevMonth: () => void;
   nextMonth: () => void;
+  setMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
+  setDaysValue: React.Dispatch<React.SetStateAction<string | number>>;
 }
 
 const Days: React.FC<DayProps> = ({
-  today,
+  selectedDate,
   selectedYear,
   selectedMonth,
   prevMonth,
   nextMonth,
+  setMonthValue,
+  setDaysValue,
 }) => {
-  const setSelectedDay = useSetRecoilState(selectedDayAtom);
+  const { closeModal } = useModalController();
 
   const showDay = React.useMemo(() => {
     const lastMonthDate = new Date(selectedYear, selectedMonth - 1, 0);
@@ -39,11 +42,17 @@ const Days: React.FC<DayProps> = ({
 
   const getCurrentDayBorderColor = (day: number) => {
     if (
-      today.year === selectedYear &&
-      today.month === selectedMonth &&
-      today.day === day
+      selectedDate.year === selectedYear &&
+      selectedDate.month === selectedMonth &&
+      selectedDate.day === day
     )
-      return `border rounded-full bg-[#967AC3] ${TEXT_COLOR.inverse}`;
+      return `rounded-full bg-[#967AC3] ${TEXT_COLOR.inverse}`;
+  };
+
+  const synchronizeInputNumber = (day: number) => {
+    setMonthValue(selectedMonth);
+    setDaysValue(day);
+    closeModal("calendarModal");
   };
 
   const returnDays = () => {
@@ -83,9 +92,7 @@ const Days: React.FC<DayProps> = ({
       days.push(
         <div
           key={i}
-          onClick={() =>
-            setSelectedDay({ year: selectedYear, month: selectedMonth, day: i })
-          }
+          onClick={() => synchronizeInputNumber(i)}
           className={styles.daysDiv}
         >
           <p className={`${styles.currentDays} ${getCurrentDayBorderColor(i)}`}>

@@ -19,8 +19,3 @@ export const nicknameAtom = atom({
   key: "nickname",
   default: "",
 });
-
-export const selectedDayAtom = atom({
-  key: "selectedDay",
-  default: { year: 0, month: 0, day: 0 },
-});

@@ -16,8 +16,6 @@ const styles = {
 };
 
 const TimeSetting: React.FC = () => {
-  const [isFocusedCalendar, setIsFocusedCalendar] = React.useState(false);
-
   const { modal, openModal, closeModal } = useModalController();
   const { getIcon } = useIcon();
   const downArrow = getIcon("downBtn", 10, 10);
@@ -92,13 +90,23 @@ const TimeSetting: React.FC = () => {
                 />
                 <div
                   className={`relative flex justify-center items-center w-[45px] h-[45px] ${BORDER_COLOR.button} cursor-pointer`}
-                  onClick={() => setIsFocusedCalendar((prev) => !prev)}
+                  onClick={() => openModal("calendarModal")}
                 >
-                  {isFocusedCalendar ? focusedCalendar : calendar}
-                  {isFocusedCalendar && (
-                    <NonPortalModal topLeft={{ top: 43, left: -130 }}>
-                      <Calendar />
-                    </NonPortalModal>
+                  {modal.calendarModal ? focusedCalendar : calendar}
+                  {modal.calendarModal && (
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <NonPortalModal
+                        topLeft={{ top: 43, left: -130 }}
+                        onBackdropClick={() => closeModal("calendarModal")}
+                      >
+                        <Calendar
+                          monthValue={+month.value}
+                          daysValue={+days.value}
+                          setMonthValue={month.setValue}
+                          setDaysValue={days.setValue}
+                        />
+                      </NonPortalModal>
+                    </div>
                   )}
                 </div>
               </div>

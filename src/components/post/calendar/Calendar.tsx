@@ -6,16 +6,26 @@ import Days from "./Days";
 import Week from "./Week";
 import Header from "./Header";
 
-const Calendar = () => {
-  const today = {
-    year: new Date().getFullYear(),
-    month: new Date().getMonth() + 1,
-    day: new Date().getDate(),
-  };
-  const [selectedYear, setSelectedYear] = React.useState(today.year);
-  const [selectedMonth, setSelectedMonth] = React.useState(today.month);
+interface calendarProps {
+  monthValue: number;
+  daysValue: number;
+  setMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
+  setDaysValue: React.Dispatch<React.SetStateAction<string | number>>;
+}
 
-  // 달 이동 로직
+const Calendar: React.FC<calendarProps> = ({
+  monthValue,
+  daysValue,
+  setMonthValue,
+  setDaysValue,
+}) => {
+  const selectedDate = {
+    year: new Date().getFullYear(),
+    month: monthValue,
+    day: daysValue,
+  };
+  const [selectedYear, setSelectedYear] = React.useState(selectedDate.year);
+  const [selectedMonth, setSelectedMonth] = React.useState(monthValue);
 
   const prevMonth = () => {
     if (selectedMonth === 1) {
@@ -47,11 +57,13 @@ const Calendar = () => {
       />
       <Week />
       <Days
-        today={today}
+        selectedDate={selectedDate}
         selectedYear={selectedYear}
         selectedMonth={selectedMonth}
         prevMonth={prevMonth}
         nextMonth={nextMonth}
+        setMonthValue={setMonthValue}
+        setDaysValue={setDaysValue}
       />
     </div>
   );
