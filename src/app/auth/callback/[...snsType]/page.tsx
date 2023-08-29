@@ -4,7 +4,7 @@ import React from "react";
 import { notFound, redirect, useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
 
-import { authAPI } from "@/api/api";
+import { authAPI } from "@/api/authAPI";
 
 interface snsTypeProps {
   params: {

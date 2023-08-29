@@ -18,6 +18,7 @@ const BUTTON_VARIANT = {
   confirm: `text-[24px] leading-[27.94pxpx] py-[10px] px-6 rounded-[3px] font-hack`,
   button: `text-[16px] py-[10px] px-[20px] rounded-[3px]`,
   subTab: `text-[20px] py-[4px]`,
+  myCategory: `text-[20px] h-[40px] leading-[23.28px] py-[10px] px-4 font-hack max-w-[180px] truncate`,
 };
 
 const COLOR_VARIANT = {

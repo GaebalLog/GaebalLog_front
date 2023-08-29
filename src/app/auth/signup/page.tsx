@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import InputWithLabel from "@/components/designSystem/InputWithLabel";
 import Button from "@/components/designSystem/Button";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import { authAPI } from "@/api/api";
+import { authAPI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
 import useValidation from "@/hooks/useValidation";
 
