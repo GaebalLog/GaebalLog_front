@@ -38,7 +38,10 @@ const NonPortalModal: React.FC<nonPortalModalProps> = ({
   return (
     <div>
       {!nonBackdrop && (
-        <div className={`${styles.backdrop}`} onClick={onBackdropClick} />
+        <div
+          className={`${styles.backdrop} cursor-auto`}
+          onClick={onBackdropClick}
+        />
       )}
       <div className={styles.contentsBox} style={topLeft}>
         {children}

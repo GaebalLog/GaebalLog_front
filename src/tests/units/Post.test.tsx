@@ -5,8 +5,8 @@ import userEvent from "@testing-library/user-event";
 import Postpage from "@/app/post/[...slug]/page";
 import Provider from "@/components/provider/Provider";
 import { renderLoggedInLayout } from "@/utils/util-test";
-import TimeSetting from "@/components/commonUI/TimeSetting";
-import CustomNumberInput from "@/components/commonUI/CustomNumberInput";
+import TimeSetting from "@/components/post/TimeSetting";
+import CustomNumberInput from "@/components/post/CustomNumberInput";
 import useInput from "@/hooks/useInput";
 
 test("post페이지 렌더링 테스트", async () => {

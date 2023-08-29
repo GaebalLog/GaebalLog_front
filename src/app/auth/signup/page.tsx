@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import InputWithLabel from "@/components/designSystem/InputWithLabel";
 import Button from "@/components/designSystem/Button";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import { authAPI } from "@/api/api";
+import { authAPI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
 import useValidation from "@/hooks/useValidation";
 
@@ -44,17 +44,15 @@ const Signuppage = () => {
     if (
       isEmailValid &&
       isPasswordValid &&
-      nicknameInput.value &&
+      nicknameInput.value !== "" &&
       passwordInput.value === passwordConfirmInput.value &&
       isConfirm
     ) {
-      const formData = new FormData();
-
-      formData.append("email", emailInput.value + "");
-      formData.append("nickname", nicknameInput.value + "");
-      formData.append("password", passwordInput.value + "");
-
-      const { data } = await authAPI.localSignup(formData);
+      const { data } = await authAPI.localSignup({
+        email: emailInput.value + "",
+        password: passwordInput.value + "",
+        nickname: nicknameInput.value + "",
+      });
       console.log(data);
       alert("회원가입 성공!");
       router.replace("/home");
