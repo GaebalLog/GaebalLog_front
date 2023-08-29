@@ -11,7 +11,6 @@ import { mockNavigation } from "../__mocks__/next/navigation";
 import { server } from "../msw/server";
 
 import { renderHome } from "./Home.test";
-
 describe("로그인 페이지 테스트", () => {
   beforeEach(() => {
     render(<Loginpage />, { wrapper: Provider });

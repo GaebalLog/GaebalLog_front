@@ -1,7 +1,6 @@
 const utilConvertTime = (createdAt: string) => {
   const creatTime = new Date(createdAt);
   const now = new Date();
-
   const timeGap = now.getTime() - creatTime.getTime();
 
   if (timeGap < 24 * 60 * 60 * 1000) {

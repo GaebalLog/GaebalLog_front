@@ -1,14 +1,21 @@
 import React from "react";
 
+import { postAPI } from "@/api/postAPI";
+
 export interface detailParams {
   params: {
-    title: string;
+    postId: number;
   };
 }
 
-export const generateMetadata = ({ params: { title } }: detailParams) => {
+export const generateMetadata = async ({
+  params: { postId },
+}: detailParams) => {
+  const postInfo = await postAPI.getDetail(postId);
+  const { title, content } = postInfo.data;
   return {
     title,
+    describe: content,
   };
 };
 
@@ -19,7 +26,3 @@ const DetailLayout: React.FC<{ children: React.ReactNode }> = ({
 };
 
 export default DetailLayout;
-
-// export const generateStaticParams = async() => {
-//   return;
-// }

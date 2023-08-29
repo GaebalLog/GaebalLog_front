@@ -18,7 +18,7 @@ const styles = {
 interface confirmModalProps {
   title: string;
   content: string | React.ReactNode;
-  onNegativeClick: () => void;
+  onNegativeClick?: () => void;
   onPositiveClick: () => void;
 }
 
@@ -32,6 +32,14 @@ const ConfirmModal: React.FC<confirmModalProps> = ({
   const { getIcon } = useIcon();
   const defaultClose = getIcon("default_close", 18, 18);
 
+  const negativeHandler = () => {
+    if (onNegativeClick) onNegativeClick();
+    allCloseModal();
+  };
+  const positiveHandler = () => {
+    onPositiveClick();
+    allCloseModal();
+  };
   return (
     <Modal isFixed isBgColor>
       <div
@@ -48,7 +56,7 @@ const ConfirmModal: React.FC<confirmModalProps> = ({
             className="w-[224px]"
             size="bigLogin"
             color="white"
-            onClick={onNegativeClick}
+            onClick={negativeHandler}
           >
             아니오
           </Button>
@@ -56,7 +64,7 @@ const ConfirmModal: React.FC<confirmModalProps> = ({
             className="w-[224px]"
             size="bigLogin"
             color="white"
-            onClick={onPositiveClick}
+            onClick={positiveHandler}
           >
             예
           </Button>

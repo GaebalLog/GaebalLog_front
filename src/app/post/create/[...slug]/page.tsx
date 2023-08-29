@@ -9,9 +9,10 @@ import Button from "@/components/designSystem/Button";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import AddTagInput from "@/components/post/AddTagInput";
 import withAuth from "@/components/provider/withAuth";
+import { postAPI } from "@/api/postAPI";
 
 const TimeSetting = dynamic(
-  () => import("../../../components/post/TimeSetting"),
+  () => import("../../../../components/post/TimeSetting"),
 );
 
 const styles = {
@@ -43,12 +44,20 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
     const editorDataRef = React.useRef("");
     const tagDataRef = React.useRef([]);
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
       if (titleRef.current) {
         console.log("title ::", titleRef.current.value);
         console.log("editor ::", editorDataRef.current);
         console.log("tag ::", tagDataRef.current);
       }
+      const result = await postAPI.create({
+        user_id: 1,
+        title: "tt",
+        content: "d",
+        categories: ["jwt", "aws", "git"],
+        img: "testes.img",
+      });
+      console.log(result);
     };
 
     React.useEffect(() => {

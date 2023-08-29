@@ -68,7 +68,7 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
             {post.title}
           </h1>
           {/* 에디터 구현에 따라 수정필요할지도 */}
-          <p className={`${TEXT_COLOR.text} text-[16px]`}>{post.content}</p>
+          <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
         {isLoggedIn && (
           <div
@@ -78,19 +78,19 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
             {post.isBookmarked ? checkBookmark : bookmark}
           </div>
         )}
-        <div className="flex items-center gap-[16px]">
+        {/* <div className="flex items-center gap-[16px]">
           {post.categories.map((category) => (
             <Button key={`${post.postId}${category}`} color="grey" size="tag">
               # {category}
             </Button>
           ))}
-        </div>
+        </div> */}
       </div>
       <div>
         <div className="absolute flex gap-[20px] bottom-2 right-3">
           {btns.map((btn) => (
             <Button
-              key={btn.id}
+              key={`${btn.id}likeView`}
               size="withIcon"
               color="background"
               rounded

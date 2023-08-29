@@ -8,6 +8,7 @@ interface Atom {
   myNeightborsType: boolean;
   discussionMore: boolean;
   discussionExit: boolean;
+  deleteModal: boolean;
   calendarModal: boolean;
 }
 export const modalControlAtom = atom<Atom>({
@@ -19,6 +20,7 @@ export const modalControlAtom = atom<Atom>({
     myNeightborsType: false,
     discussionMore: false,
     discussionExit: false,
+    deleteModal: false,
     calendarModal: false,
   },
 });
