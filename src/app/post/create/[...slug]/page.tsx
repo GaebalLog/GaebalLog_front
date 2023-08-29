@@ -12,7 +12,7 @@ import withAuth from "@/components/provider/withAuth";
 import { postAPI } from "@/api/postAPI";
 
 const TimeSetting = dynamic(
-  () => import("../../../components/post/TimeSetting"),
+  () => import("../../../../components/post/TimeSetting"),
 );
 
 const styles = {

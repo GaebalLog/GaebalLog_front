@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import Postpage from "@/app/post/[...slug]/page";
+import Postpage from "@/app/post/create/[...slug]/page";
 import Provider from "@/components/provider/Provider";
 import { renderLoggedInLayout } from "@/utils/util-test";
 import TimeSetting from "@/components/post/TimeSetting";

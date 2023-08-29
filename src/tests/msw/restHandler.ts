@@ -374,15 +374,7 @@ export const restHandler = [
       return res(ctx.json({ status: 400, message: "Invalid userId" }));
     }
   }),
-  rest.post("/users", (req, res, ctx) => {
-    return res(ctx.status(200));
-  }),
-  rest.post("/auth/login", (req, res, ctx) => {
-    return res(ctx.status(200));
-  }),
-  rest.post("/auth/googlelogin", (req, res, ctx) => {
-    return res(ctx.status(200));
-  }),
+
   // 마이페이지
   rest.get("/api/users", (req, res, ctx) => {
     const myinfo = {

@@ -53,7 +53,6 @@ const Detail = ({ params: { postId } }: detailParams) => {
     queryFn: () => postAPI.getDetail(postId),
   });
   const detailData = detailContents?.data as postDetail;
-  console.log(detailContents);
   const { data: comments } = useQuery({
     queryKey: ["comments", postId],
     queryFn: () => axios.get("/api/comments"),

@@ -2,7 +2,7 @@ import type { postDetail } from "@/app/tech/[postId]/page";
 
 import { instance } from "./api";
 
-interface createPost {
+export interface createPost {
   user_id: number;
   title: string;
   content: string;

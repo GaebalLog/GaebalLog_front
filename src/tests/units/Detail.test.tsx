@@ -1,6 +1,6 @@
 import React from "react";
 import { screen, waitFor } from "@testing-library/react";
-// import userEvent from "@testing-library/user-event";
+import userEvent from "@testing-library/user-event";
 
 import Detail from "@/app/tech/[postId]/page";
 import { renderLoggedInLayout, renderLoggedOutLayout } from "@/utils/util-test";
@@ -16,17 +16,26 @@ const rederDetail = {
   },
 };
 
-describe("디테일 페이지 렌더링 테스트", () => {
+describe("디테일 페이지 테스트", () => {
   beforeEach(() => {
     rederDetail.loggedIn(37);
   });
 
-  test("디테일 페이지 본문 렌더링 테스트", async () => {
+  test("서버에서 받아온 본문 렌더링", async () => {
     await waitFor(() => {
       screen.getByText("update4");
     });
   });
+
+  test("댓글 삭제 기능 테스트", async () => {
+    const deleteBtn = screen.getByText("글 삭제");
+    await userEvent.click(deleteBtn);
+    const confirmBtn = screen.getByText("예");
+    await userEvent.click(confirmBtn);
+    expect(window.alert).toBeCalledWith("해당 글이 삭제되었습니다.");
+  });
 });
+
 // test("디테일 페이지 댓글 렌더링 테스트", async () => {
 //   expect(await screen.findByText("yeon")).toBeInTheDocument();
 // });
