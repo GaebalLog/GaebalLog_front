@@ -48,13 +48,11 @@ const Signuppage = () => {
       passwordInput.value === passwordConfirmInput.value &&
       isConfirm
     ) {
-      const formData = new FormData();
-
-      formData.append("email", emailInput.value + "");
-      formData.append("nickname", nicknameInput.value + "");
-      formData.append("password", passwordInput.value + "");
-
-      const { data } = await authAPI.localSignup(formData);
+      const { data } = await authAPI.localSignup({
+        email: emailInput.value + "",
+        password: passwordInput.value + "",
+        nickname: nicknameInput.value + "",
+      });
       console.log(data);
       alert("회원가입 성공!");
       router.replace("/home");
