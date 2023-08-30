@@ -88,7 +88,7 @@ describe("태그 인풋 테스트", () => {
 
 describe("토의 시간 설정 테스트", () => {
   const TestComponent: React.FC<{
-    type: "halfDay" | "hour" | "minutes" | "month" | "days";
+    type: "halfDay" | "hour" | "minutes" | "year" | "month" | "days";
     initialState: string | number;
   }> = ({ type, initialState }) => {
     const startHalfDay = useInput(initialState);
@@ -126,6 +126,22 @@ describe("토의 시간 설정 테스트", () => {
     expect(await screen.findByDisplayValue("59분")).toBeInTheDocument();
     await userEvent.click(await screen.findByTestId("minutes_up"));
     expect(await screen.findByDisplayValue("00분")).toBeInTheDocument();
+  });
+
+  test("업/다운 버튼으로 '년' 잘 바뀌는지 테스트", async () => {
+    const currenYear = new Date().getFullYear();
+    render(<TestComponent type="year" initialState={currenYear} />, {
+      wrapper: Provider,
+    });
+
+    await userEvent.click(await screen.findByTestId("year_down"));
+    expect(
+      await screen.findByDisplayValue(`${currenYear}년`),
+    ).toBeInTheDocument();
+    await userEvent.click(await screen.findByTestId("year_up"));
+    expect(
+      await screen.findByDisplayValue(`${currenYear + 1}년`),
+    ).toBeInTheDocument();
   });
 
   test("업/다운 버튼으로 '월' 잘 바뀌는지 테스트", async () => {
@@ -169,7 +185,36 @@ describe("토의 시간 설정 테스트", () => {
     expect(await screen.findByDisplayValue("11시")).toBeInTheDocument();
   });
 
-  test("인풋에 아무것도 입력 안 하고 넘어가면 '01'이 되어야 함", async () => {
+  test("년도 인풋 값의 길이가 4보다 작거나 현재 년도보다 작으면 현재 년도가 되어야 함", async () => {
+    const currenYear = new Date().getFullYear();
+    render(
+      <>
+        <TestComponent type="year" initialState={currenYear} />
+        <div>다른 거 클릭</div>
+      </>,
+      {
+        wrapper: Provider,
+      },
+    );
+
+    const input = await screen.findByTestId("input");
+
+    await userEvent.clear(input);
+    await userEvent.type(input, `${currenYear - 1}`);
+    await userEvent.click(await screen.findByText("다른 거 클릭"));
+    expect(
+      await screen.findByDisplayValue(`${currenYear}년`),
+    ).toBeInTheDocument();
+
+    await userEvent.clear(input);
+    await userEvent.type(input, "202");
+    await userEvent.click(await screen.findByText("다른 거 클릭"));
+    expect(
+      await screen.findByDisplayValue(`${currenYear}년`),
+    ).toBeInTheDocument();
+  });
+
+  test("그 외 인풋에 아무것도 입력 안 하고 넘어가면 '01'이 되어야 함", async () => {
     render(
       <>
         <TestComponent type="hour" initialState={12} />
