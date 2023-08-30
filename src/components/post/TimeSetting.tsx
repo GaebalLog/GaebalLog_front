@@ -100,6 +100,7 @@ const TimeSetting: React.FC = () => {
                   {...days}
                 />
                 <div
+                  data-testid="calendar"
                   className={`relative flex justify-center items-center w-[45px] h-[45px] ${BORDER_COLOR.button} cursor-pointer`}
                   onClick={() => openModal("calendarModal")}
                 >
@@ -111,8 +112,10 @@ const TimeSetting: React.FC = () => {
                         onBackdropClick={() => closeModal("calendarModal")}
                       >
                         <Calendar
+                          yearValue={+year.value}
                           monthValue={+month.value}
                           daysValue={+days.value}
+                          setYearValue={year.setValue}
                           setMonthValue={month.setValue}
                           setDaysValue={days.setValue}
                         />

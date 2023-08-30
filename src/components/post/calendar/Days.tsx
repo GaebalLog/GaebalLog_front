@@ -16,6 +16,7 @@ interface DayProps {
   selectedMonth: number;
   prevMonth: () => void;
   nextMonth: () => void;
+  setYearValue: React.Dispatch<React.SetStateAction<string | number>>;
   setMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
   setDaysValue: React.Dispatch<React.SetStateAction<string | number>>;
 }
@@ -26,6 +27,7 @@ const Days: React.FC<DayProps> = ({
   selectedMonth,
   prevMonth,
   nextMonth,
+  setYearValue,
   setMonthValue,
   setDaysValue,
 }) => {
@@ -50,6 +52,7 @@ const Days: React.FC<DayProps> = ({
   };
 
   const synchronizeInputNumber = (day: number) => {
+    setYearValue(selectedYear);
     setMonthValue(selectedMonth);
     setDaysValue(day);
     closeModal("calendarModal");
