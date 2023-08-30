@@ -95,8 +95,13 @@ const UpdatePage: React.ComponentType<postpageParams> = withAuth(
               setCategories={categoryHandler}
             />
             <div className={styles.bottomBox.buttonDiv}>
-              <Button className="px-12" size="bigLogin" color="lightGrey">
-                임시 저장
+              <Button
+                className="px-12"
+                size="bigLogin"
+                color="lightGrey"
+                onClick={() => router.back()}
+              >
+                수정 취소
               </Button>
               <Button
                 type="submit"
