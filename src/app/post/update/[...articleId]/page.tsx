@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { notFound } from "next/navigation";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 import PostEditor from "@/components/post/PostEditor";
 import Button from "@/components/designSystem/Button";
@@ -12,9 +13,9 @@ import withAuth from "@/components/provider/withAuth";
 import type { postDataType } from "@/api/postAPI";
 import { postAPI } from "@/api/postAPI";
 
-const TimeSetting = dynamic(
-  () => import("../../../components/post/TimeSetting"),
-);
+// const TimeSetting = dynamic(
+//   () => import("../../../../components/post/TimeSetting"),
+// );
 
 const styles = {
   wrapper: `w-full h-[calc(100vh-94px)] flex justify-center`,
@@ -35,21 +36,32 @@ const styles = {
 
 export interface postpageParams {
   params: {
-    type: string[];
+    articleId: number;
   };
 }
 
 const UpdatePage: React.ComponentType<postpageParams> = withAuth(
-  ({ params: { type } }) => {
+  ({ params: { articleId } }) => {
     const [data, setData] = React.useState<postDataType>({
       title: "",
       content: "",
       categories: [],
     });
-
+    const router = useRouter();
+    const { isError } = useQuery({
+      queryKey: ["detailContents", articleId],
+      queryFn: () => postAPI.getDetail(articleId),
+      onSuccess: (data) => {
+        setData({
+          title: data.data.title,
+          content: data.data.content,
+          categories: data.data.categories,
+        });
+      },
+    });
     const handleSubmit = async () => {
-      const result = await postAPI.create(data);
-      console.log(result);
+      const result = await postAPI.update(articleId, data);
+      if (result.status === 201) router.push(`/tech/${articleId}`);
     };
 
     const titleChangeHanlder = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,11 +76,7 @@ const UpdatePage: React.ComponentType<postpageParams> = withAuth(
     const categoryHandler = (categories: string[]) => {
       setData((prev) => ({ ...prev, categories }));
     };
-
-    React.useEffect(() => {
-      if (type[0] !== "tech" && type[0] !== "discussion") return notFound();
-    }, [type]);
-
+    if (isError) return <p>에러</p>;
     return (
       <main className={styles.wrapper}>
         <div className={styles.form}>
@@ -79,7 +87,6 @@ const UpdatePage: React.ComponentType<postpageParams> = withAuth(
               onChange={titleChangeHanlder}
               placeholder="제목을 입력해주세요."
             />
-            {type[0] === "discussion" && <TimeSetting />}
           </div>
           <PostEditor content={data.content} editHandler={contentHandler} />
           <div className={styles.bottomBox.wrapper}>
@@ -98,7 +105,7 @@ const UpdatePage: React.ComponentType<postpageParams> = withAuth(
                 color="black"
                 onClick={handleSubmit}
               >
-                작성 완료
+                수정 완료
               </Button>
             </div>
           </div>

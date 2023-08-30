@@ -4,6 +4,7 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
+import { useRouter } from "next/navigation";
 
 import CommentsList from "@/components/detail/CommentsList";
 import CommentForm from "@/components/detail/form/CommentForm";
@@ -47,6 +48,7 @@ export interface postDetail {
 
 const Detail = ({ params: { postId } }: detailParams) => {
   const nickname = useRecoilValue(nicknameAtom);
+  const router = useRouter();
   const { modal, openModal } = useModalController();
   const { data: detailContents } = useQuery({
     queryKey: ["detailContents", postId],
@@ -70,7 +72,14 @@ const Detail = ({ params: { postId } }: detailParams) => {
             )}
           </div>
           <div className="flex gap-[16px]">
-            <Button size="tab" color="white" border>
+            <Button
+              size="tab"
+              color="white"
+              border
+              onClick={() =>
+                router.push(`/post/update/${detailContents?.data.post_id}`)
+              }
+            >
               글 수정
             </Button>
             <Button
