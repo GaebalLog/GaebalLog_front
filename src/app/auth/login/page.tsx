@@ -40,6 +40,15 @@ const googleURL =
     "https://www.googleapis.com/auth/userinfo.profile",
     "https://www.googleapis.com/auth/userinfo.email",
   ].join(" ")}`;
+const kakaoURL =
+  `https://kauth.kakao.com/oauth/authorize?` +
+  `client_id=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&` +
+  `redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&` +
+  `response_type=code&`;
+const githubURL =
+  `https://github.com/login/oauth/authorize?` +
+  `client_id=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&` +
+  `redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&`;
 
 const Loginpage = () => {
   const [isError, setIsError] = React.useState(false);
@@ -116,9 +125,9 @@ const Loginpage = () => {
       <section>
         <h4 className={styles.social.title}>간편 로그인</h4>
         <div className={styles.social.iconBox}>
-          <Link href={""}>{kakao}</Link>
+          <Link href={kakaoURL}>{kakao}</Link>
           <Link href={googleURL}>{google}</Link>
-          <Link href={""}>{github}</Link>
+          <Link href={githubURL}>{github}</Link>
         </div>
       </section>
     </div>

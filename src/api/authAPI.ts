@@ -20,6 +20,14 @@ export const authAPI = {
     const { data } = await instance.post("/auth/googlelogin", { code });
     return data;
   },
+  githubLogin: async (code: string | null) => {
+    const { data } = await instance.post("/auth/githublogin", { code });
+    return data;
+  },
+  kakaoLogin: async (code: string | null) => {
+    const { data } = await instance.post("/auth/kakaologin", { code });
+    return data;
+  },
   emailConfirm: async (email: string) => {
     const { data } = await instance.post("/auth/emailCheck", { email });
     return data;
