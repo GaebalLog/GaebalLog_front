@@ -28,6 +28,7 @@ const TimeSetting: React.FC = () => {
   const endHalfDay = useInput("오전");
   const endHour = useInput(12);
   const endMinutes = useInput(0);
+  const year = useInput(new Date().getFullYear());
   const month = useInput(new Date().getMonth() + 1);
   const days = useInput(new Date().getDate());
 
@@ -76,6 +77,7 @@ const TimeSetting: React.FC = () => {
                 (시작 기간을 설정하여 예약할 수 있습니다.)
               </p>
               <div className="flex gap-4">
+                <CustomNumberInput type="year" {...year} />
                 <CustomNumberInput
                   type="month"
                   daysValue={days.value}
