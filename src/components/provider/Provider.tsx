@@ -12,7 +12,14 @@ const Provider: React.FC<{
   children: React.ReactNode;
   initializeState?: (mutableSnapshot: MutableSnapshot) => void;
 }> = ({ children, initializeState }) => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
   return (
     <>
       <QueryClientProvider client={queryClient}>

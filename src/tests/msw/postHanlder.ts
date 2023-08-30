@@ -1,6 +1,6 @@
 import { rest } from "msw";
 
-import type { createPost } from "@/api/postAPI";
+import type { postDataType } from "@/api/postAPI";
 
 export const postHandler = [
   rest.get("/post", (req, res, ctx) => {
@@ -32,7 +32,7 @@ export const postHandler = [
   }),
 
   rest.post("/post", (req, res, ctx) => {
-    const isCreatePost = (data: createPost) => {
+    const isCreatePost = (data: postDataType) => {
       return (
         typeof data.user_id === "number" &&
         typeof data.title === "string" &&
@@ -42,7 +42,7 @@ export const postHandler = [
         typeof data.img === "string"
       );
     };
-    const postData = req.body as createPost;
+    const postData = req.body as postDataType;
     if (isCreatePost(postData)) {
       return res(ctx.status(201));
     }

@@ -9,6 +9,7 @@ import Button from "@/components/designSystem/Button";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import AddTagInput from "@/components/post/AddTagInput";
 import withAuth from "@/components/provider/withAuth";
+import type { postDataType } from "@/api/postAPI";
 import { postAPI } from "@/api/postAPI";
 
 const TimeSetting = dynamic(
@@ -34,35 +35,39 @@ const styles = {
 
 export interface postpageParams {
   params: {
-    slug: string[];
+    type: string[];
   };
 }
 
 const Postpage: React.ComponentType<postpageParams> = withAuth(
-  ({ params: { slug } }) => {
-    const titleRef = React.useRef<HTMLInputElement | null>(null);
-    const editorDataRef = React.useRef("");
-    const tagDataRef = React.useRef([]);
+  ({ params: { type } }) => {
+    const [data, setData] = React.useState<postDataType>({
+      title: "",
+      content: "",
+      categories: [],
+    });
 
     const handleSubmit = async () => {
-      if (titleRef.current) {
-        console.log("title ::", titleRef.current.value);
-        console.log("editor ::", editorDataRef.current);
-        console.log("tag ::", tagDataRef.current);
-      }
-      const result = await postAPI.create({
-        user_id: 1,
-        title: "tt",
-        content: "d",
-        categories: ["jwt", "aws", "git"],
-        img: "testes.img",
-      });
+      const result = await postAPI.create(data);
       console.log(result);
     };
 
+    const titleChangeHanlder = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+      setData((prev) => ({ ...prev, title: value }));
+    };
+
+    const contentHandler = (content: string) => {
+      setData((prev) => ({ ...prev, content }));
+    };
+
+    const categoryHandler = (categories: string[]) => {
+      setData((prev) => ({ ...prev, categories }));
+    };
+
     React.useEffect(() => {
-      if (slug[0] !== "tech" && slug[0] !== "discussion") return notFound();
-    }, [slug]);
+      if (type[0] !== "tech" && type[0] !== "discussion") return notFound();
+    }, [type]);
 
     return (
       <main className={styles.wrapper}>
@@ -70,14 +75,18 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
           <div className={styles.titleBox.wrapper}>
             <input
               className={styles.titleBox.title}
-              ref={titleRef}
+              value={data.title}
+              onChange={titleChangeHanlder}
               placeholder="제목을 입력해주세요."
             />
-            {slug[0] === "discussion" && <TimeSetting />}
+            {type[0] === "discussion" && <TimeSetting />}
           </div>
-          <PostEditor />
+          <PostEditor content={data.content} editHandler={contentHandler} />
           <div className={styles.bottomBox.wrapper}>
-            <AddTagInput tagDataRef={tagDataRef} />
+            <AddTagInput
+              categories={data.categories}
+              setCategories={categoryHandler}
+            />
             <div className={styles.bottomBox.buttonDiv}>
               <Button className="px-12" size="bigLogin" color="lightGrey">
                 임시 저장

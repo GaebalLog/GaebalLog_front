@@ -102,7 +102,7 @@ const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
               <div className={`flex flex-col ${BORDER_COLOR.button}`}>
                 <Link
                   className="text-center"
-                  href={"/post/discussion"}
+                  href={"/post/create/discussion"}
                   onClick={() => allCloseModal()}
                 >
                   <Button
