@@ -14,11 +14,14 @@ const styles = {
 };
 
 interface addTagInputProps {
-  tagDataRef: React.MutableRefObject<string[]>;
+  categories: string[];
+  setCategories: (categories: string[]) => void;
 }
 
-const AddTagInput: React.FC<addTagInputProps> = ({ tagDataRef }) => {
-  const [tags, setTags] = React.useState<string[]>([]);
+const AddTagInputComponent: React.FC<addTagInputProps> = ({
+  categories,
+  setCategories,
+}) => {
   const [isModal, setIsModal] = React.useState<boolean>(false);
 
   const { value, setValue, onChange } = useInput();
@@ -26,25 +29,33 @@ const AddTagInput: React.FC<addTagInputProps> = ({ tagDataRef }) => {
   const close = getIcon("default_close", 9, 9);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" && value !== "" && tags.length < 3) {
-      setTags((prevTags) => [...prevTags, `#${value}`]);
+    if (
+      event.key === "Enter" &&
+      value !== "" &&
+      !event.nativeEvent.isComposing
+    ) {
+      if (categories.length < 3) {
+        const addedCategories = [...categories, `#${value}`];
+        setCategories(addedCategories);
+      } else {
+        alert("태그는 최대 3개까지 입력할 수 있습니다.");
+      }
       setValue("");
     }
   };
   const handleTagDelete = (selectedTag: string) => {
-    setTags((prevTags) => prevTags.filter((tag) => tag !== selectedTag));
+    const deletedCategories = categories.filter(
+      (category) => category !== selectedTag,
+    );
+    setCategories(deletedCategories);
   };
-
-  React.useEffect(() => {
-    tagDataRef.current = tags;
-  }, [tags, tagDataRef]);
 
   return (
     <div className={styles.tagDiv}>
-      {tags.map((tag, index) => (
+      {categories.map((category, index) => (
         <div key={index} className={styles.tag}>
-          <span>{tag}</span>
-          <button type="button" onClick={() => handleTagDelete(tag)}>
+          <span>{category}</span>
+          <button type="button" onClick={() => handleTagDelete(category)}>
             {close}
           </button>
         </div>
@@ -68,5 +79,7 @@ const AddTagInput: React.FC<addTagInputProps> = ({ tagDataRef }) => {
     </div>
   );
 };
+
+const AddTagInput = React.memo(AddTagInputComponent);
 
 export default AddTagInput;

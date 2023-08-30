@@ -2,18 +2,18 @@ import type { postDetail } from "@/app/tech/[postId]/page";
 
 import { instance } from "./api";
 
-export interface createPost {
-  user_id: number;
+export interface postDataType {
+  user_id?: number;
   title: string;
   content: string;
   categories: string[];
-  img: string;
+  img?: string;
 }
 export interface detailPost {
   data: postDetail;
 }
 export const postAPI = {
-  create: (data: createPost) => {
+  create: (data: postDataType) => {
     return instance.post("/post", data);
   },
   getAll: () => {
@@ -24,5 +24,8 @@ export const postAPI = {
   },
   delete: (id: number) => {
     return instance.delete(`/post/${id}`);
+  },
+  update: (id: number, data: postDataType) => {
+    return instance.patch(`/post/${id}`, data);
   },
 };
