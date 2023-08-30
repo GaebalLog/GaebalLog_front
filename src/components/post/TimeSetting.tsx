@@ -77,16 +77,25 @@ const TimeSetting: React.FC = () => {
                 (시작 기간을 설정하여 예약할 수 있습니다.)
               </p>
               <div className="flex gap-4">
-                <CustomNumberInput type="year" {...year} />
+                <CustomNumberInput
+                  type="year"
+                  yearValue={year.value}
+                  monthValue={month.value}
+                  daysValue={days.value}
+                  setDays={days.setValue}
+                  {...year}
+                />
                 <CustomNumberInput
                   type="month"
-                  daysValue={days.value}
+                  yearValue={year.value}
                   monthValue={month.value}
+                  daysValue={days.value}
                   setDays={days.setValue}
                   {...month}
                 />
                 <CustomNumberInput
                   type="days"
+                  yearValue={year.value}
                   monthValue={month.value}
                   {...days}
                 />

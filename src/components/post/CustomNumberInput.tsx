@@ -6,18 +6,20 @@ import { BORDER_COLOR } from "@/constants/global/colors";
 interface CustomNumberInputProps {
   type: "halfDay" | "hour" | "minutes" | "year" | "month" | "days";
   value: string | number;
-  setValue: React.Dispatch<React.SetStateAction<string | number>>;
-  daysValue?: string | number;
+  yearValue?: string | number;
   monthValue?: string | number;
+  daysValue?: string | number;
+  setValue: React.Dispatch<React.SetStateAction<string | number>>;
   setDays?: React.Dispatch<React.SetStateAction<string | number>>;
 }
 
 const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
   type,
   value,
-  setValue,
-  daysValue,
+  yearValue,
   monthValue,
+  daysValue,
+  setValue,
   setDays,
 }) => {
   const styles = {
@@ -32,10 +34,10 @@ const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
   const upArrow = getIcon("upArrow", 10, 10);
   const downArrow = getIcon("downArrow", 10, 10);
 
-  const lastDay = (calculateMonth: 0 | -1 | 1) => {
+  const lastDay = (yearOffset: 0 | -1 | 1, monthOffset: 0 | -1 | 1) => {
     return new Date(
-      new Date().getFullYear(),
-      monthValue ? +monthValue + calculateMonth : new Date().getMonth() + 1,
+      yearValue ? +yearValue + yearOffset : new Date().getFullYear(),
+      monthValue ? +monthValue + monthOffset : new Date().getMonth() + 1,
       0,
     ).getDate();
   };
@@ -46,7 +48,7 @@ const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
     minutes: () => setValue((prev) => (+prev >= 59 ? 0 : +prev + 1)),
     year: () => setValue((prev) => +prev + 1),
     month: () => setValue((prev) => (+prev >= 12 ? 1 : +prev + 1)),
-    days: () => setValue((prev) => (+prev >= lastDay(0) ? 1 : +prev + 1)),
+    days: () => setValue((prev) => (+prev >= lastDay(0, 0) ? 1 : +prev + 1)),
   };
 
   const decreaseSetValue = {
@@ -58,17 +60,19 @@ const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
         +prev <= new Date().getFullYear() ? prev : +prev - 1,
       ),
     month: () => setValue((prev) => (+prev <= 1 ? 12 : +prev - 1)),
-    days: () => setValue((prev) => (+prev <= 1 ? lastDay(0) : +prev - 1)),
+    days: () => setValue((prev) => (+prev <= 1 ? lastDay(0, 0) : +prev - 1)),
   };
 
   const handleIncrease = () => {
     increaseSetValue[type]();
-    updateDayWhenMonthChanges(1);
+    if (type === "year") return updateDayWhenYearMonthChanges(1, 0);
+    if (type === "month") return updateDayWhenYearMonthChanges(0, 1);
   };
 
   const handleDecrease = () => {
     decreaseSetValue[type]();
-    updateDayWhenMonthChanges(-1);
+    if (type === "year") return updateDayWhenYearMonthChanges(-1, 0);
+    if (type === "month") return updateDayWhenYearMonthChanges(0, -1);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +95,7 @@ const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
       return;
     if (
       type === "days" &&
-      (+truncatedValue > lastDay(0) || +truncatedValue < 0)
+      (+truncatedValue > lastDay(0, 0) || +truncatedValue < 0)
     )
       return;
     setValue(truncatedValue);
@@ -100,7 +104,7 @@ const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
   const handleBlur = () => {
     setDefaultIfEmpty();
     addZeroIfLengthOne();
-    updateDayWhenMonthChanges(0);
+    updateDayWhenYearMonthChanges(0, 0);
   };
 
   const setDefaultIfEmpty = () => {
@@ -121,9 +125,16 @@ const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
     }
   };
 
-  const updateDayWhenMonthChanges = (calculateMonth: 0 | -1 | 1) => {
-    if (type === "month" && daysValue && +daysValue > lastDay(calculateMonth))
-      return setDays && setDays(lastDay(calculateMonth));
+  const updateDayWhenYearMonthChanges = (
+    yearOffset: 0 | -1 | 1,
+    monthOffset: 0 | -1 | 1,
+  ) => {
+    if (
+      (type === "month" || type === "year") &&
+      daysValue &&
+      +daysValue > lastDay(yearOffset, monthOffset)
+    )
+      return setDays && setDays(lastDay(yearOffset, monthOffset));
   };
 
   const showValue = () => {
@@ -143,7 +154,7 @@ const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
   return (
     <div className={styles.divBox}>
       <input
-        data-testid="input"
+        data-testid={`${type}_input`}
         className={styles.input}
         readOnly={type === "halfDay"}
         value={`${showValue()}${showTimeUnits()}`}
