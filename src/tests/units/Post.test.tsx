@@ -8,6 +8,11 @@ import { renderLoggedInLayout } from "@/utils/util-test";
 import TimeSetting from "@/components/post/TimeSetting";
 import CustomNumberInput from "@/components/post/CustomNumberInput";
 import useInput from "@/hooks/useInput";
+import Calendar from "@/components/post/calendar/Calendar";
+import { CalendarManager, Today } from "@/utils/util-date";
+
+const today = new Today();
+const calendarManager = new CalendarManager(today.getYear(), today.getMonth());
 
 test("post페이지 렌더링 테스트", async () => {
   const { unmount } = render(<Postpage params={{ type: ["tech"] }} />, {
@@ -94,13 +99,6 @@ describe("토의 시간 설정 테스트", () => {
     const startHalfDay = useInput(initialState);
     return <CustomNumberInput type={type} {...startHalfDay} />;
   };
-  // const DateTestComponent: React.FC<{
-  //   type: "halfDay" | "hour" | "minutes" | "year" | "month" | "days";
-  //   initialState: string | number;
-  // }> = ({ type, initialState }) => {
-  //   const startHalfDay = useInput(initialState);
-  //   return <CustomNumberInput type={type} {...startHalfDay} />;
-  // };
 
   test("업/다운 버튼으로 '오전, 오후' 잘 바뀌는지 테스트", async () => {
     render(<TestComponent type="halfDay" initialState="오전" />, {
@@ -239,13 +237,18 @@ describe("토의 시간 설정 테스트", () => {
     expect(await screen.findByDisplayValue("01시")).toBeInTheDocument();
   });
 
-  test("년도, 월 인풋 변경 시 일이 자동으로 바뀌어야 함", async () => {
-    render(<TimeSetting />, { wrapper: Provider });
-    await userEvent.click(await screen.findByText("토의 시간 설정"));
+  describe("년도, 월 인풋 변경 시 일이 자동으로 바뀌어야 함", () => {
+    let yearInput: Promise<HTMLElement>,
+      monthInput: Promise<HTMLElement>,
+      dayInput: Promise<HTMLElement>;
 
-    const yearInput = await screen.findByTestId(`year_input`);
-    const monthInput = await screen.findByTestId(`month_input`);
-    const dayInput = await screen.findByTestId(`days_input`);
+    beforeEach(async () => {
+      render(<TimeSetting />, { wrapper: Provider });
+      await userEvent.click(await screen.findByText("토의 시간 설정"));
+      yearInput = screen.findByTestId(`year_input`);
+      monthInput = screen.findByTestId(`month_input`);
+      dayInput = screen.findByTestId(`days_input`);
+    });
 
     // 2112년 02월 29일로 세팅
     const setDefaultDateSetting = async (
@@ -253,40 +256,130 @@ describe("토의 시간 설정 테스트", () => {
       month: string,
       day: string,
     ) => {
-      await userEvent.clear(yearInput);
-      await userEvent.type(yearInput, year);
-      await userEvent.clear(monthInput);
-      await userEvent.type(monthInput, month);
-      await userEvent.clear(dayInput);
-      await userEvent.type(dayInput, day);
+      await userEvent.clear(await yearInput);
+      await userEvent.type(await yearInput, year);
+      await userEvent.clear(await monthInput);
+      await userEvent.type(await monthInput, month);
+      await userEvent.clear(await dayInput);
+      await userEvent.type(await dayInput, day);
     };
 
-    //년도 증감 버튼을 눌러서 2112년에서 1년 내리면 28일로 바뀌어야 함
-    setDefaultDateSetting("2112", "02", "29");
-    expect(await screen.findByDisplayValue("29일")).toBeInTheDocument();
-    await userEvent.click(await screen.findByTestId("year_down"));
-    expect(await screen.findByDisplayValue("28일")).toBeInTheDocument();
+    test("년도 증감 버튼을 눌러서 2112년에서 1년 내리면 28일로 바뀌어야 함", async () => {
+      setDefaultDateSetting("2112", "02", "29");
+      expect(await screen.findByDisplayValue("29일")).toBeInTheDocument();
+      await userEvent.click(await screen.findByTestId("year_down"));
+      expect(await screen.findByDisplayValue("28일")).toBeInTheDocument();
+    });
 
-    //년도를 직접 수정해 2112년에서 2111년으로 바꾸고 다른 곳 클릭하면 28일로 바뀌어야 함
-    setDefaultDateSetting("2112", "02", "29");
-    expect(await screen.findByDisplayValue("29일")).toBeInTheDocument();
-    await userEvent.clear(yearInput);
-    await userEvent.type(yearInput, "2111");
-    await userEvent.click(await screen.findByText("기간"));
-    expect(await screen.findByDisplayValue("28일")).toBeInTheDocument();
+    test("년도를 직접 수정해 2112년에서 2111년으로 바꾸고 다른 곳 클릭하면 28일로 바뀌어야 함", async () => {
+      setDefaultDateSetting("2112", "02", "29");
+      expect(await screen.findByDisplayValue("29일")).toBeInTheDocument();
+      await userEvent.clear(await yearInput);
+      await userEvent.type(await yearInput, "2111");
+      await userEvent.click(await screen.findByText("기간"));
+      expect(await screen.findByDisplayValue("28일")).toBeInTheDocument();
+    });
 
-    //월 증감 버튼을 눌러서 2월로 내리면 28일로 바뀌어야 함
-    setDefaultDateSetting("2111", "03", "31");
-    expect(await screen.findByDisplayValue("31일")).toBeInTheDocument();
-    await userEvent.click(await screen.findByTestId("month_down"));
-    expect(await screen.findByDisplayValue("28일")).toBeInTheDocument();
+    test("월 증감 버튼을 눌러서 2월로 내리면 28일로 바뀌어야 함", async () => {
+      setDefaultDateSetting("2111", "03", "31");
+      expect(await screen.findByDisplayValue("31일")).toBeInTheDocument();
+      await userEvent.click(await screen.findByTestId("month_down"));
+      expect(await screen.findByDisplayValue("28일")).toBeInTheDocument();
+    });
 
-    //월을 직접 수정해 3월로 바꾸고 다른 곳 클릭하면 28일로 바뀌어야 함
-    setDefaultDateSetting("2111", "03", "31");
-    expect(await screen.findByDisplayValue("31일")).toBeInTheDocument();
-    await userEvent.clear(monthInput);
-    await userEvent.type(monthInput, "02");
-    await userEvent.click(await screen.findByText("기간"));
-    expect(await screen.findByDisplayValue("28일")).toBeInTheDocument();
+    test("월을 직접 수정해 3월로 바꾸고 다른 곳 클릭하면 28일로 바뀌어야 함", async () => {
+      setDefaultDateSetting("2111", "03", "31");
+      expect(await screen.findByDisplayValue("31일")).toBeInTheDocument();
+      await userEvent.clear(await monthInput);
+      await userEvent.type(await monthInput, "02");
+      await userEvent.click(await screen.findByText("기간"));
+      expect(await screen.findByDisplayValue("28일")).toBeInTheDocument();
+    });
+  });
+});
+
+describe("달력 테스트", () => {
+  beforeEach(() => {
+    render(<CalendarTestComponent />, { wrapper: Provider });
+  });
+
+  const CalendarTestComponent = () => {
+    const year = useInput(today.getYear());
+    const month = useInput(today.getMonth());
+    const days = useInput(today.getDate());
+    return (
+      <Calendar
+        yearValue={+year.value}
+        monthValue={+month.value}
+        daysValue={+days.value}
+        setYearValue={year.setValue}
+        setMonthValue={month.setValue}
+        setDaysValue={days.setValue}
+      />
+    );
+  };
+
+  test("이전 달 일을 누르면 이전 달로 이동해야 함 / 과거날짜 누르면 알럿이 떠야 함", async () => {
+    const prevMonthLastDate = calendarManager.getPrevMonthLastDate();
+    const prevMonthLastDay = await screen.findByTestId(
+      `prevMonthDay_${prevMonthLastDate}`,
+    );
+    await userEvent.click(prevMonthLastDay);
+    expect(
+      await screen.findByText(`. ${today.getMonth() - 1}`, { exact: false }),
+    ).toBeInTheDocument();
+
+    await userEvent.click(await screen.findByText("15"));
+    expect(window.alert).toHaveBeenCalledWith("이미 지난 날짜입니다.");
+  });
+
+  test("다음 달 일을 누르면 다음 달로 이동해야 함", async () => {
+    await userEvent.click(await screen.findByTestId(`nextMonthDay_1`));
+    expect(
+      await screen.findByText(`. ${today.getMonth() + 1}`, { exact: false }),
+    ).toBeInTheDocument();
+  });
+
+  test("달 이동 테스트", async () => {
+    const nextButton = await screen.findByTestId("next_month");
+    const prevButton = await screen.findByTestId("prev_month");
+    await userEvent.click(nextButton);
+    expect(
+      await screen.findByText(`. ${today.getMonth() + 1}`, { exact: false }),
+    ).toBeInTheDocument();
+    await userEvent.click(prevButton);
+    expect(
+      await screen.findByText(`. ${today.getMonth()}`, { exact: false }),
+    ).toBeInTheDocument();
+  });
+});
+
+describe("달력 날짜 선택 테스트", () => {
+  beforeEach(async () => {
+    render(<TimeSetting />, { wrapper: Provider });
+    await userEvent.click(await screen.findByText("토의 시간 설정"));
+    await userEvent.click(await screen.findByTestId("calendar"));
+  });
+
+  test("달력을 열면 오늘 날짜가 선택되어 있어야 함", async () => {
+    expect(
+      await screen.findByTestId(`currentMonthDay_${today.getDate()}`),
+    ).toHaveClass("bg-[#967AC3]");
+  });
+
+  test("달력에서 날짜를 선택하면 달력이 사라지고 인풋에 반영되어야 함", async () => {
+    await userEvent.click(await screen.findByTestId(`nextMonthDay_1`));
+    await userEvent.click(await screen.findByTestId(`currentMonthDay_1`));
+    expect(screen.queryByTestId(`currentMonthDay_1`)).not.toBeInTheDocument();
+    expect(await screen.findByDisplayValue("01일")).toBeInTheDocument();
+  });
+
+  test("달력의 선택된 날짜는 색이 바뀌어야 함", async () => {
+    await userEvent.click(await screen.findByTestId(`nextMonthDay_1`));
+    await userEvent.click(await screen.findByTestId(`currentMonthDay_1`));
+    await userEvent.click(await screen.findByTestId("calendar"));
+    expect(await screen.findByTestId(`currentMonthDay_1`)).toHaveClass(
+      "bg-[#967AC3]",
+    );
   });
 });
