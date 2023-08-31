@@ -67,7 +67,7 @@ declare global {
     alarm_neighbors: boolean;
     alarm_discussion: boolean;
   }
-  const sortList = ["정확도 순", "조회 순", "최신순"] as const;
+  const sortList = ["조회 순", "최신순"] as const;
   type sortTab = (typeof sortTab)[number];
 }
 
