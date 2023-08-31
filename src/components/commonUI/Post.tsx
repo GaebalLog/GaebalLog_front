@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/navigation";
 
 import useIcon from "@/hooks/useIcon";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import utilConvertTime from "@/utils/util-datetime";
 
 import Button from "../designSystem/Button";
 import { isLoggedInAtom } from "../provider/SettingsProvider";
@@ -57,18 +57,26 @@ const Post: React.FC<{ post: postDetail }> = ({ post }) => {
       data-testid={`post${post.post_id}`}
     >
       <div className="w-[332px] h-[280px] overflow-hidden">
-        <Image src={post.img} width={332} height={280} alt={post.title} />
+        <div
+          className="w-[770px] multi-line-ellipsis"
+          dangerouslySetInnerHTML={{ __html: post.img }}
+        />
       </div>
       <div className="flex justify-between flex-col h-[280px] gap-[80px]">
         <div className="flex flex-col gap-[24px]">
-          <h2 className={`${TEXT_COLOR.general07rev} text-[20px]`}>
-            {post.nickname}
-            <span>{post.created_at}</span>
-          </h2>
+          <div
+            className={`flex gap-[20px] items-center ${TEXT_COLOR.general02}`}
+          >
+            <span className={`${TEXT_COLOR.general07rev} text-[20px]`}>
+              {post.nickname}
+            </span>
+            <span>{`· ${utilConvertTime(post.created_at, {
+              toString: true,
+            })}`}</span>
+          </div>
           <h1 className={`${TEXT_COLOR.text} text-[24px] font-bold`}>
             {post.title}
           </h1>
-          {/* 에디터 구현에 따라 수정필요할지도 */}
           <div
             className="w-[770px] multi-line-ellipsis"
             dangerouslySetInnerHTML={{ __html: post.content }}

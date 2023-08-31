@@ -48,7 +48,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
     queryKey: ["comments", postId],
     queryFn: () => axios.get("/api/comments"),
   });
-  console.log(detailContents);
+  console.log(detailData);
   return (
     <div className={styles.contents.wrapper}>
       <article className={styles.contents.inner}>

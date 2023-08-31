@@ -17,7 +17,7 @@ export const postHandler = [
           like: null,
           img: "test img update4",
           categories: ["jwt", "aws", "mysql"],
-          createdDt: "2023-08-28 17:08:22",
+          created_at: "2023-08-28 17:08:22",
         }),
       );
     } else {
