@@ -71,8 +71,8 @@ const HomePage = () => {
             </div>
           )}
           <div className="flex flex-col items-end gap-[20px]">
-            {postList?.map((post: post) => {
-              return <Post post={post} key={`postlist${post.postId}`} />;
+            {postList?.map((post: postDetail) => {
+              return <Post post={post} key={`postlist${post.post_id}`} />;
             })}
           </div>
         </div>

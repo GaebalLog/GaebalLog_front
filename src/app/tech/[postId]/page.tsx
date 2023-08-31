@@ -34,17 +34,6 @@ export interface detailParams {
     postId: number;
   };
 }
-export interface postDetail {
-  post_id: number;
-  title: string;
-  content: string;
-  nickname: string;
-  view: number;
-  like: number;
-  img: string;
-  categories: string[];
-  createdDt: string;
-}
 
 const Detail = ({ params: { postId } }: detailParams) => {
   const nickname = useRecoilValue(nicknameAtom);
@@ -59,7 +48,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
     queryKey: ["comments", postId],
     queryFn: () => axios.get("/api/comments"),
   });
-
+  console.log(detailContents);
   return (
     <div className={styles.contents.wrapper}>
       <article className={styles.contents.inner}>
@@ -67,8 +56,8 @@ const Detail = ({ params: { postId } }: detailParams) => {
         <div className="flex gap-[32px] justify-between items-center">
           <div className="flex gap-[16px]">
             <span className="text-[20px]">{detailData?.nickname}</span>
-            {detailData?.createdDt && (
-              <span>{utilConvertTime(detailData?.createdDt)}</span>
+            {detailData?.created_at && (
+              <span>{utilConvertTime(detailData?.created_at)}</span>
             )}
           </div>
           <div className="flex gap-[16px]">

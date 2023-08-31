@@ -10,15 +10,15 @@ import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import Button from "../designSystem/Button";
 import { isLoggedInAtom } from "../provider/SettingsProvider";
 
-const Post: React.FC<{ post: post }> = ({ post }) => {
+const Post: React.FC<{ post: postDetail }> = ({ post }) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const router = useRouter();
 
   const { getIcon } = useIcon();
   const heart = getIcon("heart", 16, 14, "cursor hover");
   const eye = getIcon("eye", 18, 16);
-  const bookmark = getIcon("bookmark", 48, 80, "cursor hover");
-  const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
+  // const bookmark = getIcon("bookmark", 48, 80, "cursor hover");
+  // const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
 
   const clickHeartHandler = () => {
     console.log("좋아요");
@@ -32,7 +32,7 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
       className: "excluded",
       onClick: clickHeartHandler,
     },
-    { id: "search", icon: eye, count: post.count },
+    { id: "search", icon: eye, count: post.view },
   ];
 
   const onClickHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {
@@ -43,7 +43,7 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
     if (e.target.closest(".excluded")) {
       return;
     }
-    router.push(`/tech/${post.postId}`);
+    router.push(`/tech/${post.post_id}`);
   };
 
   const checkBookmarkHandler = () => {
@@ -54,15 +54,16 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
     <div
       className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02} cursor-pointer`}
       onClick={onClickHandler}
-      data-testid={`post${post.postId}`}
+      data-testid={`post${post.post_id}`}
     >
       <div className="w-[332px] h-[280px] overflow-hidden">
-        <Image src={post.thumbnail} width={332} height={280} alt={post.title} />
+        <Image src={post.img} width={332} height={280} alt={post.title} />
       </div>
       <div className="flex justify-between flex-col h-[280px] gap-[80px]">
         <div className="flex flex-col gap-[24px]">
           <h2 className={`${TEXT_COLOR.general07rev} text-[20px]`}>
             {post.nickname}
+            <span>{post.created_at}</span>
           </h2>
           <h1 className={`${TEXT_COLOR.text} text-[24px] font-bold`}>
             {post.title}
@@ -75,7 +76,7 @@ const Post: React.FC<{ post: post }> = ({ post }) => {
             className="absolute top-0 right-[40px] excluded"
             onClick={checkBookmarkHandler}
           >
-            {post.isBookmarked ? checkBookmark : bookmark}
+            {/* {post.isBookmarked ? checkBookmark : bookmark} */}
           </div>
         )}
         {/* <div className="flex items-center gap-[16px]">
