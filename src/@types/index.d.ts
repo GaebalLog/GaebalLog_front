@@ -4,6 +4,18 @@ declare global {
   type bgColor = keyof typeof BG_COLOR;
   type color = keyof typeof TEXT_COLOR;
 
+  interface postDetail {
+    post_id: number;
+    title: string;
+    content: string;
+    nickname: string;
+    view: number;
+    like: number;
+    img: string;
+    categories: string[];
+    created_at: string;
+  }
+
   // Home 화면
   interface post {
     postId: number;

@@ -1,5 +1,3 @@
-import type { postDetail } from "@/app/tech/[postId]/page";
-
 import { instance } from "./api";
 
 export interface postDataType {

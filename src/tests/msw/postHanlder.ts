@@ -3,9 +3,8 @@ import { rest } from "msw";
 import type { postDataType } from "@/api/postAPI";
 
 export const postHandler = [
-  rest.get("/post", (req, res, ctx) => {
-    const postId = req.url.searchParams.get("id");
-
+  rest.get("/post/detail/:id", (req, res, ctx) => {
+    const postId = req.params.id;
     if (postId == "37") {
       return res(
         ctx.status(200),
@@ -19,6 +18,54 @@ export const postHandler = [
           img: "test img update4",
           categories: ["jwt", "aws", "mysql"],
           createdDt: "2023-08-28 17:08:22",
+        }),
+      );
+    } else {
+      return res(ctx.status(404));
+    }
+  }),
+
+  rest.get("post/all/:sort", (req, res, ctx) => {
+    const sort = req.params.sort;
+    const page = req.url.searchParams.get("page");
+    if (sort === "views" && page && page < "3") {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          hasMore: true,
+          posts: [
+            {
+              post_id: 29,
+              nickname: "nickname",
+              title: "title",
+              content: "더",
+              view: null,
+              like: null,
+              img: "img",
+              categories: ["jwt", "aws", "mysql"],
+              createdDt: "2023-08-28 17:08:22",
+            },
+          ],
+        }),
+      );
+    } else if (sort === "views" && page && page === "3") {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          hasMore: false,
+          posts: [
+            {
+              post_id: 29,
+              nickname: "nickname",
+              title: "title",
+              content: "마지막",
+              view: null,
+              like: null,
+              img: "img",
+              categories: ["jwt", "aws", "mysql"],
+              createdDt: "2023-08-28 17:08:22",
+            },
+          ],
         }),
       );
     } else {

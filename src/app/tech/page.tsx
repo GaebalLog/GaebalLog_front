@@ -9,8 +9,6 @@ import SortBar from "@/components/commonUI/SortBar";
 import { postAPI } from "@/api/postAPI";
 import InfiniteScroll from "@/components/observing/InfiniteScroll";
 
-import type { postDetail } from "./[postId]/page";
-
 const TechPage = () => {
   const [tab, setTab] = React.useState<sortTab>("조회 순");
 

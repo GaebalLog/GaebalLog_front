@@ -34,17 +34,6 @@ export interface detailParams {
     postId: number;
   };
 }
-export interface postDetail {
-  post_id: number;
-  title: string;
-  content: string;
-  nickname: string;
-  view: number;
-  like: number;
-  img: string;
-  categories: string[];
-  created_at: string;
-}
 
 const Detail = ({ params: { postId } }: detailParams) => {
   const nickname = useRecoilValue(nicknameAtom);
