@@ -13,9 +13,14 @@ export interface allPostsType {
 }
 export const postAPI = {
   create: (data: postDataType) => {
-    return instance.post("/post", data);
+    const sendData = {
+      user_id: 24,
+      img: "img",
+      ...data,
+    };
+    return instance.post("/post", sendData);
   },
-  getAll: (sort: "views" | "created_at", page: number) => {
+  getAll: (sort: "views" | "created_at" | "neighbors", page: number) => {
     return instance.get<allPostsType>(`/post/all/${sort}?page=${page}`);
   },
   getDetail: (id: number) => {
@@ -25,6 +30,11 @@ export const postAPI = {
     return instance.delete(`/post/${id}`);
   },
   update: (id: number, data: postDataType) => {
-    return instance.patch(`/post/${id}`, data);
+    const sendData = {
+      user_id: 24,
+      img: "img",
+      ...data,
+    };
+    return instance.patch(`/post/${id}`, sendData);
   },
 };

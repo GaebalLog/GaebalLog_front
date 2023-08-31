@@ -1,7 +1,7 @@
 interface optionType {
-  toString?: boolean;
+  toString: boolean;
 }
-const utilConvertTime = (createdAt: string, option: optionType) => {
+const utilConvertTime = (createdAt: string, option?: optionType) => {
   const creatTime = new Date(createdAt);
   const now = new Date();
   const timeGap = now.getTime() - creatTime.getTime();
@@ -10,7 +10,7 @@ const utilConvertTime = (createdAt: string, option: optionType) => {
     const hours = Math.round(timeGap / (60 * 60 * 1000));
     return `${hours}시간 전`;
   } else {
-    if (option.toString) {
+    if (option && option.toString) {
       const days = Math.round(timeGap / (60 * 60 * 24 * 1000));
       if (days > 365) return `${days / 365}년 전`;
       else if (days > 30) return `${days / 30}달 전`;
