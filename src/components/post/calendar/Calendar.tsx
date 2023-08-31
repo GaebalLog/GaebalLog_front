@@ -30,7 +30,6 @@ const Calendar: React.FC<calendarProps> = ({
   };
   const [selectedYear, setSelectedYear] = React.useState(yearValue);
   const [selectedMonth, setSelectedMonth] = React.useState(monthValue);
-  console.log(yearValue);
 
   const prevMonth = () => {
     if (selectedMonth === 1) {
