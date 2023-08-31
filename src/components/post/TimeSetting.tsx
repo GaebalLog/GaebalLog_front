@@ -28,6 +28,7 @@ const TimeSetting: React.FC = () => {
   const endHalfDay = useInput("오전");
   const endHour = useInput(12);
   const endMinutes = useInput(0);
+  const year = useInput(new Date().getFullYear());
   const month = useInput(new Date().getMonth() + 1);
   const days = useInput(new Date().getDate());
 
@@ -77,18 +78,29 @@ const TimeSetting: React.FC = () => {
               </p>
               <div className="flex gap-4">
                 <CustomNumberInput
-                  type="month"
-                  daysValue={days.value}
+                  type="year"
+                  yearValue={year.value}
                   monthValue={month.value}
+                  daysValue={days.value}
+                  setDays={days.setValue}
+                  {...year}
+                />
+                <CustomNumberInput
+                  type="month"
+                  yearValue={year.value}
+                  monthValue={month.value}
+                  daysValue={days.value}
                   setDays={days.setValue}
                   {...month}
                 />
                 <CustomNumberInput
                   type="days"
+                  yearValue={year.value}
                   monthValue={month.value}
                   {...days}
                 />
                 <div
+                  data-testid="calendar"
                   className={`relative flex justify-center items-center w-[45px] h-[45px] ${BORDER_COLOR.button} cursor-pointer`}
                   onClick={() => openModal("calendarModal")}
                 >
@@ -100,8 +112,10 @@ const TimeSetting: React.FC = () => {
                         onBackdropClick={() => closeModal("calendarModal")}
                       >
                         <Calendar
+                          yearValue={+year.value}
                           monthValue={+month.value}
                           daysValue={+days.value}
+                          setYearValue={year.setValue}
                           setMonthValue={month.setValue}
                           setDaysValue={days.setValue}
                         />

@@ -7,25 +7,30 @@ import Week from "./Week";
 import Header from "./Header";
 
 interface calendarProps {
+  yearValue: number;
   monthValue: number;
   daysValue: number;
+  setYearValue: React.Dispatch<React.SetStateAction<string | number>>;
   setMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
   setDaysValue: React.Dispatch<React.SetStateAction<string | number>>;
 }
 
 const Calendar: React.FC<calendarProps> = ({
+  yearValue,
   monthValue,
   daysValue,
+  setYearValue,
   setMonthValue,
   setDaysValue,
 }) => {
   const selectedDate = {
-    year: new Date().getFullYear(),
+    year: yearValue,
     month: monthValue,
     day: daysValue,
   };
-  const [selectedYear, setSelectedYear] = React.useState(selectedDate.year);
+  const [selectedYear, setSelectedYear] = React.useState(yearValue);
   const [selectedMonth, setSelectedMonth] = React.useState(monthValue);
+  console.log(yearValue);
 
   const prevMonth = () => {
     if (selectedMonth === 1) {
@@ -51,6 +56,7 @@ const Calendar: React.FC<calendarProps> = ({
       onClick={(e) => e.stopPropagation()}
     >
       <Header
+        selectedYear={selectedYear}
         selectedMonth={selectedMonth}
         prevMonth={prevMonth}
         nextMonth={nextMonth}
@@ -62,6 +68,7 @@ const Calendar: React.FC<calendarProps> = ({
         selectedMonth={selectedMonth}
         prevMonth={prevMonth}
         nextMonth={nextMonth}
+        setYearValue={setYearValue}
         setMonthValue={setMonthValue}
         setDaysValue={setDaysValue}
       />
