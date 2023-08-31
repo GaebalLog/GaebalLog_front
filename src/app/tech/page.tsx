@@ -7,12 +7,12 @@ import Post from "@/components/commonUI/Post";
 import TechSideBar from "@/components/tech/TechSideBar";
 import SortBar from "@/components/commonUI/SortBar";
 import { postAPI } from "@/api/postAPI";
+import InfiniteScroll from "@/components/observing/InfiniteScroll";
 
 import type { postDetail } from "./[postId]/page";
 
 const TechPage = () => {
   const [tab, setTab] = React.useState<sortTab>("조회 순");
-  const loadMoreRef = React.useRef(null);
 
   const sort = tab === "조회 순" ? "views" : "created_at";
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
@@ -26,40 +26,22 @@ const TechPage = () => {
   const postList = React.useMemo(() => {
     return data?.pages.flatMap((page) => page?.data.posts) || [];
   }, [data]);
-  console.log(data);
-  React.useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const first = entries[0];
-        if (first.isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage();
-        }
-      },
-      {
-        threshold: 0.7,
-      },
-    );
-    if (loadMoreRef.current) {
-      observer.observe(loadMoreRef.current);
-    }
-    return () => {
-      if (loadMoreRef.current) {
-        observer.unobserve(loadMoreRef.current);
-      }
-    };
-  }, [hasNextPage, isFetchingNextPage]);
 
   return (
     <div className="w-[1632px] flex justify-between mt-[20px]">
       <TechSideBar />
       <div className="w-full">
         <SortBar tab={tab} setTab={setTab} />
-        <div className="relative flex flex-col items-end gap-[20px]">
-          {postList?.map((post: postDetail) => {
-            return <Post post={post} key={post.post_id} />;
-          })}
-          <div ref={loadMoreRef} className="absolute bottom-[50px]" />
-        </div>
+        <InfiniteScroll
+          onIntersect={fetchNextPage}
+          canLoad={Boolean(hasNextPage && !isFetchingNextPage)}
+        >
+          <div className="relative flex flex-col items-end gap-[20px]">
+            {postList?.map((post: postDetail) => {
+              return <Post post={post} key={post.post_id} />;
+            })}
+          </div>
+        </InfiniteScroll>
       </div>
     </div>
   );
