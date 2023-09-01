@@ -47,9 +47,15 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
       categories: [],
     });
 
+    const [timeSetting, setTimeSetting] = React.useState({
+      startDate: "",
+      endDate: "",
+    });
+
     const handleSubmit = async () => {
       const result = await postAPI.create(data);
       console.log(result);
+      console.log(timeSetting);
     };
 
     const titleChangeHanlder = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +85,9 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
               onChange={titleChangeHanlder}
               placeholder="제목을 입력해주세요."
             />
-            {type[0] === "discussion" && <TimeSetting />}
+            {type[0] === "discussion" && (
+              <TimeSetting setTimeSetting={setTimeSetting} />
+            )}
           </div>
           <PostEditor content={data.content} editHandler={contentHandler} />
           <div className={styles.bottomBox.wrapper}>

@@ -9,24 +9,24 @@ import Header from "./Header";
 interface calendarProps {
   yearValue: number;
   monthValue: number;
-  daysValue: number;
+  dateValue: number;
   setYearValue: React.Dispatch<React.SetStateAction<string | number>>;
   setMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
-  setDaysValue: React.Dispatch<React.SetStateAction<string | number>>;
+  setDateValue: React.Dispatch<React.SetStateAction<string | number>>;
 }
 
 const Calendar: React.FC<calendarProps> = ({
   yearValue,
   monthValue,
-  daysValue,
+  dateValue,
   setYearValue,
   setMonthValue,
-  setDaysValue,
+  setDateValue,
 }) => {
   const selectedDate = {
     year: yearValue,
     month: monthValue,
-    day: daysValue,
+    day: dateValue,
   };
   const [selectedYear, setSelectedYear] = React.useState(yearValue);
   const [selectedMonth, setSelectedMonth] = React.useState(monthValue);
@@ -69,7 +69,7 @@ const Calendar: React.FC<calendarProps> = ({
         nextMonth={nextMonth}
         setYearValue={setYearValue}
         setMonthValue={setMonthValue}
-        setDaysValue={setDaysValue}
+        setDateValue={setDateValue}
       />
     </div>
   );

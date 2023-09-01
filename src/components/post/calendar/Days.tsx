@@ -19,7 +19,7 @@ interface DayProps {
   nextMonth: () => void;
   setYearValue: React.Dispatch<React.SetStateAction<string | number>>;
   setMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
-  setDaysValue: React.Dispatch<React.SetStateAction<string | number>>;
+  setDateValue: React.Dispatch<React.SetStateAction<string | number>>;
 }
 
 const Days: React.FC<DayProps> = ({
@@ -30,7 +30,7 @@ const Days: React.FC<DayProps> = ({
   nextMonth,
   setYearValue,
   setMonthValue,
-  setDaysValue,
+  setDateValue,
 }) => {
   const { closeModal } = useModalController();
   const calendarManager = new CalendarManager(selectedYear, selectedMonth);
@@ -48,7 +48,7 @@ const Days: React.FC<DayProps> = ({
     if (calendarManager.isPastDate(day)) return alert("이미 지난 날짜입니다.");
     setYearValue(selectedYear);
     setMonthValue(selectedMonth);
-    setDaysValue(day);
+    setDateValue(day);
     closeModal("calendarModal");
   };
 
