@@ -9,10 +9,13 @@ import TimeSetting from "@/components/post/TimeSetting";
 import CustomNumberInput from "@/components/post/CustomNumberInput";
 import useInput from "@/hooks/useInput";
 import Calendar from "@/components/post/calendar/Calendar";
-import { CalendarManager, Today } from "@/utils/util-date";
+import { CalendarManager } from "@/utils/util-date";
 
-const today = new Today();
-const calendarManager = new CalendarManager(today.getYear(), today.getMonth());
+const today = new Date();
+const calendarManager = new CalendarManager(
+  today.getFullYear(),
+  today.getMonth(),
+);
 
 test("post페이지 렌더링 테스트", async () => {
   const { unmount } = render(<Postpage params={{ type: ["tech"] }} />, {
@@ -32,7 +35,7 @@ test("post페이지 렌더링 테스트", async () => {
 });
 
 test("토의 시간 설정 모달 렌더링 테스트", async () => {
-  render(<TimeSetting />, { wrapper: Provider });
+  render(<TimeSetting setTimeSetting={jest.fn} />, { wrapper: Provider });
   await userEvent.click(await screen.findByText("토의 시간 설정"));
   expect(await screen.findByText("시작 시간")).toBeInTheDocument();
   expect(await screen.findByText("종료 시간")).toBeInTheDocument();
@@ -243,7 +246,7 @@ describe("토의 시간 설정 테스트", () => {
       dayInput: Promise<HTMLElement>;
 
     beforeEach(async () => {
-      render(<TimeSetting />, { wrapper: Provider });
+      render(<TimeSetting setTimeSetting={jest.fn} />, { wrapper: Provider });
       await userEvent.click(await screen.findByText("토의 시간 설정"));
       yearInput = screen.findByTestId(`year_input`);
       monthInput = screen.findByTestId(`month_input`);
@@ -304,17 +307,17 @@ describe("달력 테스트", () => {
   });
 
   const CalendarTestComponent = () => {
-    const year = useInput(today.getYear());
+    const year = useInput(today.getFullYear());
     const month = useInput(today.getMonth());
-    const days = useInput(today.getDate());
+    const date = useInput(today.getDate());
     return (
       <Calendar
         yearValue={+year.value}
         monthValue={+month.value}
-        daysValue={+days.value}
+        dateValue={+date.value}
         setYearValue={year.setValue}
         setMonthValue={month.setValue}
-        setDaysValue={days.setValue}
+        setDateValue={date.setValue}
       />
     );
   };
@@ -356,7 +359,7 @@ describe("달력 테스트", () => {
 
 describe("달력 날짜 선택 테스트", () => {
   beforeEach(async () => {
-    render(<TimeSetting />, { wrapper: Provider });
+    render(<TimeSetting setTimeSetting={jest.fn} />, { wrapper: Provider });
     await userEvent.click(await screen.findByText("토의 시간 설정"));
     await userEvent.click(await screen.findByTestId("calendar"));
   });

@@ -4,6 +4,7 @@ import useIcon from "@/hooks/useIcon";
 import useModalController from "@/hooks/useModalController";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import useInput from "@/hooks/useInput";
+import { DateConvertor } from "@/utils/util-date";
 
 import NonPortalModal from "../modal/NonPortalModal";
 
@@ -39,23 +40,26 @@ const TimeSetting: React.FC<TimeSettingProps> = ({ setTimeSetting }) => {
   const date = useInput(new Date().getDate());
 
   React.useEffect(() => {
-    const startDate = new Date(
+    const startDate = new DateConvertor(
       +year.value,
       +month.value - 1,
       +date.value,
-      startHalfDay.value === "오후" ? +startHour.value + 12 : +startHour.value,
+      startHalfDay.value + "",
+      +startHour.value,
       +startMinutes.value,
     );
-    const endDate = new Date(
+    const endDate = new DateConvertor(
       +year.value,
       +month.value - 1,
       +date.value,
-      endHalfDay.value === "오후" ? +endHour.value + 12 : +endHour.value,
+      endHalfDay.value + "",
+      +endHour.value,
       +endMinutes.value,
     );
+
     setTimeSetting({
-      startDate: startDate.toISOString(),
-      endDate: endDate.toISOString(),
+      startDate: startDate.convertToISOString(),
+      endDate: endDate.convertToISOString(),
     });
   }, [
     setTimeSetting,
