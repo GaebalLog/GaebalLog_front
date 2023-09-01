@@ -91,8 +91,12 @@ const Post: React.FC<{ post: postDetail }> = ({ post }) => {
           </div>
         )}
         <div className="flex items-center gap-[16px]">
-          {post.categories.map((category) => (
-            <Button key={`${post.post_id}${category}`} color="grey" size="tag">
+          {post.categories.map((category, i) => (
+            <Button
+              key={`${post.post_id}${category}${i}`}
+              color="grey"
+              size="tag"
+            >
               # {category}
             </Button>
           ))}

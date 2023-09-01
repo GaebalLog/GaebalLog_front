@@ -5,7 +5,7 @@ export interface postDataType {
   title: string;
   content: string;
   categories: string[];
-  img?: string;
+  img: string[];
 }
 export interface allPostsType {
   hasMore: boolean;
@@ -14,8 +14,7 @@ export interface allPostsType {
 export const postAPI = {
   create: (data: postDataType) => {
     const sendData = {
-      user_id: 24,
-      img: "img",
+      user_id: 1,
       ...data,
     };
     return instance.post("/post", sendData);
@@ -32,7 +31,6 @@ export const postAPI = {
   update: (id: number, data: postDataType) => {
     const sendData = {
       user_id: 24,
-      img: "img",
       ...data,
     };
     return instance.patch(`/post/${id}`, sendData);

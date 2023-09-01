@@ -11,7 +11,7 @@ declare global {
     nickname: string;
     view: number;
     like: number;
-    img: string;
+    img: string[];
     categories: string[];
     created_at: string;
   }
