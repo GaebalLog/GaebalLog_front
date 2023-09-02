@@ -17,6 +17,7 @@ import { postAPI } from "@/api/postAPI";
 import utilConvertTime from "@/utils/util-datetime";
 import Button from "@/components/designSystem/Button";
 import DeleteConfirm from "@/components/modal/common/DeleteConfirm";
+import { utilDecodeImg } from "@/utils/util-decodeImg";
 
 const styles = {
   contents: {
@@ -48,7 +49,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
     queryKey: ["comments", postId],
     queryFn: () => axios.get("/api/comments"),
   });
-  console.log(detailContents);
+
   return (
     <div className={styles.contents.wrapper}>
       <article className={styles.contents.inner}>
@@ -86,7 +87,11 @@ const Detail = ({ params: { postId } }: detailParams) => {
         </div>
         {modal.deleteModal && <DeleteConfirm mode="tech" postId={postId} />}
         <hr className={styles.line} />
-        <Contents contents={detailData?.content} />
+        {detailData && (
+          <Contents
+            contents={utilDecodeImg(detailData?.content, detailData?.img)}
+          />
+        )}
       </article>
       <hr className={styles.line} />
       <aside className={styles.comment.wrapper}>

@@ -5,26 +5,35 @@ export interface postDataType {
   title: string;
   content: string;
   categories: string[];
-  img?: string;
+  img: string[];
 }
 export interface allPostsType {
   hasMore: boolean;
   posts: postDetail[];
 }
+const userId = 1;
 export const postAPI = {
   create: (data: postDataType) => {
-    return instance.post("/post", data);
+    const sendData = { user_id: userId, ...data };
+    return instance.post("/post", sendData);
   },
-  getAll: (sort: "views" | "created_at", page: number) => {
-    return instance.get<allPostsType>(`/post/all/${sort}?page=${page}`);
+  getAll: (sort: "views" | "created_at" | "neighbor", page: number) => {
+    return instance.get<allPostsType>(
+      `/post/all/${sort}/${userId}?page=${page}`,
+    );
   },
-  getDetail: (id: number) => {
-    return instance.get<postDetail>(`/post/detail/${id}`);
+  getDetail: (post_id: number) => {
+    return instance.get<postDetail>(`/post/detail/${post_id}`);
   },
-  delete: (id: number) => {
-    return instance.delete(`/post/${id}`);
+  delete: (post_id: number) => {
+    return instance.delete(`/post/${post_id}`);
   },
-  update: (id: number, data: postDataType) => {
-    return instance.patch(`/post/${id}`, data);
+  update: (post_id: number, data: postDataType) => {
+    const sendData = { user_id: userId, ...data };
+    return instance.patch(`/post/${post_id}`, sendData);
+  },
+  toggleBookmark: (post_id: number) => {
+    const data = { user_id: userId, post_id };
+    return instance.post(`/post/bookmark`, data);
   },
 };

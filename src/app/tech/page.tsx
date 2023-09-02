@@ -1,28 +1,48 @@
 "use client";
 import React from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
-import { QUERY_KEYS } from "@/constants/global/querykeys";
 import Post from "@/components/commonUI/Post";
 import TechSideBar from "@/components/tech/TechSideBar";
 import SortBar from "@/components/commonUI/SortBar";
-import { postAPI } from "@/api/postAPI";
 import InfiniteScroll from "@/components/observing/InfiniteScroll";
+import useGetPost from "@/hooks/postAPI/useGetPost";
+import { postAPI } from "@/api/postAPI";
 
 const TechPage = () => {
   const [tab, setTab] = React.useState<sortTab>("조회 순");
-
+  const [postList, setPostList] = React.useState<postDetail[]>([]);
   const sort = tab === "조회 순" ? "views" : "created_at";
-  const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
-    useInfiniteQuery({
-      queryKey: [QUERY_KEYS.POSTLIST_HOME, sort],
-      queryFn: ({ pageParam = 1 }) => postAPI.getAll(sort, pageParam),
-      getNextPageParam: (lastPage, allPages) => {
-        return lastPage?.data.hasMore ? allPages.length + 1 : undefined;
-      },
-    });
-  const postList = React.useMemo(() => {
-    return data?.pages.flatMap((page) => page?.data.posts) || [];
+  const { data, fetchNextPage, isFetchingNextPage, hasNextPage } = useGetPost({
+    sort,
+  });
+  const { mutate } = useMutation({
+    mutationFn: postAPI.toggleBookmark,
+    onMutate: (postId: number) => {
+      setPostList((prev) => {
+        return prev.map((post) =>
+          post.post_id === postId
+            ? { ...post, bookmarked: !post.bookmarked }
+            : post,
+        );
+      });
+    },
+    onError: (error, postId) => {
+      setPostList((prev) =>
+        prev.map((post) =>
+          post.post_id === postId
+            ? { ...post, bookmarked: !post.bookmarked }
+            : post,
+        ),
+      );
+    },
+  });
+  const bookmarkHandler = (postId: number) => {
+    mutate(postId);
+  };
+  React.useEffect(() => {
+    const list = data?.pages.flatMap((page) => page?.data.posts) || [];
+    setPostList(list);
   }, [data]);
 
   return (
@@ -36,7 +56,13 @@ const TechPage = () => {
         >
           <div className="relative flex flex-col items-end gap-[20px]">
             {postList?.map((post: postDetail) => {
-              return <Post post={post} key={post.post_id} />;
+              return (
+                <Post
+                  post={post}
+                  key={post.post_id}
+                  bookmarkHandler={bookmarkHandler}
+                />
+              );
             })}
           </div>
         </InfiniteScroll>

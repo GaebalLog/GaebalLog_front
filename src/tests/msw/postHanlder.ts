@@ -17,7 +17,7 @@ export const postHandler = [
           like: null,
           img: "test img update4",
           categories: ["jwt", "aws", "mysql"],
-          createdDt: "2023-08-28 17:08:22",
+          created_at: "2023-08-28 17:08:22",
         }),
       );
     } else {
@@ -25,17 +25,17 @@ export const postHandler = [
     }
   }),
 
-  rest.get("post/all/:sort", (req, res, ctx) => {
+  rest.get("post/all/:sort/:id", (req, res, ctx) => {
     const sort = req.params.sort;
     const page = req.url.searchParams.get("page");
-    if (sort === "views" && page && page < "3") {
+    if (sort === "views" && page && page < "2") {
       return res(
         ctx.status(200),
         ctx.json({
           hasMore: true,
           posts: [
             {
-              post_id: 29,
+              post_id: 30,
               nickname: "nickname",
               title: "title",
               content: "더",
@@ -48,7 +48,7 @@ export const postHandler = [
           ],
         }),
       );
-    } else if (sort === "views" && page && page === "3") {
+    } else if (sort === "views" && page && page === "2") {
       return res(
         ctx.status(200),
         ctx.json({
