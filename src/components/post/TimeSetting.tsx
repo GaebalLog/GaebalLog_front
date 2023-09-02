@@ -4,6 +4,7 @@ import useIcon from "@/hooks/useIcon";
 import useModalController from "@/hooks/useModalController";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import useInput from "@/hooks/useInput";
+import { DateConvertor } from "@/utils/util-date";
 
 import NonPortalModal from "../modal/NonPortalModal";
 
@@ -15,7 +16,13 @@ const styles = {
   settingModalWrapper: `flex flex-col w-[445px] px-5 py-[30px] gap-[30px] ${BG_COLOR.primary} ${BORDER_COLOR.button}`,
 };
 
-const TimeSetting: React.FC = () => {
+interface TimeSettingProps {
+  setTimeSetting: React.Dispatch<
+    React.SetStateAction<{ startDate: string; endDate: string }>
+  >;
+}
+
+const TimeSetting: React.FC<TimeSettingProps> = ({ setTimeSetting }) => {
   const { modal, openModal, closeModal } = useModalController();
   const { getIcon } = useIcon();
   const downArrow = getIcon("downBtn", 10, 10);
@@ -30,7 +37,42 @@ const TimeSetting: React.FC = () => {
   const endMinutes = useInput(0);
   const year = useInput(new Date().getFullYear());
   const month = useInput(new Date().getMonth() + 1);
-  const days = useInput(new Date().getDate());
+  const date = useInput(new Date().getDate());
+
+  React.useEffect(() => {
+    const startDate = new DateConvertor(
+      +year.value,
+      +month.value - 1,
+      +date.value,
+      startHalfDay.value + "",
+      +startHour.value,
+      +startMinutes.value,
+    );
+    const endDate = new DateConvertor(
+      +year.value,
+      +month.value - 1,
+      +date.value,
+      endHalfDay.value + "",
+      +endHour.value,
+      +endMinutes.value,
+    );
+
+    setTimeSetting({
+      startDate: startDate.convertToISOString(),
+      endDate: endDate.convertToISOString(),
+    });
+  }, [
+    setTimeSetting,
+    year.value,
+    month.value,
+    date.value,
+    startHalfDay.value,
+    startHour.value,
+    startMinutes.value,
+    endHalfDay.value,
+    endHour.value,
+    endMinutes.value,
+  ]);
 
   return (
     <div className="relative" onClick={(e) => e.stopPropagation()}>
@@ -81,23 +123,23 @@ const TimeSetting: React.FC = () => {
                   type="year"
                   yearValue={year.value}
                   monthValue={month.value}
-                  daysValue={days.value}
-                  setDays={days.setValue}
+                  dateValue={date.value}
+                  setDate={date.setValue}
                   {...year}
                 />
                 <CustomNumberInput
                   type="month"
                   yearValue={year.value}
                   monthValue={month.value}
-                  daysValue={days.value}
-                  setDays={days.setValue}
+                  dateValue={date.value}
+                  setDate={date.setValue}
                   {...month}
                 />
                 <CustomNumberInput
                   type="days"
                   yearValue={year.value}
                   monthValue={month.value}
-                  {...days}
+                  {...date}
                 />
                 <div
                   data-testid="calendar"
@@ -114,10 +156,10 @@ const TimeSetting: React.FC = () => {
                         <Calendar
                           yearValue={+year.value}
                           monthValue={+month.value}
-                          daysValue={+days.value}
+                          dateValue={+date.value}
                           setYearValue={year.setValue}
                           setMonthValue={month.setValue}
-                          setDaysValue={days.setValue}
+                          setDateValue={date.setValue}
                         />
                       </NonPortalModal>
                     </div>

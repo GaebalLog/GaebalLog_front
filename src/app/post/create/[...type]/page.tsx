@@ -50,6 +50,10 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
       img: [],
       categories: [],
     });
+    const [timeSetting, setTimeSetting] = React.useState({
+      startDate: "",
+      endDate: "",
+    });
     const router = useRouter();
     React.useEffect(() => {
       setData((prev) => ({ ...prev, content: utilReplaceImg(article) }));
@@ -62,6 +66,7 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
         router.push(`/tech/${result.data.id}`);
         return alert("성공적으로 작성되었습니다.");
       }
+      console.log(timeSetting);
     };
 
     const titleChangeHanlder = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +96,9 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
               onChange={titleChangeHanlder}
               placeholder="제목을 입력해주세요."
             />
-            {type[0] === "discussion" && <TimeSetting />}
+            {type[0] === "discussion" && (
+              <TimeSetting setTimeSetting={setTimeSetting} />
+            )}
           </div>
           <PostEditor content={article} editHandler={contentHandler} />
           <div className={styles.bottomBox.wrapper}>

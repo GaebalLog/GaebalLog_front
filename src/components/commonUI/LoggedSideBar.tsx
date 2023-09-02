@@ -30,23 +30,25 @@ const LoggedSide: React.FC<props> = ({ position, type }) => {
       ? "h-[409px]"
       : "h-[280px]"
   }`;
+  const divHeight = `${position === "bottom" ? "h-[80%]" : "h-[70%]"}`;
+  const styles = {
+    wrapper: `relative w-[380px] px-[16px] py-[24px] ${BG_COLOR.general02} ${BORDER_COLOR.container} ${heightValue}`,
+    h1: `font-hack text-[24px] mb-[32px]`,
+    keywordDiv: `flex gap-3 flex-wrap content-start ${divHeight} overflow-hidden`,
+  };
 
   return (
-    <div
-      className={`relative w-[380px] ${BG_COLOR.general02} ${BORDER_COLOR.container} ${heightValue}`}
-    >
-      <div className="px-[16px] py-[24px]">
-        <h1 className="font-hack text-[24px] mb-[32px]">My Keyword</h1>
-        <div className="flex gap-3 flex-wrap content-start">
-          {keywordList?.map((keyword: string) => (
-            <Link key={`logged${keyword}`} href={`/${type}?keyword=${keyword}`}>
-              <Button size="category" color="white" rounded>
-                #{keyword}
-              </Button>
-            </Link>
-          ))}
-          <EditBtn position={position} />
-        </div>
+    <div className={styles.wrapper}>
+      <h1 className={styles.h1}>My Keyword</h1>
+      <div className={styles.keywordDiv}>
+        {keywordList?.map((keyword: string) => (
+          <Link key={`logged${keyword}`} href={`/${type}?keyword=${keyword}`}>
+            <Button size="category" color="white" rounded>
+              #{keyword}
+            </Button>
+          </Link>
+        ))}
+        <EditBtn position={position} />
       </div>
     </div>
   );

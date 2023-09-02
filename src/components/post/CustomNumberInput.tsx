@@ -8,9 +8,9 @@ interface CustomNumberInputProps {
   value: string | number;
   yearValue?: string | number;
   monthValue?: string | number;
-  daysValue?: string | number;
+  dateValue?: string | number;
   setValue: React.Dispatch<React.SetStateAction<string | number>>;
-  setDays?: React.Dispatch<React.SetStateAction<string | number>>;
+  setDate?: React.Dispatch<React.SetStateAction<string | number>>;
 }
 
 const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
@@ -18,9 +18,9 @@ const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
   value,
   yearValue,
   monthValue,
-  daysValue,
+  dateValue,
   setValue,
-  setDays,
+  setDate,
 }) => {
   const styles = {
     divBox: `flex items-center ${BORDER_COLOR.button}`,
@@ -131,10 +131,10 @@ const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
   ) => {
     if (
       (type === "month" || type === "year") &&
-      daysValue &&
-      +daysValue > lastDay(yearOffset, monthOffset)
+      dateValue &&
+      +dateValue > lastDay(yearOffset, monthOffset)
     )
-      return setDays && setDays(lastDay(yearOffset, monthOffset));
+      return setDate && setDate(lastDay(yearOffset, monthOffset));
   };
 
   const showValue = () => {

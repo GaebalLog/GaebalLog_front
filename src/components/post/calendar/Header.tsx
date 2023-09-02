@@ -23,13 +23,21 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   return (
     <div className={styles.wrapper}>
-      <button className={styles.arrow} onClick={prevMonth}>
+      <button
+        data-testid="prev_month"
+        className={styles.arrow}
+        onClick={prevMonth}
+      >
         &#10094;
       </button>
       <div className={styles.month}>
         {selectedYear}. {month[selectedMonth - 1]}
       </div>
-      <button className={styles.arrow} onClick={nextMonth}>
+      <button
+        data-testid="next_month"
+        className={styles.arrow}
+        onClick={nextMonth}
+      >
         &#10095;
       </button>
     </div>

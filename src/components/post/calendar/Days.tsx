@@ -2,6 +2,7 @@ import React from "react";
 
 import { TEXT_COLOR } from "@/constants/global/colors";
 import useModalController from "@/hooks/useModalController";
+import { CalendarManager } from "@/utils/util-date";
 
 const styles = {
   wrapper: `grid grid-cols-7`,
@@ -18,7 +19,7 @@ interface DayProps {
   nextMonth: () => void;
   setYearValue: React.Dispatch<React.SetStateAction<string | number>>;
   setMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
-  setDaysValue: React.Dispatch<React.SetStateAction<string | number>>;
+  setDateValue: React.Dispatch<React.SetStateAction<string | number>>;
 }
 
 const Days: React.FC<DayProps> = ({
@@ -29,20 +30,12 @@ const Days: React.FC<DayProps> = ({
   nextMonth,
   setYearValue,
   setMonthValue,
-  setDaysValue,
+  setDateValue,
 }) => {
   const { closeModal } = useModalController();
+  const calendarManager = new CalendarManager(selectedYear, selectedMonth);
 
-  const showDay = React.useMemo(() => {
-    const lastMonthDate = new Date(selectedYear, selectedMonth - 1, 0);
-    const MonthDate = new Date(selectedYear, selectedMonth, 0);
-    const prevDate = lastMonthDate.getDate();
-    const prevDay = lastMonthDate.getDay();
-    const currentDate = MonthDate.getDate();
-    return { prevDate, prevDay, currentDate };
-  }, [selectedMonth, selectedYear]);
-
-  const getCurrentDayBorderColor = (day: number) => {
+  const getSelectedDayBorderColor = (day: number) => {
     if (
       selectedDate.year === selectedYear &&
       selectedDate.month === selectedMonth &&
@@ -52,18 +45,18 @@ const Days: React.FC<DayProps> = ({
   };
 
   const synchronizeInputNumber = (day: number) => {
+    if (calendarManager.isPastDate(day)) return alert("이미 지난 날짜입니다.");
     setYearValue(selectedYear);
     setMonthValue(selectedMonth);
-    setDaysValue(day);
+    setDateValue(day);
     closeModal("calendarModal");
   };
 
   const returnDays = () => {
     const previousMonthDays = returnPreviousMonthDays();
     const currentMonthDays = returnCurrentMonthDays();
-    const nextMonthDays = returnNextMonthDays(
-      previousMonthDays.length + currentMonthDays.length,
-    );
+    const sumPrevCurrenDay = previousMonthDays.length + currentMonthDays.length;
+    const nextMonthDays = returnNextMonthDays(sumPrevCurrenDay);
 
     return [...previousMonthDays, ...currentMonthDays, ...nextMonthDays];
   };
@@ -71,8 +64,12 @@ const Days: React.FC<DayProps> = ({
   const returnPreviousMonthDays = () => {
     const days = [];
     for (
-      let p = showDay.prevDay === 6 ? 32 : showDay.prevDate - showDay.prevDay;
-      p <= showDay.prevDate;
+      let p =
+        calendarManager.getPrevMonthLastDay() === 6
+          ? 32
+          : calendarManager.getPrevMonthLastDate() -
+            calendarManager.getPrevMonthLastDay();
+      p <= calendarManager.getPrevMonthLastDate();
       p++
     ) {
       days.push(
@@ -91,14 +88,17 @@ const Days: React.FC<DayProps> = ({
 
   const returnCurrentMonthDays = () => {
     const days = [];
-    for (let i = 1; i <= showDay.currentDate; i++) {
+    for (let i = 1; i <= calendarManager.getCurrentMonthLastDate(); i++) {
       days.push(
         <div
           key={i}
           onClick={() => synchronizeInputNumber(i)}
           className={styles.daysDiv}
         >
-          <p className={`${styles.currentDays} ${getCurrentDayBorderColor(i)}`}>
+          <p
+            data-testid={`currentMonthDay_${i}`}
+            className={`${styles.currentDays} ${getSelectedDayBorderColor(i)}`}
+          >
             {i}
           </p>
         </div>,
@@ -107,9 +107,9 @@ const Days: React.FC<DayProps> = ({
     return days;
   };
 
-  const returnNextMonthDays = (dayArrLength: number) => {
+  const returnNextMonthDays = (sumPrevCurrenDay: number) => {
     const days = [];
-    for (let n = 1; n <= 42 - dayArrLength; n++) {
+    for (let n = 1; n <= 42 - sumPrevCurrenDay; n++) {
       days.push(
         <div
           data-testid={`nextMonthDay_${n}`}
