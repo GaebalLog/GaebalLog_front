@@ -3,18 +3,18 @@ import Image from "next/image";
 import React from "react";
 import { useRecoilValue } from "recoil";
 import Link from "next/link";
-import { useMutation } from "@tanstack/react-query";
 
 import { TEXT_COLOR } from "@/constants/global/colors";
+import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
+import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
 import Post from "@/components/commonUI/Post";
 import Button from "@/components/designSystem/Button";
 import SideBar from "@/components/commonUI/SideBar";
-import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
-import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
 import StickyStyle from "@/components/commonUI/StickyStyle";
 import useGetPost from "@/hooks/postAPI/useGetPost";
 import InfiniteScroll from "@/components/observing/InfiniteScroll";
-import { postAPI } from "@/api/postAPI";
+import useToggleBookmark from "@/hooks/postAPI/useToggleBookmark";
+import useToggleLike from "@/hooks/postAPI/useToggleLike";
 
 import mainImage from "../../../public/assets/images/home/main.png";
 
@@ -34,31 +34,37 @@ const HomePage = () => {
     setPostList(list);
   }, [data]);
 
-  const { mutate } = useMutation({
-    mutationFn: postAPI.toggleBookmark,
-    onMutate: (postId: number) => {
-      setPostList((prev) => {
-        return prev.map((post) =>
-          post.post_id === postId
-            ? { ...post, bookmarked: !post.bookmarked }
-            : post,
-        );
-      });
-    },
-    onError: (error, postId) => {
-      setPostList((prev) =>
-        prev.map((post) =>
-          post.post_id === postId
-            ? { ...post, bookmarked: !post.bookmarked }
-            : post,
-        ),
+  const toggleBookmark = (postId: number) => {
+    setPostList((prev) => {
+      return prev.map((post) =>
+        post.post_id === postId
+          ? { ...post, bookmarked: !post.bookmarked }
+          : post,
       );
-    },
-  });
+    });
+  };
+  const { mutate } = useToggleBookmark({ onToggle: toggleBookmark });
   const bookmarkHandler = (postId: number) => {
     mutate(postId);
   };
-
+  const addLikeHandler = (postId: number) => {
+    setPostList((prev) => {
+      return prev.map((post) =>
+        post.post_id === postId ? { ...post, like: post.like + 1 } : post,
+      );
+    });
+  };
+  const removeLikeHandler = (postId: number) => {
+    setPostList((prev) => {
+      return prev.map((post) =>
+        post.post_id === postId ? { ...post, like: post.like - 1 } : post,
+      );
+    });
+  };
+  const { mutate: likeHandler } = useToggleLike({
+    onAdd: addLikeHandler,
+    onRemove: removeLikeHandler,
+  });
   return (
     <div className="w-[1632px] flex flex-col">
       <Image
@@ -111,6 +117,7 @@ const HomePage = () => {
                     post={post}
                     key={`post ${post.post_id}`}
                     bookmarkHandler={bookmarkHandler}
+                    likeHandler={likeHandler}
                   />
                 );
               })}

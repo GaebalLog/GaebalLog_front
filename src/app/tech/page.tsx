@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import { useMutation } from "@tanstack/react-query";
 
 import Post from "@/components/commonUI/Post";
 import TechSideBar from "@/components/tech/TechSideBar";
 import SortBar from "@/components/commonUI/SortBar";
 import InfiniteScroll from "@/components/observing/InfiniteScroll";
 import useGetPost from "@/hooks/postAPI/useGetPost";
-import { postAPI } from "@/api/postAPI";
+import useToggleBookmark from "@/hooks/postAPI/useToggleBookmark";
+import useToggleLike from "@/hooks/postAPI/useToggleLike";
 
 const TechPage = () => {
   const [tab, setTab] = React.useState<sortTab>("조회 순");
@@ -16,30 +16,36 @@ const TechPage = () => {
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage } = useGetPost({
     sort,
   });
-  const { mutate } = useMutation({
-    mutationFn: postAPI.toggleBookmark,
-    onMutate: (postId: number) => {
-      setPostList((prev) => {
-        return prev.map((post) =>
-          post.post_id === postId
-            ? { ...post, bookmarked: !post.bookmarked }
-            : post,
-        );
-      });
-    },
-    onError: (error, postId) => {
-      setPostList((prev) =>
-        prev.map((post) =>
-          post.post_id === postId
-            ? { ...post, bookmarked: !post.bookmarked }
-            : post,
-        ),
+  const toggleBookmark = (postId: number) => {
+    setPostList((prev) => {
+      return prev.map((post) =>
+        post.post_id === postId
+          ? { ...post, bookmarked: !post.bookmarked }
+          : post,
       );
-    },
-  });
-  const bookmarkHandler = (postId: number) => {
-    mutate(postId);
+    });
   };
+  const { mutate: bookmarkHandler } = useToggleBookmark({
+    onToggle: toggleBookmark,
+  });
+  const addLikeHandler = (postId: number) => {
+    setPostList((prev) => {
+      return prev.map((post) =>
+        post.post_id === postId ? { ...post, like: post.like + 1 } : post,
+      );
+    });
+  };
+  const removeLikeHandler = (postId: number) => {
+    setPostList((prev) => {
+      return prev.map((post) =>
+        post.post_id === postId ? { ...post, like: post.like - 1 } : post,
+      );
+    });
+  };
+  const { mutate: likeHandler } = useToggleLike({
+    onAdd: addLikeHandler,
+    onRemove: removeLikeHandler,
+  });
   React.useEffect(() => {
     const list = data?.pages.flatMap((page) => page?.data.posts) || [];
     setPostList(list);
@@ -60,7 +66,8 @@ const TechPage = () => {
                 <Post
                   post={post}
                   key={post.post_id}
-                  bookmarkHandler={bookmarkHandler}
+                  bookmarkHandler={() => bookmarkHandler(post.post_id)}
+                  likeHandler={likeHandler}
                 />
               );
             })}
