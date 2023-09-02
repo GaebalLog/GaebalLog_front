@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { useRecoilValue } from "recoil";
 import Link from "next/link";
+import { useMutation } from "@tanstack/react-query";
 
 import { TEXT_COLOR } from "@/constants/global/colors";
 import Post from "@/components/commonUI/Post";
@@ -13,6 +14,7 @@ import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
 import StickyStyle from "@/components/commonUI/StickyStyle";
 import useGetPost from "@/hooks/postAPI/useGetPost";
 import InfiniteScroll from "@/components/observing/InfiniteScroll";
+import { postAPI } from "@/api/postAPI";
 
 import mainImage from "../../../public/assets/images/home/main.png";
 
@@ -22,13 +24,40 @@ const HomePage = () => {
   const [tab, setTab] = React.useState<sortTab>("전체글");
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
 
+  const [postList, setPostList] = React.useState<postDetail[]>([]);
   const sort = tab === "전체글" ? "views" : "neighbor";
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage } = useGetPost({
     sort,
   });
-  const postList = React.useMemo(() => {
-    return data?.pages.flatMap((page) => page?.data.posts) || [];
+  React.useEffect(() => {
+    const list = data?.pages.flatMap((page) => page?.data.posts) || [];
+    setPostList(list);
   }, [data]);
+
+  const { mutate } = useMutation({
+    mutationFn: postAPI.toggleBookmark,
+    onMutate: (postId: number) => {
+      setPostList((prev) => {
+        return prev.map((post) =>
+          post.post_id === postId
+            ? { ...post, bookmarked: !post.bookmarked }
+            : post,
+        );
+      });
+    },
+    onError: (error, postId) => {
+      setPostList((prev) =>
+        prev.map((post) =>
+          post.post_id === postId
+            ? { ...post, bookmarked: !post.bookmarked }
+            : post,
+        ),
+      );
+    },
+  });
+  const bookmarkHandler = (postId: number) => {
+    mutate(postId);
+  };
 
   return (
     <div className="w-[1632px] flex flex-col">
@@ -77,7 +106,13 @@ const HomePage = () => {
           >
             <div className="relative flex flex-col items-end gap-[20px]">
               {postList?.map((post: postDetail) => {
-                return <Post post={post} key={post.post_id} />;
+                return (
+                  <Post
+                    post={post}
+                    key={`post ${post.post_id}`}
+                    bookmarkHandler={bookmarkHandler}
+                  />
+                );
               })}
             </div>
           </InfiniteScroll>
