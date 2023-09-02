@@ -2,7 +2,7 @@ import React from "react";
 
 const usePagination = (
   data: string[],
-  ref: React.MutableRefObject<HTMLUListElement | null>,
+  containerRef: React.MutableRefObject<HTMLUListElement | null>,
 ) => {
   const [remainingCategoryCount, setRemainingCategoryCount] = React.useState(0);
   const [renderedItemCount, setRenderedItemCount] = React.useState(0);
@@ -35,7 +35,7 @@ const usePagination = (
   };
 
   React.useEffect(() => {
-    const container = ref.current;
+    const container = containerRef.current;
     if (container) {
       const totalMyCategories = Array.from(
         container.getElementsByClassName("category"),
@@ -45,11 +45,11 @@ const usePagination = (
       );
       setRenderedItemCount(renderedItems.length);
     }
-  }, [data, startIndex, ref]);
+  }, [data, startIndex, containerRef]);
 
   React.useEffect(() => {
-    setRemainingCategoryCount(data.length);
-  }, [data]);
+    setRemainingCategoryCount(slicedMyCategories.length);
+  }, [slicedMyCategories]);
 
   return { isFirsPage, isLastPage, handlePrev, handleNext, slicedMyCategories };
 };
