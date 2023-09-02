@@ -10,8 +10,9 @@ export const GET = async () => {
       like: 1,
       view: 1,
       nickname: "hi",
-      img: "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
+      img: ["<img></img>"],
       created_at: new Date().toDateString(),
+      bookmarked: true,
     },
     {
       post_id: 2,
@@ -21,8 +22,9 @@ export const GET = async () => {
       like: 1,
       view: 1,
       nickname: "hi",
-      img: "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
+      img: ["<img></img>"],
       created_at: new Date().toDateString(),
+      bookmarked: true,
     },
     {
       post_id: 3,
@@ -32,8 +34,9 @@ export const GET = async () => {
       like: 1,
       view: 1,
       nickname: "hi",
-      img: "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
+      img: ["<img></img>"],
       created_at: new Date().toDateString(),
+      bookmarked: true,
     },
   ];
   return NextResponse.json({ posts });
