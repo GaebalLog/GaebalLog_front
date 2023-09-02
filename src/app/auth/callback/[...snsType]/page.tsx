@@ -16,8 +16,8 @@ const SnsLogin = ({ params: { snsType } }: snsTypeProps) => {
   const searchParams = useSearchParams();
 
   const fetchData = useCallback(async () => {
-    if (searchParams) {
-      const code = searchParams.get("code");
+    const code = searchParams.get("code");
+    if (code) {
       if (snsType[0] === "google") {
         const { data } = await authAPI.googleLogin(code);
         console.log(data);
