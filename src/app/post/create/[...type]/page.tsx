@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
 import PostEditor from "@/components/post/PostEditor";
@@ -11,6 +11,8 @@ import AddTagInput from "@/components/post/AddTagInput";
 import withAuth from "@/components/provider/withAuth";
 import type { postDataType } from "@/api/postAPI";
 import { postAPI } from "@/api/postAPI";
+import { utilExtractImages } from "@/utils/util-extractImage";
+import { utilReplaceImg } from "@/utils/util-replaceImg";
 
 const TimeSetting = dynamic(
   () => import("../../../../components/post/TimeSetting"),
@@ -41,15 +43,25 @@ export interface postpageParams {
 
 const Postpage: React.ComponentType<postpageParams> = withAuth(
   ({ params: { type } }) => {
+    const [article, setArticle] = React.useState<string>("");
     const [data, setData] = React.useState<postDataType>({
       title: "",
       content: "",
+      img: [],
       categories: [],
     });
+    const router = useRouter();
+    React.useEffect(() => {
+      setData((prev) => ({ ...prev, content: utilReplaceImg(article) }));
+      setData((prev) => ({ ...prev, img: utilExtractImages(article) }));
+    }, [article]);
 
     const handleSubmit = async () => {
       const result = await postAPI.create(data);
-      console.log(result);
+      if (result.status === 201) {
+        router.push(`/tech/${result.data.id}`);
+        return alert("성공적으로 작성되었습니다.");
+      }
     };
 
     const titleChangeHanlder = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,8 +69,8 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
       setData((prev) => ({ ...prev, title: value }));
     };
 
-    const contentHandler = (content: string) => {
-      setData((prev) => ({ ...prev, content }));
+    const contentHandler = (origin: string) => {
+      setArticle(origin);
     };
 
     const categoryHandler = (categories: string[]) => {
@@ -81,7 +93,7 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
             />
             {type[0] === "discussion" && <TimeSetting />}
           </div>
-          <PostEditor content={data.content} editHandler={contentHandler} />
+          <PostEditor content={article} editHandler={contentHandler} />
           <div className={styles.bottomBox.wrapper}>
             <AddTagInput
               categories={data.categories}
