@@ -50,8 +50,8 @@ const KeywordSearch = () => {
     usePagination(myCategories, myCategoriesContainerRef);
 
   const { getIcon } = useIcon();
-  const prevBtn = getIcon("prevBtn", 35, 35, "cursor");
-  const nextBtn = getIcon("nextBtn", 35, 35, "cursor");
+  const prevBtn = getIcon("prevBtn", 48, 48, "cursor");
+  const nextBtn = getIcon("nextBtn", 48, 48, "cursor");
 
   const addCategory = (selectedKeyword: string) => {
     const addedResult = (prev: string[]) => [...prev, selectedKeyword];
@@ -85,7 +85,7 @@ const KeywordSearch = () => {
             <div className="relative flex">
               {!isFirsPage && (
                 <button
-                  className="absolute top-12 -left-10"
+                  className="absolute top-12 -left-14"
                   onClick={handlePrev}
                 >
                   {prevBtn}
@@ -100,7 +100,7 @@ const KeywordSearch = () => {
               />
               {isLastPage && (
                 <button
-                  className="absolute top-12 -right-10"
+                  className="absolute top-12 -right-14"
                   onClick={handleNext}
                 >
                   {nextBtn}
