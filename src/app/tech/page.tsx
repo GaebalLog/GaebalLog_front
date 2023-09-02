@@ -7,6 +7,7 @@ import SortBar from "@/components/commonUI/SortBar";
 import InfiniteScroll from "@/components/observing/InfiniteScroll";
 import useGetPost from "@/hooks/postAPI/useGetPost";
 import useToggleBookmark from "@/hooks/postAPI/useToggleBookmark";
+import useToggleLike from "@/hooks/postAPI/useToggleLike";
 
 const TechPage = () => {
   const [tab, setTab] = React.useState<sortTab>("조회 순");
@@ -27,7 +28,24 @@ const TechPage = () => {
   const { mutate: bookmarkHandler } = useToggleBookmark({
     onToggle: toggleBookmark,
   });
-
+  const addLikeHandler = (postId: number) => {
+    setPostList((prev) => {
+      return prev.map((post) =>
+        post.post_id === postId ? { ...post, like: post.like + 1 } : post,
+      );
+    });
+  };
+  const removeLikeHandler = (postId: number) => {
+    setPostList((prev) => {
+      return prev.map((post) =>
+        post.post_id === postId ? { ...post, like: post.like - 1 } : post,
+      );
+    });
+  };
+  const { mutate: likeHandler } = useToggleLike({
+    onAdd: addLikeHandler,
+    onRemove: removeLikeHandler,
+  });
   React.useEffect(() => {
     const list = data?.pages.flatMap((page) => page?.data.posts) || [];
     setPostList(list);
@@ -49,7 +67,7 @@ const TechPage = () => {
                   post={post}
                   key={post.post_id}
                   bookmarkHandler={() => bookmarkHandler(post.post_id)}
-                  likeHandler={() => {}}
+                  likeHandler={likeHandler}
                 />
               );
             })}

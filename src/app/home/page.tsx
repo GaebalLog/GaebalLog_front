@@ -14,6 +14,7 @@ import StickyStyle from "@/components/commonUI/StickyStyle";
 import useGetPost from "@/hooks/postAPI/useGetPost";
 import InfiniteScroll from "@/components/observing/InfiniteScroll";
 import useToggleBookmark from "@/hooks/postAPI/useToggleBookmark";
+import useToggleLike from "@/hooks/postAPI/useToggleLike";
 
 import mainImage from "../../../public/assets/images/home/main.png";
 
@@ -46,7 +47,24 @@ const HomePage = () => {
   const bookmarkHandler = (postId: number) => {
     mutate(postId);
   };
-
+  const addLikeHandler = (postId: number) => {
+    setPostList((prev) => {
+      return prev.map((post) =>
+        post.post_id === postId ? { ...post, like: post.like + 1 } : post,
+      );
+    });
+  };
+  const removeLikeHandler = (postId: number) => {
+    setPostList((prev) => {
+      return prev.map((post) =>
+        post.post_id === postId ? { ...post, like: post.like - 1 } : post,
+      );
+    });
+  };
+  const { mutate: likeHandler } = useToggleLike({
+    onAdd: addLikeHandler,
+    onRemove: removeLikeHandler,
+  });
   return (
     <div className="w-[1632px] flex flex-col">
       <Image
@@ -99,7 +117,7 @@ const HomePage = () => {
                     post={post}
                     key={`post ${post.post_id}`}
                     bookmarkHandler={bookmarkHandler}
-                    likeHandler={() => {}}
+                    likeHandler={likeHandler}
                   />
                 );
               })}
