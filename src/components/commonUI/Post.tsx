@@ -10,15 +10,18 @@ import utilConvertTime from "@/utils/util-datetime";
 import Button from "../designSystem/Button";
 import { isLoggedInAtom } from "../provider/SettingsProvider";
 
-const Post: React.FC<{ post: postDetail }> = ({ post }) => {
+const Post: React.FC<{
+  post: postDetail;
+  bookmarkHandler: (post_id: number) => void;
+}> = ({ post, bookmarkHandler }) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const router = useRouter();
 
   const { getIcon } = useIcon();
   const heart = getIcon("heart", 16, 14, "cursor hover");
   const eye = getIcon("eye", 18, 16);
-  // const bookmark = getIcon("bookmark", 48, 80, "cursor hover");
-  // const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
+  const bookmark = getIcon("bookmark", 48, 80, "cursor hover");
+  const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
 
   const clickHeartHandler = () => {
     console.log("좋아요");
@@ -36,7 +39,6 @@ const Post: React.FC<{ post: postDetail }> = ({ post }) => {
   ];
 
   const onClickHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    // 35번째 코드로 인한 타입 가드
     if (!(e.target instanceof HTMLElement)) {
       return;
     }
@@ -46,8 +48,8 @@ const Post: React.FC<{ post: postDetail }> = ({ post }) => {
     router.push(`/tech/${post.post_id}`);
   };
 
-  const checkBookmarkHandler = () => {
-    console.log("북마크 클릭시 처리");
+  const checkBookmarkHandler = async () => {
+    bookmarkHandler(post.post_id);
   };
 
   return (
@@ -56,12 +58,14 @@ const Post: React.FC<{ post: postDetail }> = ({ post }) => {
       onClick={onClickHandler}
       data-testid={`post${post.post_id}`}
     >
-      <div className="w-[332px] h-[280px] overflow-hidden">
-        <div
-          className="w-[770px] multi-line-ellipsis"
-          dangerouslySetInnerHTML={{ __html: post.img }}
-        />
-      </div>
+      {post.thumbnail && (
+        <div className="w-[332px] h-[280px] overflow-hidden">
+          <div
+            className="w-[770px]"
+            dangerouslySetInnerHTML={{ __html: post.thumbnail }}
+          />
+        </div>
+      )}
       <div className="flex justify-between flex-col h-[280px] gap-[80px]">
         <div className="flex flex-col gap-[24px]">
           <div
@@ -87,7 +91,7 @@ const Post: React.FC<{ post: postDetail }> = ({ post }) => {
             className="absolute top-0 right-[40px] excluded"
             onClick={checkBookmarkHandler}
           >
-            {/* {post.isBookmarked ? checkBookmark : bookmark} */}
+            {post.bookmarked ? checkBookmark : bookmark}
           </div>
         )}
         <div className="flex items-center gap-[16px]">

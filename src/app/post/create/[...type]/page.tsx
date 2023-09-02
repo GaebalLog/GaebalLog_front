@@ -58,10 +58,8 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
 
     const handleSubmit = async () => {
       const result = await postAPI.create(data);
-      console.log(result);
       if (result.status === 201) {
-        console.log("in");
-        router.push("/tech");
+        router.push(`/tech/${result.data.id}`);
         return alert("성공적으로 작성되었습니다.");
       }
     };

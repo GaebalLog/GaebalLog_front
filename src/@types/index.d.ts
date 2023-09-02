@@ -12,8 +12,10 @@ declare global {
     view: number;
     like: number;
     img: string[];
+    thumbnail?: string;
     categories: string[];
     created_at: string;
+    bookmarked: boolean;
   }
 
   // Home 화면
@@ -79,7 +81,12 @@ declare global {
     alarm_neighbors: boolean;
     alarm_discussion: boolean;
   }
-  const sortList = ["조회 순", "최신순"] as const;
+  const sortList = [
+    "조회 순",
+    "최신순",
+    "전체글",
+    "My Friends' Articles",
+  ] as const;
   type sortTab = (typeof sortTab)[number];
 }
 

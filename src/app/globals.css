@@ -54,6 +54,17 @@ body {
   padding-left: 0;
 }
 
+.no-tailwind figure {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.no-tailwind .image-style-side {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+}
 * {
   box-sizing: border-box;
 }
