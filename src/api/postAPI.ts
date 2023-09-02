@@ -36,4 +36,8 @@ export const postAPI = {
     const data = { user_id: userId, post_id };
     return instance.post(`/post/bookmark`, data);
   },
+  toggleLike: (post_id: number) => {
+    const data = { user_id: userId, post_id };
+    return instance.post(`/post/like`, data);
+  },
 };

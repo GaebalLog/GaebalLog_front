@@ -13,7 +13,8 @@ import { isLoggedInAtom } from "../provider/SettingsProvider";
 const Post: React.FC<{
   post: postDetail;
   bookmarkHandler: (post_id: number) => void;
-}> = ({ post, bookmarkHandler }) => {
+  likeHandler: (post_id: number) => void;
+}> = ({ post, bookmarkHandler, likeHandler }) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const router = useRouter();
 
@@ -24,7 +25,7 @@ const Post: React.FC<{
   const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
 
   const clickHeartHandler = () => {
-    console.log("좋아요");
+    likeHandler(post.post_id);
   };
 
   const btns = [
@@ -48,7 +49,7 @@ const Post: React.FC<{
     router.push(`/tech/${post.post_id}`);
   };
 
-  const checkBookmarkHandler = async () => {
+  const checkBookmarkHandler = () => {
     bookmarkHandler(post.post_id);
   };
 
