@@ -56,7 +56,7 @@ const KeywordSearch = () => {
   const addCategory = (selectedKeyword: string) => {
     const addedResult = (prev: string[]) => [...prev, selectedKeyword];
 
-    if (!addedCategories.includes(selectedKeyword)) {
+    if (!slicedMyCategories.includes(selectedKeyword)) {
       queryClient.setQueryData(["userCategories"], {
         data: [...myCategories, selectedKeyword],
       });
@@ -66,6 +66,7 @@ const KeywordSearch = () => {
   };
 
   const handleSubmit = () => {
+    console.log(addedCategories);
     setAddedCategories([]);
     setIsModal((prev) => !prev);
   };
