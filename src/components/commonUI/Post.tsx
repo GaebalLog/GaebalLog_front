@@ -2,6 +2,7 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 import useIcon from "@/hooks/useIcon";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
@@ -9,6 +10,7 @@ import utilConvertTime from "@/utils/util-datetime";
 
 import Button from "../designSystem/Button";
 import { isLoggedInAtom } from "../provider/SettingsProvider";
+import default_thumbnail from "../../../public/assets/images/common/thumbnail_default.png";
 
 const Post: React.FC<{
   post: postDetail;
@@ -59,10 +61,19 @@ const Post: React.FC<{
       onClick={onClickHandler}
       data-testid={`post${post.post_id}`}
     >
-      {post.thumbnail && (
-        <div className="w-[332px] h-[280px] overflow-hidden">
+      {post.thumbnail === "<img></img>" && (
+        <Image
+          src={default_thumbnail}
+          width={200}
+          height={200}
+          alt="썸네일"
+          className={`${BG_COLOR.general05}`}
+        />
+      )}
+      {post.thumbnail && post.thumbnail !== "<img></img>" && (
+        <div className="w-[200px] h-[200px] overflow-hidden">
           <div
-            className="w-[770px]"
+            className="w-[200px]"
             dangerouslySetInnerHTML={{ __html: post.thumbnail }}
           />
         </div>
