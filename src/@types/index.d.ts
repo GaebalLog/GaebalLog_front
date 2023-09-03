@@ -11,6 +11,7 @@ declare global {
     nickname: string;
     view: number;
     like: number;
+    liked: boolean;
     img: string[];
     thumbnail?: string;
     categories: string[];

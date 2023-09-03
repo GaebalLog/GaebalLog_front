@@ -17,9 +17,9 @@ const Post: React.FC<{
 }> = ({ post, bookmarkHandler, likeHandler }) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const router = useRouter();
-
   const { getIcon } = useIcon();
-  const heart = getIcon("heart", 16, 14, "cursor hover");
+  const like = getIcon("heart", 16, 14, "cursor hover");
+  const checkedLike = getIcon("checked_heart", 16, 14, "cursor hover");
   const eye = getIcon("eye", 18, 16);
   const bookmark = getIcon("bookmark", 48, 80, "cursor hover");
   const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
@@ -30,8 +30,8 @@ const Post: React.FC<{
 
   const btns = [
     {
-      id: "heart",
-      icon: heart,
+      id: "like",
+      icon: post.liked ? checkedLike : like,
       count: post.like,
       className: "excluded",
       onClick: clickHeartHandler,
