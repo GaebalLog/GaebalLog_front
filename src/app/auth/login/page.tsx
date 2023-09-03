@@ -45,8 +45,7 @@ const kakaoURL =
   `response_type=code&`;
 const githubURL =
   `https://github.com/login/oauth/authorize?` +
-  `client_id=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&` +
-  `redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&`;
+  `client_id=${process.env.NEXT_PUBLIC_GITHUB_API_KEY}&`;
 
 const Loginpage = () => {
   const [isError, setIsError] = React.useState(false);
