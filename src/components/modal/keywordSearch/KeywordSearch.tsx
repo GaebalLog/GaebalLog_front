@@ -93,12 +93,12 @@ const KeywordSearch = () => {
               )}
               <KeywordList
                 myCategoriesContainerRef={myCategoriesContainerRef}
-                data={isFirsPage ? myCategories : slicedMyCategories}
+                data={slicedMyCategories}
                 type="myCategory"
                 isLoading={myCategoriesLoading}
                 setMyCategories={setMyCategories}
               />
-              {isLastPage && (
+              {!isLastPage && (
                 <button
                   className="absolute top-12 -right-14"
                   onClick={handleNext}
