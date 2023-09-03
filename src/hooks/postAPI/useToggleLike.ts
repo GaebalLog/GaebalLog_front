@@ -2,17 +2,16 @@ import { useMutation } from "@tanstack/react-query";
 
 import { postAPI } from "@/api/postAPI";
 interface props {
-  onAdd: (postId: number) => void;
-  onRemove: (postId: number) => void;
+  onToggle: (postId: number) => void;
 }
-const useToggleLike = ({ onAdd, onRemove }: props) => {
+const useToggleLike = ({ onToggle }: props) => {
   return useMutation({
     mutationFn: postAPI.toggleLike,
     onMutate: (postId: number) => {
-      onAdd(postId);
+      onToggle(postId);
     },
     onError: (error, postId) => {
-      onRemove(postId);
+      onToggle(postId);
     },
   });
 };

@@ -28,23 +28,21 @@ const TechPage = () => {
   const { mutate: bookmarkHandler } = useToggleBookmark({
     onToggle: toggleBookmark,
   });
-  const addLikeHandler = (postId: number) => {
-    setPostList((prev) => {
-      return prev.map((post) =>
-        post.post_id === postId ? { ...post, like: post.like + 1 } : post,
-      );
-    });
-  };
-  const removeLikeHandler = (postId: number) => {
-    setPostList((prev) => {
-      return prev.map((post) =>
-        post.post_id === postId ? { ...post, like: post.like - 1 } : post,
-      );
-    });
+  const toggleLikeHandler = (postId: number) => {
+    setPostList((prev) =>
+      prev.map((post) => {
+        if (post.post_id !== postId) return post;
+        const likedStatus = !post.liked;
+        return {
+          ...post,
+          liked: likedStatus,
+          like: likedStatus ? post.like + 1 : post.like - 1,
+        };
+      }),
+    );
   };
   const { mutate: likeHandler } = useToggleLike({
-    onAdd: addLikeHandler,
-    onRemove: removeLikeHandler,
+    onToggle: toggleLikeHandler,
   });
   React.useEffect(() => {
     const list = data?.pages.flatMap((page) => page?.data.posts) || [];

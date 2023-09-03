@@ -3,7 +3,7 @@ import { rest } from "msw";
 import type { postDataType } from "@/api/postAPI";
 
 export const postHandler = [
-  rest.get("/post/detail/:id", (req, res, ctx) => {
+  rest.get("/post/detail/:id/:userId", (req, res, ctx) => {
     const postId = req.params.id;
     if (postId == "37") {
       return res(

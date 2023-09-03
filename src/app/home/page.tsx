@@ -47,23 +47,21 @@ const HomePage = () => {
   const bookmarkHandler = (postId: number) => {
     mutate(postId);
   };
-  const addLikeHandler = (postId: number) => {
-    setPostList((prev) => {
-      return prev.map((post) =>
-        post.post_id === postId ? { ...post, like: post.like + 1 } : post,
-      );
-    });
-  };
-  const removeLikeHandler = (postId: number) => {
-    setPostList((prev) => {
-      return prev.map((post) =>
-        post.post_id === postId ? { ...post, like: post.like - 1 } : post,
-      );
-    });
+  const toggleLikeHandler = (postId: number) => {
+    setPostList((prev) =>
+      prev.map((post) => {
+        if (post.post_id !== postId) return post;
+        const likedStatus = !post.liked;
+        return {
+          ...post,
+          liked: likedStatus,
+          like: likedStatus ? post.like + 1 : post.like - 1,
+        };
+      }),
+    );
   };
   const { mutate: likeHandler } = useToggleLike({
-    onAdd: addLikeHandler,
-    onRemove: removeLikeHandler,
+    onToggle: toggleLikeHandler,
   });
   return (
     <div className="w-[1632px] flex flex-col">

@@ -23,7 +23,7 @@ export const postAPI = {
     );
   },
   getDetail: (post_id: number) => {
-    return instance.get<postDetail>(`/post/detail/${post_id}`);
+    return instance.get<postDetail>(`/post/detail/${post_id}/${userId}`);
   },
   delete: (post_id: number) => {
     return instance.delete(`/post/${post_id}`);
