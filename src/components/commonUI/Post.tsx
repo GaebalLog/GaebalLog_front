@@ -12,6 +12,8 @@ import Button from "../designSystem/Button";
 import { isLoggedInAtom } from "../provider/SettingsProvider";
 import default_thumbnail from "../../../public/assets/images/common/thumbnail_default.png";
 
+import LikeView from "./LikeView";
+
 const Post: React.FC<{
   post: postDetail;
   bookmarkHandler: (post_id: number) => void;
@@ -20,26 +22,12 @@ const Post: React.FC<{
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const router = useRouter();
   const { getIcon } = useIcon();
-  const like = getIcon("heart", 16, 14, "cursor hover");
-  const checkedLike = getIcon("checked_heart", 16, 14, "cursor hover");
-  const eye = getIcon("eye", 18, 16);
   const bookmark = getIcon("bookmark", 48, 80, "cursor hover");
   const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
 
   const clickHeartHandler = () => {
     likeHandler(post.post_id);
   };
-
-  const btns = [
-    {
-      id: "like",
-      icon: post.liked ? checkedLike : like,
-      count: post.like,
-      className: "excluded",
-      onClick: clickHeartHandler,
-    },
-    { id: "search", icon: eye, count: post.view },
-  ];
 
   const onClickHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {
     if (!(e.target instanceof HTMLElement)) {
@@ -119,21 +107,13 @@ const Post: React.FC<{
         </div>
       </div>
       <div>
-        <div className="absolute flex gap-[20px] bottom-2 right-3">
-          {btns.map((btn) => (
-            <Button
-              key={`${btn.id}likeView`}
-              size="withIcon"
-              color="background"
-              rounded
-              className={`flex-wrap ${btn.className}`}
-              onClick={btn.onClick}
-            >
-              {btn.icon}
-              {btn.count}
-            </Button>
-          ))}
-        </div>
+        <LikeView
+          like={post.like}
+          likeHandler={clickHeartHandler}
+          liked={post.liked}
+          view={post.view}
+          option={{ absolute: true }}
+        />
       </div>
     </div>
   );

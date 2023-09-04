@@ -18,6 +18,8 @@ import utilConvertTime from "@/utils/util-datetime";
 import Button from "@/components/designSystem/Button";
 import DeleteConfirm from "@/components/modal/common/DeleteConfirm";
 import { utilDecodeImg } from "@/utils/util-decodeImg";
+import LikeView from "@/components/commonUI/LikeView";
+import useToggleLike from "@/hooks/postAPI/useToggleLike";
 
 const styles = {
   contents: {
@@ -37,19 +39,36 @@ export interface detailParams {
 }
 
 const Detail = ({ params: { postId } }: detailParams) => {
+  const [detailData, setDetailData] = React.useState<postDetail>();
   const nickname = useRecoilValue(nicknameAtom);
   const router = useRouter();
   const { modal, openModal } = useModalController();
-  const { data: detailContents } = useQuery({
+  useQuery({
     queryKey: ["detailContents", postId],
     queryFn: () => postAPI.getDetail(postId),
+    onSuccess: (data) => {
+      setDetailData(data.data);
+    },
   });
-  const detailData = detailContents?.data as postDetail;
   const { data: comments } = useQuery({
     queryKey: ["comments", postId],
     queryFn: () => axios.get("/api/comments"),
   });
-
+  const toggleLikeHandler = () => {
+    setDetailData((prev) => {
+      if (!prev) return prev;
+      const likedStatus = !prev.liked;
+      return {
+        ...prev,
+        liked: likedStatus,
+        like: likedStatus ? prev.like + 1 : prev.like - 1,
+      };
+    });
+  };
+  const { mutate: likeHandler } = useToggleLike({
+    onToggle: toggleLikeHandler,
+  });
+  console.log(detailData?.created_at);
   return (
     <div className={styles.contents.wrapper}>
       <article className={styles.contents.inner}>
@@ -60,26 +79,34 @@ const Detail = ({ params: { postId } }: detailParams) => {
             {detailData?.created_at && (
               <span>{utilConvertTime(detailData?.created_at)}</span>
             )}
+            <div>
+              <LikeView
+                like={detailData?.like}
+                likeHandler={() =>
+                  detailData?.post_id && likeHandler(detailData.post_id)
+                }
+                liked={detailData?.liked}
+                view={detailData?.view}
+              />
+            </div>
           </div>
           <div className="flex gap-[16px]">
             <Button
               size="tab"
               color="white"
               border
-              onClick={() =>
-                router.push(`/post/update/${detailContents?.data.post_id}`)
-              }
+              onClick={() => router.push(`/post/update/${detailData?.post_id}`)}
             >
               글 수정
             </Button>
             <Button
               size="tab"
               color="white"
+              border
               onClick={(e) => {
                 e.stopPropagation();
                 openModal("deleteModal");
               }}
-              border
             >
               글 삭제
             </Button>
