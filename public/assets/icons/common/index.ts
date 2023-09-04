@@ -51,6 +51,7 @@ import downArrow_dark from "./downArrow_dark.png";
 import calendar_light from "./calendar_light.png";
 import calendar_dark from "./calendar_dark.png";
 import calendar_focus from "./calendar_focus.png";
+import checked_heart from "./checked_heart.png";
 const ICON = {
   alarm: [alarm_light, alarm_dark],
   close: [close_light, close_dark],
@@ -80,5 +81,6 @@ const ICON = {
   downArrow: [downArrow_light, downArrow_dark],
   calendar: [calendar_light, calendar_dark],
   calendar_focus: [calendar_focus, calendar_focus],
+  checked_heart: [checked_heart, checked_heart],
 };
 export default ICON;

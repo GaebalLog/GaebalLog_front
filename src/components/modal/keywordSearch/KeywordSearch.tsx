@@ -7,6 +7,7 @@ import { BG_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
 import { modalAtom } from "@/constants/global/atoms";
 import useIcon from "@/hooks/useIcon";
+import usePagination from "@/hooks/usePagination";
 
 import Modal from "../Modal";
 import LiveSearchInput from "../../commonUI/LiveSearchInput";
@@ -27,12 +28,6 @@ const KeywordSearch = () => {
   const setIsModal = useSetRecoilState(modalAtom);
   const [addedCategories, setAddedCategories] = React.useState<string[]>([]);
   const [myCategories, setMyCategories] = React.useState<string[]>([]);
-  const [remainingCategoryCount, setRemainingCategoryCount] = React.useState(0);
-  const [startIndex, setStartIndex] = React.useState(0);
-  const [renderedItemCount, setRenderedItemCount] = React.useState(0);
-  const [renderedItemCountArray, setRenderedItemCountArray] = React.useState<
-    number[]
-  >([]);
   const myCategoriesContainerRef = React.useRef<HTMLUListElement | null>(null);
   const queryClient = useQueryClient();
 
@@ -51,36 +46,17 @@ const KeywordSearch = () => {
     },
   );
 
+  const { isFirsPage, isLastPage, handlePrev, handleNext, slicedMyCategories } =
+    usePagination(myCategories, myCategoriesContainerRef);
+
   const { getIcon } = useIcon();
-  const prevBtn = getIcon("prevBtn", 35, 35, "cursor");
-  const nextBtn = getIcon("nextBtn", 35, 35, "cursor");
-  const slicedMyCategories = myCategories.slice(startIndex);
-  const isFirsPage = remainingCategoryCount === myCategories.length;
-  const isLastPage = startIndex + renderedItemCount < myCategories.length;
-
-  const handleNext = () => {
-    setStartIndex((prev) => prev + renderedItemCount);
-    setRemainingCategoryCount((prev) =>
-      prev > 0 ? prev - renderedItemCount : 0,
-    );
-    setRenderedItemCountArray((prev) => [...prev, renderedItemCount]);
-  };
-
-  const handlePrev = () => {
-    const lastRenderedItemCount =
-      renderedItemCountArray[renderedItemCountArray.length - 1];
-    setStartIndex((prev) => prev - lastRenderedItemCount);
-    setRemainingCategoryCount((prev) => prev + lastRenderedItemCount);
-    setRenderedItemCountArray((prev) => {
-      prev.pop();
-      return prev;
-    });
-  };
+  const prevBtn = getIcon("prevBtn", 48, 48, "cursor");
+  const nextBtn = getIcon("nextBtn", 48, 48, "cursor");
 
   const addCategory = (selectedKeyword: string) => {
     const addedResult = (prev: string[]) => [...prev, selectedKeyword];
 
-    if (!addedCategories.includes(selectedKeyword)) {
+    if (!slicedMyCategories.includes(selectedKeyword)) {
       queryClient.setQueryData(["userCategories"], {
         data: [...myCategories, selectedKeyword],
       });
@@ -90,26 +66,10 @@ const KeywordSearch = () => {
   };
 
   const handleSubmit = () => {
+    console.log(addedCategories);
     setAddedCategories([]);
     setIsModal((prev) => !prev);
   };
-
-  React.useEffect(() => {
-    const container = myCategoriesContainerRef.current;
-    if (container) {
-      const totalMyCategories = Array.from(
-        container.getElementsByClassName("category"),
-      ) as HTMLDivElement[];
-      const renderedItems = totalMyCategories.filter(
-        (item) => item.offsetTop < container.clientHeight,
-      );
-      setRenderedItemCount(renderedItems.length);
-    }
-  }, [myCategories, startIndex]);
-
-  React.useEffect(() => {
-    setRemainingCategoryCount(myCategories.length);
-  }, [myCategories]);
 
   return (
     <Modal isBgColor isFixed blockScroll>
@@ -126,7 +86,7 @@ const KeywordSearch = () => {
             <div className="relative flex">
               {!isFirsPage && (
                 <button
-                  className="absolute top-12 -left-10"
+                  className="absolute top-12 -left-14"
                   onClick={handlePrev}
                 >
                   {prevBtn}
@@ -134,14 +94,14 @@ const KeywordSearch = () => {
               )}
               <KeywordList
                 myCategoriesContainerRef={myCategoriesContainerRef}
-                data={isFirsPage ? myCategories : slicedMyCategories}
+                data={slicedMyCategories}
                 type="myCategory"
                 isLoading={myCategoriesLoading}
                 setMyCategories={setMyCategories}
               />
-              {isLastPage && (
+              {!isLastPage && (
                 <button
-                  className="absolute top-12 -right-10"
+                  className="absolute top-12 -right-14"
                   onClick={handleNext}
                 >
                   {nextBtn}

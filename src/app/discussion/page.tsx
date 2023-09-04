@@ -9,10 +9,9 @@ import Discussion from "@/components/commonUI/Discussion";
 import SortBar from "@/components/commonUI/SortBar";
 
 const DiscussionPage = () => {
-  const [tab, setTab] = React.useState<sortTab>("정확도 순");
-
+  const [tab, setTab] = React.useState<sortTab>("조회 순");
   const { data } = useQuery({
-    queryKey: [QUERY_KEYS.POSTLIST_HOME],
+    queryKey: [QUERY_KEYS.POSTLIST],
     queryFn: async () => await axios.get("/api/chatlists/1"),
   });
   const discussionList = data?.data.discussions;

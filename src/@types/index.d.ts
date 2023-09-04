@@ -4,6 +4,21 @@ declare global {
   type bgColor = keyof typeof BG_COLOR;
   type color = keyof typeof TEXT_COLOR;
 
+  interface postDetail {
+    post_id: number;
+    title: string;
+    content: string;
+    nickname: string;
+    view: number;
+    like: number;
+    liked: boolean;
+    img: string[];
+    thumbnail?: string;
+    categories: string[];
+    created_at: string;
+    bookmarked: boolean;
+  }
+
   // Home 화면
   interface post {
     postId: number;
@@ -67,7 +82,12 @@ declare global {
     alarm_neighbors: boolean;
     alarm_discussion: boolean;
   }
-  const sortList = ["정확도 순", "조회 순", "최신순"] as const;
+  const sortList = [
+    "조회 순",
+    "최신순",
+    "전체글",
+    "My Friends' Articles",
+  ] as const;
   type sortTab = (typeof sortTab)[number];
 }
 

@@ -1,34 +1,68 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useRecoilValue } from "recoil";
 import Link from "next/link";
 
-import { QUERY_KEYS } from "@/constants/global/querykeys";
 import { TEXT_COLOR } from "@/constants/global/colors";
+import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
+import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
 import Post from "@/components/commonUI/Post";
 import Button from "@/components/designSystem/Button";
 import SideBar from "@/components/commonUI/SideBar";
-import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
-import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
 import StickyStyle from "@/components/commonUI/StickyStyle";
+import useGetPost from "@/hooks/postAPI/useGetPost";
+import InfiniteScroll from "@/components/observing/InfiniteScroll";
+import useToggleBookmark from "@/hooks/postAPI/useToggleBookmark";
+import useToggleLike from "@/hooks/postAPI/useToggleLike";
 
 import mainImage from "../../../public/assets/images/home/main.png";
 
-const loggedInUI = ["전체글", "My Friends' Articles"];
+const userTab = ["전체글", "My Friends' Articles"];
 
 const HomePage = () => {
+  const [tab, setTab] = React.useState<sortTab>("전체글");
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
 
-  const { data } = useQuery({
-    queryKey: [QUERY_KEYS.POSTLIST_HOME],
-    queryFn: async () => await axios.get("/api/posts/all"),
+  const [postList, setPostList] = React.useState<postDetail[]>([]);
+  const sort = tab === "전체글" ? "views" : "neighbor";
+  const { data, fetchNextPage, isFetchingNextPage, hasNextPage } = useGetPost({
+    sort,
   });
-  const postList = data?.data.posts;
-  const [tab, setTab] = React.useState<string>("전체글");
+  React.useEffect(() => {
+    const list = data?.pages.flatMap((page) => page?.data.posts) || [];
+    setPostList(list);
+  }, [data]);
 
+  const toggleBookmark = (postId: number) => {
+    setPostList((prev) => {
+      return prev.map((post) =>
+        post.post_id === postId
+          ? { ...post, bookmarked: !post.bookmarked }
+          : post,
+      );
+    });
+  };
+  const { mutate } = useToggleBookmark({ onToggle: toggleBookmark });
+  const bookmarkHandler = (postId: number) => {
+    mutate(postId);
+  };
+  const toggleLikeHandler = (postId: number) => {
+    setPostList((prev) =>
+      prev.map((post) => {
+        if (post.post_id !== postId) return post;
+        const likedStatus = !post.liked;
+        return {
+          ...post,
+          liked: likedStatus,
+          like: likedStatus ? post.like + 1 : post.like - 1,
+        };
+      }),
+    );
+  };
+  const { mutate: likeHandler } = useToggleLike({
+    onToggle: toggleLikeHandler,
+  });
   return (
     <div className="w-[1632px] flex flex-col">
       <Image
@@ -57,7 +91,7 @@ const HomePage = () => {
                 </button>
               </Link>
               {isLoggedIn &&
-                loggedInUI.map((item) => (
+                userTab.map((item) => (
                   <Button
                     key={`${item}tab`}
                     size="tab"
@@ -70,11 +104,23 @@ const HomePage = () => {
                 ))}
             </div>
           )}
-          <div className="flex flex-col items-end gap-[20px]">
-            {postList?.map((post: post) => {
-              return <Post post={post} key={`postlist${post.postId}`} />;
-            })}
-          </div>
+          <InfiniteScroll
+            onIntersect={fetchNextPage}
+            canLoad={Boolean(hasNextPage && !isFetchingNextPage)}
+          >
+            <div className="relative flex flex-col items-end gap-[20px]">
+              {postList?.map((post: postDetail) => {
+                return (
+                  <Post
+                    post={post}
+                    key={`post ${post.post_id}`}
+                    bookmarkHandler={bookmarkHandler}
+                    likeHandler={likeHandler}
+                  />
+                );
+              })}
+            </div>
+          </InfiniteScroll>
         </div>
       </div>
     </div>

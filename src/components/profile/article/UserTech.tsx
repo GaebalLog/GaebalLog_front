@@ -6,7 +6,7 @@ import SortBar from "@/components/commonUI/SortBar";
 import MyPost from "@/components/mypage/MyPost";
 
 const UserTech = () => {
-  const [tab, setTab] = React.useState<sortTab>("정확도 순");
+  const [tab, setTab] = React.useState<sortTab>("조회 순");
 
   const { data } = useQuery({
     queryKey: ["myWritten"],

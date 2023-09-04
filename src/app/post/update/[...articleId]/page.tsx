@@ -12,6 +12,9 @@ import AddTagInput from "@/components/post/AddTagInput";
 import withAuth from "@/components/provider/withAuth";
 import type { postDataType } from "@/api/postAPI";
 import { postAPI } from "@/api/postAPI";
+import { utilReplaceImg } from "@/utils/util-replaceImg";
+import { utilExtractImages } from "@/utils/util-extractImage";
+import { utilDecodeImg } from "@/utils/util-decodeImg";
 
 // const TimeSetting = dynamic(
 //   () => import("../../../../components/post/TimeSetting"),
@@ -42,12 +45,19 @@ export interface postpageParams {
 
 const UpdatePage: React.ComponentType<postpageParams> = withAuth(
   ({ params: { articleId } }) => {
+    const [article, setArticle] = React.useState<string>("");
+
     const [data, setData] = React.useState<postDataType>({
       title: "",
       content: "",
+      img: [],
       categories: [],
     });
     const router = useRouter();
+    React.useEffect(() => {
+      setData((prev) => ({ ...prev, content: utilReplaceImg(article) }));
+      setData((prev) => ({ ...prev, img: utilExtractImages(article) }));
+    }, [article]);
     const { isError } = useQuery({
       queryKey: ["detailContents", articleId],
       queryFn: () => postAPI.getDetail(articleId),
@@ -56,7 +66,9 @@ const UpdatePage: React.ComponentType<postpageParams> = withAuth(
           title: data.data.title,
           content: data.data.content,
           categories: data.data.categories,
+          img: data.data.img,
         });
+        setArticle(utilDecodeImg(data.data.content, data.data.img));
       },
     });
     const handleSubmit = async () => {
@@ -69,8 +81,8 @@ const UpdatePage: React.ComponentType<postpageParams> = withAuth(
       setData((prev) => ({ ...prev, title: value }));
     };
 
-    const contentHandler = (content: string) => {
-      setData((prev) => ({ ...prev, content }));
+    const contentHandler = (origin: string) => {
+      setArticle(origin);
     };
 
     const categoryHandler = (categories: string[]) => {
@@ -88,7 +100,7 @@ const UpdatePage: React.ComponentType<postpageParams> = withAuth(
               placeholder="제목을 입력해주세요."
             />
           </div>
-          <PostEditor content={data.content} editHandler={contentHandler} />
+          <PostEditor content={article} editHandler={contentHandler} />
           <div className={styles.bottomBox.wrapper}>
             <AddTagInput
               categories={data.categories}

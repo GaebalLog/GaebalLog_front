@@ -76,6 +76,7 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
     setIsModal((prev) => !prev);
     setFocusedIndex(null);
     isRouter && router.push(`/tech?keyword=${selectedKeyword}`);
+    if (type === "searchModal") return setValue("");
   };
 
   const keyboardHandler = (event: React.KeyboardEvent) => {

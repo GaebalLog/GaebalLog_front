@@ -7,7 +7,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import useIcon from "@/hooks/useIcon";
 
 const styles = {
-  keywordList: `relative flex flex-wrap gap-[10px] h-[100px] mt-[22px] overflow-y-hidden`,
+  keywordList: `relative flex flex-wrap gap-[10px] h-[100px] px-1 mt-[22px] overflow-y-hidden`,
   exceptionUI: `flex justify-center items-center w-full h-[130.5px] text-xl`,
 };
 

@@ -17,6 +17,7 @@ import { postAPI } from "@/api/postAPI";
 import utilConvertTime from "@/utils/util-datetime";
 import Button from "@/components/designSystem/Button";
 import DeleteConfirm from "@/components/modal/common/DeleteConfirm";
+import { utilDecodeImg } from "@/utils/util-decodeImg";
 
 const styles = {
   contents: {
@@ -33,17 +34,6 @@ export interface detailParams {
   params: {
     postId: number;
   };
-}
-export interface postDetail {
-  post_id: number;
-  title: string;
-  content: string;
-  nickname: string;
-  view: number;
-  like: number;
-  img: string;
-  categories: string[];
-  createdDt: string;
 }
 
 const Detail = ({ params: { postId } }: detailParams) => {
@@ -67,8 +57,8 @@ const Detail = ({ params: { postId } }: detailParams) => {
         <div className="flex gap-[32px] justify-between items-center">
           <div className="flex gap-[16px]">
             <span className="text-[20px]">{detailData?.nickname}</span>
-            {detailData?.createdDt && (
-              <span>{utilConvertTime(detailData?.createdDt)}</span>
+            {detailData?.created_at && (
+              <span>{utilConvertTime(detailData?.created_at)}</span>
             )}
           </div>
           <div className="flex gap-[16px]">
@@ -97,7 +87,11 @@ const Detail = ({ params: { postId } }: detailParams) => {
         </div>
         {modal.deleteModal && <DeleteConfirm mode="tech" postId={postId} />}
         <hr className={styles.line} />
-        <Contents contents={detailData?.content} />
+        {detailData && (
+          <Contents
+            contents={utilDecodeImg(detailData?.content, detailData?.img)}
+          />
+        )}
       </article>
       <hr className={styles.line} />
       <aside className={styles.comment.wrapper}>

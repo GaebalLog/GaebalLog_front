@@ -2,7 +2,7 @@ import React from "react";
 
 const Contents: React.FC<{ contents: string }> = ({ contents }) => {
   return (
-    <section
+    <div
       className="no-tailwind"
       dangerouslySetInnerHTML={{ __html: contents }}
     />
