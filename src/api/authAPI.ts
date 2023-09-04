@@ -1,35 +1,35 @@
 import { instance } from "./api";
 
 export const authAPI = {
-  localSignup: async (payload: {
+  localSignup: (payload: {
     email: string;
     password: string;
     nickname: string;
   }) => {
-    const { data } = await instance.post("/users", payload);
-    return data;
+    return instance.post("/users", payload);
   },
-  localLogin: async (email: string, password: string) => {
-    const { data } = await instance.post("/auth/login", {
+  localLogin: (email: string, password: string) => {
+    return instance.post("/auth/login", {
       email,
       password,
     });
-    return data;
   },
-  googleLogin: async (code: string | null) => {
-    const { data } = await instance.post("/auth/googlelogin", { code });
-    return data;
+  googleLogin: (code: string) => {
+    return instance.post("/auth/google", { code });
   },
-  emailConfirm: async (email: string) => {
-    const { data } = await instance.post("/auth/emailCheck", { email });
-    return data;
+  githubLogin: (code: string | null) => {
+    return instance.post("/auth/github", { code });
   },
-  nicknameConfirm: async (nickname: string) => {
-    const { data } = await instance.post("/auth/nicknameCheck", { nickname });
-    return data;
+  kakaoLogin: (code: string | null) => {
+    return instance.post("/auth/kakao", { code });
   },
-  isLogin: async () => {
-    const { data } = await instance.get("/auth");
-    return data;
+  emailConfirm: (email: string) => {
+    return instance.post("/auth/emailCheck", { email });
+  },
+  nicknameConfirm: (nickname: string) => {
+    return instance.post("/auth/nicknameCheck", { nickname });
+  },
+  isLogin: () => {
+    return instance.get("/auth");
   },
 };

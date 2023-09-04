@@ -56,7 +56,7 @@ const KeywordSearch = () => {
   const addCategory = (selectedKeyword: string) => {
     const addedResult = (prev: string[]) => [...prev, selectedKeyword];
 
-    if (!addedCategories.includes(selectedKeyword)) {
+    if (!slicedMyCategories.includes(selectedKeyword)) {
       queryClient.setQueryData(["userCategories"], {
         data: [...myCategories, selectedKeyword],
       });
@@ -66,6 +66,7 @@ const KeywordSearch = () => {
   };
 
   const handleSubmit = () => {
+    console.log(addedCategories);
     setAddedCategories([]);
     setIsModal((prev) => !prev);
   };
@@ -93,12 +94,12 @@ const KeywordSearch = () => {
               )}
               <KeywordList
                 myCategoriesContainerRef={myCategoriesContainerRef}
-                data={isFirsPage ? myCategories : slicedMyCategories}
+                data={slicedMyCategories}
                 type="myCategory"
                 isLoading={myCategoriesLoading}
                 setMyCategories={setMyCategories}
               />
-              {isLastPage && (
+              {!isLastPage && (
                 <button
                   className="absolute top-12 -right-14"
                   onClick={handleNext}

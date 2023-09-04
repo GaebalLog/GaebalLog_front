@@ -6,17 +6,17 @@ const usePagination = (
 ) => {
   const [remainingCategoryCount, setRemainingCategoryCount] = React.useState(0);
   const [renderedItemCount, setRenderedItemCount] = React.useState(0);
-  const [startIndex, setStartIndex] = React.useState(0);
+  const [index, setIndex] = React.useState(0);
   const [renderedItemCountArray, setRenderedItemCountArray] = React.useState<
     number[]
   >([]);
 
-  const slicedMyCategories = data.slice(startIndex);
+  const slicedMyCategories = data.slice(index);
   const isFirsPage = remainingCategoryCount === data.length;
-  const isLastPage = startIndex + renderedItemCount < data.length;
+  const isLastPage = index + renderedItemCount === data.length;
 
   const handleNext = () => {
-    setStartIndex((prev) => prev + renderedItemCount);
+    setIndex((prev) => prev + renderedItemCount);
     setRemainingCategoryCount((prev) =>
       prev > 0 ? prev - renderedItemCount : 0,
     );
@@ -26,13 +26,14 @@ const usePagination = (
   const handlePrev = () => {
     const lastRenderedItemCount =
       renderedItemCountArray[renderedItemCountArray.length - 1];
-    setStartIndex((prev) => prev - lastRenderedItemCount);
+    setIndex((prev) => prev - lastRenderedItemCount);
     setRemainingCategoryCount((prev) => prev + lastRenderedItemCount);
     setRenderedItemCountArray((prev) => {
       prev.pop();
       return prev;
     });
   };
+  console.log(slicedMyCategories);
 
   React.useEffect(() => {
     const container = containerRef.current;
@@ -45,10 +46,13 @@ const usePagination = (
       );
       setRenderedItemCount(renderedItems.length);
     }
-  }, [data, startIndex, containerRef]);
+  }, [data, index, containerRef]);
 
   React.useEffect(() => {
     setRemainingCategoryCount(slicedMyCategories.length);
+    if (slicedMyCategories.length === 0 && index > 0) {
+      handlePrev();
+    }
   }, [slicedMyCategories]);
 
   return { isFirsPage, isLastPage, handlePrev, handleNext, slicedMyCategories };

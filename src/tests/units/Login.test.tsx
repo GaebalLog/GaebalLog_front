@@ -54,9 +54,7 @@ describe("로그인 페이지 테스트", () => {
       `https://accounts.google.com/o/oauth2/v2/auth?` +
       `redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&` +
       `client_id=${process.env.NEXT_PUBLIC_GOOGLE_ID}&` +
-      `access_type=offline&` +
       `response_type=code&` +
-      `prompt=consent&` +
       `scope=${[
         "https://www.googleapis.com/auth/userinfo.profile",
         "https://www.googleapis.com/auth/userinfo.email",

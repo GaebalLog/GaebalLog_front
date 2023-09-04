@@ -16,12 +16,22 @@ const SnsLogin = ({ params: { snsType } }: snsTypeProps) => {
   const searchParams = useSearchParams();
 
   const fetchData = useCallback(async () => {
-    if (searchParams) {
-      const code = searchParams.get("code");
-      const { data } = await authAPI.googleLogin(code);
-      console.log(data);
+    const code = searchParams.get("code");
+    if (code) {
+      if (snsType[0] === "google") {
+        const { data } = await authAPI.googleLogin(code);
+        console.log(data);
+      }
+      if (snsType[0] === "github") {
+        const { data } = await authAPI.githubLogin(code);
+        console.log(data);
+      }
+      if (snsType[0] === "kakao") {
+        const { data } = await authAPI.kakaoLogin(code);
+        console.log(data);
+      }
     }
-  }, [searchParams]);
+  }, [searchParams, snsType]);
 
   useEffect(() => {
     const acceptedTypes = ["google", "github", "kakao"];
