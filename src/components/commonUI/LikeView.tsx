@@ -43,7 +43,7 @@ const LikeView: React.FC<props> = ({
           size="withIcon"
           color="background"
           rounded
-          className={`flex-wrap ${btn.className}`}
+          className={`flex-wrap ${btn.className} cursor-default`}
           onClick={btn.onClick}
         >
           {btn.icon}

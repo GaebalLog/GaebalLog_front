@@ -24,7 +24,10 @@ import useToggleLike from "@/hooks/postAPI/useToggleLike";
 const styles = {
   contents: {
     wrapper: `flex flex-col items-center w-[1632px]`,
+    innerContainer: `flex gap-[109px] w-[1632px]`,
     inner: `w-[909px] mt-[60px]`,
+    category: `absolute top-[210px] left-[114px] w-[252px] ${BG_COLOR.general02} px-[16px] py-[24px] max-h-[256px]`,
+    categoryTitle: `text-[24px] font-hack`,
   },
   line: `w-full h-[3px] mt-[63px] mb-8 ${BG_COLOR.general01}`,
   comment: {
@@ -37,7 +40,7 @@ export interface detailParams {
     postId: number;
   };
 }
-
+// 기능 분리 필요 :: 컨텐츠 부분이랑 코멘트 부분
 const Detail = ({ params: { postId } }: detailParams) => {
   const [detailData, setDetailData] = React.useState<postDetail>();
   const nickname = useRecoilValue(nicknameAtom);
@@ -68,58 +71,75 @@ const Detail = ({ params: { postId } }: detailParams) => {
   const { mutate: likeHandler } = useToggleLike({
     onToggle: toggleLikeHandler,
   });
-  console.log(detailData?.created_at);
   return (
     <div className={styles.contents.wrapper}>
-      <article className={styles.contents.inner}>
-        <p className="text-[36px] text-center font-bold">{detailData?.title}</p>
-        <div className="flex gap-[32px] justify-between items-center">
-          <div className="flex gap-[16px]">
-            <span className="text-[20px]">{detailData?.nickname}</span>
-            {detailData?.created_at && (
-              <span>{utilConvertTime(detailData?.created_at)}</span>
-            )}
-            <div>
-              <LikeView
-                like={detailData?.like}
-                likeHandler={() =>
-                  detailData?.post_id && likeHandler(detailData.post_id)
+      <div>
+        <aside className={styles.contents.category}>
+          <span className={styles.contents.categoryTitle}>Main Keywords</span>
+          <ul className="flex flex-col gap-[16px] mt-[24px]">
+            {detailData?.categories.map((category, i) => (
+              <li key={`${detailData?.post_id}${category}${i}`}>
+                <Button color="grey" size="tag">
+                  # {category}
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </aside>
+        <article className={styles.contents.inner}>
+          <p className="text-[36px] text-center font-bold">
+            {detailData?.title}
+          </p>
+          <div className="flex gap-[32px] justify-between items-center">
+            <div className="flex gap-[16px]">
+              <span className="text-[20px]">{detailData?.nickname}</span>
+              {detailData?.created_at && (
+                <span>{utilConvertTime(detailData?.created_at)}</span>
+              )}
+              <div>
+                <LikeView
+                  like={detailData?.like}
+                  likeHandler={() =>
+                    detailData?.post_id && likeHandler(detailData.post_id)
+                  }
+                  liked={detailData?.liked}
+                  view={detailData?.view}
+                />
+              </div>
+            </div>
+            <div className="flex gap-[16px]">
+              <Button
+                size="tab"
+                color="white"
+                border
+                onClick={() =>
+                  router.push(`/post/update/${detailData?.post_id}`)
                 }
-                liked={detailData?.liked}
-                view={detailData?.view}
-              />
+              >
+                글 수정
+              </Button>
+              <Button
+                size="tab"
+                color="white"
+                border
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openModal("deleteModal");
+                }}
+              >
+                글 삭제
+              </Button>
             </div>
           </div>
-          <div className="flex gap-[16px]">
-            <Button
-              size="tab"
-              color="white"
-              border
-              onClick={() => router.push(`/post/update/${detailData?.post_id}`)}
-            >
-              글 수정
-            </Button>
-            <Button
-              size="tab"
-              color="white"
-              border
-              onClick={(e) => {
-                e.stopPropagation();
-                openModal("deleteModal");
-              }}
-            >
-              글 삭제
-            </Button>
-          </div>
-        </div>
-        {modal.deleteModal && <DeleteConfirm mode="tech" postId={postId} />}
-        <hr className={styles.line} />
-        {detailData && (
-          <Contents
-            contents={utilDecodeImg(detailData?.content, detailData?.img)}
-          />
-        )}
-      </article>
+          {modal.deleteModal && <DeleteConfirm mode="tech" postId={postId} />}
+          <hr className={styles.line} />
+          {detailData && (
+            <Contents
+              contents={utilDecodeImg(detailData?.content, detailData?.img)}
+            />
+          )}
+        </article>
+      </div>
       <hr className={styles.line} />
       <aside className={styles.comment.wrapper}>
         <CommentForm count={comments?.data.length} />
