@@ -25,7 +25,7 @@ describe("홈 화면 테스트", () => {
       await screen.findByRole("button", { name: "Sign in" }),
     ).toBeInTheDocument();
     expect(
-      await screen.findByRole("img", { name: "메인 이미지" }),
+      await screen.findByText(`console.log("Hello, world!");`),
     ).toBeInTheDocument();
     expect(
       await screen.findByRole("button", { name: "#test1" }),
@@ -40,7 +40,7 @@ describe("홈 화면 테스트", () => {
   //     await screen.findByRole("button", { name: "Log out" }),
   //   ).toBeInTheDocument();
   //   expect(
-  //     await screen.findByRole("img", { name: "메인 이미지" }),
+  //     await screen.findByText(`console.log("Hello, world!");`),
   //   ).toBeInTheDocument();
   //   expect(
   //     await screen.findByRole("button", { name: "#개발자" }),

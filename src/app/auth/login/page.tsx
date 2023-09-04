@@ -95,7 +95,7 @@ const Loginpage = () => {
             onChange={passwordInput.onChange}
           />
           <p
-            className={`-mt-[30px] -mb-7 ${
+            className={`-mt-[30px] -mb-7 select-none ${
               isError ? TEXT_COLOR.error : "text-transparent"
             }`}
           >

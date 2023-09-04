@@ -143,7 +143,7 @@ const Signuppage = () => {
             </Button>
           </div>
         </div>
-        <p className={`-mt-[10px] mb-2 ${"text-transparent"}`}>
+        <p className={`-mt-[10px] mb-2 select-none ${"text-transparent"}`}>
           사용 가능한 닉네임입니다.
         </p>
         <InputWithLabel
