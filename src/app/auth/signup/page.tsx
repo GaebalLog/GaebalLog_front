@@ -29,6 +29,7 @@ const Signuppage = () => {
 
   const emailCheckHandler = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isEmailValid) return;
     const { data } = await authAPI.emailConfirm(emailInput.value + "");
     console.log("emailCheck ::", data);
   };

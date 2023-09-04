@@ -7,7 +7,10 @@ export const authHandler = [
   rest.post("/auth/login", (req, res, ctx) => {
     return res(ctx.status(200));
   }),
-  rest.post("/auth/googlelogin", (req, res, ctx) => {
+  rest.patch("/users/name", (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
+  rest.patch("/users/image", (req, res, ctx) => {
     return res(ctx.status(200));
   }),
 ];

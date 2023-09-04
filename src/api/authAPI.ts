@@ -1,6 +1,7 @@
 import { instance } from "./api";
 
 export const authAPI = {
+  // 로컬
   localSignup: (payload: {
     email: string;
     password: string;
@@ -8,12 +9,17 @@ export const authAPI = {
   }) => {
     return instance.post("/users", payload);
   },
-  localLogin: (email: string, password: string) => {
-    return instance.post("/auth/login", {
-      email,
-      password,
-    });
+  localLogin: (payload: { email: string; password: string }) => {
+    return instance.post("/auth/login", payload);
   },
+  emailConfirm: (email: string) => {
+    return instance.get(`/users?email=${email}`);
+  },
+  nicknameConfirm: (nickname: string) => {
+    return instance.get(`/users?nickname=${nickname}`);
+  },
+
+  // 소셜
   googleLogin: (code: string) => {
     return instance.post("/auth/google", { code });
   },
@@ -23,11 +29,15 @@ export const authAPI = {
   kakaoLogin: (code: string | null) => {
     return instance.post("/auth/kakao", { code });
   },
-  emailConfirm: (email: string) => {
-    return instance.post("/auth/emailCheck", { email });
+
+  userAuth: () => {
+    return instance.get(`/users`);
   },
-  nicknameConfirm: (nickname: string) => {
-    return instance.post("/auth/nicknameCheck", { nickname });
+  updateNickname: (nickname: string) => {
+    return instance.patch(`/users/name`, { nickname });
+  },
+  updateprofileImg: (profileImg: FormData) => {
+    return instance.patch(`/users/image`, { profileImg });
   },
   isLogin: () => {
     return instance.get("/auth");

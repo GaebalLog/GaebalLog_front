@@ -63,10 +63,10 @@ const Loginpage = () => {
   const LoginHandler = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const { data } = await authAPI.localLogin(
-        emailInput.value + "",
-        passwordInput.value + "",
-      );
+      const { data } = await authAPI.localLogin({
+        email: emailInput.value + "",
+        password: passwordInput.value + "",
+      });
       console.log(data);
 
       alert("로그인 성공!");
