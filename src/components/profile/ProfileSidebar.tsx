@@ -4,7 +4,7 @@ import Image from "next/image";
 import React from "react";
 import { useRecoilValue } from "recoil";
 
-import { userAtom } from "@/constants/global/atoms";
+import { userAtom } from "@/hooks/useUserAuth";
 
 const ProfileSidebar = () => {
   const { nickname, profileImg } = useRecoilValue(userAtom);

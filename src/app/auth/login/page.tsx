@@ -4,7 +4,6 @@ import type { FormEvent } from "react";
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useSetRecoilState } from "recoil";
 
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import InputWithLabel from "@/components/designSystem/InputWithLabel";
@@ -12,7 +11,7 @@ import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
 import { authAPI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
-import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
+import useUserAuth from "@/hooks/useUserAuth";
 
 const styles = {
   container: `flex flex-col items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
@@ -49,9 +48,9 @@ const githubURL =
 
 const Loginpage = () => {
   const [isError, setIsError] = React.useState(false);
-  const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
   const router = useRouter();
 
+  const { fetchUserAuth } = useUserAuth();
   const emailInput = useInput();
   const passwordInput = useInput();
   const { getIcon } = useIcon();
@@ -63,16 +62,15 @@ const Loginpage = () => {
   const LoginHandler = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const { data } = await authAPI.localLogin({
+      await authAPI.localLogin({
         email: emailInput.value + "",
         password: passwordInput.value + "",
       });
-      console.log(data);
-
+      fetchUserAuth();
       alert("로그인 성공!");
-      setIsLoggedIn((prev) => !prev);
       router.replace("/home");
     } catch (error) {
+      console.log(error);
       setIsError(true);
     }
   };

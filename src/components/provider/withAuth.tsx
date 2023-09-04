@@ -3,7 +3,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/navigation";
 
-import { isLoggedInAtom } from "./SettingsProvider";
+import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 const withAuth = <P extends object>(
   Component: React.ComponentType<P>,

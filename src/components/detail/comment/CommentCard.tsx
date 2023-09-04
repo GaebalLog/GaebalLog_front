@@ -6,7 +6,7 @@ import Button from "@/components/designSystem/Button";
 import ProfileImage from "@/components/designSystem/ProfileImage";
 import { nicknameAtom, openCommentEditorAtom } from "@/constants/global/atoms";
 import useModalController from "@/hooks/useModalController";
-import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
+import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 const styles = {
   commentHeader: `flex justify-between`,

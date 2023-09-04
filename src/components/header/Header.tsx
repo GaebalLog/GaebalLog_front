@@ -7,12 +7,12 @@ import { usePathname } from "next/navigation";
 
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
+import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 import logo from "../../../public/assets/images/home/logo.png";
 import LiveSearchInput from "../commonUI/LiveSearchInput";
 import VoiceSearch from "../VoiceSearch";
 import Modal from "../modal/Modal";
-import { isLoggedInAtom } from "../provider/SettingsProvider";
 
 import LoggedInBox from "./LoggedInBox";
 import NotLoggedInBox from "./NotLoggedInBox";

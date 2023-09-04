@@ -7,9 +7,9 @@ import Image from "next/image";
 import useIcon from "@/hooks/useIcon";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import utilConvertTime from "@/utils/util-datetime";
+import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 import Button from "../designSystem/Button";
-import { isLoggedInAtom } from "../provider/SettingsProvider";
 import default_thumbnail from "../../../public/assets/images/common/thumbnail_default.png";
 
 const Post: React.FC<{

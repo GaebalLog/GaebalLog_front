@@ -5,7 +5,6 @@ import Link from "next/link";
 
 import { TEXT_COLOR } from "@/constants/global/colors";
 import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
-import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
 import Post from "@/components/commonUI/Post";
 import Button from "@/components/designSystem/Button";
 import SideBar from "@/components/commonUI/SideBar";
@@ -14,6 +13,7 @@ import useGetPost from "@/hooks/postAPI/useGetPost";
 import InfiniteScroll from "@/components/observing/InfiniteScroll";
 import useToggleBookmark from "@/hooks/postAPI/useToggleBookmark";
 import useToggleLike from "@/hooks/postAPI/useToggleLike";
+import { isLoggedInAtom } from "@/hooks/useUserAuth";
 import MainBanner from "@/components/commonUI/MainBanner";
 
 const userTab = ["전체글", "My Friends' Articles"];

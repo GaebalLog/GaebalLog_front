@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
-import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
+import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 import Button from "../../designSystem/Button";
 

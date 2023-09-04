@@ -8,7 +8,7 @@ import { BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
 import Label from "@/components/commonUI/Label";
 import { authAPI } from "@/api/authAPI";
-import { userAtom } from "@/constants/global/atoms";
+import { userAtom } from "@/hooks/useUserAuth";
 
 const MyInfo = () => {
   const [newProfileImg, setNewProfileImg] = React.useState<string>("");

@@ -2,9 +2,9 @@
 
 import React from "react";
 import { notFound, redirect, useSearchParams } from "next/navigation";
-import { useCallback, useEffect } from "react";
 
 import { authAPI } from "@/api/authAPI";
+import useUserAuth from "@/hooks/useUserAuth";
 
 interface snsTypeProps {
   params: {
@@ -14,34 +14,36 @@ interface snsTypeProps {
 
 const SnsLogin = ({ params: { snsType } }: snsTypeProps) => {
   const searchParams = useSearchParams();
+  const { fetchUserAuth } = useUserAuth();
+  const acceptedTypes = ["google", "github", "kakao"];
+  const isSocialParams = acceptedTypes.includes(snsType[0]);
 
-  const fetchData = useCallback(async () => {
-    const code = searchParams.get("code");
-    if (code) {
-      if (snsType[0] === "google") {
-        const { data } = await authAPI.googleLogin(code);
-        console.log(data);
-      }
-      if (snsType[0] === "github") {
-        const { data } = await authAPI.githubLogin(code);
-        console.log(data);
-      }
-      if (snsType[0] === "kakao") {
-        const { data } = await authAPI.kakaoLogin(code);
-        console.log(data);
-      }
-    }
-  }, [searchParams, snsType]);
+  React.useEffect(() => {
+    if (!isSocialParams) return notFound();
 
-  useEffect(() => {
-    const acceptedTypes = ["google", "github", "kakao"];
-    if (!acceptedTypes.includes(snsType[0])) return notFound();
-  }, [snsType]);
+    const fetchData = async () => {
+      const code = searchParams.get("code");
+      try {
+        if (code) {
+          if (snsType[0] === "google") {
+            await authAPI.googleLogin(code);
+          }
+          if (snsType[0] === "github") {
+            await authAPI.githubLogin(code);
+          }
+          if (snsType[0] === "kakao") {
+            await authAPI.kakaoLogin(code);
+          }
+        }
+        fetchUserAuth();
+      } catch (error) {
+        alert("로그인 실패");
+      }
+    };
 
-  useEffect(() => {
     fetchData();
     redirect("/home");
-  }, [fetchData]);
+  }, [snsType]);
 
   return <></>;
 };
