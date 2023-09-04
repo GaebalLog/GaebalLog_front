@@ -5,9 +5,10 @@ const utilConvertTime = (createdAt: string, option?: optionType) => {
   const creatTime = new Date(createdAt);
   const now = new Date();
   const timeGap = now.getTime() - creatTime.getTime();
-
-  if (timeGap < 60 * 60 * 1000)
-    return `${Math.abs(Math.floor(timeGap / (60 * 1000)))}분 전`;
+  if (timeGap < 0) return "잘못된 시간입니다.";
+  else if (timeGap < 60 * 1000) return "방금 전";
+  else if (timeGap < 60 * 60 * 1000)
+    return `${Math.floor(timeGap / (60 * 1000))}분 전`;
   else if (timeGap < 24 * 60 * 60 * 1000) {
     const hours = Math.round(timeGap / (60 * 60 * 1000));
     return `${hours}시간 전`;
