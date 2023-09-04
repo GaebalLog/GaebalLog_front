@@ -1,19 +1,18 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+
 import Image from "next/image";
 import React from "react";
+import { useRecoilValue } from "recoil";
+
+import { userAtom } from "@/constants/global/atoms";
 
 const ProfileSidebar = () => {
-  const { data } = useQuery({
-    queryKey: ["myInfo"],
-    queryFn: async () => await axios.get("/api/users"),
-  });
-  const userInfo = data?.data as myInfo;
+  const { nickname, profileImg } = useRecoilValue(userAtom);
+
   return (
     <div className="flex flex-col items-center gap-[32px] py-[57px] pr-[76px]">
       <Image
-        src={userInfo?.profileImg}
+        src={profileImg}
         alt="프로필 사진"
         width={200}
         height={200}
@@ -21,7 +20,7 @@ const ProfileSidebar = () => {
         layout="fixed"
         objectFit="cover"
       />
-      <span className="text-[24px] font-bold">{userInfo?.nickname}</span>
+      <span className="text-[24px] font-bold">{nickname}</span>
     </div>
   );
 };

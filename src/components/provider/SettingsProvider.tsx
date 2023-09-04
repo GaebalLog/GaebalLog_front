@@ -4,6 +4,7 @@ import { atom } from "recoil";
 // import { usePathname, useSearchParams } from "next/navigation";
 
 import useModalController from "@/hooks/useModalController";
+import { authAPI } from "@/api/authAPI";
 
 export const isLoggedInAtom = atom({
   key: "isLoggedIn",
@@ -18,20 +19,18 @@ const SettingsProvider: React.FC<props> = ({ children }) => {
   // const setisLoggedIn = useSetRecoilState(isLoggedInAtom);
   const { allCloseModal } = useModalController();
 
-  // const authConfirm = React.useCallback(async () => {
-  //   try {
-  //     const { data } = await axios.get("/api/auth");
-  //     const { code } = data;
-  //     if (code === 200) return setisLoggedIn(true);
-  //     if (code === 201) return setisLoggedIn(false);
-  //   } catch (error) {
-  //     console.log("authConfirm :", error);
-  //   }
-  // }, [setisLoggedIn]);
+  React.useEffect(() => {
+    const authConfirm = async () => {
+      try {
+        const { data } = await authAPI.userAuth();
+        console.log(data);
+      } catch (error) {
+        console.log("authConfirm :", error);
+      }
+    };
 
-  // React.useEffect(() => {
-  //   authConfirm();
-  // }, [authConfirm, searchParams]);
+    authConfirm();
+  }, []);
 
   return (
     <div className="flex flex-col items-center" onClick={allCloseModal}>
