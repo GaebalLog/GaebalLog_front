@@ -12,6 +12,9 @@ import useValidation from "@/hooks/useValidation";
 
 const Signuppage = () => {
   const [isConfirm, setIsConfirm] = React.useState(false);
+  const [isEmailDuplicated, setIsEmailDuplicated] = React.useState<
+    boolean | null
+  >(null);
   const router = useRouter();
 
   const emailInput = useInput();
@@ -27,11 +30,41 @@ const Signuppage = () => {
     "password",
   );
 
+  const styles = {
+    wrapper: `flex justify-center items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
+    form: `flex flex-col gap-5`,
+    title: `text-[32px] text-center font-hack`,
+    checkDuplicateButton: `mt-auto ml-6 mb-1`,
+    emailValidationMsg: `-mt-[10px] ${
+      isEmailValid || emailInput.value === ""
+        ? "text-transparent"
+        : TEXT_COLOR.error
+    }`,
+    emailDuplicationMsg: `-mt-[10px]`,
+    pwdValidationMsg: `-mt-[10px] mb-2 ${
+      isPasswordValid || passwordInput.value === ""
+        ? TEXT_COLOR.general07rev
+        : TEXT_COLOR.error
+    }`,
+    pwdConfirmValidationMsg: `-mt-[10px] ${
+      passwordInput.value === passwordConfirmInput.value
+        ? "text-transparent"
+        : TEXT_COLOR.error
+    }`,
+    checkBoxDiv: `flex items-center -mt-[5px]`,
+    checkBox: `flex items-center justify-center w-5 h-5 border-2 border-[#967AC3] bg-transparent text-[#967AC3] cursor-pointer`,
+    createButton: `text-center mt-1`,
+  };
+
   const emailCheckHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isEmailValid) return;
-    const { data } = await authAPI.emailConfirm(emailInput.value + "");
-    console.log("emailCheck ::", data);
+    try {
+      await authAPI.emailConfirm(emailInput.value + "");
+      setIsEmailDuplicated(false);
+    } catch (error) {
+      setIsEmailDuplicated(true);
+    }
   };
   const nicknameCheckHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,11 +96,9 @@ const Signuppage = () => {
   };
 
   return (
-    <div
-      className={`flex justify-center items-center w-[800px] h-[800px] ${BG_COLOR.general02}`}
-    >
-      <form className="flex flex-col gap-5" onSubmit={onSubmitHandler}>
-        <h1 className="text-[32px] text-center font-hack">Sign up</h1>
+    <div className={styles.wrapper}>
+      <form className={styles.form} onSubmit={onSubmitHandler}>
+        <h1 className={styles.title}>Sign up</h1>
         <div className="flex">
           <div className="w-[574px]">
             <InputWithLabel
@@ -77,21 +108,27 @@ const Signuppage = () => {
               onChange={emailInput.onChange}
             />
           </div>
-          <div className="mt-auto ml-6 mb-1">
+          <div className={styles.checkDuplicateButton}>
             <Button size="tab" color="white" onClick={emailCheckHandler}>
               중복 확인
             </Button>
           </div>
         </div>
-        <p
-          className={`-mt-[10px] ${
-            isEmailValid || emailInput.value === ""
-              ? "text-transparent"
-              : TEXT_COLOR.error
-          }`}
-        >
-          입력한 이메일은 잘못 된 형식입니다.
-        </p>
+        {isEmailDuplicated === false && (
+          <p className={`${styles.emailDuplicationMsg} ${TEXT_COLOR.success}`}>
+            사용 가능한 이메일 입니다.
+          </p>
+        )}
+        {isEmailDuplicated && (
+          <p className={`${styles.emailDuplicationMsg} ${TEXT_COLOR.error}`}>
+            이미 존재하는 이메일입니다.다른 이메일을 입력해주세요.
+          </p>
+        )}
+        {isEmailDuplicated === null && (
+          <p className={styles.emailValidationMsg}>
+            입력한 이메일은 잘못 된 형식입니다.
+          </p>
+        )}
         <div className="flex">
           <div className="w-[574px]">
             <InputWithLabel
@@ -100,7 +137,7 @@ const Signuppage = () => {
               onChange={nicknameInput.onChange}
             />
           </div>
-          <div className="mt-auto ml-6 mb-1">
+          <div className={styles.checkDuplicateButton}>
             <Button size="tab" color="white" onClick={nicknameCheckHandler}>
               중복 확인
             </Button>
@@ -116,13 +153,7 @@ const Signuppage = () => {
           value={passwordInput.value + ""}
           onChange={passwordInput.onChange}
         />
-        <p
-          className={`-mt-[10px] mb-2 ${
-            isPasswordValid || passwordInput.value === ""
-              ? TEXT_COLOR.general07rev
-              : TEXT_COLOR.error
-          }`}
-        >
+        <p className={styles.pwdValidationMsg}>
           비밀번호는 8~20 자의 영문 소문자 , 숫자 , 특문 사용
         </p>
         <InputWithLabel
@@ -132,21 +163,15 @@ const Signuppage = () => {
           value={passwordConfirmInput.value + ""}
           onChange={passwordConfirmInput.onChange}
         />
-        <p
-          className={`-mt-[10px] ${
-            passwordInput.value === passwordConfirmInput.value
-              ? "text-transparent"
-              : TEXT_COLOR.error
-          }`}
-        >
+        <p className={styles.pwdConfirmValidationMsg}>
           비밀번호와 일치시켜주세요.
         </p>
-        <div className="flex items-center -mt-[5px]">
+        <div className={styles.checkBoxDiv}>
           <input type="checkbox" id="agree" className="hidden" />
           <label
             htmlFor="agree"
             data-testid="agree"
-            className="flex items-center justify-center w-5 h-5 border-2 border-[#967AC3] bg-transparent text-[#967AC3] cursor-pointer"
+            className={styles.checkBox}
             onClick={() => setIsConfirm((prev) => !prev)}
           >
             <svg
@@ -159,7 +184,7 @@ const Signuppage = () => {
           </label>
           <span className="ml-2">회원가입에 동의 하겠습니까?</span>
         </div>
-        <div className="text-center mt-1">
+        <div className={styles.createButton}>
           <Button
             className="w-[465px] mt-[0px]"
             size="bigLogin"
