@@ -16,7 +16,7 @@ import banner_JSIcon from "../../../public/assets/images/home/banner_JSIcon.png"
 import banner_MDIcon from "../../../public/assets/images/home/banner_MDIcon.png";
 
 const styles = {
-  wrapper: `flex w-[1632px] h-[400px] mt-5 mb-[30px] ${TEXT_COLOR.inverse}`,
+  wrapper: `flex w-[1632px] h-[400px] mt-5 mb-[30px] text-white`,
   sidebar: {
     wrapper: `w-[290px] h-full p-4 bg-[#3E3E3E]`,
     editorBox: `flex items-center`,
