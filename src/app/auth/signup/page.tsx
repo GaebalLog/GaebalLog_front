@@ -83,7 +83,7 @@ const Signuppage = () => {
           </div>
         </div>
         <p
-          className={`-mt-[10px] ${
+          className={`-mt-[10px] select-none ${
             isEmailValid || emailInput.value === ""
               ? "text-transparent"
               : TEXT_COLOR.error
@@ -105,7 +105,7 @@ const Signuppage = () => {
             </Button>
           </div>
         </div>
-        <p className={`-mt-[10px] mb-2 ${"text-transparent"}`}>
+        <p className={`-mt-[10px] mb-2 select-none ${"text-transparent"}`}>
           사용 가능한 닉네임입니다.
         </p>
         <InputWithLabel
@@ -116,7 +116,7 @@ const Signuppage = () => {
           onChange={passwordInput.onChange}
         />
         <p
-          className={`-mt-[10px] mb-2 ${
+          className={`-mt-[10px] mb-2 select-none ${
             isPasswordValid || passwordInput.value === ""
               ? TEXT_COLOR.general07rev
               : TEXT_COLOR.error
@@ -132,7 +132,7 @@ const Signuppage = () => {
           onChange={passwordConfirmInput.onChange}
         />
         <p
-          className={`-mt-[10px] ${
+          className={`-mt-[10px] select-none ${
             passwordInput.value === passwordConfirmInput.value
               ? "text-transparent"
               : TEXT_COLOR.error
