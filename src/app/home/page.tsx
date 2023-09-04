@@ -1,12 +1,10 @@
 "use client";
-import Image from "next/image";
 import React from "react";
 import { useRecoilValue } from "recoil";
 import Link from "next/link";
 
 import { TEXT_COLOR } from "@/constants/global/colors";
 import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
-import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
 import Post from "@/components/commonUI/Post";
 import Button from "@/components/designSystem/Button";
 import SideBar from "@/components/commonUI/SideBar";
@@ -15,8 +13,8 @@ import useGetPost from "@/hooks/postAPI/useGetPost";
 import InfiniteScroll from "@/components/observing/InfiniteScroll";
 import useToggleBookmark from "@/hooks/postAPI/useToggleBookmark";
 import useToggleLike from "@/hooks/postAPI/useToggleLike";
-
-import mainImage from "../../../public/assets/images/home/main.png";
+import { isLoggedInAtom } from "@/hooks/useUserAuth";
+import MainBanner from "@/components/commonUI/MainBanner";
 
 const userTab = ["전체글", "My Friends' Articles"];
 
@@ -65,13 +63,7 @@ const HomePage = () => {
   });
   return (
     <div className="w-[1632px] flex flex-col">
-      <Image
-        className="mt-[20px] mb-[20px]"
-        src={mainImage}
-        width={1632}
-        height={400}
-        alt="메인 이미지"
-      />
+      <MainBanner />
       <div className="flex justify-between gap-[32px]">
         <StickyStyle>
           {isLoggedIn ? (

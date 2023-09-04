@@ -19,11 +19,3 @@ export const nicknameAtom = atom({
   key: "nickname",
   default: "",
 });
-
-export const userAtom = atom({
-  key: "user",
-  default: {
-    nickname: "",
-    profileImg: "",
-  },
-});

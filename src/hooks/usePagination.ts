@@ -33,7 +33,6 @@ const usePagination = (
       return prev;
     });
   };
-  console.log(slicedMyCategories);
 
   React.useEffect(() => {
     const container = containerRef.current;

@@ -13,10 +13,10 @@ export const authAPI = {
     return instance.post("/auth/login", payload);
   },
   emailConfirm: (email: string) => {
-    return instance.get(`/users?email=${email}`);
+    return instance.get(`/users/email?value=${email}`);
   },
   nicknameConfirm: (nickname: string) => {
-    return instance.get(`/users?nickname=${nickname}`);
+    return instance.get(`/users/nickname?value=${nickname}`);
   },
 
   // 소셜

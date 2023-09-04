@@ -13,4 +13,7 @@ export const authHandler = [
   rest.patch("/users/image", (req, res, ctx) => {
     return res(ctx.status(200));
   }),
+  rest.get("/users", (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
 ];
