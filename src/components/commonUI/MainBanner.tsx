@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRecoilValue } from "recoil";
 
-import { TEXT_COLOR } from "@/constants/global/colors";
 import { userAtom } from "@/hooks/useUserAuth";
 
 import banner_folder from "../../../public/assets/images/home/banner_folder.png";
