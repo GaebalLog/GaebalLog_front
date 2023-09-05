@@ -15,6 +15,8 @@ import { postAPI } from "@/api/postAPI";
 import { utilReplaceImg } from "@/utils/util-replaceImg";
 import { utilExtractImages } from "@/utils/util-extractImage";
 import { utilDecodeImg } from "@/utils/util-decodeImg";
+import useModalController from "@/hooks/useModalController";
+import ThumbnailSelector from "@/components/post/ThumbnailSelector";
 
 // const TimeSetting = dynamic(
 //   () => import("../../../../components/post/TimeSetting"),
@@ -51,13 +53,17 @@ const UpdatePage: React.ComponentType<postpageParams> = withAuth(
       title: "",
       content: "",
       img: [],
+      thumbnail: null,
       categories: [],
     });
     const router = useRouter();
+    const { openModal } = useModalController();
+
     React.useEffect(() => {
       setData((prev) => ({ ...prev, content: utilReplaceImg(article) }));
       setData((prev) => ({ ...prev, img: utilExtractImages(article) }));
     }, [article]);
+
     const { isError } = useQuery({
       queryKey: ["detailContents", articleId],
       queryFn: () => postAPI.getDetail(articleId),
@@ -66,14 +72,28 @@ const UpdatePage: React.ComponentType<postpageParams> = withAuth(
           title: data.data.title,
           content: data.data.content,
           categories: data.data.categories,
+          thumbnail: data.data.thumbnail,
           img: data.data.img,
         });
         setArticle(utilDecodeImg(data.data.content, data.data.img));
       },
     });
     const handleSubmit = async () => {
-      const result = await postAPI.update(articleId, data);
+      const feedData = data.thumbnail
+        ? data
+        : { ...data, thumbnail: data.img[0] };
+      const result = await postAPI.update(articleId, feedData);
       if (result.status === 201) router.push(`/tech/${articleId}`);
+    };
+
+    const confirmThumbnail = async (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      const thumbnailList = [...data.img].reduce<string[]>((acc, value) => {
+        if (!acc.includes(value)) acc.push(value);
+        return acc;
+      }, []);
+      if (thumbnailList.length < 2) return handleSubmit();
+      else openModal("thumbnailSelectModal");
     };
 
     const titleChangeHanlder = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,6 +108,10 @@ const UpdatePage: React.ComponentType<postpageParams> = withAuth(
     const categoryHandler = (categories: string[]) => {
       setData((prev) => ({ ...prev, categories }));
     };
+
+    const setThumbnail = (thumbnail: string) => {
+      setData((prev) => ({ ...prev, thumbnail }));
+    };
     if (isError) return <p>에러</p>;
     return (
       <main className={styles.wrapper}>
@@ -101,6 +125,12 @@ const UpdatePage: React.ComponentType<postpageParams> = withAuth(
             />
           </div>
           <PostEditor content={article} editHandler={contentHandler} />
+          <ThumbnailSelector
+            img={data.img}
+            thumbnail={data.thumbnail}
+            setThumbnail={setThumbnail}
+            handleSubmit={handleSubmit}
+          />
           <div className={styles.bottomBox.wrapper}>
             <AddTagInput
               categories={data.categories}
@@ -120,7 +150,7 @@ const UpdatePage: React.ComponentType<postpageParams> = withAuth(
                 className="px-12"
                 size="bigLogin"
                 color="black"
-                onClick={handleSubmit}
+                onClick={confirmThumbnail}
               >
                 수정 완료
               </Button>

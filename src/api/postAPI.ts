@@ -5,6 +5,7 @@ export interface postDataType {
   title: string;
   content: string;
   categories: string[];
+  thumbnail: string | null;
   img: string[];
 }
 export interface allPostsType {
