@@ -142,12 +142,26 @@ describe("중복 확인 테스트", () => {
     // nicknameCheckButton = screen.findByTestId("nicknameCheck");
   });
 
-  test("이메일 중복확인 api 테스트", async () => {
+  test("이메일 중복 확인 api 테스트", async () => {
     const successMsg = "사용 가능한 이메일 입니다.";
+    const failMsg = "이미 존재하는 이메일입니다.다른 이메일을 입력해주세요.";
     expect(screen.queryByText(successMsg)).not.toBeInTheDocument();
     await userEvent.type(await emailInput, "dddd@gmail.com");
     await userEvent.click(await emailCheckButton);
     expect(await screen.findByText(successMsg)).toBeInTheDocument();
+
+    await userEvent.clear(await emailInput);
+    await userEvent.type(await emailInput, "duplication@gmail.com");
+    await userEvent.click(await emailCheckButton);
+    expect(await screen.findByText(failMsg)).toBeInTheDocument();
   });
-  test("", () => {});
+
+  test("이메일 중복 확인 후 이메일 수정하면 경고 텍스트 바뀌어야함", async () => {
+    const successMsg = "사용 가능한 이메일 입니다.";
+    await userEvent.type(await emailInput, "dddd@gmail.com");
+    await userEvent.click(await emailCheckButton);
+    expect(await screen.findByText(successMsg)).toBeInTheDocument();
+    await userEvent.type(await emailInput, "11");
+    expect(screen.queryByText(successMsg)).not.toBeInTheDocument();
+  });
 });
