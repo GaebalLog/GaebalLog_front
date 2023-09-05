@@ -24,9 +24,9 @@ import useToggleLike from "@/hooks/postAPI/useToggleLike";
 const styles = {
   contents: {
     wrapper: `flex flex-col items-center w-[1632px]`,
-    innerContainer: `flex gap-[109px] w-[1632px]`,
+    innerContainer: `flex gap-[109px] w-[1632px] min-h-[880px]`,
     inner: `w-[909px] mt-[60px]`,
-    category: `absolute top-[210px] left-[114px] w-[252px] ${BG_COLOR.general02} px-[16px] py-[24px] max-h-[256px]`,
+    category: `mt-[210px] w-[252px] ${BG_COLOR.general02} px-[16px] py-[24px] max-h-[256px]`,
     categoryTitle: `text-[24px] font-hack`,
   },
   line: `w-full h-[3px] mt-[63px] mb-8 ${BG_COLOR.general01}`,
@@ -73,7 +73,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
   });
   return (
     <div className={styles.contents.wrapper}>
-      <div>
+      <div className={styles.contents.innerContainer}>
         <aside className={styles.contents.category}>
           <span className={styles.contents.categoryTitle}>Main Keywords</span>
           <ul className="flex flex-col gap-[16px] mt-[24px]">
@@ -87,7 +87,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
           </ul>
         </aside>
         <article className={styles.contents.inner}>
-          <p className="text-[36px] text-center font-bold">
+          <p className="text-[36px] text-center font-bold h-[80px]">
             {detailData?.title}
           </p>
           <div className="flex gap-[32px] justify-between items-center">

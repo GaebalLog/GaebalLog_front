@@ -10,6 +10,7 @@ interface Atom {
   discussionExit: boolean;
   deleteModal: boolean;
   calendarModal: boolean;
+  thumbnailSelectModal: boolean;
 }
 export const modalControlAtom = atom<Atom>({
   key: "modalController",
@@ -21,6 +22,7 @@ export const modalControlAtom = atom<Atom>({
     discussionMore: false,
     discussionExit: false,
     deleteModal: false,
+    thumbnailSelectModal: false,
     calendarModal: false,
   },
 });
