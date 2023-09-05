@@ -10,7 +10,7 @@ import { authAPI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
 import useValidation from "@/hooks/useValidation";
 import useUserAuth from "@/hooks/useUserAuth";
-import InputWitHCheck from "@/components/signup/InputWitHCheck";
+import InputWithCheck from "@/components/signup/InputWitHCheck";
 
 const Signuppage = () => {
   const [isConfirm, setIsConfirm] = React.useState(false);
@@ -40,18 +40,17 @@ const Signuppage = () => {
     wrapper: `flex justify-center items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
     form: `flex flex-col gap-5`,
     title: `text-[32px] text-center font-hack`,
-    emailValidationMsg: `-mt-[10px] ${
+    emailValidationMsg: `-mt-[10px] select-none ${
       isEmailValid || emailInput.value === ""
         ? "text-transparent"
         : TEXT_COLOR.error
     }`,
-    emailDuplicationMsg: `-mt-[10px]`,
-    pwdValidationMsg: `-mt-[10px] mb-2 ${
+    pwdValidationMsg: `-mt-[10px] mb-2 select-none ${
       isPasswordValid || passwordInput.value === ""
         ? TEXT_COLOR.general07rev
         : TEXT_COLOR.error
     }`,
-    pwdConfirmValidationMsg: `-mt-[10px] ${
+    pwdConfirmValidationMsg: `-mt-[10px] select-none ${
       passwordInput.value === passwordConfirmInput.value
         ? "text-transparent"
         : TEXT_COLOR.error
@@ -113,36 +112,25 @@ const Signuppage = () => {
     <div className={styles.wrapper}>
       <form className={styles.form} onSubmit={onSubmitHandler}>
         <h1 className={styles.title}>Sign up</h1>
-        <InputWitHCheck
+        <InputWithCheck
           type="email"
           inputValue={emailInput}
           setDuplicated={setIsEmailDuplicated}
           onClick={emailCheckHandler}
+          isDuplicated={isEmailDuplicated}
         />
-        {isEmailDuplicated === false && (
-          <p className={`${styles.emailDuplicationMsg} ${TEXT_COLOR.success}`}>
-            사용 가능한 이메일 입니다.
-          </p>
-        )}
-        {isEmailDuplicated && (
-          <p className={`${styles.emailDuplicationMsg} ${TEXT_COLOR.error}`}>
-            이미 존재하는 이메일입니다.다른 이메일을 입력해주세요.
-          </p>
-        )}
         {isEmailDuplicated === null && (
           <p className={styles.emailValidationMsg}>
             입력한 이메일은 잘못 된 형식입니다.
           </p>
         )}
-        <InputWitHCheck
+        <InputWithCheck
           type="nickname"
           inputValue={nicknameInput}
           setDuplicated={setIsNicknameDuplicated}
           onClick={nicknameCheckHandler}
+          isDuplicated={isNicknameDuplicated}
         />
-        <p className={`-mt-[10px] mb-2 select-none ${"text-transparent"}`}>
-          사용 가능한 닉네임입니다.
-        </p>
         <InputWithLabel
           className="w-[574px]"
           label="Password"
