@@ -16,6 +16,9 @@ const Signuppage = () => {
   const [isEmailDuplicated, setIsEmailDuplicated] = React.useState<
     boolean | null
   >(null);
+  const [isNicknameDuplicated, setIsNicknameDuplicated] = React.useState<
+    boolean | null
+  >(null);
   const router = useRouter();
 
   const { fetchUserAuth } = useUserAuth();
@@ -70,8 +73,13 @@ const Signuppage = () => {
   };
   const nicknameCheckHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { data } = await authAPI.nicknameConfirm(nicknameInput.value + "");
-    console.log("nicknameCheck ::", data);
+    if (nicknameInput.value === "") return;
+    try {
+      await authAPI.nicknameConfirm(nicknameInput.value + "");
+      setIsNicknameDuplicated(false);
+    } catch (error) {
+      setIsNicknameDuplicated(true);
+    }
   };
 
   const onSubmitHandler = async (e: React.FormEvent) => {
@@ -79,8 +87,10 @@ const Signuppage = () => {
 
     if (
       isEmailValid &&
-      isPasswordValid &&
+      isEmailDuplicated === false &&
       nicknameInput.value !== "" &&
+      isNicknameDuplicated === false &&
+      isPasswordValid &&
       passwordInput.value === passwordConfirmInput.value &&
       isConfirm
     ) {
@@ -94,7 +104,6 @@ const Signuppage = () => {
         alert("회원가입 성공!");
         router.replace("/home");
       } catch (error) {
-        console.log(error);
         alert("회원가입 실패");
       }
     } else {
@@ -112,11 +121,19 @@ const Signuppage = () => {
               label="E-mail"
               type="email"
               value={emailInput.value + ""}
-              onChange={emailInput.onChange}
+              onChange={(e) => {
+                emailInput.onChange(e);
+                setIsEmailDuplicated(null);
+              }}
             />
           </div>
           <div className={styles.checkDuplicateButton}>
-            <Button size="tab" color="white" onClick={emailCheckHandler}>
+            <Button
+              data-testid="emailCheck"
+              size="tab"
+              color="white"
+              onClick={emailCheckHandler}
+            >
               중복 확인
             </Button>
           </div>
@@ -141,11 +158,19 @@ const Signuppage = () => {
             <InputWithLabel
               label="Nickname"
               value={nicknameInput.value + ""}
-              onChange={nicknameInput.onChange}
+              onChange={(e) => {
+                nicknameInput.onChange(e);
+                setIsNicknameDuplicated(null);
+              }}
             />
           </div>
           <div className={styles.checkDuplicateButton}>
-            <Button size="tab" color="white" onClick={nicknameCheckHandler}>
+            <Button
+              data-testid="nicknameCheck"
+              size="tab"
+              color="white"
+              onClick={nicknameCheckHandler}
+            >
               중복 확인
             </Button>
           </div>

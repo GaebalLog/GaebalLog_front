@@ -1,5 +1,9 @@
 import { instance } from "./api";
 
+const googleURI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+const kakaoURI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
+const githubURI = process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI;
+
 export const authAPI = {
   // 로컬
   localSignup: (payload: {
@@ -21,13 +25,13 @@ export const authAPI = {
 
   // 소셜
   googleLogin: (code: string) => {
-    return instance.post("/auth/google", { code });
+    return instance.post("/auth/google", { code, uri: googleURI });
   },
   githubLogin: (code: string | null) => {
-    return instance.post("/auth/github", { code });
+    return instance.post("/auth/github", { code, uri: githubURI });
   },
   kakaoLogin: (code: string | null) => {
-    return instance.post("/auth/kakao", { code });
+    return instance.post("/auth/kakao", { code, uri: kakaoURI });
   },
 
   userAuth: () => {
