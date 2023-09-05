@@ -70,9 +70,9 @@ describe("로컬 회원가입 테스트", () => {
   });
 
   test("조건 만족 못하면 회원가입 안 되어야 함", async () => {
-    const emailInput = await screen.findByLabelText<HTMLInputElement>("E-mail");
+    const emailInput = await screen.findByLabelText<HTMLInputElement>("email");
     const nicknameInput = await screen.findByLabelText<HTMLInputElement>(
-      "Nickname",
+      "nickname",
     );
     const passwordInput = await screen.findByLabelText<HTMLInputElement>(
       "Password",
@@ -136,9 +136,9 @@ describe("중복 확인 테스트", () => {
 
   beforeEach(() => {
     render(<Signuppage />, { wrapper: Provider });
-    emailInput = screen.findByLabelText("E-mail");
+    emailInput = screen.findByLabelText("email");
     emailCheckButton = screen.findByTestId("emailCheck");
-    // nicknameInput = screen.findByLabelText<HTMLInputElement>("Nickname");
+    // nicknameInput = screen.findByLabelText<HTMLInputElement>("nickname");
     // nicknameCheckButton = screen.findByTestId("nicknameCheck");
   });
 

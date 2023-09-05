@@ -11,7 +11,6 @@ import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
 import { authAPI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
-import useUserAuth from "@/hooks/useUserAuth";
 
 const styles = {
   container: `flex flex-col items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
@@ -50,7 +49,6 @@ const Loginpage = () => {
   const [isError, setIsError] = React.useState(false);
   const router = useRouter();
 
-  const { fetchUserAuth } = useUserAuth();
   const emailInput = useInput();
   const passwordInput = useInput();
   const { getIcon } = useIcon();
@@ -62,11 +60,11 @@ const Loginpage = () => {
   const LoginHandler = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await authAPI.localLogin({
+      const { data } = await authAPI.localLogin({
         email: emailInput.value + "",
         password: passwordInput.value + "",
       });
-      fetchUserAuth();
+      console.log(data);
       alert("로그인 성공!");
       router.replace("/home");
     } catch (error) {
@@ -81,7 +79,7 @@ const Loginpage = () => {
         <h1 className={styles.loginSection.title}>Log in</h1>
         <form className={styles.loginSection.form}>
           <InputWithLabel
-            label="E-mail"
+            label="email"
             type="email"
             value={emailInput.value + ""}
             onChange={emailInput.onChange}
