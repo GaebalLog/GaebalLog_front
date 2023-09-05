@@ -13,7 +13,7 @@ declare global {
     like: number;
     liked: boolean;
     img: string[];
-    thumbnail?: string;
+    thumbnail: string | null;
     categories: string[];
     created_at: string;
     bookmarked: boolean;

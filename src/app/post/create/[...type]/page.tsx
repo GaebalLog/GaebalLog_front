@@ -13,13 +13,15 @@ import type { postDataType } from "@/api/postAPI";
 import { postAPI } from "@/api/postAPI";
 import { utilExtractImages } from "@/utils/util-extractImage";
 import { utilReplaceImg } from "@/utils/util-replaceImg";
+import ThumbnailSelector from "@/components/post/ThumbnailSelector";
+import useModalController from "@/hooks/useModalController";
 
 const TimeSetting = dynamic(
   () => import("../../../../components/post/TimeSetting"),
 );
 
 const styles = {
-  wrapper: `w-full h-[calc(100vh-94px)] flex justify-center`,
+  wrapper: `relative w-full h-[calc(100vh-94px)] flex justify-center`,
   form: `flex flex-col`,
   titleBox: {
     wrapper: `flex items-center mt-5 mb-[31px]`,
@@ -48,25 +50,41 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
       title: "",
       content: "",
       img: [],
+      thumbnail: null,
       categories: [],
     });
     const [timeSetting, setTimeSetting] = React.useState({
       startDate: "",
       endDate: "",
     });
+
     const router = useRouter();
+    const { openModal } = useModalController();
+
     React.useEffect(() => {
       setData((prev) => ({ ...prev, content: utilReplaceImg(article) }));
       setData((prev) => ({ ...prev, img: utilExtractImages(article) }));
     }, [article]);
 
     const handleSubmit = async () => {
-      const result = await postAPI.create(data);
+      const feedData = data.thumbnail
+        ? data
+        : { ...data, thumbnail: data.img[0] };
+      const result = await postAPI.create(feedData);
       if (result.status === 201) {
         router.push(`/tech/${result.data.id}`);
         return alert("성공적으로 작성되었습니다.");
       }
       console.log(timeSetting);
+    };
+    const confirmThumbnail = async (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      const thumbnailList = [...data.img].reduce<string[]>((acc, value) => {
+        if (!acc.includes(value)) acc.push(value);
+        return acc;
+      }, []);
+      if (thumbnailList.length < 2) return handleSubmit();
+      else openModal("thumbnailSelectModal");
     };
 
     const titleChangeHanlder = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,6 +98,10 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
 
     const categoryHandler = (categories: string[]) => {
       setData((prev) => ({ ...prev, categories }));
+    };
+
+    const setThumbnail = (thumbnail: string) => {
+      setData((prev) => ({ ...prev, thumbnail }));
     };
 
     React.useEffect(() => {
@@ -101,6 +123,12 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
             )}
           </div>
           <PostEditor content={article} editHandler={contentHandler} />
+          <ThumbnailSelector
+            img={data.img}
+            thumbnail={data.thumbnail}
+            setThumbnail={setThumbnail}
+            handleSubmit={handleSubmit}
+          />
           <div className={styles.bottomBox.wrapper}>
             <AddTagInput
               categories={data.categories}
@@ -115,7 +143,7 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
                 className="px-12"
                 size="bigLogin"
                 color="black"
-                onClick={handleSubmit}
+                onClick={confirmThumbnail}
               >
                 작성 완료
               </Button>

@@ -52,6 +52,9 @@ import calendar_light from "./calendar_light.png";
 import calendar_dark from "./calendar_dark.png";
 import calendar_focus from "./calendar_focus.png";
 import checked_heart from "./checked_heart.png";
+import plus_light from "./plus_light.png";
+import none_check from "./none_check.png";
+import done_check from "./done_check.png";
 const ICON = {
   alarm: [alarm_light, alarm_dark],
   close: [close_light, close_dark],
@@ -82,5 +85,8 @@ const ICON = {
   calendar: [calendar_light, calendar_dark],
   calendar_focus: [calendar_focus, calendar_focus],
   checked_heart: [checked_heart, checked_heart],
+  plus: [plus_light, plus_light],
+  none_check: [none_check, none_check],
+  done_check: [done_check, done_check],
 };
 export default ICON;

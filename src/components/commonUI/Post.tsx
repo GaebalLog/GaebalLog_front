@@ -49,24 +49,23 @@ const Post: React.FC<{
       onClick={onClickHandler}
       data-testid={`post${post.post_id}`}
     >
-      {post.thumbnail === "<img></img>" && (
+      {!post.thumbnail ? (
         <Image
           src={default_thumbnail}
-          width={200}
-          height={200}
+          width={280}
+          height={280}
           alt="썸네일"
           className={`${BG_COLOR.general05}`}
         />
-      )}
-      {post.thumbnail && post.thumbnail !== "<img></img>" && (
-        <div className="w-[200px] h-[200px] overflow-hidden">
+      ) : (
+        <div className="w-[280px] h-[280px] overflow-hidden">
           <div
-            className="w-[200px]"
+            className="w-[280px] thumbnail-box"
             dangerouslySetInnerHTML={{ __html: post.thumbnail }}
           />
         </div>
       )}
-      <div className="flex justify-between flex-col h-[280px] gap-[80px]">
+      <div className="flex justify-between flex-col w-[700px] h-[280px] gap-[80px]">
         <div className="flex flex-col gap-[24px]">
           <div
             className={`flex gap-[20px] items-center ${TEXT_COLOR.general02}`}

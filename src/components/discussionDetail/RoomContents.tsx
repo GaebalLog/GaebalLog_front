@@ -49,7 +49,7 @@ interface chatroom {
 }
 
 const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
-  const [topLeft, setTopLeft] = React.useState({ top: 0, left: 0 });
+  const [topLeft, setTopLeft] = React.useState({ top: "0px", left: "0px" });
   const router = useRouter();
   const { modal, openModal, allCloseModal } = useModalController();
   const { data, isLoading } = useQuery<chatroom>({
@@ -66,8 +66,8 @@ const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
   ) => {
     const rect = event.currentTarget.getBoundingClientRect();
     setTopLeft({
-      top: rect.top + 80,
-      left: rect.left + 17,
+      top: `${rect.top + 80}px`,
+      left: `${rect.left + 17}px`,
     });
     openModal("discussionMore");
   };
@@ -98,7 +98,7 @@ const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
             {more}
           </button>
           {modal.discussionMore && (
-            <Modal topLeft={topLeft} nonBackdrop>
+            <Modal positionOption={topLeft} nonBackdrop>
               <div className={`flex flex-col ${BORDER_COLOR.button}`}>
                 <Link
                   className="text-center"

@@ -2,9 +2,10 @@
 
 import React from "react";
 import { notFound, redirect, useSearchParams } from "next/navigation";
+import { useSetRecoilState } from "recoil";
 
 import { authAPI } from "@/api/authAPI";
-import useUserAuth from "@/hooks/useUserAuth";
+import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 interface snsTypeProps {
   params: {
@@ -14,9 +15,9 @@ interface snsTypeProps {
 
 const SnsLogin = ({ params: { snsType } }: snsTypeProps) => {
   const searchParams = useSearchParams();
-  const { fetchUserAuth } = useUserAuth();
   const acceptedTypes = ["google", "github", "kakao"];
   const isSocialParams = acceptedTypes.includes(snsType[0]);
+  const setisLoggedIn = useSetRecoilState(isLoggedInAtom);
 
   React.useEffect(() => {
     if (!isSocialParams) return notFound();
@@ -35,7 +36,7 @@ const SnsLogin = ({ params: { snsType } }: snsTypeProps) => {
             await authAPI.kakaoLogin(code);
           }
         }
-        fetchUserAuth();
+        setisLoggedIn(true);
       } catch (error) {
         alert("로그인 실패");
       }

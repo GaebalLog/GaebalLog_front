@@ -25,7 +25,12 @@ interface modalProps {
   blockScroll?: boolean;
   onBackdropClick?: () => void;
   nonBackdrop?: boolean;
-  topLeft?: { top: number; left: number };
+  positionOption?: {
+    top?: string;
+    left?: string;
+    bottom?: string;
+    right?: string;
+  };
   children: React.ReactNode;
 }
 
@@ -33,16 +38,18 @@ const Modal: React.FC<modalProps> = ({
   isFixed,
   isBgColor,
   blockScroll,
-  topLeft,
+  positionOption,
   nonBackdrop,
   onBackdropClick, // 모달 닫을 때 사용하는 함수
   children,
 }) => {
   const styles = {
     backdrop: `fixed w-full h-full inset-0 z-10`,
-    contentsBox: `${
-      isFixed ? "fixed" : "absolute"
-    } ${`top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20`}`,
+    contentsBox: `${isFixed ? "fixed" : "absolute"} ${
+      positionOption
+        ? "transform -translate-x-1/2"
+        : "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+    } z-20`,
   };
 
   const onClickHandler = (e: React.MouseEvent) => {
@@ -69,7 +76,7 @@ const Modal: React.FC<modalProps> = ({
           onClick={onClickHandler}
         />
       )}
-      <div className={styles.contentsBox} style={topLeft}>
+      <div className={styles.contentsBox} style={positionOption}>
         {children}
       </div>
     </Portal>
