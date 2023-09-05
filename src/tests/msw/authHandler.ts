@@ -16,4 +16,18 @@ export const authHandler = [
   rest.get("/users", (req, res, ctx) => {
     return res(ctx.status(200));
   }),
+  rest.get("/users/email", (req, res, ctx) => {
+    const emailValue = req.url.searchParams.get("value");
+    if (emailValue === "dddd@gmail.com") {
+      return res(ctx.status(200));
+    }
+    return res(ctx.status(400));
+  }),
+  rest.get("/users/nickname", (req, res, ctx) => {
+    const nicknameValue = req.url.searchParams.get("value");
+    if (nicknameValue === "dd") {
+      return res(ctx.status(200));
+    }
+    return res(ctx.status(400));
+  }),
 ];

@@ -20,7 +20,6 @@ const Signuppage = () => {
     boolean | null
   >(null);
   const router = useRouter();
-  console.log(!!isEmailDuplicated);
 
   const { fetchUserAuth } = useUserAuth();
   const emailInput = useInput();
@@ -105,7 +104,6 @@ const Signuppage = () => {
         alert("회원가입 성공!");
         router.replace("/home");
       } catch (error) {
-        console.log(error);
         alert("회원가입 실패");
       }
     } else {
@@ -130,7 +128,12 @@ const Signuppage = () => {
             />
           </div>
           <div className={styles.checkDuplicateButton}>
-            <Button size="tab" color="white" onClick={emailCheckHandler}>
+            <Button
+              data-testid="emailCheck"
+              size="tab"
+              color="white"
+              onClick={emailCheckHandler}
+            >
               중복 확인
             </Button>
           </div>
@@ -162,7 +165,12 @@ const Signuppage = () => {
             />
           </div>
           <div className={styles.checkDuplicateButton}>
-            <Button size="tab" color="white" onClick={nicknameCheckHandler}>
+            <Button
+              data-testid="nicknameCheck"
+              size="tab"
+              color="white"
+              onClick={nicknameCheckHandler}
+            >
               중복 확인
             </Button>
           </div>
