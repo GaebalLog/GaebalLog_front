@@ -33,7 +33,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className={`${BG_COLOR.primary} ${TEXT_COLOR.primary}`}>
+      <body className={`${BG_COLOR.background} ${TEXT_COLOR.primary}`}>
         <Provider>
           <div className="h-[94px]" />
           <Header />
