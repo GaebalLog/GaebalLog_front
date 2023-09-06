@@ -43,7 +43,7 @@ const LoggedSide: React.FC<props> = ({ position, type }) => {
       <div className={styles.keywordDiv}>
         {keywordList?.map((keyword: string) => (
           <Link key={`logged${keyword}`} href={`/${type}?keyword=${keyword}`}>
-            <Button size="category" color="white" rounded>
+            <Button size="category" color="category" rounded>
               #{keyword}
             </Button>
           </Link>
