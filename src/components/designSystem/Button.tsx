@@ -30,6 +30,7 @@ const COLOR_VARIANT = {
   category: `${BG_COLOR.etcColor01} ${TEXT_COLOR.primary}`,
   cancelButton: `${BG_COLOR.primary} ${TEXT_COLOR.general08}`,
   checkTab: `${BG_COLOR.primary} ${TEXT_COLOR.primary} ${BORDER_COLOR.checkTab}`,
+  notFound: `bg-[#FFFFFF] text-[#000000]`,
 };
 
 interface buttonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

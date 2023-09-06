@@ -27,7 +27,7 @@ const NotFoundPage = () => {
               <li>요청하신 페이지의 주소가 변경,삭제되어 찾을 수 없습니다.</li>
             </ul>
             <Link href="/">
-              <Button size="commentCreate" color="white" border>
+              <Button size="commentCreate" color="notFound" border>
                 홈으로
               </Button>
             </Link>

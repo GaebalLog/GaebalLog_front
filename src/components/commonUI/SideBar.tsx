@@ -39,7 +39,7 @@ const SideBar: React.FC<props> = ({ height, sticky }) => {
           {keywordList?.map((keyword: string) => (
             <Button
               size="category"
-              color="white"
+              color="category"
               key={`side${keyword}`}
               rounded
             >

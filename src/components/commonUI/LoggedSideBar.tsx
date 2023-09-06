@@ -30,7 +30,13 @@ const LoggedSide: React.FC<props> = ({ position, type }) => {
       ? "h-[409px]"
       : "h-[280px]"
   }`;
-  const divHeight = `${position === "bottom" ? "h-[80%]" : "h-[70%]"}`;
+  const divHeight = `${
+    position === "bottom"
+      ? "h-[355px]"
+      : position === "top"
+      ? "h-[250px]"
+      : "h-[150px]"
+  }`;
   const styles = {
     wrapper: `relative w-[380px] px-[16px] py-[24px] ${BG_COLOR.general02} ${BORDER_COLOR.container} ${heightValue}`,
     h1: `font-hack text-[24px] mb-[32px]`,
@@ -43,7 +49,7 @@ const LoggedSide: React.FC<props> = ({ position, type }) => {
       <div className={styles.keywordDiv}>
         {keywordList?.map((keyword: string) => (
           <Link key={`logged${keyword}`} href={`/${type}?keyword=${keyword}`}>
-            <Button size="category" color="white" rounded>
+            <Button size="category" color="category" rounded>
               #{keyword}
             </Button>
           </Link>

@@ -1,7 +1,7 @@
 import React from "react";
 
 import useIcon from "@/hooks/useIcon";
-import { BORDER_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 
 interface CustomNumberInputProps {
   type: "halfDay" | "hour" | "minutes" | "year" | "month" | "days";
@@ -26,7 +26,7 @@ const CustomNumberInput: React.FC<CustomNumberInputProps> = ({
     divBox: `flex items-center ${BORDER_COLOR.button}`,
     input: `${
       type === "year" ? `w-[97px]` : `w-[76px]`
-    } px-4 py-[7.5px] text-[20px] text-center outline-none`,
+    } px-4 py-[7.5px] text-[20px] text-center ${BG_COLOR.primary} outline-none`,
     buttonBox: `flex flex-col gap-3 pr-1`,
   };
 

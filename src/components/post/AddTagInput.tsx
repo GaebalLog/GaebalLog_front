@@ -8,7 +8,7 @@ import NonPortalModal from "../modal/NonPortalModal";
 
 const styles = {
   tagDiv: `relative w-[1068px] flex items-center p-3 ${BORDER_COLOR.button} rounded-full`,
-  input: `flex-grow py-1 px-2 outline-none`,
+  input: `flex-grow py-1 px-2 outline-none ${BG_COLOR.background} dark:placeholder:text-[#888888]`,
   modal: `py-4 px-6 ${BG_COLOR.general06} ${TEXT_COLOR.inverse}`,
   tag: `flex gap-[6px] mr-1 px-3`,
 };
