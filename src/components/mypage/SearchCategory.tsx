@@ -4,13 +4,14 @@ import { BG_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
 
 import NonPortalModal from "../modal/NonPortalModal";
+import NoneResult from "../commonUI/NoneResult";
 
 const modalPosition = {
   topLeft: { top: 50, left: 19.5 },
   modalWidth: "w-[1180px]",
 };
 const styles = {
-  searchUl: `w-[1261px] shadow-xl ${BG_COLOR.primary} overflow-y-scroll max-h-[300px]`,
+  searchUl: `w-[1261px] shadow-xl ${BG_COLOR.primary} overflow-y-scroll max-h-[400px]`,
   searchList: `flex items-center px-[24px] w-full gap-[20px] h-[60px] cursor-pointer`,
 };
 
@@ -48,7 +49,7 @@ const SearchCategory: React.FC<props> = ({
               </li>
             );
           })}
-        {displayedResults?.length === 0 && <p>검색결과가 없습니다.</p>}
+        {displayedResults?.length === 0 && <NoneResult width="w-[100%]" />}
       </ul>
     </NonPortalModal>
   );
