@@ -1,7 +1,7 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 
-import { BG_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 import Button from "../../designSystem/Button";
@@ -9,7 +9,7 @@ import Button from "../../designSystem/Button";
 const styles = {
   form: `flex flex-col self-start`,
   label: `text-2xl font-bold`,
-  textarea: `w-full h-[300px] mt-5 p-6 border border-[#DCDCDC] ${BG_COLOR.general02}`,
+  textarea: `w-full h-[300px] mt-5 p-6 ${BG_COLOR.general02} ${BORDER_COLOR.container}`,
   submitButton: `mt-4 self-end`,
   line: `w-full h-[3px] mt-[63px] mb-8 ${BG_COLOR.general01}`,
   blank: `mt-[63px] mb-8`,
