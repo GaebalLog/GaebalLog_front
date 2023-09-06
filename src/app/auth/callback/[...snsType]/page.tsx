@@ -2,10 +2,9 @@
 
 import React from "react";
 import { notFound, redirect, useSearchParams } from "next/navigation";
-import { useSetRecoilState } from "recoil";
 
 import { authAPI } from "@/api/authAPI";
-import { isLoggedInAtom } from "@/hooks/useUserAuth";
+import useUserAuth from "@/hooks/useUserAuth";
 
 interface snsTypeProps {
   params: {
@@ -14,10 +13,10 @@ interface snsTypeProps {
 }
 
 const SnsLogin = ({ params: { snsType } }: snsTypeProps) => {
+  const { setUserInfo } = useUserAuth();
   const searchParams = useSearchParams();
   const acceptedTypes = ["google", "github", "kakao"];
   const isSocialParams = acceptedTypes.includes(snsType[0]);
-  const setisLoggedIn = useSetRecoilState(isLoggedInAtom);
 
   React.useEffect(() => {
     if (!isSocialParams) return notFound();
@@ -27,18 +26,20 @@ const SnsLogin = ({ params: { snsType } }: snsTypeProps) => {
       try {
         if (code) {
           if (snsType[0] === "google") {
-            await authAPI.googleLogin(code);
+            const { data } = await authAPI.googleLogin(code);
+            setUserInfo(data);
           }
           if (snsType[0] === "github") {
-            await authAPI.githubLogin(code);
+            const { data } = await authAPI.githubLogin(code);
+            setUserInfo(data);
           }
           if (snsType[0] === "kakao") {
-            await authAPI.kakaoLogin(code);
+            const { data } = await authAPI.kakaoLogin(code);
+            setUserInfo(data);
           }
         }
-        setisLoggedIn(true);
       } catch (error) {
-        alert("로그인 실패");
+        throw new Error("소셜 로그인 실패");
       }
     };
 

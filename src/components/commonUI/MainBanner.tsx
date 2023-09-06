@@ -33,7 +33,7 @@ const styles = {
     header: `flex w-full bg-[#191919]`,
     headerIconDiv: `flex p-[10px]`,
     contents: `px-6 flex flex-col gap-[5px] font-hack text-[#7A7A7A]`,
-    createDiv: `flex justify-center items-center h-[49px] bg-[#2D2D2D] text-2xl text-[#DFAE3D] font-hack`,
+    createDiv: `flex justify-end items-center h-[49px] pr-5 bg-[#2D2D2D] text-2xl text-[#DFAE3D] font-hack`,
   },
 };
 
@@ -132,7 +132,7 @@ const MainBanner = () => {
           {nickname === "" ? (
             <Link href={"auth/signup"}>{"<Create an Account />"}</Link>
           ) : (
-            <span>{`Welcome to ${nickname}`}</span>
+            <span>{`Welcome to ${nickname} 님`}</span>
           )}
         </div>
       </div>

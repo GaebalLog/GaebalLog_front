@@ -11,6 +11,7 @@ import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
 import { authAPI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
+import useUserAuth from "@/hooks/useUserAuth";
 
 const styles = {
   container: `flex flex-col items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
@@ -49,6 +50,7 @@ const Loginpage = () => {
   const [isError, setIsError] = React.useState(false);
   const router = useRouter();
 
+  const { setUserInfo } = useUserAuth();
   const emailInput = useInput();
   const passwordInput = useInput();
   const { getIcon } = useIcon();
@@ -64,11 +66,9 @@ const Loginpage = () => {
         email: emailInput.value + "",
         password: passwordInput.value + "",
       });
-      console.log(data);
-      alert("로그인 성공!");
+      setUserInfo(data);
       router.replace("/home");
     } catch (error) {
-      console.log(error);
       setIsError(true);
     }
   };

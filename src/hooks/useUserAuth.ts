@@ -1,6 +1,9 @@
 import { atom, useSetRecoilState } from "recoil";
 
-import { authAPI } from "@/api/authAPI";
+interface setUserInfoParameter {
+  nickname: string;
+  image_url: string;
+}
 
 export const isLoggedInAtom = atom({
   key: "isLoggedIn",
@@ -17,18 +20,14 @@ export const userAtom = atom({
 
 const useUserAuth = () => {
   const setisLoggedIn = useSetRecoilState(isLoggedInAtom);
-  const setUserInfo = useSetRecoilState(userAtom);
+  const setUser = useSetRecoilState(userAtom);
 
-  const fetchUserAuth = async () => {
-    try {
-      const { data } = await authAPI.userAuth();
-      setUserInfo({ nickname: data.nickname, profileImg: data.image_url });
-      setisLoggedIn(true);
-    } catch (error) {
-      return;
-    }
+  const setUserInfo = (data: setUserInfoParameter) => {
+    setUser({ nickname: data.nickname, profileImg: data.image_url });
+    setisLoggedIn(true);
   };
-  return { fetchUserAuth };
+
+  return { setUserInfo };
 };
 
 export default useUserAuth;

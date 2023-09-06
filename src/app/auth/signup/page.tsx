@@ -9,8 +9,8 @@ import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import { authAPI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
 import useValidation from "@/hooks/useValidation";
-import useUserAuth from "@/hooks/useUserAuth";
 import InputWithCheck from "@/components/signup/InputWitHCheck";
+import useUserAuth from "@/hooks/useUserAuth";
 
 const Signuppage = () => {
   const [isConfirm, setIsConfirm] = React.useState(false);
@@ -22,7 +22,7 @@ const Signuppage = () => {
   >(null);
   const router = useRouter();
 
-  const { fetchUserAuth } = useUserAuth();
+  const { setUserInfo } = useUserAuth();
   const emailInput = useInput();
   const nicknameInput = useInput();
   const passwordInput = useInput();
@@ -92,16 +92,16 @@ const Signuppage = () => {
       isConfirm
     ) {
       try {
-        await authAPI.localSignup({
+        const { data } = await authAPI.localSignup({
           email: emailInput.value + "",
           password: passwordInput.value + "",
           nickname: nicknameInput.value + "",
         });
-        fetchUserAuth();
+        setUserInfo(data);
         alert("회원가입 성공!");
         router.replace("/home");
       } catch (error) {
-        alert("회원가입 실패");
+        throw new Error("회원가입 실패");
       }
     } else {
       alert("항목들을 전부 확인해주세요!");
