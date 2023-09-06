@@ -39,7 +39,7 @@ const SnsLogin = ({ params: { snsType } }: snsTypeProps) => {
           }
         }
       } catch (error) {
-        throw new Error("소셜 로그인 실패");
+        console.log("소셜 로그인 실패 ::", error);
       }
     };
 

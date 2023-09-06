@@ -17,7 +17,7 @@ const SettingsProvider: React.FC<props> = ({ children }) => {
         const { data } = await authAPI.userAuth();
         setUserInfo(data);
       } catch (error) {
-        throw new Error("유저 인증 실패");
+        console.log("유저 인증 실패", error);
       }
     };
 

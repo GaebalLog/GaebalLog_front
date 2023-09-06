@@ -9,7 +9,7 @@ import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import { authAPI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
 import useValidation from "@/hooks/useValidation";
-import InputWithCheck from "@/components/signup/InputWitHCheck";
+import InputWithCheck from "@/components/signup/InputWithCheck";
 import useUserAuth from "@/hooks/useUserAuth";
 
 const Signuppage = () => {
@@ -101,7 +101,7 @@ const Signuppage = () => {
         alert("회원가입 성공!");
         router.replace("/home");
       } catch (error) {
-        throw new Error("회원가입 실패");
+        console.log("회원가입 실패 ::", error);
       }
     } else {
       alert("항목들을 전부 확인해주세요!");
