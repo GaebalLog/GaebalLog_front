@@ -1,7 +1,7 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
 
-import { BG_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
 import { openCommentEditorAtom } from "@/constants/global/atoms";
 
@@ -9,7 +9,7 @@ import ArrowInNestedComment from "../icons/ArrowInNestedComment";
 
 const style = {
   wrapper: `mt-8`,
-  textarea: `w-full h-[130px] p-6 border border-[#DCDCDC] ${BG_COLOR.general02}`,
+  textarea: `w-full h-[130px] p-6 ${BG_COLOR.general02} ${BORDER_COLOR.container}`,
   buttonBox: `flex justify-end gap-1 mt-4 self-end`,
 };
 
