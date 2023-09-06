@@ -23,7 +23,7 @@ describe("로그인 페이지 테스트", () => {
   });
 
   test("로그인 성공 테스트", async () => {
-    await userEvent.type(await screen.findByLabelText("E-mail"), "dd@asa.com");
+    await userEvent.type(await screen.findByLabelText("email"), "dd@asa.com");
     await userEvent.type(await screen.findByLabelText("PASSWORD"), "!1234567a");
     await userEvent.click(
       await screen.findByRole("button", { name: "Log in" }),
@@ -39,7 +39,7 @@ describe("로그인 페이지 테스트", () => {
         return res(ctx.status(500));
       }),
     );
-    await userEvent.type(await screen.findByLabelText("E-mail"), "dd@asa.com");
+    await userEvent.type(await screen.findByLabelText("email"), "dd@asa.com");
     await userEvent.type(await screen.findByLabelText("PASSWORD"), "!1234567a");
     await userEvent.click(
       await screen.findByRole("button", { name: "Log in" }),

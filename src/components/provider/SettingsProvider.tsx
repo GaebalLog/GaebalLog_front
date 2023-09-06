@@ -2,16 +2,26 @@ import React from "react";
 
 import useModalController from "@/hooks/useModalController";
 import useUserAuth from "@/hooks/useUserAuth";
+import { authAPI } from "@/api/authAPI";
 
 interface props {
   children: React.ReactNode;
 }
 const SettingsProvider: React.FC<props> = ({ children }) => {
   const { allCloseModal } = useModalController();
-  const { fetchUserAuth } = useUserAuth();
+  const { setUserInfo } = useUserAuth();
 
   React.useEffect(() => {
-    fetchUserAuth();
+    const fetchAuth = async () => {
+      try {
+        const { data } = await authAPI.userAuth();
+        setUserInfo(data);
+      } catch (error) {
+        console.log("유저 인증 실패", error);
+      }
+    };
+
+    fetchAuth();
   }, []);
 
   return (

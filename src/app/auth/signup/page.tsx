@@ -9,6 +9,7 @@ import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import { authAPI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
 import useValidation from "@/hooks/useValidation";
+import InputWithCheck from "@/components/signup/InputWithCheck";
 import useUserAuth from "@/hooks/useUserAuth";
 
 const Signuppage = () => {
@@ -21,7 +22,7 @@ const Signuppage = () => {
   >(null);
   const router = useRouter();
 
-  const { fetchUserAuth } = useUserAuth();
+  const { setUserInfo } = useUserAuth();
   const emailInput = useInput();
   const nicknameInput = useInput();
   const passwordInput = useInput();
@@ -39,19 +40,17 @@ const Signuppage = () => {
     wrapper: `flex justify-center items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
     form: `flex flex-col gap-5`,
     title: `text-[32px] text-center font-hack`,
-    checkDuplicateButton: `mt-auto ml-6 mb-1`,
-    emailValidationMsg: `-mt-[10px] ${
+    emailValidationMsg: `-mt-[10px] select-none ${
       isEmailValid || emailInput.value === ""
         ? "text-transparent"
         : TEXT_COLOR.error
     }`,
-    emailDuplicationMsg: `-mt-[10px]`,
-    pwdValidationMsg: `-mt-[10px] mb-2 ${
+    pwdValidationMsg: `-mt-[10px] mb-2 select-none ${
       isPasswordValid || passwordInput.value === ""
         ? TEXT_COLOR.general07rev
         : TEXT_COLOR.error
     }`,
-    pwdConfirmValidationMsg: `-mt-[10px] ${
+    pwdConfirmValidationMsg: `-mt-[10px] select-none ${
       passwordInput.value === passwordConfirmInput.value
         ? "text-transparent"
         : TEXT_COLOR.error
@@ -61,8 +60,7 @@ const Signuppage = () => {
     createButton: `text-center mt-1`,
   };
 
-  const emailCheckHandler = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const emailCheckHandler = async () => {
     if (!isEmailValid) return;
     try {
       await authAPI.emailConfirm(emailInput.value + "");
@@ -71,8 +69,7 @@ const Signuppage = () => {
       setIsEmailDuplicated(true);
     }
   };
-  const nicknameCheckHandler = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const nicknameCheckHandler = async () => {
     if (nicknameInput.value === "") return;
     try {
       await authAPI.nicknameConfirm(nicknameInput.value + "");
@@ -95,16 +92,16 @@ const Signuppage = () => {
       isConfirm
     ) {
       try {
-        await authAPI.localSignup({
+        const { data } = await authAPI.localSignup({
           email: emailInput.value + "",
           password: passwordInput.value + "",
           nickname: nicknameInput.value + "",
         });
-        fetchUserAuth();
+        setUserInfo(data);
         alert("회원가입 성공!");
         router.replace("/home");
       } catch (error) {
-        alert("회원가입 실패");
+        console.log("회원가입 실패 ::", error);
       }
     } else {
       alert("항목들을 전부 확인해주세요!");
@@ -115,69 +112,25 @@ const Signuppage = () => {
     <div className={styles.wrapper}>
       <form className={styles.form} onSubmit={onSubmitHandler}>
         <h1 className={styles.title}>Sign up</h1>
-        <div className="flex">
-          <div className="w-[574px]">
-            <InputWithLabel
-              label="E-mail"
-              type="email"
-              value={emailInput.value + ""}
-              onChange={(e) => {
-                emailInput.onChange(e);
-                setIsEmailDuplicated(null);
-              }}
-            />
-          </div>
-          <div className={styles.checkDuplicateButton}>
-            <Button
-              data-testid="emailCheck"
-              size="tab"
-              color="white"
-              onClick={emailCheckHandler}
-            >
-              중복 확인
-            </Button>
-          </div>
-        </div>
-        {isEmailDuplicated === false && (
-          <p className={`${styles.emailDuplicationMsg} ${TEXT_COLOR.success}`}>
-            사용 가능한 이메일 입니다.
-          </p>
-        )}
-        {isEmailDuplicated && (
-          <p className={`${styles.emailDuplicationMsg} ${TEXT_COLOR.error}`}>
-            이미 존재하는 이메일입니다.다른 이메일을 입력해주세요.
-          </p>
-        )}
+        <InputWithCheck
+          type="email"
+          inputValue={emailInput}
+          setDuplicated={setIsEmailDuplicated}
+          onClick={emailCheckHandler}
+          isDuplicated={isEmailDuplicated}
+        />
         {isEmailDuplicated === null && (
           <p className={styles.emailValidationMsg}>
             입력한 이메일은 잘못 된 형식입니다.
           </p>
         )}
-        <div className="flex">
-          <div className="w-[574px]">
-            <InputWithLabel
-              label="Nickname"
-              value={nicknameInput.value + ""}
-              onChange={(e) => {
-                nicknameInput.onChange(e);
-                setIsNicknameDuplicated(null);
-              }}
-            />
-          </div>
-          <div className={styles.checkDuplicateButton}>
-            <Button
-              data-testid="nicknameCheck"
-              size="tab"
-              color="white"
-              onClick={nicknameCheckHandler}
-            >
-              중복 확인
-            </Button>
-          </div>
-        </div>
-        <p className={`-mt-[10px] mb-2 select-none ${"text-transparent"}`}>
-          사용 가능한 닉네임입니다.
-        </p>
+        <InputWithCheck
+          type="nickname"
+          inputValue={nicknameInput}
+          setDuplicated={setIsNicknameDuplicated}
+          onClick={nicknameCheckHandler}
+          isDuplicated={isNicknameDuplicated}
+        />
         <InputWithLabel
           className="w-[574px]"
           label="Password"

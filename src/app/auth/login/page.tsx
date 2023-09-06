@@ -50,7 +50,7 @@ const Loginpage = () => {
   const [isError, setIsError] = React.useState(false);
   const router = useRouter();
 
-  const { fetchUserAuth } = useUserAuth();
+  const { setUserInfo } = useUserAuth();
   const emailInput = useInput();
   const passwordInput = useInput();
   const { getIcon } = useIcon();
@@ -62,15 +62,13 @@ const Loginpage = () => {
   const LoginHandler = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await authAPI.localLogin({
+      const { data } = await authAPI.localLogin({
         email: emailInput.value + "",
         password: passwordInput.value + "",
       });
-      fetchUserAuth();
-      alert("로그인 성공!");
+      setUserInfo(data);
       router.replace("/home");
     } catch (error) {
-      console.log(error);
       setIsError(true);
     }
   };
@@ -81,7 +79,7 @@ const Loginpage = () => {
         <h1 className={styles.loginSection.title}>Log in</h1>
         <form className={styles.loginSection.form}>
           <InputWithLabel
-            label="E-mail"
+            label="email"
             type="email"
             value={emailInput.value + ""}
             onChange={emailInput.onChange}
