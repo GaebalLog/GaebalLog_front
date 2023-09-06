@@ -55,4 +55,5 @@ export const BORDER_COLOR = {
   checkTab: "border-b-[4px] border-[#000000] dark:border-[#FFFFFF]",
   containerBottom: "border-b-[2px] border-[#DCDCDC] dark:border-[#2A2A2A]",
   containerRight: "border-r-[3px] border-[#F5F5F5] dark:border-[#282828]",
+  purple: "border-[3px] border-[#967AC3] dark:border-[#967AC3]",
 };

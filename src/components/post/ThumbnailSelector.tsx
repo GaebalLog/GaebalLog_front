@@ -70,7 +70,7 @@ const ThumbnailSelector: React.FC<props> = ({
           </div>
           <div className={styles.modalContainer}>
             <p className="text-[24px] font-bold mb-[24px]">대표이미지 설정</p>
-            <p>권장 해상도(가로 : 200px, 세로 : 200px)</p>
+            <p>권장 해상도(가로 : 280px, 세로 : 280px)</p>
             <ul className={styles.settingModalWrapper}>
               <div className="h-full relative flex items-start">
                 <label htmlFor="profileImg">
@@ -93,13 +93,24 @@ const ThumbnailSelector: React.FC<props> = ({
                 <li
                   key={`썸네일 ${idx}`}
                   onClick={() => setThumbnail(imgSrc)}
-                  className="flex flex-col items-center gap-[10px] cursor-pointer"
+                  className="flex flex-col items-center relative gap-[10px] cursor-pointer"
                 >
                   <div
-                    className={`thumbnail-box ${BORDER_COLOR.button}`}
+                    className={`thumbnail-box ${
+                      thumbnail === imgSrc
+                        ? BORDER_COLOR.purple
+                        : BORDER_COLOR.button
+                    } ${BG_COLOR.general02}`}
                     dangerouslySetInnerHTML={{ __html: imgSrc }}
                   />
                   {thumbnail === imgSrc ? doneCheck : noneCheck}
+                  {thumbnail === imgSrc && (
+                    <div
+                      className={`absolute top-0 left-0 p-[10px] ${BG_COLOR.accentPurple} text-white`}
+                    >
+                      대표이미지
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
