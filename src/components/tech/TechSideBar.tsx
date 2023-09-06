@@ -19,7 +19,7 @@ const TechSideBar = () => {
           <Link href="/post/create/tech">
             <Button
               size="middleCreate"
-              color="white"
+              color="background"
               border
               className="rounded-[3px] w-[380px]"
             >

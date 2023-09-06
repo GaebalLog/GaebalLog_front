@@ -21,7 +21,7 @@ const DiscussionSideBar = () => {
           <Link href="/post/create/discussion">
             <Button
               size="middleCreate"
-              color="white"
+              color="background"
               border
               className="rounded-[3px] w-[380px]"
             >
