@@ -100,9 +100,7 @@ const MyPageCategory = () => {
       className={`relative flex flex-col items-center py-[24px] w-[1632px] h-[400px] ${BG_COLOR.general02} ${BORDER_COLOR.container} mt-[20px]`}
       onKeyDown={keyboardHandler}
     >
-      <h1 className="font-hack text-[24px] mb-[32px] ml-[150px]">
-        My Keyword Total time
-      </h1>
+      <h1 className="font-hack text-[24px] mb-[32px]">My Keyword Total time</h1>
       <div className="relative">
         <Input
           type="mypage"

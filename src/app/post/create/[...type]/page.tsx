@@ -79,12 +79,13 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
     };
     const confirmThumbnail = async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
-      const thumbnailList = [...data.img].reduce<string[]>((acc, value) => {
-        if (!acc.includes(value)) acc.push(value);
-        return acc;
-      }, []);
-      if (thumbnailList.length < 2) return handleSubmit();
-      else openModal("thumbnailSelectModal");
+      return openModal("thumbnailSelectModal");
+      // const thumbnailList = [...data.img].reduce<string[]>((acc, value) => {
+      //   if (!acc.includes(value)) acc.push(value);
+      //   return acc;
+      // }, []);
+      // if (thumbnailList.length < 2) return handleSubmit();
+      // else openModal("thumbnailSelectModal");
     };
 
     const titleChangeHanlder = (e: React.ChangeEvent<HTMLInputElement>) => {
