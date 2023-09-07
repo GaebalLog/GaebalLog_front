@@ -23,7 +23,7 @@ describe("로그인 페이지 테스트", () => {
   });
 
   test("로그인 성공 테스트", async () => {
-    await userEvent.type(await screen.findByLabelText("email"), "dd@asa.com");
+    await userEvent.type(await screen.findByLabelText("E-mail"), "dd@asa.com");
     await userEvent.type(await screen.findByLabelText("PASSWORD"), "!1234567a");
     await userEvent.click(
       await screen.findByRole("button", { name: "Log in" }),
@@ -39,7 +39,7 @@ describe("로그인 페이지 테스트", () => {
         return res(ctx.status(500));
       }),
     );
-    await userEvent.type(await screen.findByLabelText("email"), "dd@asa.com");
+    await userEvent.type(await screen.findByLabelText("E-mail"), "dd@asa.com");
     await userEvent.type(await screen.findByLabelText("PASSWORD"), "!1234567a");
     await userEvent.click(
       await screen.findByRole("button", { name: "Log in" }),
@@ -49,26 +49,23 @@ describe("로그인 페이지 테스트", () => {
     ).toHaveClass("text-[#FF0000]");
   });
 
-  // test("구글 로그인 테스트", async () => {
-  //   const googleURL =
-  //     `https://accounts.google.com/o/oauth2/v2/auth?` +
-  //     `redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&` +
-  //     `client_id=${process.env.NEXT_PUBLIC_GOOGLE_ID}&` +
-  //     `response_type=code&` +
-  //     `scope=${[
-  //       "https://www.googleapis.com/auth/userinfo.profile",
-  //       "https://www.googleapis.com/auth/userinfo.email",
-  //     ].join(" ")}`;
-
-  //   await userEvent.click(await screen.findByAltText("google"));
-  //   expect(mockNavigation).toHaveBeenCalledWith(googleURL);
-
-  //   render(<SnsLogin params={{ snsType: "google" }} />);
-
-  //   await waitFor(() => {
-  //     expect(mockNavigation).toHaveBeenCalledWith("/home");
-  //   });
-  // });
+  test("구글 로그인 테스트", async () => {
+    //   const googleURL =
+    //     `https://accounts.google.com/o/oauth2/v2/auth?` +
+    //     `redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&` +
+    //     `client_id=${process.env.NEXT_PUBLIC_GOOGLE_ID}&` +
+    //     `response_type=code&` +
+    //     `scope=${[
+    //       "https://www.googleapis.com/auth/userinfo.profile",
+    //       "https://www.googleapis.com/auth/userinfo.email",
+    //     ].join(" ")}`;
+    //   await userEvent.click(await screen.findByAltText("google"));
+    //   expect(mockNavigation).toHaveBeenCalledWith(googleURL);
+    //   render(<SnsLogin params={{ snsType: "google" }} />);
+    //   await waitFor(() => {
+    //     expect(mockNavigation).toHaveBeenCalledWith("/home");
+    //   });
+  });
 });
 
 describe("헤더 경로 이동 테스트", () => {

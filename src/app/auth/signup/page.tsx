@@ -45,6 +45,7 @@ const Signuppage = () => {
         ? "text-transparent"
         : TEXT_COLOR.error
     }`,
+    spaceDiv: `-mt-[10px] text-transparent select-none`,
     pwdValidationMsg: `-mt-[10px] mb-2 select-none ${
       isPasswordValid || passwordInput.value === ""
         ? TEXT_COLOR.general07rev
@@ -131,6 +132,9 @@ const Signuppage = () => {
           onClick={nicknameCheckHandler}
           isDuplicated={isNicknameDuplicated}
         />
+        {isNicknameDuplicated === null && (
+          <div className={styles.spaceDiv}>더미</div>
+        )}
         <InputWithLabel
           className="w-[574px]"
           label="Password"

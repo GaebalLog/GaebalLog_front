@@ -30,7 +30,6 @@ const InputWithCheck: React.FC<InputWithCheckProps> = ({
 }) => {
   const inputType = type === "email" ? "email" : "text";
   const msgText = type === "email" ? "이메일" : "닉네임";
-  console.log(isDuplicated);
 
   return (
     <>

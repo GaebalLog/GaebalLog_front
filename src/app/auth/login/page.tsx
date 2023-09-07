@@ -79,7 +79,7 @@ const Loginpage = () => {
         <h1 className={styles.loginSection.title}>Log in</h1>
         <form className={styles.loginSection.form}>
           <InputWithLabel
-            label="email"
+            label="E-mail"
             type="email"
             value={emailInput.value + ""}
             onChange={emailInput.onChange}
