@@ -10,7 +10,7 @@ import Button from "../designSystem/Button";
 
 const styles = {
   modalContainer: `w-[1472px] h-[683px] px-[56px] py-[56px] ${BG_COLOR.primary} ${BORDER_COLOR.button}`,
-  settingModalWrapper: `flex items-start gap-[80px] h-[400px] px-20 py-[30px] gap-[30px] overflow-auto`,
+  settingModalWrapper: `flex items-start gap-[80px] h-[400px] py-[30px] gap-[30px] overflow-auto`,
 };
 
 interface props {
