@@ -28,7 +28,7 @@ const styles = {
   },
 };
 
-export const googleURL =
+const googleURL =
   `https://accounts.google.com/o/oauth2/v2/auth?` +
   `redirect_uri=${googleURI}&` +
   `client_id=${process.env.NEXT_PUBLIC_GOOGLE_ID}&` +
@@ -37,12 +37,12 @@ export const googleURL =
     "https://www.googleapis.com/auth/userinfo.profile",
     "https://www.googleapis.com/auth/userinfo.email",
   ].join(" ")}`;
-export const kakaoURL =
+const kakaoURL =
   `https://kauth.kakao.com/oauth/authorize?` +
   `client_id=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&` +
   `redirect_uri=${kakaoURI}&` +
   `response_type=code&`;
-export const githubURL =
+const githubURL =
   `https://github.com/login/oauth/authorize?` +
   `client_id=${process.env.NEXT_PUBLIC_GITHUB_API_KEY}&`;
 

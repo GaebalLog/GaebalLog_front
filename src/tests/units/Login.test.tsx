@@ -3,14 +3,11 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
-import Loginpage, {
-  githubURL,
-  googleURL,
-  kakaoURL,
-} from "@/app/auth/login/page";
+import Loginpage from "@/app/auth/login/page";
 import SnsLogin from "@/app/auth/callback/[...snsType]/page";
 import Provider from "@/components/provider/Provider";
 import HomePage from "@/app/home/page";
+import { googleURI, kakaoURI } from "@/api/authAPI";
 
 import { mockNavigation } from "../__mocks__/next/navigation";
 import { server } from "../msw/server";
@@ -97,14 +94,31 @@ describe("소셜 로그인 테스트", () => {
   };
 
   test("구글 로그인 테스트", async () => {
+    const googleURL =
+      `https://accounts.google.com/o/oauth2/v2/auth?` +
+      `redirect_uri=${googleURI}&` +
+      `client_id=${process.env.NEXT_PUBLIC_GOOGLE_ID}&` +
+      `response_type=code&` +
+      `scope=${[
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/userinfo.email",
+      ].join(" ")}`;
     socialLoginTest("google", googleURL ?? "");
   });
 
   test("카카오 로그인 테스트", async () => {
+    const kakaoURL =
+      `https://kauth.kakao.com/oauth/authorize?` +
+      `client_id=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&` +
+      `redirect_uri=${kakaoURI}&` +
+      `response_type=code&`;
     socialLoginTest("kakao", kakaoURL ?? "");
   });
 
   test("깃허브 로그인 테스트", async () => {
+    const githubURL =
+      `https://github.com/login/oauth/authorize?` +
+      `client_id=${process.env.NEXT_PUBLIC_GITHUB_API_KEY}&`;
     socialLoginTest("github", githubURL ?? "");
   });
 });
