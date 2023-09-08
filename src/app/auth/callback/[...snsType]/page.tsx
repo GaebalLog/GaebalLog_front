@@ -8,7 +8,7 @@ import useUserAuth from "@/hooks/useUserAuth";
 
 interface snsTypeProps {
   params: {
-    snsType: string;
+    snsType: string[];
   };
 }
 
@@ -20,8 +20,7 @@ const SnsLogin = ({ params: { snsType } }: snsTypeProps) => {
 
   React.useEffect(() => {
     if (!isSocialParams) return notFound();
-
-    const fetchData = async () => {
+    const fetchSocialLogin = async () => {
       const code = searchParams.get("code");
       try {
         if (code) {
@@ -42,10 +41,9 @@ const SnsLogin = ({ params: { snsType } }: snsTypeProps) => {
         console.log("소셜 로그인 실패 ::", error);
       }
     };
-
-    fetchData();
+    fetchSocialLogin();
     redirect("/home");
-  }, [snsType]);
+  }, []);
 
   return <></>;
 };

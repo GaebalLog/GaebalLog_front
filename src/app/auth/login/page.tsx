@@ -9,7 +9,7 @@ import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import InputWithLabel from "@/components/designSystem/InputWithLabel";
 import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
-import { authAPI } from "@/api/authAPI";
+import { authAPI, googleURI, kakaoURI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
 import useUserAuth from "@/hooks/useUserAuth";
 
@@ -28,21 +28,21 @@ const styles = {
   },
 };
 
-const googleURL =
+export const googleURL =
   `https://accounts.google.com/o/oauth2/v2/auth?` +
-  `redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&` +
+  `redirect_uri=${googleURI}&` +
   `client_id=${process.env.NEXT_PUBLIC_GOOGLE_ID}&` +
   `response_type=code&` +
   `scope=${[
     "https://www.googleapis.com/auth/userinfo.profile",
     "https://www.googleapis.com/auth/userinfo.email",
   ].join(" ")}`;
-const kakaoURL =
+export const kakaoURL =
   `https://kauth.kakao.com/oauth/authorize?` +
   `client_id=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&` +
-  `redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&` +
+  `redirect_uri=${kakaoURI}&` +
   `response_type=code&`;
-const githubURL =
+export const githubURL =
   `https://github.com/login/oauth/authorize?` +
   `client_id=${process.env.NEXT_PUBLIC_GITHUB_API_KEY}&`;
 
