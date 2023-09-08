@@ -9,11 +9,14 @@ import Button from "@/components/designSystem/Button";
 import Label from "@/components/commonUI/Label";
 import { authAPI } from "@/api/authAPI";
 import { userAtom } from "@/hooks/useUserAuth";
+import useInput from "@/hooks/useInput";
 
 const MyInfo = () => {
   const [newProfileImg, setNewProfileImg] = React.useState<string>("");
   const imgRef = React.useRef<HTMLInputElement>(null);
   const { nickname, profileImg } = useRecoilValue(userAtom);
+
+  const nicknameInput = useInput();
 
   // setNewProfileImg 훅이 필요(수정될때마다 서버와 동기화)
   const onChangeImgHandler = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +39,7 @@ const MyInfo = () => {
   };
 
   const updateNicknameHandler = async () => {
-    const { data } = await authAPI.updateNickname(nickname);
+    const { data } = await authAPI.updateNickname(nicknameInput.value + "");
     console.log(data);
   };
 
@@ -77,6 +80,7 @@ const MyInfo = () => {
               data-testid="nicknameInput"
               placeholder={nickname}
               className={`w-[200px] bg-inherit py-[12px] ${BORDER_COLOR.containerBottom}`}
+              {...nicknameInput}
             />
             <Button
               size="button"
