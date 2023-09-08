@@ -19,7 +19,7 @@ const styles = {
     wrapper: `w-[465px]`,
     title: `text-[32px] text-center leading-normal mt-12 mb-[88px] font-hack`,
     form: `flex flex-col gap-[38px]`,
-    localSignUp: `flex justify-center gap-11 mt-[18px] pl-9`,
+    localSignUp: `flex justify-center gap-11 mt-[18px] pl-[88px]`,
   },
   line: `w-full h-[3px] mt-[57px] mb-[29px] ${BG_COLOR.general03}`,
   social: {
@@ -108,9 +108,9 @@ const Loginpage = () => {
           >
             회원가입
           </Link>
-          <div className={`leading-none ${TEXT_COLOR.general03rev}`}>|</div>
+          <div className={`leading-none pl- ${TEXT_COLOR.general03rev}`}>|</div>
           <button className={`leading-none ${TEXT_COLOR.general07rev}`}>
-            비밀번호 찾기
+            Email / 비밀번호 찾기
           </button>
         </div>
       </section>
