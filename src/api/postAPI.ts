@@ -19,9 +19,7 @@ export const postAPI = {
     return instance.post("/post", sendData);
   },
   getAll: (sort: "views" | "created_at" | "neighbor", page: number) => {
-    return instance.get<allPostsType>(
-      `/post/all/${sort}/${userId}?page=${page}`,
-    );
+    return instance.get<allPostsType>(`/post/all/${sort}?page=${page}`);
   },
   getDetail: (post_id: number) => {
     return instance.get<postListAuthor>(`/post/detail/${post_id}`);
