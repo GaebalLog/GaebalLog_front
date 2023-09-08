@@ -1,8 +1,8 @@
 import { instance } from "./api";
 
-const googleURI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
-const kakaoURI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
-const githubURI = process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI;
+export const googleURI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+export const kakaoURI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
+export const githubURI = process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI;
 
 export const authAPI = {
   // 로컬

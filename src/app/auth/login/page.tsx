@@ -9,7 +9,7 @@ import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import InputWithLabel from "@/components/designSystem/InputWithLabel";
 import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
-import { authAPI } from "@/api/authAPI";
+import { authAPI, googleURI, kakaoURI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
 import useUserAuth from "@/hooks/useUserAuth";
 
@@ -19,7 +19,7 @@ const styles = {
     wrapper: `w-[465px]`,
     title: `text-[32px] text-center leading-normal mt-12 mb-[88px] font-hack`,
     form: `flex flex-col gap-[38px]`,
-    localSignUp: `flex justify-center gap-11 mt-[18px] pl-9`,
+    localSignUp: `flex justify-center gap-11 mt-[18px] pl-[88px]`,
   },
   line: `w-full h-[3px] mt-[57px] mb-[29px] ${BG_COLOR.general03}`,
   social: {
@@ -30,7 +30,7 @@ const styles = {
 
 const googleURL =
   `https://accounts.google.com/o/oauth2/v2/auth?` +
-  `redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&` +
+  `redirect_uri=${googleURI}&` +
   `client_id=${process.env.NEXT_PUBLIC_GOOGLE_ID}&` +
   `response_type=code&` +
   `scope=${[
@@ -40,7 +40,7 @@ const googleURL =
 const kakaoURL =
   `https://kauth.kakao.com/oauth/authorize?` +
   `client_id=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&` +
-  `redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&` +
+  `redirect_uri=${kakaoURI}&` +
   `response_type=code&`;
 const githubURL =
   `https://github.com/login/oauth/authorize?` +
@@ -79,7 +79,7 @@ const Loginpage = () => {
         <h1 className={styles.loginSection.title}>Log in</h1>
         <form className={styles.loginSection.form}>
           <InputWithLabel
-            label="email"
+            label="E-mail"
             type="email"
             value={emailInput.value + ""}
             onChange={emailInput.onChange}
@@ -108,9 +108,9 @@ const Loginpage = () => {
           >
             회원가입
           </Link>
-          <div className={`leading-none ${TEXT_COLOR.general03rev}`}>|</div>
+          <div className={`leading-none pl- ${TEXT_COLOR.general03rev}`}>|</div>
           <button className={`leading-none ${TEXT_COLOR.general07rev}`}>
-            비밀번호 찾기
+            Email / 비밀번호 찾기
           </button>
         </div>
       </section>

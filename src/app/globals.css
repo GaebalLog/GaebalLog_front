@@ -84,30 +84,34 @@ body {
   background-color: #202020 !important;
 }
 
-.dark .ck.ck-button:hover {
-  background-color: #363636 !important;
-}
-
 .dark .ck.ck-button .ck-icon path {
   fill: #ffffff !important;
 }
 
-.dark .ck.ck-on {
-  background-color: #363636 !important;
+.dark .ck.ck-button__label {
   color: #ffffff !important;
 }
-/* 
-.dark .ck.ck-off {
-  background-color: #000000 !important;
-  color: #ffffff !important;
-} */
 
 .dark .ck.ck-toolbar__separator {
   background-color: #363636 !important;
 }
 
-.dark .ck.ck-button__label {
-  color: #ffffff !important;
+.dark
+  .ck.ck-button:hover:not(.ck.ck-color-grid__tile):not(
+    .ck.ck-insert-table-dropdown-grid-box
+  ),
+.dark
+  .ck.ck-on:not(.ck.ck-color-grid__tile):not(
+    .ck.ck-insert-table-dropdown-grid-box
+  ) {
+  background-color: #363636 !important;
+}
+
+.dark
+  .ck.ck-off:not(.ck.ck-color-grid__tile):not(
+    .ck.ck-insert-table-dropdown-grid-box
+  ) {
+  background-color: #202020 !important;
 }
 
 .ck-content h2 {
