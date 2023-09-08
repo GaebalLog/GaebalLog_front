@@ -18,6 +18,9 @@ declare global {
     created_at: string;
     bookmarked: boolean;
   }
+  interface postListAuthor extends postDetail {
+    isAuthor: boolean;
+  }
 
   // Home 화면
   interface post {
