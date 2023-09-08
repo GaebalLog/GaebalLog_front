@@ -3,7 +3,7 @@ import { rest } from "msw";
 import type { postDataType } from "@/api/postAPI";
 
 export const postHandler = [
-  rest.get("/post/detail/:id/:userId", (req, res, ctx) => {
+  rest.get("/post/detail/:id", (req, res, ctx) => {
     const postId = req.params.id;
     if (postId == "37") {
       return res(
@@ -25,7 +25,7 @@ export const postHandler = [
     }
   }),
 
-  rest.get("post/all/:sort/:id", (req, res, ctx) => {
+  rest.get("post/all/:sort", (req, res, ctx) => {
     const sort = req.params.sort;
     const page = req.url.searchParams.get("page");
     if (sort === "views" && page && page < "2") {
