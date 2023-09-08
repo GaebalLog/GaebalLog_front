@@ -24,21 +24,21 @@ export const postAPI = {
     );
   },
   getDetail: (post_id: number) => {
-    return instance.get<postDetail>(`/post/detail/${post_id}/${userId}`);
+    return instance.get<postListAuthor>(`/post/detail/${post_id}`);
   },
   delete: (post_id: number) => {
     return instance.delete(`/post/${post_id}`);
   },
   update: (post_id: number, data: postDataType) => {
-    const sendData = { user_id: userId, ...data };
-    return instance.patch(`/post/${post_id}`, sendData);
+    return instance.patch(`/post/${post_id}`, { ...data });
   },
   toggleBookmark: (post_id: number) => {
-    const data = { user_id: userId, post_id };
-    return instance.post(`/post/bookmark`, data);
+    return instance.post(`/post/bookmark`, { post_id });
   },
   toggleLike: (post_id: number) => {
-    const data = { user_id: userId, post_id };
-    return instance.post(`/post/like`, data);
+    return instance.post(`/post/like`, { post_id });
+  },
+  verify: (post_id: number) => {
+    return instance.get(`/post/verify/${post_id}/verify`);
   },
 };

@@ -4,7 +4,6 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
-import { useRouter } from "next/navigation";
 
 import CommentsList from "@/components/detail/CommentsList";
 import CommentForm from "@/components/detail/form/CommentForm";
@@ -20,6 +19,7 @@ import DeleteConfirm from "@/components/modal/common/DeleteConfirm";
 import { utilDecodeImg } from "@/utils/util-decodeImg";
 import LikeView from "@/components/commonUI/LikeView";
 import useToggleLike from "@/hooks/postAPI/useToggleLike";
+import UpdateBtn from "@/hooks/featureBtn/updateBtn";
 
 const styles = {
   contents: {
@@ -42,9 +42,8 @@ export interface detailParams {
 }
 // 기능 분리 필요 :: 컨텐츠 부분이랑 코멘트 부분
 const Detail = ({ params: { postId } }: detailParams) => {
-  const [detailData, setDetailData] = React.useState<postDetail>();
+  const [detailData, setDetailData] = React.useState<postListAuthor>();
   const nickname = useRecoilValue(nicknameAtom);
-  const router = useRouter();
   const { modal, openModal } = useModalController();
   useQuery({
     queryKey: ["detailContents", postId],
@@ -91,7 +90,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
             {detailData?.title}
           </p>
           <div className="flex gap-[32px] justify-between items-center">
-            <div className="flex gap-[16px]">
+            <div className="flex gap-[16px] items-center">
               <span className="text-[20px]">{detailData?.nickname}</span>
               {detailData?.created_at && (
                 <span>{utilConvertTime(detailData?.created_at)}</span>
@@ -107,29 +106,22 @@ const Detail = ({ params: { postId } }: detailParams) => {
                 />
               </div>
             </div>
-            <div className="flex gap-[16px]">
-              <Button
-                size="tab"
-                color="white"
-                border
-                onClick={() =>
-                  router.push(`/post/update/${detailData?.post_id}`)
-                }
-              >
-                글 수정
-              </Button>
-              <Button
-                size="tab"
-                color="white"
-                border
-                onClick={(e) => {
-                  e.stopPropagation();
-                  openModal("deleteModal");
-                }}
-              >
-                글 삭제
-              </Button>
-            </div>
+            {detailData?.isAuthor && (
+              <div className="flex gap-[16px]">
+                <UpdateBtn post_id={detailData?.post_id} />
+                <Button
+                  size="tab"
+                  color="white"
+                  border
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openModal("deleteModal");
+                  }}
+                >
+                  글 삭제
+                </Button>
+              </div>
+            )}
           </div>
           {modal.deleteModal && <DeleteConfirm mode="tech" postId={postId} />}
           <hr className={styles.line} />
