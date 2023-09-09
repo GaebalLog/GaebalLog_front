@@ -29,8 +29,8 @@ const MyInfo = () => {
     };
 
     const formData = new FormData();
-    formData.append("image", newProfileImg);
-    const { data } = await authAPI.updateprofileImg(formData);
+    formData.append("image", imgSrc);
+    const { data } = await authAPI.updateProfileImg(formData);
     console.log(data);
   };
 
