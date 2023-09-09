@@ -29,9 +29,12 @@ const MyInfo = () => {
     };
 
     const formData = new FormData();
-    formData.append("image", imgSrc);
-    const { data } = await authAPI.updateProfileImg(formData);
-    console.log(data);
+    formData.append("image", newProfileImg);
+    try {
+      await authAPI.updateProfileImg(formData);
+    } catch (error) {
+      console.log("프로필 이미지 수정 오류 ::", error);
+    }
   };
 
   const removeImgHandler = () => {
@@ -39,8 +42,11 @@ const MyInfo = () => {
   };
 
   const updateNicknameHandler = async () => {
-    const { data } = await authAPI.updateNickname(nicknameInput.value + "");
-    console.log(data);
+    try {
+      await authAPI.updateNickname(nicknameInput.value + "");
+    } catch (error) {
+      console.log("닉네임 수정 오류 ::", error);
+    }
   };
 
   return (
