@@ -2,7 +2,7 @@
 import type { ChangeEvent } from "react";
 import React from "react";
 import Image from "next/image";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 
 import { BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
@@ -14,7 +14,7 @@ import useInput from "@/hooks/useInput";
 const MyInfo = () => {
   const [newProfileImg, setNewProfileImg] = React.useState<string>("");
   const imgRef = React.useRef<HTMLInputElement>(null);
-  const { nickname, profileImg } = useRecoilValue(userAtom);
+  const [{ nickname, profileImg }, setUser] = useRecoilState(userAtom);
 
   const nicknameInput = useInput();
 
@@ -24,28 +24,54 @@ const MyInfo = () => {
     if (!imgSrc) return;
     const reader = new FileReader();
     reader.readAsDataURL(imgSrc);
-    reader.onloadend = () => {
-      setNewProfileImg(reader.result as string);
-    };
+
+    await loadImage(reader);
 
     const formData = new FormData();
-    formData.append("image", newProfileImg);
+    formData.append("image", imgSrc);
     try {
       await authAPI.updateProfileImg(formData);
+      setUser((prev) => ({ ...prev, profileImg: reader.result as string }));
+      alert("프로필 이미지 수정 성공");
     } catch (error) {
       console.log("프로필 이미지 수정 오류 ::", error);
+      alert("프로필 이미지 수정 실패");
+    }
+  };
+
+  const loadImage = async (reader: FileReader) => {
+    const loadImage = new Promise((resolve, reject) => {
+      reader.onloadend = () => {
+        setNewProfileImg(reader.result as string);
+        resolve(null);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+    });
+    try {
+      await loadImage;
+    } catch (error) {
+      console.log("이미지 업로드 실패", error);
     }
   };
 
   const removeImgHandler = () => {
-    setNewProfileImg("/assets/images/common/default_profile.png");
+    setUser((prev) => ({
+      ...prev,
+      profileImg: "/assets/images/common/default_profile.png",
+    }));
   };
 
   const updateNicknameHandler = async () => {
     try {
       await authAPI.updateNickname(nicknameInput.value + "");
+      setUser((prev) => ({ ...prev, nickname: nicknameInput.value + "" }));
+      alert("닉네임 수정 성공");
+      nicknameInput.setValue("");
     } catch (error) {
       console.log("닉네임 수정 오류 ::", error);
+      alert("닉네임 수정 실패");
     }
   };
 
