@@ -28,6 +28,7 @@ const InputWithCheck: React.FC<InputWithCheckProps> = ({
   onClick,
   isDuplicated,
 }) => {
+  const labelText = type === "email" ? "E-mail" : "Nickname";
   const inputType = type === "email" ? "email" : "text";
   const msgText = type === "email" ? "이메일" : "닉네임";
 
@@ -36,7 +37,7 @@ const InputWithCheck: React.FC<InputWithCheckProps> = ({
       <div className="flex">
         <div className="w-[574px]">
           <InputWithLabel
-            label={type}
+            label={labelText}
             type={inputType}
             value={inputValue.value + ""}
             onChange={(e) => {
