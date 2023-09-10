@@ -25,28 +25,23 @@ const LoggedSide: React.FC<props> = ({ position, type }) => {
 
   const heightValue = `${
     position === "bottom"
-      ? "h-[500px]"
+      ? "h-[500px] pb-0"
       : position === "top"
       ? "h-[409px]"
       : "h-[280px]"
   }`;
-  const divHeight = `${
-    position === "bottom"
-      ? "h-[355px]"
-      : position === "top"
-      ? "h-[250px]"
-      : "h-[150px]"
-  }`;
   const styles = {
-    wrapper: `relative w-[380px] px-[16px] py-[24px] ${BG_COLOR.general02} ${BORDER_COLOR.container} ${heightValue}`,
-    h1: `font-hack text-[24px] mb-[32px]`,
-    keywordDiv: `flex gap-3 flex-wrap content-start ${divHeight} overflow-hidden`,
+    wrapper: `relative flex flex-col w-[380px] px-[16px] py-[24px] overflow-y-auto ${BG_COLOR.general02} ${BORDER_COLOR.container} ${heightValue}`,
+    h1: `font-hack text-[20px] mb-[32px]`,
+    keywordDiv: `flex grow gap-3 flex-wrap content-start ${
+      position === "bottom" && "pb-4"
+    }`,
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper}`}>
       <h1 className={styles.h1}>My Keyword</h1>
-      <div className={styles.keywordDiv}>
+      <div className={`${styles.keywordDiv}`}>
         {keywordList?.map((keyword: string) => (
           <Link key={`logged${keyword}`} href={`/${type}?keyword=${keyword}`}>
             <Button size="category" color="category" rounded>
@@ -54,8 +49,8 @@ const LoggedSide: React.FC<props> = ({ position, type }) => {
             </Button>
           </Link>
         ))}
-        <EditBtn position={position} />
       </div>
+      <EditBtn position={position} />
     </div>
   );
 };

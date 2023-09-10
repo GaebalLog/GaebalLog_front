@@ -46,8 +46,13 @@ const KeywordSearch = () => {
     },
   );
 
-  const { isFirsPage, isLastPage, handlePrev, handleNext, slicedMyCategories } =
-    usePagination(myCategories, myCategoriesContainerRef);
+  const {
+    isFirstPage,
+    isLastPage,
+    handlePrev,
+    handleNext,
+    slicedMyCategories,
+  } = usePagination(myCategories, myCategoriesContainerRef);
 
   const { getIcon } = useIcon();
   const prevBtn = getIcon("prevBtn", 48, 48, "cursor");
@@ -84,7 +89,7 @@ const KeywordSearch = () => {
           <div className={styles.keywordBox}>
             <span className={styles.keywordBoxTitle}>현재 나의 키워드</span>
             <div className="relative flex">
-              {!isFirsPage && (
+              {!isFirstPage && (
                 <button
                   className="absolute top-12 -left-14"
                   onClick={handlePrev}
@@ -92,13 +97,15 @@ const KeywordSearch = () => {
                   {prevBtn}
                 </button>
               )}
-              <KeywordList
-                myCategoriesContainerRef={myCategoriesContainerRef}
-                data={slicedMyCategories}
-                type="myCategory"
-                isLoading={myCategoriesLoading}
-                setMyCategories={setMyCategories}
-              />
+              {typeof slicedMyCategories[0] === "string" && (
+                <KeywordList
+                  myCategoriesContainerRef={myCategoriesContainerRef}
+                  data={slicedMyCategories}
+                  type="myCategory"
+                  isLoading={myCategoriesLoading}
+                  setMyCategories={setMyCategories}
+                />
+              )}
               {!isLastPage && (
                 <button
                   className="absolute top-12 -right-14"

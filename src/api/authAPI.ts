@@ -40,8 +40,12 @@ export const authAPI = {
   updateNickname: (nickname: string) => {
     return instance.patch(`/users/name`, { nickname });
   },
-  updateprofileImg: (profileImg: FormData) => {
-    return instance.patch(`/users/image`, { profileImg });
+  updateProfileImg: (profileImg: FormData) => {
+    return instance.patch(`/users/image`, profileImg, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   },
   isLogin: () => {
     return instance.get("/auth");

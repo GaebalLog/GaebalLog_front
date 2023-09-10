@@ -41,19 +41,17 @@ describe("마이페이지 화면 테스트", () => {
     screen.getByText("채팅방입니다1");
   });
 
-  test("프로필 이미지 수정기능", async () => {
+  test("프로필 이미지 수정 기능", async () => {
     renderMypage.loggedIn();
     const file = new File(["testImg"], "testImg.png", {
       type: "image/png",
     });
     const updateImgBtn = screen.getByLabelText("이미지 수정");
     await userEvent.upload(updateImgBtn, file);
-    await waitFor(() => {
-      const imgElement = screen.getByAltText("프로필사진");
-      expect(imgElement.getAttribute("src")).toContain(
-        "data:image/png;base64,dGVzdEltZw==",
-      );
-    });
+    const imgElement = await screen.findByAltText("프로필사진");
+    expect(imgElement.getAttribute("src")).toContain(
+      "data:image/png;base64,dGVzdEltZw==",
+    );
   });
 
   test("프로필 이미지 제거버튼 클릭시 기본 사진으로 설정", async () => {
@@ -76,9 +74,9 @@ describe("마이페이지 화면 테스트", () => {
 
     const updateNicknameBtn = screen.getByText("수정");
     await userEvent.click(updateNicknameBtn);
-    await waitFor(() => {
-      // 이미지 수정이 성공하고 나서 유저에게 알림이 가는 로직
-    });
+    expect(
+      await screen.findByPlaceholderText("테스트닉네임"),
+    ).toBeInTheDocument();
   });
 
   test("회원탈퇴 버튼클릭시 확인모달이 노출된다.", async () => {

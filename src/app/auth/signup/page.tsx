@@ -87,7 +87,7 @@ const Signuppage = () => {
       isEmailValid &&
       isEmailDuplicated === false &&
       nicknameInput.value !== "" &&
-      isNicknameDuplicated === false &&
+      // isNicknameDuplicated === false &&
       isPasswordValid &&
       passwordInput.value === passwordConfirmInput.value &&
       isConfirm
