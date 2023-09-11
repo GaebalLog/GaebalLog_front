@@ -5,10 +5,10 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
-import { utilResizeArray } from "@/utils/util-resizeArray";
 import useIcon from "@/hooks/useIcon";
 import Input from "@/components/designSystem/Input";
 import { modalControlAtom } from "@/hooks/useModalController";
+import usePagination from "@/hooks/usePagination";
 
 import TimeOfLearning from "../TimeOfLearning";
 import SearchCategory from "../SearchCategory";
@@ -18,13 +18,13 @@ const getDisplayedList = (data: string[], keyword: string) => {
 };
 
 const MyPageCategory = () => {
-  const [page, setPage] = React.useState<number>(0);
   const [modal, setModal] = useRecoilState(modalControlAtom);
   const [keyword, setKeyword] = React.useState<string>("");
   const [index, setIndex] = React.useState<number | null>(null);
   const [participatedList, setParticipatedList] = React.useState<
     timeOfLearning[]
   >([]);
+  const myCategoriesContainerRef = React.useRef<HTMLDivElement | null>(null);
 
   const { data } = useQuery({
     queryKey: ["participatedlist"],
@@ -33,24 +33,20 @@ const MyPageCategory = () => {
       setParticipatedList(data.data.categories);
     },
   });
+
   const fullList = data?.data.categories;
-  const devidedList = utilResizeArray(
-    participatedList,
-    12,
-  ) as timeOfLearning[][];
+
+  const {
+    isFirstPage,
+    isLastPage,
+    handlePrev,
+    handleNext,
+    slicedMyCategories,
+  } = usePagination(participatedList, myCategoriesContainerRef);
 
   const { getIcon } = useIcon();
   const prevBtn = getIcon("prevBtn", 48, 48, "cursor");
   const nextBtn = getIcon("nextBtn", 48, 48, "cursor");
-
-  const prevBtnHandler = () => {
-    if (page === 0) return;
-    setPage((prev) => prev - 1);
-  };
-  const nextBtnHandler = () => {
-    if (page === devidedList.length - 1) return;
-    setPage((prev) => prev + 1);
-  };
 
   const displayedResults = getDisplayedList(
     fullList?.map((item: timeOfLearning) => item.category),
@@ -123,29 +119,23 @@ const MyPageCategory = () => {
         )}
       </div>
       <div
-        className="flex gap-[16px] px-[150px] flex-wrap content-start slide-right-enter-active"
-        key={page}
+        className="relative flex h-[210px] gap-[16px] px-[150px] flex-wrap overflow-hidden content-start slide-right-enter-active"
+        ref={myCategoriesContainerRef}
       >
-        {devidedList[page]?.map((category: timeOfLearning, i: number) => (
+        {slicedMyCategories?.map((category: timeOfLearning, i: number) => (
           <TimeOfLearning
             key={`${category.category}${i}TOC`}
             category={category}
           />
         ))}
       </div>
-      {page !== 0 && (
-        <button
-          className="absolute top-[240px] left-0"
-          onClick={prevBtnHandler}
-        >
+      {!isFirstPage && (
+        <button className="absolute top-[240px] left-0" onClick={handlePrev}>
           {prevBtn}
         </button>
       )}
-      {page < devidedList.length - 1 && (
-        <button
-          className="absolute top-[240px] right-0"
-          onClick={nextBtnHandler}
-        >
+      {!isLastPage && (
+        <button className="absolute top-[240px] right-0" onClick={handleNext}>
           {nextBtn}
         </button>
       )}

@@ -1,37 +1,28 @@
 import React from "react";
-import { atom } from "recoil";
-// import axios from "axios";
-// import { usePathname, useSearchParams } from "next/navigation";
 
 import useModalController from "@/hooks/useModalController";
-
-export const isLoggedInAtom = atom({
-  key: "isLoggedIn",
-  default: true,
-});
+import useUserAuth from "@/hooks/useUserAuth";
+import { authAPI } from "@/api/authAPI";
 
 interface props {
   children: React.ReactNode;
 }
 const SettingsProvider: React.FC<props> = ({ children }) => {
-  // const searchParams = useSearchParams();
-  // const setisLoggedIn = useSetRecoilState(isLoggedInAtom);
   const { allCloseModal } = useModalController();
+  const { setUserInfo } = useUserAuth();
 
-  // const authConfirm = React.useCallback(async () => {
-  //   try {
-  //     const { data } = await axios.get("/api/auth");
-  //     const { code } = data;
-  //     if (code === 200) return setisLoggedIn(true);
-  //     if (code === 201) return setisLoggedIn(false);
-  //   } catch (error) {
-  //     console.log("authConfirm :", error);
-  //   }
-  // }, [setisLoggedIn]);
+  React.useEffect(() => {
+    const fetchAuth = async () => {
+      try {
+        const { data } = await authAPI.userAuth();
+        setUserInfo(data);
+      } catch (error) {
+        console.log("유저 인증 실패", error);
+      }
+    };
 
-  // React.useEffect(() => {
-  //   authConfirm();
-  // }, [authConfirm, searchParams]);
+    fetchAuth();
+  }, []);
 
   return (
     <div className="flex flex-col items-center" onClick={allCloseModal}>

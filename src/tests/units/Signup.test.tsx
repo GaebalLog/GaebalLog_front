@@ -97,23 +97,71 @@ describe("로컬 회원가입 테스트", () => {
     await userEvent.click(createAccountButton);
     expect(mockAlert).toBeCalledTimes(2);
 
-    // // 이메일 + 비밀번호 유효성 통과
+    // // + 비밀번호 유효성 통과
     await userEvent.clear(passwordInput);
     await userEvent.type(passwordInput, "123456!a");
     await userEvent.click(createAccountButton);
     expect(mockAlert).toBeCalledTimes(3);
 
-    // // 이메일 + 비밀번호 + 비밀번호 재확인 유효성 통과
+    // // + 비밀번호 재확인 유효성 통과
     await userEvent.clear(passwordConfirmInput);
     await userEvent.type(passwordConfirmInput, "123456!a");
     await userEvent.click(createAccountButton);
     expect(mockAlert).toBeCalledTimes(4);
 
-    // // 모든 유효성 통과
+    // + 이메일 중복 확인 통과
+    await userEvent.click(await screen.findByTestId("emailCheck"));
+    await userEvent.click(createAccountButton);
+    expect(mockAlert).toBeCalledTimes(5);
+
+    // + 닉네임 중복 확인 통과
+    await userEvent.click(await screen.findByTestId("nicknameCheck"));
+    await userEvent.click(createAccountButton);
+    expect(mockAlert).toBeCalledTimes(6);
+
+    // 모든 유효성 통과
     await userEvent.click(checkboxInput);
     await userEvent.click(createAccountButton);
     await waitFor(() => {
       expect(mockNavigation).toHaveBeenCalledWith("/home");
     });
+  });
+});
+
+describe("중복 확인 테스트", () => {
+  let emailInput: Promise<HTMLInputElement>,
+    emailCheckButton: Promise<HTMLButtonElement>;
+  // nicknameInput: Promise<HTMLInputElement>,
+  // nicknameCheckButton: Promise<HTMLElement>;
+
+  beforeEach(() => {
+    render(<Signuppage />, { wrapper: Provider });
+    emailInput = screen.findByLabelText("E-mail");
+    emailCheckButton = screen.findByTestId("emailCheck");
+    // nicknameInput = screen.findByLabelText<HTMLInputElement>("nickname");
+    // nicknameCheckButton = screen.findByTestId("nicknameCheck");
+  });
+
+  test("이메일 중복 확인 api 테스트", async () => {
+    const successMsg = "사용 가능한 이메일 입니다.";
+    const failMsg = "이미 존재하는 이메일입니다.다른 이메일을 입력해주세요.";
+    expect(screen.queryByText(successMsg)).not.toBeInTheDocument();
+    await userEvent.type(await emailInput, "dddd@gmail.com");
+    await userEvent.click(await emailCheckButton);
+    expect(await screen.findByText(successMsg)).toBeInTheDocument();
+
+    await userEvent.clear(await emailInput);
+    await userEvent.type(await emailInput, "duplication@gmail.com");
+    await userEvent.click(await emailCheckButton);
+    expect(await screen.findByText(failMsg)).toBeInTheDocument();
+  });
+
+  test("이메일 중복 확인 후 이메일 수정하면 경고 텍스트 바뀌어야함", async () => {
+    const successMsg = "사용 가능한 이메일 입니다.";
+    await userEvent.type(await emailInput, "dddd@gmail.com");
+    await userEvent.click(await emailCheckButton);
+    expect(await screen.findByText(successMsg)).toBeInTheDocument();
+    await userEvent.type(await emailInput, "11");
+    expect(screen.queryByText(successMsg)).not.toBeInTheDocument();
   });
 });

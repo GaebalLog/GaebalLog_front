@@ -45,7 +45,7 @@ const Toggle: React.FC<props> = ({ onSuccess, onFail, option }) => {
           option?.dark
             ? "w-[80px] h-[30px] after:h-[25px] after:w-[25px] peer-checked:after:translate-x-[50px]"
             : "w-[100px] h-[40px] after:h-[35px] after:w-[35px] peer-checked:after:translate-x-[60px]"
-        } bg-[#D3D3D3] rounded-full peer peer-focus:ring-1 peer-focus:ring-gray-400 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:transition-all dark:border-gray-600 peer-checked:bg-black`}
+        } bg-[#D3D3D3] rounded-full peer peer-focus:ring-0 dark:bg-gray-700 peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:transition-all dark:border-gray-600 peer-checked:bg-black`}
       />
       {option?.dark && (
         <span

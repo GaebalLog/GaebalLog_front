@@ -17,7 +17,7 @@ import Modal from "../modal/Modal";
 import ConfirmModal from "../modal/common/ConfirmModal";
 
 const styles = {
-  container: `relative overflow-y-auto w-[1100px] h-[62%] p-4 ${BORDER_COLOR.button}`,
+  container: `relative overflow-y-auto w-[1100px] h-[62%] p-4 ${BG_COLOR.primary} ${BORDER_COLOR.button}`,
   header: {
     wrapper: `flex justify-between items-center mb-2`,
     titleBox: `flex items-center`,

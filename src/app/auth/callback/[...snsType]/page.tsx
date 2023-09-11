@@ -2,46 +2,48 @@
 
 import React from "react";
 import { notFound, redirect, useSearchParams } from "next/navigation";
-import { useCallback, useEffect } from "react";
 
 import { authAPI } from "@/api/authAPI";
+import useUserAuth from "@/hooks/useUserAuth";
 
 interface snsTypeProps {
   params: {
-    snsType: string;
+    snsType: string[];
   };
 }
 
 const SnsLogin = ({ params: { snsType } }: snsTypeProps) => {
+  const { setUserInfo } = useUserAuth();
   const searchParams = useSearchParams();
+  const acceptedTypes = ["google", "github", "kakao"];
+  const isSocialParams = acceptedTypes.includes(snsType[0]);
 
-  const fetchData = useCallback(async () => {
-    const code = searchParams.get("code");
-    if (code) {
-      if (snsType[0] === "google") {
-        const { data } = await authAPI.googleLogin(code);
-        console.log(data);
+  React.useEffect(() => {
+    if (!isSocialParams) return notFound();
+    const fetchSocialLogin = async () => {
+      const code = searchParams.get("code");
+      try {
+        if (code) {
+          if (snsType[0] === "google") {
+            const { data } = await authAPI.googleLogin(code);
+            setUserInfo(data);
+          }
+          if (snsType[0] === "github") {
+            const { data } = await authAPI.githubLogin(code);
+            setUserInfo(data);
+          }
+          if (snsType[0] === "kakao") {
+            const { data } = await authAPI.kakaoLogin(code);
+            setUserInfo(data);
+          }
+        }
+      } catch (error) {
+        console.log("소셜 로그인 실패 ::", error);
       }
-      if (snsType[0] === "github") {
-        const { data } = await authAPI.githubLogin(code);
-        console.log(data);
-      }
-      if (snsType[0] === "kakao") {
-        const { data } = await authAPI.kakaoLogin(code);
-        console.log(data);
-      }
-    }
-  }, [searchParams, snsType]);
-
-  useEffect(() => {
-    const acceptedTypes = ["google", "github", "kakao"];
-    if (!acceptedTypes.includes(snsType[0])) return notFound();
-  }, [snsType]);
-
-  useEffect(() => {
-    fetchData();
+    };
+    fetchSocialLogin();
     redirect("/home");
-  }, [fetchData]);
+  }, []);
 
   return <></>;
 };

@@ -73,6 +73,47 @@ body {
   height: var(--ckeditorHeight);
 }
 
+.dark .ck.ck-content {
+  height: var(--ckeditorHeight);
+  background-color: #000000 !important;
+  border-color: #2a2a2a !important;
+}
+
+.dark .ck.ck-toolbar {
+  border: none !important;
+  background-color: #202020 !important;
+}
+
+.dark .ck.ck-button .ck-icon path {
+  fill: #ffffff !important;
+}
+
+.dark .ck.ck-button__label {
+  color: #ffffff !important;
+}
+
+.dark .ck.ck-toolbar__separator {
+  background-color: #363636 !important;
+}
+
+.dark
+  .ck.ck-button:hover:not(.ck.ck-color-grid__tile):not(
+    .ck.ck-insert-table-dropdown-grid-box
+  ),
+.dark
+  .ck.ck-on:not(.ck.ck-color-grid__tile):not(
+    .ck.ck-insert-table-dropdown-grid-box
+  ) {
+  background-color: #363636 !important;
+}
+
+.dark
+  .ck.ck-off:not(.ck.ck-color-grid__tile):not(
+    .ck.ck-insert-table-dropdown-grid-box
+  ) {
+  background-color: #202020 !important;
+}
+
 .ck-content h2 {
   font-size: 2em;
   font-weight: 600;

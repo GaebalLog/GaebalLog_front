@@ -4,9 +4,9 @@ import { useSetRecoilState } from "recoil";
 import axios from "axios";
 
 import useIcon from "@/hooks/useIcon";
+import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 import Button from "../designSystem/Button";
-import { isLoggedInAtom } from "../provider/SettingsProvider";
 import Toggle from "../designSystem/Toggle";
 
 const LoggedInBox = () => {

@@ -12,11 +12,12 @@ const styles = {
   },
   header: {
     container: `flex relative w-[400px] h-[48px] rounded-[24px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.general06} ${BG_COLOR.primary}`,
-    input: "w-[400px] h-[48px] px-[15px] rounded-r-[24px] bg-transparent",
+    input:
+      "w-[400px] h-[48px] px-[15px] rounded-r-[24px] bg-transparent outline-none",
   },
   mypage: {
     container: `flex relative w-[1325px] h-[48px] rounded-[24px] border border-solid mb-[32px] ${BORDER_COLOR.container} ${TEXT_COLOR.general06} ${BG_COLOR.primary}`,
-    input: `w-[1325px] h-[48px] px-[15px] rounded-r-[24px] bg-transparent`,
+    input: `w-[1325px] h-[48px] px-[15px] rounded-[24px] bg-transparent`,
   },
   icon: `absolute top-[15px] right-[15px] cursor-pointer`,
   dropDown: {

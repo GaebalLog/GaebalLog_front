@@ -5,11 +5,11 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 import useIcon from "@/hooks/useIcon";
-import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import utilConvertTime from "@/utils/util-datetime";
+import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 import Button from "../designSystem/Button";
-import { isLoggedInAtom } from "../provider/SettingsProvider";
 import default_thumbnail from "../../../public/assets/images/common/thumbnail_default.png";
 
 import LikeView from "./LikeView";
@@ -45,7 +45,7 @@ const Post: React.FC<{
 
   return (
     <div
-      className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02} cursor-pointer`}
+      className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02} ${BORDER_COLOR.container} cursor-pointer`}
       onClick={onClickHandler}
       data-testid={`post${post.post_id}`}
     >

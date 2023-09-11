@@ -1,9 +1,19 @@
 import React from "react";
 
-const usePagination = (
-  data: string[],
-  containerRef: React.MutableRefObject<HTMLUListElement | null>,
-) => {
+interface usePaginationReturnType<T extends string[] | timeOfLearning[]> {
+  isFirstPage: boolean;
+  isLastPage: boolean;
+  handlePrev: () => void;
+  handleNext: () => void;
+  slicedMyCategories: T;
+}
+
+const usePagination = <T extends string[] | timeOfLearning[]>(
+  data: T,
+  containerRef: React.MutableRefObject<
+    HTMLUListElement | HTMLDivElement | null
+  >,
+): usePaginationReturnType<T> => {
   const [remainingCategoryCount, setRemainingCategoryCount] = React.useState(0);
   const [renderedItemCount, setRenderedItemCount] = React.useState(0);
   const [index, setIndex] = React.useState(0);
@@ -11,9 +21,9 @@ const usePagination = (
     number[]
   >([]);
 
-  const slicedMyCategories = data.slice(index);
-  const isFirsPage = remainingCategoryCount === data.length;
-  const isLastPage = index + renderedItemCount === data.length;
+  const slicedMyCategories = data?.slice(index) as T;
+  const isFirstPage = remainingCategoryCount === data?.length;
+  const isLastPage = index + renderedItemCount === data?.length;
 
   const handleNext = () => {
     setIndex((prev) => prev + renderedItemCount);
@@ -25,7 +35,7 @@ const usePagination = (
 
   const handlePrev = () => {
     const lastRenderedItemCount =
-      renderedItemCountArray[renderedItemCountArray.length - 1];
+      renderedItemCountArray[renderedItemCountArray?.length - 1];
     setIndex((prev) => prev - lastRenderedItemCount);
     setRemainingCategoryCount((prev) => prev + lastRenderedItemCount);
     setRenderedItemCountArray((prev) => {
@@ -33,7 +43,6 @@ const usePagination = (
       return prev;
     });
   };
-  console.log(slicedMyCategories);
 
   React.useEffect(() => {
     const container = containerRef.current;
@@ -49,13 +58,19 @@ const usePagination = (
   }, [data, index, containerRef]);
 
   React.useEffect(() => {
-    setRemainingCategoryCount(slicedMyCategories.length);
-    if (slicedMyCategories.length === 0 && index > 0) {
+    setRemainingCategoryCount(slicedMyCategories?.length);
+    if (slicedMyCategories?.length === 0 && index > 0) {
       handlePrev();
     }
   }, [slicedMyCategories]);
 
-  return { isFirsPage, isLastPage, handlePrev, handleNext, slicedMyCategories };
+  return {
+    isFirstPage,
+    isLastPage,
+    handlePrev,
+    handleNext,
+    slicedMyCategories,
+  };
 };
 
 export default usePagination;

@@ -2,11 +2,12 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import Link from "next/link";
 
+import { isLoggedInAtom } from "@/hooks/useUserAuth";
+
 import SideBar from "../commonUI/SideBar";
 import Button from "../designSystem/Button";
 import { LoggedSideBar } from "../commonUI/LoggedSideBar";
 import { NeighborArticleList } from "../commonUI/NeighborArticleList";
-import { isLoggedInAtom } from "../provider/SettingsProvider";
 import StickyStyle from "../commonUI/StickyStyle";
 
 const TechSideBar = () => {
@@ -18,7 +19,7 @@ const TechSideBar = () => {
           <Link href="/post/create/tech">
             <Button
               size="middleCreate"
-              color="white"
+              color="background"
               border
               className="rounded-[3px] w-[380px]"
             >

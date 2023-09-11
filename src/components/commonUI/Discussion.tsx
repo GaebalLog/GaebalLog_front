@@ -4,10 +4,10 @@ import { useRecoilValue } from "recoil";
 import { useRouter } from "next/navigation";
 
 import useIcon from "@/hooks/useIcon";
-import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 import Button from "../designSystem/Button";
-import { isLoggedInAtom } from "../provider/SettingsProvider";
 
 const Discussion: React.FC<{ discussion: discussion }> = ({ discussion }) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
@@ -34,7 +34,7 @@ const Discussion: React.FC<{ discussion: discussion }> = ({ discussion }) => {
 
   return (
     <div
-      className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02} cursor-pointer`}
+      className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02} ${BORDER_COLOR.container} cursor-pointer`}
       onClick={onClickHandler}
       data-testid={`discussion${discussion.chatListId}`}
     >

@@ -4,15 +4,14 @@ import type { FormEvent } from "react";
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useSetRecoilState } from "recoil";
 
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import InputWithLabel from "@/components/designSystem/InputWithLabel";
 import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
-import { authAPI } from "@/api/authAPI";
+import { authAPI, googleURI, kakaoURI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
-import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
+import useUserAuth from "@/hooks/useUserAuth";
 
 const styles = {
   container: `flex flex-col items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
@@ -20,7 +19,7 @@ const styles = {
     wrapper: `w-[465px]`,
     title: `text-[32px] text-center leading-normal mt-12 mb-[88px] font-hack`,
     form: `flex flex-col gap-[38px]`,
-    localSignUp: `flex justify-center gap-11 mt-[18px] pl-9`,
+    localSignUp: `flex justify-center gap-11 mt-[18px] pl-[88px]`,
   },
   line: `w-full h-[3px] mt-[57px] mb-[29px] ${BG_COLOR.general03}`,
   social: {
@@ -31,7 +30,7 @@ const styles = {
 
 const googleURL =
   `https://accounts.google.com/o/oauth2/v2/auth?` +
-  `redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&` +
+  `redirect_uri=${googleURI}&` +
   `client_id=${process.env.NEXT_PUBLIC_GOOGLE_ID}&` +
   `response_type=code&` +
   `scope=${[
@@ -41,7 +40,7 @@ const googleURL =
 const kakaoURL =
   `https://kauth.kakao.com/oauth/authorize?` +
   `client_id=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&` +
-  `redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&` +
+  `redirect_uri=${kakaoURI}&` +
   `response_type=code&`;
 const githubURL =
   `https://github.com/login/oauth/authorize?` +
@@ -49,9 +48,9 @@ const githubURL =
 
 const Loginpage = () => {
   const [isError, setIsError] = React.useState(false);
-  const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
   const router = useRouter();
 
+  const { setUserInfo } = useUserAuth();
   const emailInput = useInput();
   const passwordInput = useInput();
   const { getIcon } = useIcon();
@@ -63,14 +62,11 @@ const Loginpage = () => {
   const LoginHandler = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const { data } = await authAPI.localLogin(
-        emailInput.value + "",
-        passwordInput.value + "",
-      );
-      console.log(data);
-
-      alert("로그인 성공!");
-      setIsLoggedIn((prev) => !prev);
+      const { data } = await authAPI.localLogin({
+        email: emailInput.value + "",
+        password: passwordInput.value + "",
+      });
+      setUserInfo(data);
       router.replace("/home");
     } catch (error) {
       setIsError(true);
@@ -95,7 +91,7 @@ const Loginpage = () => {
             onChange={passwordInput.onChange}
           />
           <p
-            className={`-mt-[30px] -mb-7 ${
+            className={`-mt-[30px] -mb-7 select-none ${
               isError ? TEXT_COLOR.error : "text-transparent"
             }`}
           >
@@ -112,9 +108,9 @@ const Loginpage = () => {
           >
             회원가입
           </Link>
-          <div className={`leading-none ${TEXT_COLOR.general03rev}`}>|</div>
+          <div className={`leading-none pl- ${TEXT_COLOR.general03rev}`}>|</div>
           <button className={`leading-none ${TEXT_COLOR.general07rev}`}>
-            비밀번호 찾기
+            Email / 비밀번호 찾기
           </button>
         </div>
       </section>

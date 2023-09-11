@@ -1,9 +1,9 @@
 import { useResetRecoilState } from "recoil";
 
 import { darkAtom } from "@/constants/global/atoms";
-import { isLoggedInAtom } from "@/components/provider/SettingsProvider";
 
 import { activatedModalIdAtom } from "./useModalController";
+import { isLoggedInAtom } from "./useUserAuth";
 
 const useResetHandler = () => {
   const resetLoginedIn = useResetRecoilState(isLoggedInAtom);

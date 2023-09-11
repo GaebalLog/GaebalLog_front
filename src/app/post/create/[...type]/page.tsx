@@ -25,7 +25,7 @@ const styles = {
   form: `flex flex-col`,
   titleBox: {
     wrapper: `flex items-center mt-5 mb-[31px]`,
-    title: `w-[1102px] px-1 py-[26px] mr-[30px] text-xl border-b focus:outline-none`,
+    title: `w-[1102px] px-1 py-[26px] mr-[30px] text-xl focus:outline-none ${BG_COLOR.background} ${BORDER_COLOR.containerBottom} dark:placeholder:text-[#888888]`,
     timeSetting: `flex items-center gap-[11px] py-[9px] px-[19px] border ${BORDER_COLOR.button}`,
   },
   bottomBox: {

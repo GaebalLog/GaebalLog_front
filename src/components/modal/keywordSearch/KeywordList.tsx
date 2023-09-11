@@ -74,7 +74,7 @@ const KeywordList: React.FC<keywordListProps> = ({
             className="flex items-center gap-[10px]"
             data-testid={`${type}_${category}`}
             size="category"
-            color="background"
+            color="category"
             rounded
             onClick={!nonIcon ? () => mutate(category) : undefined}
           >

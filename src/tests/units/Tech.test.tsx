@@ -22,7 +22,7 @@ const renderTech = {
 describe("테크 화면 테스트", () => {
   test("테크 화면으로 진입", async () => {
     renderHome.loggedOut();
-    const mainImage = screen.getByRole("img", { name: "메인 이미지" });
+    const mainImage = await screen.findByText(`console.log("Hello, world!");`);
     expect(mainImage).toBeInTheDocument();
 
     const techButton = screen.getByText("Tech");
