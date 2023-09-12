@@ -28,7 +28,7 @@ describe("키워드 검색 모달 API 요청 테스트", () => {
 
   test("현재 나의 키워드 get 요청 테스트", async () => {
     const expectedItemCount = 9;
-    const items = await screen.findAllByTestId(/myCategory/);
+    const items = await screen.findAllByTestId(/keywordList/);
     expect(items.length).toBe(expectedItemCount);
   });
 
