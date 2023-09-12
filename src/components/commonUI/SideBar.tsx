@@ -3,7 +3,6 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-import { QUERY_KEYS } from "@/constants/global/querykeys";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 
 import Button from "../designSystem/Button";
@@ -16,7 +15,7 @@ interface props {
 }
 const SideBar: React.FC<props> = ({ height, sticky }) => {
   const { data } = useQuery({
-    queryKey: [QUERY_KEYS.KEYWORDLIST],
+    queryKey: ["categories"],
     queryFn: async () => await axios.get("/api/categories"),
   });
   const keywordList = data?.data;
