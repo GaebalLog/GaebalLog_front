@@ -5,9 +5,9 @@ interface setUserInfoParameter {
   image_url: string;
 }
 
-export const isLoggedInAtom = atom({
+export const isLoggedInAtom = atom<boolean | null>({
   key: "isLoggedIn",
-  default: false,
+  default: null,
 });
 
 export const userAtom = atom({
