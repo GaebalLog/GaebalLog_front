@@ -77,7 +77,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
           <span className={styles.contents.categoryTitle}>Main Keywords</span>
           <ul className="flex flex-col gap-[16px] mt-[24px]">
             {detailData?.categories.map((category, i) => (
-              <li key={`${detailData?.post_id}${category}${i}`}>
+              <li key={`${detailData?.postId}${category}${i}`}>
                 <Button color="grey" size="tag">
                   # {category}
                 </Button>
@@ -92,14 +92,14 @@ const Detail = ({ params: { postId } }: detailParams) => {
           <div className="flex gap-[32px] justify-between items-center">
             <div className="flex gap-[16px] items-center">
               <span className="text-[20px]">{detailData?.nickname}</span>
-              {detailData?.created_at && (
-                <span>{utilConvertTime(detailData?.created_at)}</span>
+              {detailData?.createdAt && (
+                <span>{utilConvertTime(detailData?.createdAt)}</span>
               )}
               <div>
                 <LikeView
                   like={detailData?.like}
                   likeHandler={() =>
-                    detailData?.post_id && likeHandler(detailData.post_id)
+                    detailData?.postId && likeHandler(detailData.postId)
                   }
                   liked={detailData?.liked}
                   view={detailData?.view}
@@ -108,7 +108,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
             </div>
             {detailData?.isAuthor && (
               <div className="flex gap-[16px]">
-                <UpdateBtn post_id={detailData?.post_id} />
+                <UpdateBtn postId={detailData?.postId} />
                 <Button
                   size="tab"
                   color="white"

@@ -35,7 +35,7 @@ const HomePage = () => {
   const toggleBookmark = (postId: number) => {
     setPostList((prev) => {
       return prev.map((post) =>
-        post.post_id === postId
+        post.postId === postId
           ? { ...post, bookmarked: !post.bookmarked }
           : post,
       );
@@ -48,7 +48,7 @@ const HomePage = () => {
   const toggleLikeHandler = (postId: number) => {
     setPostList((prev) =>
       prev.map((post) => {
-        if (post.post_id !== postId) return post;
+        if (post.postId !== postId) return post;
         const likedStatus = !post.liked;
         return {
           ...post,
@@ -105,7 +105,7 @@ const HomePage = () => {
                 return (
                   <Post
                     post={post}
-                    key={`post ${post.post_id}`}
+                    key={`post ${post.postId}`}
                     bookmarkHandler={bookmarkHandler}
                     likeHandler={likeHandler}
                   />

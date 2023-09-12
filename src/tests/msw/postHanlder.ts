@@ -9,7 +9,7 @@ export const postHandler = [
       return res(
         ctx.status(200),
         ctx.json({
-          post_id: 29,
+          postId: 29,
           nickname: "chxxyx@naver.com",
           title: "update4",
           content: "update45",
@@ -17,7 +17,7 @@ export const postHandler = [
           like: null,
           img: "test img update4",
           categories: ["jwt", "aws", "mysql"],
-          created_at: "2023-08-28 17:08:22",
+          createdAt: "2023-08-28 17:08:22",
         }),
       );
     } else {
@@ -35,7 +35,7 @@ export const postHandler = [
           hasMore: true,
           posts: [
             {
-              post_id: 30,
+              postId: 30,
               nickname: "nickname",
               title: "title",
               content: "더",
@@ -55,7 +55,7 @@ export const postHandler = [
           hasMore: false,
           posts: [
             {
-              post_id: 29,
+              postId: 29,
               nickname: "nickname",
               title: "title",
               content: "마지막",
