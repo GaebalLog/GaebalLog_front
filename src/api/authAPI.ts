@@ -20,7 +20,7 @@ export const authAPI = {
     return instance.get(`/users/email?value=${email}`);
   },
   nicknameConfirm: (nickname: string) => {
-    return instance.get(`/users/nickname?value=${nickname}`);
+    return instance.get(`/users/name?value=${nickname}`);
   },
 
   // 소셜
