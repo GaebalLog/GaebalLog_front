@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export const GET = async () => {
   const posts: postDetail[] = [
     {
-      post_id: 1,
+      postId: 1,
       title: "title",
       content: "content",
       categories: ["tags", "tåg2"],
@@ -13,11 +13,11 @@ export const GET = async () => {
       thumbnail: "<img></img>",
       nickname: "hi",
       img: ["<img></img>"],
-      created_at: new Date().toDateString(),
+      createdAt: new Date().toDateString(),
       bookmarked: true,
     },
     {
-      post_id: 2,
+      postId: 2,
       title: "title",
       content: "content",
       categories: ["tags", "tåg2"],
@@ -27,11 +27,11 @@ export const GET = async () => {
       thumbnail: "<img></img>",
       nickname: "hi",
       img: ["<img></img>"],
-      created_at: new Date().toDateString(),
+      createdAt: new Date().toDateString(),
       bookmarked: true,
     },
     {
-      post_id: 3,
+      postId: 3,
       title: "title",
       content: "content",
       categories: ["tags", "tåg2"],
@@ -41,7 +41,7 @@ export const GET = async () => {
       thumbnail: "<img></img>",
       nickname: "hi",
       img: ["<img></img>"],
-      created_at: new Date().toDateString(),
+      createdAt: new Date().toDateString(),
       bookmarked: true,
     },
   ];

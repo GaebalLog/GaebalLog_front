@@ -3,7 +3,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 import { postAPI } from "@/api/postAPI";
 interface postProps {
-  sort: "views" | "created_at" | "neighbor";
+  sort: "views" | "createdAt" | "neighbor";
 }
 const useGetPost = ({ sort }: postProps) => {
   return useInfiniteQuery({

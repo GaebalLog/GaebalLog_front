@@ -14,7 +14,7 @@ const DeleteConfirm: React.FC<props> = ({ mode, postId }) => {
   const deleteHandler = async () => {
     if (mode === "tech") {
       const result = await postAPI.delete(postId);
-      if (result?.data.result === true) {
+      if (result?.status === 201) {
         route.push("/tech");
         alert("해당 글이 삭제되었습니다.");
       } else {

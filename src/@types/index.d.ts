@@ -5,7 +5,7 @@ declare global {
   type color = keyof typeof TEXT_COLOR;
 
   interface postDetail {
-    post_id: number;
+    postId: number;
     title: string;
     content: string;
     nickname: string;
@@ -15,7 +15,7 @@ declare global {
     img: string[];
     thumbnail: string | null;
     categories: string[];
-    created_at: string;
+    createdAt: string;
     bookmarked: boolean;
   }
   interface postListAuthor extends postDetail {

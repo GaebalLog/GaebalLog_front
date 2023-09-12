@@ -12,14 +12,14 @@ import useToggleLike from "@/hooks/postAPI/useToggleLike";
 const TechPage = () => {
   const [tab, setTab] = React.useState<sortTab>("조회 순");
   const [postList, setPostList] = React.useState<postDetail[]>([]);
-  const sort = tab === "조회 순" ? "views" : "created_at";
+  const sort = tab === "조회 순" ? "views" : "createdAt";
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage } = useGetPost({
     sort,
   });
   const toggleBookmark = (postId: number) => {
     setPostList((prev) => {
       return prev.map((post) =>
-        post.post_id === postId
+        post.postId === postId
           ? { ...post, bookmarked: !post.bookmarked }
           : post,
       );
@@ -31,7 +31,7 @@ const TechPage = () => {
   const toggleLikeHandler = (postId: number) => {
     setPostList((prev) =>
       prev.map((post) => {
-        if (post.post_id !== postId) return post;
+        if (post.postId !== postId) return post;
         const likedStatus = !post.liked;
         return {
           ...post,
@@ -63,8 +63,8 @@ const TechPage = () => {
               return (
                 <Post
                   post={post}
-                  key={post.post_id}
-                  bookmarkHandler={() => bookmarkHandler(post.post_id)}
+                  key={post.postId}
+                  bookmarkHandler={() => bookmarkHandler(post.postId)}
                   likeHandler={likeHandler}
                 />
               );
