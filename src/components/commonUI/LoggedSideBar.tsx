@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
+import { authAPI } from "@/api/authAPI";
 
 import Button from "../designSystem/Button";
 
@@ -19,7 +19,7 @@ interface props {
 const LoggedSide: React.FC<props> = ({ position, type }) => {
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.KEYWORDLIST],
-    queryFn: async () => await axios.get("/api/usercategories"),
+    queryFn: async () => await authAPI.myKeywords(),
   });
   const keywordList = data?.data;
 
@@ -36,19 +36,24 @@ const LoggedSide: React.FC<props> = ({ position, type }) => {
     keywordDiv: `flex grow gap-3 flex-wrap content-start ${
       position === "bottom" && "pb-4"
     }`,
+    noKeyword: `flex justify-center items-center w-full h-full`,
   };
 
   return (
     <div className={`${styles.wrapper}`}>
       <h1 className={styles.h1}>My Keyword</h1>
       <div className={`${styles.keywordDiv}`}>
-        {keywordList?.map((keyword: string) => (
-          <Link key={`logged${keyword}`} href={`/${type}?keyword=${keyword}`}>
-            <Button size="category" color="category" rounded>
-              #{keyword}
-            </Button>
-          </Link>
-        ))}
+        {keywordList?.length === 0 ? (
+          <div className={styles.noKeyword}>키워드 없음</div>
+        ) : (
+          keywordList?.map((keyword: string) => (
+            <Link key={`logged${keyword}`} href={`/${type}?keyword=${keyword}`}>
+              <Button size="category" color="category" rounded>
+                #{keyword}
+              </Button>
+            </Link>
+          ))
+        )}
       </div>
       <EditBtn position={position} />
     </div>

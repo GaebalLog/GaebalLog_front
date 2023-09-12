@@ -1,10 +1,14 @@
 import React from "react";
 import { screen } from "@testing-library/react";
 // import userEvent from "@testing-library/user-event";
+import { rest } from "msw";
 
 import HomePage from "@/app/home/page";
-import { renderLoggedInLayout, renderLoggedOutLayout } from "@/utils/util-test";
 import "../__mocks__/IntersectionObserverMock";
+import { renderLoggedInLayout, renderLoggedOutLayout } from "@/utils/util-test";
+import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
+
+import { server } from "../msw/server";
 
 // import { mockNavigation } from "../__mocks__/next/navigation";
 
@@ -14,6 +18,15 @@ export const renderHome = {
   },
   loggedIn: () => {
     renderLoggedInLayout(<HomePage />, { withHeader: true });
+  },
+};
+
+const renderLoggedSideBar = {
+  loggedOut: () => {
+    renderLoggedOutLayout(<LoggedSideBar type="tech" position="bottom" />);
+  },
+  loggedIn: () => {
+    renderLoggedInLayout(<LoggedSideBar type="tech" position="bottom" />);
   },
 };
 
@@ -73,4 +86,21 @@ describe("홈 화면 테스트", () => {
   //   await userEvent.click(articleList);
   //   expect(mockNavigation).toHaveBeenCalledWith("/tech/1");
   // });
+});
+
+describe("키워드 목록 컴포넌트 테스트", () => {
+  test("키워드가 없을 때 데이터 없음이 떠야 함", async () => {
+    server.use(
+      rest.get("/users/keywords", (req, res, ctx) => {
+        return res.once(ctx.status(200), ctx.json([]));
+      }),
+    );
+    renderLoggedSideBar.loggedIn();
+    expect(await screen.findByText("키워드 없음")).toBeInTheDocument();
+  });
+
+  test("마이 키워드 API 테스트", async () => {
+    renderLoggedSideBar.loggedIn();
+    expect(await screen.findAllByText(/#/)).toHaveLength(9);
+  });
 });

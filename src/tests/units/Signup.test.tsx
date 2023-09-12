@@ -86,7 +86,7 @@ describe("로컬 회원가입 테스트", () => {
 
     // 유효성 통과 안 되는 값들 입력
     await userEvent.type(emailInput, "dddd");
-    await userEvent.type(nicknameInput, "dd");
+    await userEvent.type(nicknameInput, "테스트");
     await userEvent.type(passwordInput, "123456");
     await userEvent.type(passwordConfirmInput, "notmatching");
     await userEvent.click(createAccountButton);
@@ -130,16 +130,16 @@ describe("로컬 회원가입 테스트", () => {
 
 describe("중복 확인 테스트", () => {
   let emailInput: Promise<HTMLInputElement>,
-    emailCheckButton: Promise<HTMLButtonElement>;
-  // nicknameInput: Promise<HTMLInputElement>,
-  // nicknameCheckButton: Promise<HTMLElement>;
+    emailCheckButton: Promise<HTMLButtonElement>,
+    nicknameInput: Promise<HTMLInputElement>,
+    nicknameCheckButton: Promise<HTMLElement>;
 
   beforeEach(() => {
     render(<Signuppage />, { wrapper: Provider });
     emailInput = screen.findByLabelText("E-mail");
     emailCheckButton = screen.findByTestId("emailCheck");
-    // nicknameInput = screen.findByLabelText<HTMLInputElement>("nickname");
-    // nicknameCheckButton = screen.findByTestId("nicknameCheck");
+    nicknameInput = screen.findByLabelText<HTMLInputElement>("Nickname");
+    nicknameCheckButton = screen.findByTestId("nicknameCheck");
   });
 
   test("이메일 중복 확인 api 테스트", async () => {
@@ -163,5 +163,19 @@ describe("중복 확인 테스트", () => {
     expect(await screen.findByText(successMsg)).toBeInTheDocument();
     await userEvent.type(await emailInput, "11");
     expect(screen.queryByText(successMsg)).not.toBeInTheDocument();
+  });
+
+  test("닉네임 중복 확인 api 테스트", async () => {
+    const successMsg = "사용 가능한 닉네임 입니다.";
+    const failMsg = "이미 존재하는 닉네임입니다.다른 닉네임을 입력해주세요.";
+    expect(screen.queryByText(successMsg)).not.toBeInTheDocument();
+    await userEvent.type(await nicknameInput, "테스트");
+    await userEvent.click(await nicknameCheckButton);
+    expect(await screen.findByText(successMsg)).toBeInTheDocument();
+
+    await userEvent.clear(await nicknameInput);
+    await userEvent.type(await nicknameInput, "duplication");
+    await userEvent.click(await nicknameCheckButton);
+    expect(await screen.findByText(failMsg)).toBeInTheDocument();
   });
 });

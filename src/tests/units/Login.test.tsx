@@ -97,7 +97,7 @@ describe("소셜 로그인 테스트", () => {
     const googleURL =
       `https://accounts.google.com/o/oauth2/v2/auth?` +
       `redirect_uri=${googleURI}&` +
-      `client_id=${process.env.NEXT_PUBLIC_GOOGLE_ID}&` +
+      `client_id=${process.env.NEXT_PUBLIC_GOOGLE_KEY}&` +
       `response_type=code&` +
       `scope=${[
         "https://www.googleapis.com/auth/userinfo.profile",

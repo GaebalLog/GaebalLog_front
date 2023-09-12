@@ -5,6 +5,10 @@ export const kakaoURI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
 export const githubURI = process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI;
 
 export const authAPI = {
+  userAuth: () => {
+    return instance.get(`/users`);
+  },
+
   // 로컬
   localSignup: (payload: {
     email: string;
@@ -20,7 +24,7 @@ export const authAPI = {
     return instance.get(`/users/email?value=${email}`);
   },
   nicknameConfirm: (nickname: string) => {
-    return instance.get(`/users/nickname?value=${nickname}`);
+    return instance.get(`/users/name?value=${nickname}`);
   },
 
   // 소셜
@@ -34,9 +38,11 @@ export const authAPI = {
     return instance.post("/auth/kakao", { code, uri: kakaoURI });
   },
 
-  userAuth: () => {
-    return instance.get(`/users`);
+  myKeywords: () => {
+    return instance.get(`/users/keywords`);
   },
+
+  //마이 페이지
   updateNickname: (nickname: string) => {
     return instance.patch(`/users/name`, { nickname });
   },
@@ -46,8 +52,5 @@ export const authAPI = {
         "Content-Type": "multipart/form-data",
       },
     });
-  },
-  isLogin: () => {
-    return instance.get("/auth");
   },
 };

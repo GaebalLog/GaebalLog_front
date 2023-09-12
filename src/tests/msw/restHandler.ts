@@ -5,12 +5,7 @@ export const restHandler = [
   rest.get("/api/categories", (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(["test1", "test2", "test3"]));
   }),
-  rest.get("/api/userCategories", (req, res, ctx) => {
-    // const VALID_TOKEN = "your-valid-token";
-    // const token = req.headers.get("Authorization");
-    // if (!token || token !== `Bearer ${VALID_TOKEN}`) {
-    //   return res(ctx.status(401), ctx.json({ error: "Unauthorized" }));
-    // }
+  rest.get("/users/keywords", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json([
@@ -26,9 +21,9 @@ export const restHandler = [
       ]),
     );
   }),
-  rest.delete("/api/usercategories/:categoryId", (req, res, ctx) => {
-    return res(ctx.status(200));
-  }),
+  // rest.delete("/api/keywords/:categoryId", (req, res, ctx) => {
+  //   return res(ctx.status(200));
+  // }),
   // 블로그 글
   rest.get("/api/posts/all", (req, res, ctx) => {
     const posts: postDetail[] = [

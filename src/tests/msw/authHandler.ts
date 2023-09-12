@@ -20,9 +20,9 @@ export const authHandler = [
     }
     return res(ctx.status(400));
   }),
-  rest.get("/users/nickname", (req, res, ctx) => {
+  rest.get("/users/name", (req, res, ctx) => {
     const nicknameValue = req.url.searchParams.get("value");
-    if (nicknameValue === "dd") {
+    if (nicknameValue === "테스트") {
       return res(ctx.status(200));
     }
     return res(ctx.status(400));
