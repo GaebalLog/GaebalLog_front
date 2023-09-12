@@ -19,7 +19,7 @@ const typeStyles = {
   },
   header: {
     topLeft: { top: 48, left: 19.5 },
-    modalWidth: "w-[400px]",
+    modalWidth: "w-[360px]",
   },
 };
 
