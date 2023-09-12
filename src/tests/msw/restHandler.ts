@@ -33,7 +33,7 @@ export const restHandler = [
   rest.get("/api/posts/all", (req, res, ctx) => {
     const posts: postDetail[] = [
       {
-        post_id: 1,
+        postId: 1,
         title: "title",
         content: "content",
         categories: ["tags", "tåg2"],
@@ -44,10 +44,10 @@ export const restHandler = [
         nickname: "hi",
         img: ["<img></img>"],
         bookmarked: false,
-        created_at: new Date().toDateString(),
+        createdAt: new Date().toDateString(),
       },
       {
-        post_id: 2,
+        postId: 2,
         title: "title",
         content: "content",
         categories: ["tags", "tåg2"],
@@ -58,10 +58,10 @@ export const restHandler = [
         nickname: "hi",
         img: ["<img></img>"],
         bookmarked: false,
-        created_at: new Date().toDateString(),
+        createdAt: new Date().toDateString(),
       },
       {
-        post_id: 3,
+        postId: 3,
         title: "title",
         content: "content",
         categories: ["tags", "tåg2"],
@@ -70,7 +70,7 @@ export const restHandler = [
         liked: true,
         view: 1,
         nickname: "hi",
-        created_at: new Date().toDateString(),
+        createdAt: new Date().toDateString(),
         img: ["<img></img>"],
         bookmarked: false,
       },
@@ -421,7 +421,7 @@ export const restHandler = [
           ctx.status(200),
           ctx.json({
             data: {
-              post_id: 29,
+              postId: 29,
               email: "chxxyx@naver.com",
               title: "update4",
               content: "update45",

@@ -72,7 +72,6 @@ const Loginpage = () => {
       setIsError(true);
     }
   };
-
   return (
     <div className={styles.container}>
       <section className={styles.loginSection.wrapper}>

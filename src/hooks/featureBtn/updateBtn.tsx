@@ -5,15 +5,15 @@ import Button from "@/components/designSystem/Button";
 import { postAPI } from "@/api/postAPI";
 
 interface props {
-  post_id: number | undefined;
+  postId: number | undefined;
 }
-const UpdateBtn: React.FC<props> = ({ post_id }) => {
+const UpdateBtn: React.FC<props> = ({ postId }) => {
   const router = useRouter();
   const onVerifyHandler = async () => {
-    if (!post_id) return alert("권한이 없습니다.");
-    const result = await postAPI.verify(post_id);
+    if (!postId) return alert("권한이 없습니다.");
+    const result = await postAPI.verify(postId);
     if (result.status === 200) {
-      router.push(`/post/update/${post_id}`);
+      router.push(`/post/update/${postId}`);
     }
   };
   return (

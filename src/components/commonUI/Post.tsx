@@ -16,8 +16,8 @@ import LikeView from "./LikeView";
 
 const Post: React.FC<{
   post: postDetail;
-  bookmarkHandler: (post_id: number) => void;
-  likeHandler: (post_id: number) => void;
+  bookmarkHandler: (postId: number) => void;
+  likeHandler: (postId: number) => void;
 }> = ({ post, bookmarkHandler, likeHandler }) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const router = useRouter();
@@ -26,7 +26,7 @@ const Post: React.FC<{
   const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
 
   const clickHeartHandler = () => {
-    likeHandler(post.post_id);
+    likeHandler(post.postId);
   };
 
   const onClickHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {
@@ -36,18 +36,18 @@ const Post: React.FC<{
     if (e.target.closest(".excluded")) {
       return;
     }
-    router.push(`/tech/${post.post_id}`);
+    router.push(`/tech/${post.postId}`);
   };
 
   const checkBookmarkHandler = () => {
-    bookmarkHandler(post.post_id);
+    bookmarkHandler(post.postId);
   };
 
   return (
     <div
       className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02} ${BORDER_COLOR.container} cursor-pointer`}
       onClick={onClickHandler}
-      data-testid={`post${post.post_id}`}
+      data-testid={`post${post.postId}`}
     >
       {!post.thumbnail ? (
         <Image
@@ -73,7 +73,7 @@ const Post: React.FC<{
             <span className={`${TEXT_COLOR.general07rev} text-[20px]`}>
               {post.nickname}
             </span>
-            <span>{`· ${utilConvertTime(post.created_at, {
+            <span>{`· ${utilConvertTime(post.createdAt, {
               toString: true,
             })}`}</span>
           </div>
@@ -96,7 +96,7 @@ const Post: React.FC<{
         <div className="flex items-center gap-[16px]">
           {post.categories.map((category, i) => (
             <Button
-              key={`${post.post_id}${category}${i}`}
+              key={`${post.postId}${category}${i}`}
               color="grey"
               size="tag"
             >
