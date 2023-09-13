@@ -7,8 +7,13 @@ import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import InputWithLabel from "@/components/designSystem/InputWithLabel";
 import Button from "@/components/designSystem/Button";
 import useValidation from "@/hooks/useValidation";
+import CountdownMsg from "@/components/auth/CountdownMsg";
+import { authAPI } from "@/api/authAPI";
 
 const ForgotPassword = () => {
+  const [isEmailSent, setIsEmailSent] = React.useState(false);
+  const [resendClick, setResendClick] = React.useState(0);
+
   const emailInput = useInput();
   const verificationCode = useInput();
   const passwordInput = useInput();
@@ -32,7 +37,6 @@ const ForgotPassword = () => {
         ? "text-transparent"
         : TEXT_COLOR.error
     }`,
-    countdownMsg: `-mt-[10px] select-none`,
     pwdValidationMsg: `-mt-[10px] mb-2 select-none ${
       isPasswordValid || passwordInput.value === ""
         ? TEXT_COLOR.general07rev
@@ -47,7 +51,11 @@ const ForgotPassword = () => {
     checkBox: `flex items-center justify-center w-5 h-5 border-2 border-[#967AC3] bg-transparent text-[#967AC3] cursor-pointer`,
     createButton: `text-center mt-1`,
   };
-  const sendMail = () => {};
+  const sendMail = () => {
+    authAPI.sendEmail(emailInput.value + "");
+    if (!isEmailSent) setIsEmailSent(true);
+    if (isEmailSent) setResendClick((prev) => prev + 1);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -70,7 +78,7 @@ const ForgotPassword = () => {
               color="white"
               onClick={sendMail}
             >
-              인증번호 발송
+              {isEmailSent ? "인증번호 재발송" : "인증번호 발송"}
             </Button>
           </div>
         </div>
@@ -84,7 +92,7 @@ const ForgotPassword = () => {
           value={verificationCode.value + ""}
           onChange={verificationCode.onChange}
         />
-        <p className={styles.countdownMsg}>남은 시간: 5분 00초</p>
+        <CountdownMsg isEmailSent={isEmailSent} resendClick={resendClick} />
         <InputWithLabel
           className="w-[534px]"
           label="비밀번호 재설정"
