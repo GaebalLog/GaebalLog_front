@@ -13,7 +13,7 @@ const withAuth = <P extends object>(
     const router = useRouter();
 
     React.useEffect(() => {
-      if (!isLoggedIn) {
+      if (isLoggedIn === false) {
         router.push("/auth/login");
       }
     }, [isLoggedIn, router]);

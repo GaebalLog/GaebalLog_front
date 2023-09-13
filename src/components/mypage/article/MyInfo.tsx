@@ -24,36 +24,19 @@ const MyInfo = () => {
     if (!imgSrc) return;
     const reader = new FileReader();
     reader.readAsDataURL(imgSrc);
-
-    await loadImage(reader);
-
-    const formData = new FormData();
-    formData.append("image", imgSrc);
-    try {
-      await authAPI.updateProfileImg(formData);
-      setUser((prev) => ({ ...prev, profileImg: reader.result as string }));
-      alert("프로필 이미지 수정 성공");
-    } catch (error) {
-      console.log("프로필 이미지 수정 오류 ::", error);
-      alert("프로필 이미지 수정 실패");
-    }
-  };
-
-  const loadImage = async (reader: FileReader) => {
-    const loadImage = new Promise((resolve, reject) => {
-      reader.onloadend = () => {
-        setNewProfileImg(reader.result as string);
-        resolve(null);
-      };
-      reader.onerror = (error) => {
-        reject(error);
-      };
-    });
-    try {
-      await loadImage;
-    } catch (error) {
-      console.log("이미지 업로드 실패", error);
-    }
+    reader.onloadend = async () => {
+      setNewProfileImg(reader.result as string);
+      const formData = new FormData();
+      formData.append("image", imgSrc);
+      try {
+        await authAPI.updateProfileImg(formData);
+        setUser((prev) => ({ ...prev, profileImg: reader.result as string }));
+        alert("프로필 이미지 수정 성공");
+      } catch (error) {
+        console.log("프로필 이미지 수정 오류 ::", error);
+        alert("프로필 이미지 수정 실패");
+      }
+    };
   };
 
   const removeImgHandler = () => {

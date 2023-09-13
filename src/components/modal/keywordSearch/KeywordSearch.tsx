@@ -1,6 +1,6 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 import { BG_COLOR } from "@/constants/global/colors";
@@ -8,6 +8,8 @@ import Button from "@/components/designSystem/Button";
 import { modalAtom } from "@/constants/global/atoms";
 import useIcon from "@/hooks/useIcon";
 import usePagination from "@/hooks/usePagination";
+import { authAPI } from "@/api/authAPI";
+import { QUERY_KEYS } from "@/constants/global/querykeys";
 
 import Modal from "../Modal";
 import LiveSearchInput from "../../commonUI/LiveSearchInput";
@@ -29,11 +31,11 @@ const KeywordSearch = () => {
   const [addedCategories, setAddedCategories] = React.useState<string[]>([]);
   const [myCategories, setMyCategories] = React.useState<string[]>([]);
   const myCategoriesContainerRef = React.useRef<HTMLUListElement | null>(null);
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   const { isLoading: myCategoriesLoading } = useQuery({
-    queryKey: ["userCategories"],
-    queryFn: () => axios.get("/api/usercategories"),
+    queryKey: [QUERY_KEYS.KEYWORDLIST],
+    queryFn: () => authAPI.myKeywords(),
     onSuccess: (data) => {
       setMyCategories(data?.data);
     },
@@ -62,9 +64,9 @@ const KeywordSearch = () => {
     const addedResult = (prev: string[]) => [...prev, selectedKeyword];
 
     if (!slicedMyCategories.includes(selectedKeyword)) {
-      queryClient.setQueryData(["userCategories"], {
-        data: [...myCategories, selectedKeyword],
-      });
+      // queryClient.setQueryData(["keywordList"], {
+      //   data: [...myCategories, selectedKeyword],
+      // });
       setMyCategories(addedResult);
       setAddedCategories(addedResult);
     }
@@ -97,11 +99,11 @@ const KeywordSearch = () => {
                   {prevBtn}
                 </button>
               )}
-              {typeof slicedMyCategories[0] === "string" && (
+              {typeof slicedMyCategories && (
                 <KeywordList
                   myCategoriesContainerRef={myCategoriesContainerRef}
                   data={slicedMyCategories}
-                  type="myCategory"
+                  type="keywordList"
                   isLoading={myCategoriesLoading}
                   setMyCategories={setMyCategories}
                 />
