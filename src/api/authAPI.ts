@@ -41,16 +41,4 @@ export const authAPI = {
   myKeywords: () => {
     return instance.get(`/users/keywords`);
   },
-
-  //마이 페이지
-  updateNickname: (nickname: string) => {
-    return instance.patch(`/users/name`, { nickname });
-  },
-  updateProfileImg: (profileImg: FormData) => {
-    return instance.patch(`/users/image`, profileImg, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-  },
 };
