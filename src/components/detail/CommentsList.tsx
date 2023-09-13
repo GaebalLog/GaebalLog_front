@@ -18,7 +18,7 @@ const styles = {
   childCommentList: `grid grid-cols-[auto,1fr] pt-4 px-[55px] ${BG_COLOR.general01}`,
 };
 
-const CommentsList: React.FC<comment> = ({ ...comment }) => {
+const CommentsList: React.FC<grandParentsComment> = ({ ...comment }) => {
   const [isChildCommentVisible, setIsChildCommentVisible] =
     React.useState(true);
   const selectedCommentId = useRecoilValue(openCommentEditorAtom);
@@ -56,7 +56,7 @@ const CommentsList: React.FC<comment> = ({ ...comment }) => {
     <div onClick={(e) => e.stopPropagation()}>
       <div>
         {isDeleted ? (
-          <DeletedComment />
+          <DeletedComment /> // 댓글 삭제되었을때
         ) : (
           <CommentCard parentComment {...comment} />
         )}

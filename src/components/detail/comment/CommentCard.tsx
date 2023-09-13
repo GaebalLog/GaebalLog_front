@@ -14,7 +14,7 @@ const styles = {
   nickname: `ml-4 text-xl font-bold`,
   buttonBox: `flex gap-4 ml-auto`,
   date: `mt-2 ml-14`,
-  contents: `mt-[38px] mb-[67px]`,
+  content: `mt-[38px] mb-[67px]`,
 };
 
 interface commentCardProps extends comment {
@@ -29,7 +29,7 @@ const CommentCard: React.FC<commentCardProps> = ({
   nickname,
   profileImage,
   createdAt,
-  contents,
+  content,
   grandChildComment,
 }) => {
   const setNickname = useSetRecoilState(nicknameAtom);
@@ -83,7 +83,7 @@ const CommentCard: React.FC<commentCardProps> = ({
         </div>
       </div>
       <span className={styles.date}>{time}</span>
-      <div className={styles.contents}>{contents}</div>
+      <div className={styles.content}>{content}</div>
     </div>
   );
 };

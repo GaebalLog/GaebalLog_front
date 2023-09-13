@@ -3,8 +3,9 @@ import { useRecoilValue } from "recoil";
 
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
+import useInput from "@/hooks/useInput";
 
-import Button from "../../designSystem/Button";
+import CreateCommentBtn from "../comment/CreateCommentBtn";
 
 const styles = {
   form: `flex flex-col self-start`,
@@ -14,12 +15,16 @@ const styles = {
   line: `w-full h-[3px] mt-[63px] mb-8 ${BG_COLOR.general01}`,
   blank: `mt-[63px] mb-8`,
 };
-
-const CommentForm: React.FC<{ count: number }> = ({ count }) => {
+interface props {
+  count: number | undefined;
+  postId: number;
+  page: number;
+}
+const CommentForm: React.FC<props> = ({ count, postId, page }) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
-
+  const { value, onChange } = useInput();
   return (
-    <form className={styles.form}>
+    <div className={styles.form}>
       <label htmlFor="comment" className={styles.label}>
         {`댓글 (${count})`}
       </label>
@@ -28,19 +33,21 @@ const CommentForm: React.FC<{ count: number }> = ({ count }) => {
           <textarea
             id="comment"
             className={styles.textarea}
+            value={value}
+            onChange={onChange}
             placeholder="댓글을 입력해주세요."
           />
-          <div className={styles.submitButton}>
-            <Button size="commentCreate" color="black">
-              작성완료
-            </Button>
-          </div>
+          <CreateCommentBtn
+            postId={postId}
+            content={value as string}
+            page={page}
+          />
           <hr className={styles.line} />
         </>
       ) : (
         <div className={styles.blank} />
       )}
-    </form>
+    </div>
   );
 };
 

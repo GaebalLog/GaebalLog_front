@@ -1,16 +1,10 @@
 "use client";
 
 import React from "react";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { useRecoilValue } from "recoil";
 
-import CommentsList from "@/components/detail/CommentsList";
-import CommentForm from "@/components/detail/form/CommentForm";
 import Contents from "@/components/detail/Contents";
-import ConfirmModal from "@/components/modal/common/ConfirmModal";
 import useModalController from "@/hooks/useModalController";
-import { nicknameAtom } from "@/constants/global/atoms";
 import { BG_COLOR } from "@/constants/global/colors";
 import { postAPI } from "@/api/postAPI";
 import utilConvertTime from "@/utils/util-datetime";
@@ -20,6 +14,7 @@ import { utilDecodeImg } from "@/utils/util-decodeImg";
 import LikeView from "@/components/commonUI/LikeView";
 import useToggleLike from "@/hooks/postAPI/useToggleLike";
 import UpdateBtn from "@/hooks/featureBtn/updateBtn";
+import CommentContainer from "@/components/detail/CommentContainer";
 
 const styles = {
   contents: {
@@ -43,7 +38,6 @@ export interface detailParams {
 // 기능 분리 필요 :: 컨텐츠 부분이랑 코멘트 부분
 const Detail = ({ params: { postId } }: detailParams) => {
   const [detailData, setDetailData] = React.useState<postListAuthor>();
-  const nickname = useRecoilValue(nicknameAtom);
   const { modal, openModal } = useModalController();
   useQuery({
     queryKey: ["detailContents", postId],
@@ -52,10 +46,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
       setDetailData(data.data);
     },
   });
-  const { data: comments } = useQuery({
-    queryKey: ["comments", postId],
-    queryFn: () => axios.get("/api/comments"),
-  });
+
   const toggleLikeHandler = () => {
     setDetailData((prev) => {
       if (!prev) return prev;
@@ -133,29 +124,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
         </article>
       </div>
       <hr className={styles.line} />
-      <aside className={styles.comment.wrapper}>
-        <CommentForm count={comments?.data.length} />
-        <ul>
-          {comments?.data.map((comment: comment) => (
-            <li key={`comment_${comment.commentId}`}>
-              <CommentsList {...comment} />
-            </li>
-          ))}
-        </ul>
-      </aside>
-      {modal.defaultModal && (
-        <ConfirmModal
-          title={`${nickname} 님을 정말 차단하겠습니까?`}
-          content={
-            <>
-              <p>이 사람이 작성한 댓글은 모두 숨겨지고</p>
-              <p>이후 내 글에 댓글을 쓰거나 나와의 토의를 할 수 없게 됩니다.</p>
-            </>
-          }
-          onNegativeClick={() => {}}
-          onPositiveClick={() => {}}
-        />
-      )}
+      <CommentContainer postId={postId} />
     </div>
   );
 };

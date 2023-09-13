@@ -15,7 +15,7 @@ const styles = {
   childCommentList: `grid grid-cols-[auto,1fr] pt-4 px-[55px] mb-6 ${BG_COLOR.general01}`,
 };
 
-const ChildComment: React.FC<comment> = ({ ...comment }) => {
+const ChildComment: React.FC<parentsComment> = ({ ...comment }) => {
   const selectedCommentId = useRecoilValue(openCommentEditorAtom);
 
   const { commentId, isDeleted, childComments } = comment;
