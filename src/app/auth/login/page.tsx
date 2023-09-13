@@ -108,9 +108,12 @@ const Loginpage = () => {
             회원가입
           </Link>
           <div className={`leading-none pl- ${TEXT_COLOR.general03rev}`}>|</div>
-          <button className={`leading-none ${TEXT_COLOR.general07rev}`}>
+          <Link
+            href="forgotPassword"
+            className={`leading-none ${TEXT_COLOR.general07rev}`}
+          >
             Email / 비밀번호 찾기
-          </button>
+          </Link>
         </div>
       </section>
       <hr className={styles.line} />
