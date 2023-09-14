@@ -44,9 +44,10 @@ declare global {
   }
   interface comment {
     commentId: number;
+    postId: number;
     parentId: number;
     nickname: string;
-    profileImage: string;
+    profileImg: string;
     userId: number;
     content: string;
     createdAt: string;
@@ -54,10 +55,10 @@ declare global {
     isBlocked: boolean;
   }
   interface parentsComment extends comment {
-    childComments: comment[];
+    child: comment[];
   }
   interface grandParentsComment extends comment {
-    childComments: parentsComment[];
+    child: parentsComment[];
   }
   interface discussion {
     chatListId: number;

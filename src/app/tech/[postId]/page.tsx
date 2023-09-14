@@ -18,8 +18,8 @@ import CommentContainer from "@/components/detail/CommentContainer";
 
 const styles = {
   contents: {
-    wrapper: `flex flex-col items-center w-[1632px]`,
-    innerContainer: `flex gap-[109px] w-[1632px] min-h-[880px]`,
+    wrapper: `flex flex-col items-center w-full]`,
+    innerContainer: `flex gap-[109px] w-full min-h-[880px]`,
     inner: `w-[909px] mt-[60px]`,
     category: `mt-[210px] w-[252px] ${BG_COLOR.general02} px-[16px] py-[24px] max-h-[256px]`,
     categoryTitle: `text-[24px] font-hack`,
@@ -32,7 +32,7 @@ const styles = {
 
 export interface detailParams {
   params: {
-    postId: number;
+    postId: string;
   };
 }
 // 기능 분리 필요 :: 컨텐츠 부분이랑 코멘트 부분
@@ -41,7 +41,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
   const { modal, openModal } = useModalController();
   useQuery({
     queryKey: ["detailContents", postId],
-    queryFn: () => postAPI.getDetail(postId),
+    queryFn: () => postAPI.getDetail(+postId),
     onSuccess: (data) => {
       setDetailData(data.data);
     },
@@ -114,7 +114,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
               </div>
             )}
           </div>
-          {modal.deleteModal && <DeleteConfirm mode="tech" postId={postId} />}
+          {modal.deleteModal && <DeleteConfirm mode="tech" postId={+postId} />}
           <hr className={styles.line} />
           {detailData && (
             <Contents
@@ -124,7 +124,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
         </article>
       </div>
       <hr className={styles.line} />
-      <CommentContainer postId={postId} />
+      <CommentContainer postId={+postId} />
     </div>
   );
 };

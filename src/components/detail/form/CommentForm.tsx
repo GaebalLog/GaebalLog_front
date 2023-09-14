@@ -18,9 +18,8 @@ const styles = {
 interface props {
   count: number | undefined;
   postId: number;
-  page: number;
 }
-const CommentForm: React.FC<props> = ({ count, postId, page }) => {
+const CommentForm: React.FC<props> = ({ count, postId }) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const { value, onChange } = useInput();
   return (
@@ -37,11 +36,7 @@ const CommentForm: React.FC<props> = ({ count, postId, page }) => {
             onChange={onChange}
             placeholder="댓글을 입력해주세요."
           />
-          <CreateCommentBtn
-            postId={postId}
-            content={value as string}
-            page={page}
-          />
+          <CreateCommentBtn postId={postId} content={value as string} />
           <hr className={styles.line} />
         </>
       ) : (

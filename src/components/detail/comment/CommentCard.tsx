@@ -27,7 +27,7 @@ const CommentCard: React.FC<commentCardProps> = ({
   isChildComment,
   commentId,
   nickname,
-  profileImage,
+  profileImg,
   createdAt,
   content,
   grandChildComment,
@@ -49,12 +49,11 @@ const CommentCard: React.FC<commentCardProps> = ({
     setNickname(nickname);
     openModal("defaultModal");
   };
-
   return (
     <div className={isChildComment ? "mt-4" : ""}>
       <div className={styles.commentHeader}>
         <div className={styles.metaInfoWrapper}>
-          <ProfileImage idForModal={commentId} profileImage={profileImage} />
+          <ProfileImage idForModal={commentId} profileImage={profileImg} />
           <span className={styles.nickname}>{nickname}</span>
           {isLoggedIn && (
             <>

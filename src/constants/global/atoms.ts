@@ -15,6 +15,10 @@ export const openCommentEditorAtom = atom<string | number | null>({
   default: null,
 });
 
+export const commentPageAtom = atom<number>({
+  key: "commentPage",
+  default: 1,
+});
 export const nicknameAtom = atom({
   key: "nickname",
   default: "",

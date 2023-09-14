@@ -11,16 +11,15 @@ import CommentForm from "./form/CommentForm";
 import CommentsList from "./CommentsList";
 
 const CommentContainer = ({ postId }: { postId: number }) => {
-  const [page] = React.useState(4);
   const { modal } = useModalController();
   const nickname = useRecoilValue(nicknameAtom);
 
-  const { data } = useGetComments({ postId, page });
+  const { data } = useGetComments({ postId });
   return (
     <aside className={`w-full`}>
-      <CommentForm count={data?.totalResults} postId={postId} page={page} />
+      <CommentForm count={data?.totalResults} postId={postId} />
       <ul>
-        {data?.comment?.map((comment: grandParentsComment) => (
+        {data?.comment.map((comment: grandParentsComment) => (
           <li key={`comment_${comment.commentId}`}>
             <CommentsList {...comment} />
           </li>

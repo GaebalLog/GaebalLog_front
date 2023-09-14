@@ -9,8 +9,11 @@ const useInput = (initialState?: string | number) => {
   ) => {
     setValue(e.target.value);
   };
+  const resetHandler = () => {
+    setValue("");
+  };
 
-  return { value, onChange, setValue };
+  return { value, onChange, setValue, resetHandler };
 };
 
 export default useInput;

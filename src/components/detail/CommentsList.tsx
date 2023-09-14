@@ -6,9 +6,8 @@ import { openCommentEditorAtom } from "@/constants/global/atoms";
 
 import CommentCard from "./comment/CommentCard";
 import SubCommentForm from "./form/SubCommentForm";
-import Arrow from "./icons/Arrow";
-import ChildComment from "./comment/ChildComment";
 import DeletedComment from "./comment/DeletedComment";
+import HasChildLayout from "./comment/HasChildLayout";
 
 const styles = {
   commentAddButton: `flex justify-center items-center text-[#967AC3]`,
@@ -19,38 +18,9 @@ const styles = {
 };
 
 const CommentsList: React.FC<grandParentsComment> = ({ ...comment }) => {
-  const [isChildCommentVisible, setIsChildCommentVisible] =
-    React.useState(true);
   const selectedCommentId = useRecoilValue(openCommentEditorAtom);
-
-  const { commentId, isDeleted, childComments } = comment;
-  const hasChildComments = childComments && childComments?.length > 0;
-
-  const HasChildLayout: React.FC = () => {
-    return (
-      <>
-        <button
-          className={`${styles.childCommentVisibleButton} ${
-            isDeleted && `-mt-6`
-          }`}
-          onClick={() => setIsChildCommentVisible((prev) => !prev)}
-        >
-          <span>{`답글 ${childComments?.length}개 더보기 `}</span>
-          <Arrow up={isChildCommentVisible} down={!isChildCommentVisible} />
-        </button>
-        {selectedCommentId === commentId && <SubCommentForm parentComment />}
-        {isChildCommentVisible && (
-          <ul>
-            {childComments?.map((comment) => (
-              <li key={comment.commentId}>
-                <ChildComment {...comment} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </>
-    );
-  };
+  const { commentId, postId, isDeleted, child } = comment;
+  const hasChildComments = child && child?.length > 0;
 
   return (
     <div onClick={(e) => e.stopPropagation()}>
@@ -61,9 +31,15 @@ const CommentsList: React.FC<grandParentsComment> = ({ ...comment }) => {
           <CommentCard parentComment {...comment} />
         )}
         {hasChildComments ? (
-          <HasChildLayout />
+          <HasChildLayout {...comment} />
         ) : (
-          selectedCommentId === commentId && <SubCommentForm parentComment />
+          selectedCommentId === commentId && (
+            <SubCommentForm
+              parentComment
+              parentId={commentId}
+              postId={postId}
+            />
+          )
         )}
       </div>
       <hr className={styles.line} />
