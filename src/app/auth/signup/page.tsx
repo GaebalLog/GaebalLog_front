@@ -143,7 +143,7 @@ const Signuppage = () => {
           onChange={passwordInput.onChange}
         />
         <p className={styles.pwdValidationMsg}>
-          비밀번호는 8~20 자의 영문 소문자 , 숫자 , 특문 사용
+          비밀번호는 8~20 자의 영문 소문자, 숫자, 특문 사용
         </p>
         <InputWithLabel
           className="w-[574px]"

@@ -20,7 +20,7 @@ describe("로컬 회원가입 테스트", () => {
 
   test("비밀번호 유효성 검사 테스트", async () => {
     const validationText = await screen.findByText(
-      "비밀번호는 8~20 자의 영문 소문자 , 숫자 , 특문 사용",
+      "비밀번호는 8~20 자의 영문 소문자, 숫자, 특문 사용",
     );
     const passwordInput = await screen.findByLabelText("Password");
 

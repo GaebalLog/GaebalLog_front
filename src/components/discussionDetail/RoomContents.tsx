@@ -171,7 +171,7 @@ const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
       {modal.discussionExit && (
         <ConfirmModal
           title="이 토의에 대한 알림을 받으시겠습니까?"
-          content="토의의 끝나는 내용을 공유받으실 수 있습니다."
+          content="토의의 끝나는 내용을 공유 받으실 수 있습니다."
           onNegativeClick={() => router.back()}
           onPositiveClick={() => router.back()}
         />

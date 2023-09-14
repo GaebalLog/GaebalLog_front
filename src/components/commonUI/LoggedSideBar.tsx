@@ -32,7 +32,9 @@ const LoggedSide: React.FC<props> = ({ position, type }) => {
   }`;
   const styles = {
     wrapper: `relative flex flex-col w-[380px] px-[16px] py-[24px] overflow-y-auto ${BG_COLOR.general02} ${BORDER_COLOR.container} ${heightValue}`,
-    h1: `font-hack text-[20px] mb-[32px]`,
+    h1: `font-hack ${
+      position === "bottom" ? "text-[24px]" : "text-[20px]"
+    } mb-[32px]`,
     keywordDiv: `flex grow gap-3 flex-wrap content-start ${
       position === "bottom" && "pb-4"
     }`,

@@ -23,7 +23,7 @@ const NeighborArticle: React.FC<props> = ({ discussion }) => {
         discussion ? "h-[280px]" : "h-[409px]"
       } overflow-auto`}
     >
-      <h1 className="font-hack text-[24px] mb-[32px]">My Friend’s</h1>
+      <h1 className="font-hack text-[20px] mb-[32px]">My Friend’s</h1>
       {neighborList?.map((item: neighborItem) => {
         const { nickname, profileImage, userId } = item;
         return (
