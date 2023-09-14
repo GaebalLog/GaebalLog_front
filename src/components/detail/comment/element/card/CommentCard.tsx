@@ -6,8 +6,12 @@ import Button from "@/components/designSystem/Button";
 import ProfileImage from "@/components/designSystem/ProfileImage";
 import { openCommentEditorAtom } from "@/constants/global/atoms";
 import { isLoggedInAtom, userAtom } from "@/hooks/useUserAuth";
+import useUpdateComment from "@/hooks/commentAPI/useUpdateComment";
+import useInput from "@/hooks/useInput";
+import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 
 import BannedBtn from "../btn/BannedBtn";
+import DeleteCommentBtn from "../btn/DeleteCommentBtn";
 
 const styles = {
   commentHeader: `flex justify-between`,
@@ -38,11 +42,21 @@ const CommentCard: React.FC<commentCardProps> = ({
   const myNick = useRecoilValue(userAtom)?.nickname;
   const time = utilConvertTime(createdAt);
 
+  const [updateComment, setUpdateComment] = React.useState<boolean>(false);
+  const { value, onChange } = useInput(content);
+
   const onAddCommentClick = () => {
     if (editingId === commentId) return seteditingId(null);
     return seteditingId(commentId);
   };
-  console.log("닉네임", nickname, "내", myNick, nickname === myNick);
+  const { mutate } = useUpdateComment({
+    commentId,
+    content: value as string,
+  });
+  const updateHandler = () => {
+    mutate();
+    setUpdateComment(false);
+  };
   return (
     <div className={isChildComment ? "mt-4" : ""}>
       <div className={styles.commentHeader}>
@@ -66,17 +80,55 @@ const CommentCard: React.FC<commentCardProps> = ({
         </div>
         {myNick === nickname && (
           <div className={styles.buttonBox}>
-            <Button className="border" size="tab" color="white">
-              수정
-            </Button>
-            <Button className="border" size="tab" color="white">
-              삭제
-            </Button>
+            {updateComment ? (
+              <>
+                <Button
+                  className="border"
+                  size="tab"
+                  color="white"
+                  onClick={() => updateHandler()}
+                >
+                  완료
+                </Button>
+                <Button
+                  className="border"
+                  size="tab"
+                  color="white"
+                  onClick={() => setUpdateComment(false)}
+                >
+                  취소
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  className="border"
+                  size="tab"
+                  color="white"
+                  onClick={() => setUpdateComment(true)}
+                >
+                  수정
+                </Button>
+                <DeleteCommentBtn commentId={commentId} />
+              </>
+            )}
           </div>
         )}
       </div>
-      <span className={styles.date}>{time}</span>
-      <div className={styles.content}>{content}</div>
+      <div>
+        {updateComment ? (
+          <textarea
+            className={`w-full h-[130px] my-[20px] ${BG_COLOR.general01} ${BORDER_COLOR.container}`}
+            value={value}
+            onChange={onChange}
+          />
+        ) : (
+          <>
+            <span className={styles.date}>{time}</span>
+            <p className={styles.content}>{content}</p>
+          </>
+        )}
+      </div>
     </div>
   );
 };
