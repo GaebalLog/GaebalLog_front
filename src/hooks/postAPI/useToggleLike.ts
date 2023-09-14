@@ -7,10 +7,7 @@ interface props {
 const useToggleLike = ({ onToggle }: props) => {
   return useMutation({
     mutationFn: postAPI.toggleLike,
-    onMutate: (postId: number) => {
-      onToggle(postId);
-    },
-    onError: (error, postId) => {
+    onSuccess: (error, postId) => {
       onToggle(postId);
     },
   });
