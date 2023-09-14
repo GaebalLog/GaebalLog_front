@@ -7,10 +7,7 @@ interface props {
 const useToggleBookmark = ({ onToggle }: props) => {
   return useMutation({
     mutationFn: postAPI.toggleBookmark,
-    onMutate: (postId: number) => {
-      onToggle(postId);
-    },
-    onError: (error, postId) => {
+    onSuccess(data, postId) {
       onToggle(postId);
     },
   });

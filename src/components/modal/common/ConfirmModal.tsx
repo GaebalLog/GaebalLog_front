@@ -46,7 +46,7 @@ const ConfirmModal: React.FC<confirmModalProps> = ({
         className={`${styles.wrapper} ${BG_COLOR.general02}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <button className={styles.closeIcon} onClick={() => allCloseModal()}>
+        <button className={styles.closeIcon} onClick={() => negativeHandler()}>
           {defaultClose}
         </button>
         <h1 className={styles.title}>{title}</h1>

@@ -36,14 +36,31 @@ declare global {
     createdAt: Date;
   }
   type posts = post[];
+
+  export interface commentRequest {
+    parentId?: number | null;
+    content: string;
+  }
+  export interface createComment extends commentRequest {
+    postId: number;
+  }
   interface comment {
-    commentId: string;
+    commentId: number;
+    postId: number;
+    parentId: number;
     nickname: string;
-    profileImage: string;
-    contents: string;
+    profileImg: string;
+    userId: number;
+    content: string;
     createdAt: string;
     isDeleted: boolean;
-    childComments: comment[];
+    isBlocked: boolean;
+  }
+  interface parentsComment extends comment {
+    child?: comment[];
+  }
+  interface grandParentsComment extends comment {
+    child: parentsComment[];
   }
   interface discussion {
     chatListId: number;

@@ -23,6 +23,7 @@ export const BG_COLOR = {
   general07: "bg-[#48483F] dark:bg-[#ECECEC]",
   etcColor01: "bg-[#FFFFFF] dark:bg-[#4D4D4D]",
   accentYellow: "bg-[#DFAE3D] dark:bg-[#DFAE3D]",
+  purple: "bg-[#DED8E7] dark:bg-[#DED8E7]",
   accentPurple: "bg-[#967AC3] dark:bg-[#967AC3]",
   accentBlue: "bg-[#7ECDF3] dark:bg-[#7ECDF3]",
 };
