@@ -31,10 +31,10 @@ const SideBar: React.FC<props> = ({ height, sticky }) => {
   return (
     <div className={styles}>
       <div
-        className={`${BG_COLOR.general02} ${BORDER_COLOR.container} relative px-[16px] py-[24px] h-[500px]`}
+        className={`${BG_COLOR.general02} ${BORDER_COLOR.container} px-[16px] py-[24px] h-[500px]`}
       >
-        <h1 className="font-hack text-[20px] mb-[32px]">Trend Keyword</h1>
-        <div className="flex gap-3 flex-wrap content-start">
+        <h1 className="font-hack text-[24px] mb-[32px]">Trend Keyword</h1>
+        <div className="relative flex gap-3 flex-wrap content-start h-[350px] overflow-hidden">
           {keywordList?.map((keyword: string) => (
             <Button
               size="category"

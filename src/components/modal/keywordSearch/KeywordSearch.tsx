@@ -28,10 +28,8 @@ const styles = {
 
 const KeywordSearch = () => {
   const setIsModal = useSetRecoilState(modalAtom);
-  const [addedCategories, setAddedCategories] = React.useState<string[]>([]);
   const [myCategories, setMyCategories] = React.useState<string[]>([]);
   const myCategoriesContainerRef = React.useRef<HTMLUListElement | null>(null);
-  // const queryClient = useQueryClient();
 
   const { isLoading: myCategoriesLoading } = useQuery({
     queryKey: [QUERY_KEYS.KEYWORDLIST],
@@ -61,21 +59,14 @@ const KeywordSearch = () => {
   const nextBtn = getIcon("nextBtn", 48, 48, "cursor");
 
   const addCategory = (selectedKeyword: string) => {
-    const addedResult = (prev: string[]) => [...prev, selectedKeyword];
-
     if (!slicedMyCategories.includes(selectedKeyword)) {
-      // queryClient.setQueryData(["keywordList"], {
-      //   data: [...myCategories, selectedKeyword],
-      // });
-      setMyCategories(addedResult);
-      setAddedCategories(addedResult);
+      setMyCategories((prev: string[]) => [...prev, selectedKeyword]);
     }
   };
 
   const handleSubmit = () => {
-    console.log(addedCategories);
-    setAddedCategories([]);
-    setIsModal((prev) => !prev);
+    console.log(slicedMyCategories);
+    // setIsModal((prev) => !prev);
   };
 
   return (

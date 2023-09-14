@@ -28,7 +28,7 @@ const InputWithLabel: React.FC<LabelWithInputProps> = ({
 
   const filterdType = type === "password" && isEyeoff ? "password" : "text";
   const styles = {
-    wrapper: `flex flex-col w-full ${className}`,
+    wrapper: `flex flex-col ${className}`,
     label: `text-2xl leading-none mb-2 font-hack`,
     input: `w-full pl-4 pr-12 py-[14px]`,
   };

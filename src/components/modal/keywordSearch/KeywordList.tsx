@@ -1,5 +1,4 @@
 import React from "react";
-import { useQueryClient } from "@tanstack/react-query";
 
 import Button from "@/components/designSystem/Button";
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -27,39 +26,14 @@ const KeywordList: React.FC<keywordListProps> = ({
   setMyCategories,
   myCategoriesContainerRef,
 }) => {
-  const queryClient = useQueryClient();
-
-  const cachedMyCategory = queryClient.getQueryData<{ data: string[] }>([
-    "keywordList",
-  ])?.data;
-
   const { getIcon } = useIcon();
   const close = getIcon("close", 18, 18);
 
-  // const { mutate } = useMutation({
-  //   mutationFn: (selectedCategory: string) =>
-  //     axios.delete(`/api/usercategories/${selectedCategory}`),
-  //   onSuccess: (_, selectedCategory) => {
-  //     const deletedResult = cachedMyCategory?.filter(
-  //       (category) => category !== selectedCategory,
-  //     );
-
-  //     replaceMyCategories(deletedResult ?? []);
-  //   },
-  // });
   const deleteMyCategory = (selectedCategory: string) => {
-    const deletedResult = cachedMyCategory?.filter(
-      (category) => category !== selectedCategory,
-    );
-    replaceMyCategories(deletedResult ?? []);
-  };
-
-  const replaceMyCategories = (deletedResult: string[]) => {
-    if (!deletedResult || !setMyCategories) return;
-    setMyCategories(deletedResult);
-    // queryClient.setQueryData(["keywordList"], {
-    //   data: deletedResult,
-    // });
+    setMyCategories &&
+      setMyCategories((prev) =>
+        prev.filter((category) => category !== selectedCategory),
+      );
   };
 
   if (isLoading)

@@ -12,7 +12,7 @@ const getTime = (seconds: number) => {
 
   if (hours < 0) resultTime = `${minutes}분`;
   else if (minutes > 0) resultTime = `${hours}시간 ${minutes}분`;
-  else resultTime = "1분 미만 ";
+  else resultTime = "참여한 지 1분도 안 됨";
 
   return resultTime;
 };

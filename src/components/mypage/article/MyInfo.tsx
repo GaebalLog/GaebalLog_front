@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import { BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
 import Label from "@/components/commonUI/Label";
-import { authAPI } from "@/api/authAPI";
+import { mypageApi } from "@/api/mypageApi";
 import { userAtom } from "@/hooks/useUserAuth";
 import useInput from "@/hooks/useInput";
 
@@ -29,7 +29,7 @@ const MyInfo = () => {
       const formData = new FormData();
       formData.append("image", imgSrc);
       try {
-        await authAPI.updateProfileImg(formData);
+        await mypageApi.updateProfileImg(formData);
         setUser((prev) => ({ ...prev, profileImg: reader.result as string }));
         alert("프로필 이미지 수정 성공");
       } catch (error) {
@@ -48,7 +48,7 @@ const MyInfo = () => {
 
   const updateNicknameHandler = async () => {
     try {
-      await authAPI.updateNickname(nicknameInput.value + "");
+      await mypageApi.updateNickname(nicknameInput.value + "");
       setUser((prev) => ({ ...prev, nickname: nicknameInput.value + "" }));
       alert("닉네임 수정 성공");
       nicknameInput.setValue("");

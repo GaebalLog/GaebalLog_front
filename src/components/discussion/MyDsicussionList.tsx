@@ -8,7 +8,7 @@ import useIcon from "@/hooks/useIcon";
 
 const styles = {
   container: `${BG_COLOR.general02} ${BORDER_COLOR.container} px-[16px] py-[24px] h-[280px] overflow-auto`,
-  title: "font-hack text-[24px] mb-[32px]",
+  title: "font-hack text-[20px] mb-[32px]",
   listBox: "flex justify-between items-center px-[16px] py-[15px]",
 };
 

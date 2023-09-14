@@ -27,6 +27,11 @@ export const authAPI = {
     return instance.get(`/users/name?value=${nickname}`);
   },
 
+  // 비밀번호 찾기
+  sendEmail: async (email: string) => {
+    return await instance.post("/users/password-reset/request", { email });
+  },
+
   // 소셜
   googleLogin: (code: string) => {
     return instance.post("/auth/google", { code, uri: googleURI });
@@ -40,17 +45,5 @@ export const authAPI = {
 
   myKeywords: () => {
     return instance.get(`/users/keywords`);
-  },
-
-  //마이 페이지
-  updateNickname: (nickname: string) => {
-    return instance.patch(`/users/name`, { nickname });
-  },
-  updateProfileImg: (profileImg: FormData) => {
-    return instance.patch(`/users/image`, profileImg, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
   },
 };

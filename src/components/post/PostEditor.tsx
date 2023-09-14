@@ -3,7 +3,8 @@
 import React from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 
-import Editor from "ckeditor5-custom-build/build/ckeditor";
+import Editor from "../../../ckeditor5/build/ckeditor";
+
 interface props {
   content: string;
   editHandler: (data: string) => void;
