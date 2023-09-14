@@ -5,7 +5,7 @@ import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
 import useInput from "@/hooks/useInput";
 
-import CreateCommentBtn from "../comment/CreateCommentBtn";
+import CreateCommentBtn from "../btn/CreateCommentBtn";
 
 const styles = {
   form: `flex flex-col self-start`,

@@ -5,8 +5,8 @@ import { BG_COLOR } from "@/constants/global/colors";
 import { openCommentEditorAtom } from "@/constants/global/atoms";
 
 import Arrow from "../icons/Arrow";
-import SubCommentForm from "../form/SubCommentForm";
 
+import SubCommentForm from "./textarea/SubCommentForm";
 import ChildComment from "./ChildComment";
 
 const styles = {
@@ -20,7 +20,7 @@ const styles = {
 const HasChildLayout: React.FC<grandParentsComment> = ({ ...comment }) => {
   const [isChildCommentVisible, setIsChildCommentVisible] =
     React.useState(true);
-  const selectedCommentId = useRecoilValue(openCommentEditorAtom);
+  const editingId = useRecoilValue(openCommentEditorAtom);
 
   const { commentId, postId, isDeleted, child } = comment;
 
@@ -35,7 +35,7 @@ const HasChildLayout: React.FC<grandParentsComment> = ({ ...comment }) => {
         <span>{`답글 ${child?.length}개 더보기 `}</span>
         <Arrow up={isChildCommentVisible} down={!isChildCommentVisible} />
       </button>
-      {selectedCommentId === commentId && (
+      {editingId === commentId && (
         <SubCommentForm parentComment parentId={commentId} postId={postId} />
       )}
       {isChildCommentVisible && (

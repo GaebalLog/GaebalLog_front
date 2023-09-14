@@ -6,8 +6,8 @@ import Button from "@/components/designSystem/Button";
 import { openCommentEditorAtom } from "@/constants/global/atoms";
 import useInput from "@/hooks/useInput";
 
-import ArrowInNestedComment from "../icons/ArrowInNestedComment";
-import CreateCommentBtn from "../comment/CreateCommentBtn";
+import ArrowInNestedComment from "../../icons/ArrowInNestedComment";
+import CreateCommentBtn from "../btn/CreateCommentBtn";
 
 const style = {
   wrapper: `mt-8`,
@@ -24,7 +24,7 @@ const SubCommentForm: React.FC<props> = ({
   postId,
   parentId,
 }) => {
-  const setSelectedCommentId = useSetRecoilState(openCommentEditorAtom);
+  const seteditingId = useSetRecoilState(openCommentEditorAtom);
   const { value, onChange } = useInput();
   return (
     <div className="mt-8 mb-5">
@@ -40,11 +40,7 @@ const SubCommentForm: React.FC<props> = ({
         />
       </div>
       <div className={style.buttonBox}>
-        <Button
-          size="tab"
-          color="black"
-          onClick={() => setSelectedCommentId(null)}
-        >
+        <Button size="tab" color="black" onClick={() => seteditingId(null)}>
           취소
         </Button>
         <CreateCommentBtn

@@ -1,12 +1,13 @@
 import React from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import utilConvertTime from "@/utils/util-datetime";
 import Button from "@/components/designSystem/Button";
 import ProfileImage from "@/components/designSystem/ProfileImage";
-import { nicknameAtom, openCommentEditorAtom } from "@/constants/global/atoms";
-import useModalController from "@/hooks/useModalController";
+import { openCommentEditorAtom } from "@/constants/global/atoms";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
+
+import BannedBtn from "../btn/BannedBtn";
 
 const styles = {
   commentHeader: `flex justify-between`,
@@ -32,23 +33,16 @@ const CommentCard: React.FC<commentCardProps> = ({
   content,
   grandChildComment,
 }) => {
-  const setNickname = useSetRecoilState(nicknameAtom);
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
-  const [selectedCommentId, setSelectedCommentId] = useRecoilState(
-    openCommentEditorAtom,
-  );
+  const [editingId, seteditingId] = useRecoilState(openCommentEditorAtom);
 
-  const { openModal } = useModalController();
   const time = utilConvertTime(createdAt);
 
   const onAddCommentClick = () => {
-    if (selectedCommentId === commentId) return setSelectedCommentId(null);
-    return setSelectedCommentId(commentId);
+    if (editingId === commentId) return seteditingId(null);
+    return seteditingId(commentId);
   };
-  const onBlockClick = () => {
-    setNickname(nickname);
-    openModal("defaultModal");
-  };
+
   return (
     <div className={isChildComment ? "mt-4" : ""}>
       <div className={styles.commentHeader}>
@@ -57,9 +51,7 @@ const CommentCard: React.FC<commentCardProps> = ({
           <span className={styles.nickname}>{nickname}</span>
           {isLoggedIn && (
             <>
-              <button className="ml-10" onClick={onBlockClick}>
-                차단하기
-              </button>
+              <BannedBtn nickname={nickname} />
               {!grandChildComment && (
                 <button
                   data-testid={`addCommentButton_${commentId}`}

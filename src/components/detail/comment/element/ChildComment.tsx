@@ -1,22 +1,15 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 
-import { BG_COLOR } from "@/constants/global/colors";
 import { openCommentEditorAtom } from "@/constants/global/atoms";
 
-import ArrowInNestedComment from "../icons/ArrowInNestedComment";
-import SubCommentForm from "../form/SubCommentForm";
-
-import CommentCard from "./CommentCard";
 import GrandChildComment from "./GrandChildComment";
-import DeletedComment from "./DeletedComment";
-
-const styles = {
-  childCommentList: `grid grid-cols-[auto,1fr] pt-4 px-[55px] mb-6 ${BG_COLOR.general01}`,
-};
+import SubCommentForm from "./textarea/SubCommentForm";
+import DeletedComment from "./card/DeletedComment";
+import ChildCommentCard from "./card/ChildCommentCard";
 
 const ChildComment: React.FC<parentsComment> = ({ ...comment }) => {
-  const selectedCommentId = useRecoilValue(openCommentEditorAtom);
+  const editingId = useRecoilValue(openCommentEditorAtom);
 
   const { commentId, postId, isDeleted, child } = comment;
   return (
@@ -24,12 +17,9 @@ const ChildComment: React.FC<parentsComment> = ({ ...comment }) => {
       {isDeleted ? (
         <DeletedComment childComment />
       ) : (
-        <div className={styles.childCommentList}>
-          <ArrowInNestedComment className="mr-[22.6px]" />
-          <CommentCard {...comment} />
-        </div>
+        <ChildCommentCard deps="child" {...comment} />
       )}
-      {selectedCommentId === commentId && (
+      {editingId === commentId && (
         <SubCommentForm parentId={commentId} postId={postId} />
       )}
       <ul>

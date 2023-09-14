@@ -55,7 +55,7 @@ declare global {
     isBlocked: boolean;
   }
   interface parentsComment extends comment {
-    child: comment[];
+    child?: comment[];
   }
   interface grandParentsComment extends comment {
     child: parentsComment[];

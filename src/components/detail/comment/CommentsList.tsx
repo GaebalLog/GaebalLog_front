@@ -4,10 +4,10 @@ import { useRecoilValue } from "recoil";
 import { BG_COLOR } from "@/constants/global/colors";
 import { openCommentEditorAtom } from "@/constants/global/atoms";
 
-import CommentCard from "./comment/CommentCard";
-import SubCommentForm from "./form/SubCommentForm";
-import DeletedComment from "./comment/DeletedComment";
-import HasChildLayout from "./comment/HasChildLayout";
+import CommentCard from "./element/card/CommentCard";
+import SubCommentForm from "./element/textarea/SubCommentForm";
+import DeletedComment from "./element/card/DeletedComment";
+import HasChildLayout from "./element/HasChildLayout";
 
 const styles = {
   commentAddButton: `flex justify-center items-center text-[#967AC3]`,
@@ -18,7 +18,7 @@ const styles = {
 };
 
 const CommentsList: React.FC<grandParentsComment> = ({ ...comment }) => {
-  const selectedCommentId = useRecoilValue(openCommentEditorAtom);
+  const editingId = useRecoilValue(openCommentEditorAtom);
   const { commentId, postId, isDeleted, child } = comment;
   const hasChildComments = child && child?.length > 0;
 
@@ -26,14 +26,14 @@ const CommentsList: React.FC<grandParentsComment> = ({ ...comment }) => {
     <div onClick={(e) => e.stopPropagation()}>
       <div>
         {isDeleted ? (
-          <DeletedComment /> // 댓글 삭제되었을때
+          <DeletedComment />
         ) : (
           <CommentCard parentComment {...comment} />
         )}
         {hasChildComments ? (
           <HasChildLayout {...comment} />
         ) : (
-          selectedCommentId === commentId && (
+          editingId === commentId && (
             <SubCommentForm
               parentComment
               parentId={commentId}
