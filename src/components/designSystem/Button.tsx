@@ -19,6 +19,7 @@ const BUTTON_VARIANT = {
   button: `text-[16px] py-[10px] px-[20px] rounded-[3px]`,
   subTab: `text-[20px] py-[4px]`,
   myCategory: `text-[20px] h-[40px] leading-[23.28px] py-[10px] px-4 font-hack max-w-[180px] truncate`,
+  sendEmail: "text-[20px] leading-[25px] w-[185px] py-[10px]",
 };
 
 const COLOR_VARIANT = {

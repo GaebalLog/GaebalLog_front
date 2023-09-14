@@ -62,7 +62,7 @@ const ForgotPassword = () => {
       <form className={styles.form}>
         <h1 className={styles.title}>Forgot your password?</h1>
         <div className="flex">
-          <div className="w-[534px]">
+          <div className="w-[511px]">
             <InputWithLabel
               label="E-mail"
               type="email"
@@ -74,27 +74,42 @@ const ForgotPassword = () => {
             <Button
               data-testid="sendEmail"
               type="button"
-              size="tab"
+              size="sendEmail"
               color="white"
               onClick={sendMail}
             >
-              {isEmailSent ? "인증번호 재발송" : "인증번호 발송"}
+              {isEmailSent ? "인증번호 재 발송" : "인증번호 발송"}
             </Button>
           </div>
         </div>
         <p className={styles.emailValidationMsg}>
           입력한 이메일은 잘못 된 형식입니다.
         </p>
-        <InputWithLabel
-          className="w-[534px]"
-          label="인증번호"
-          type="text"
-          value={verificationCode.value + ""}
-          onChange={verificationCode.onChange}
-        />
+        <div className="flex">
+          <div className="w-[511px]">
+            <InputWithLabel
+              className="w-[511px]"
+              label="인증번호"
+              type="text"
+              value={verificationCode.value + ""}
+              onChange={verificationCode.onChange}
+            />
+          </div>
+          <div className={styles.checkDuplicateButton}>
+            <Button
+              data-testid="sendEmail"
+              type="button"
+              size="sendEmail"
+              color="white"
+              onClick={sendMail}
+            >
+              확인
+            </Button>
+          </div>
+        </div>
         <CountdownMsg isEmailSent={isEmailSent} resendClick={resendClick} />
         <InputWithLabel
-          className="w-[534px]"
+          className="w-[511px]"
           label="비밀번호 재설정"
           type="password"
           value={passwordInput.value + ""}
@@ -104,7 +119,7 @@ const ForgotPassword = () => {
           비밀번호는 8~20 자의 영문 소문자, 숫자, 특문 사용
         </p>
         <InputWithLabel
-          className="w-[534px]"
+          className="w-[511px]"
           label="비밀번호 재확인"
           type="password"
           value={passwordConfirmInput.value + ""}
