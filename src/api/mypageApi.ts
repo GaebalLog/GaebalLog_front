@@ -11,4 +11,8 @@ export const mypageApi = {
       },
     });
   },
+  getAlertSetting: async () => {
+    const { data } = await instance.get(`/users/preferences`);
+    return data;
+  },
 };

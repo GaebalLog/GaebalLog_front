@@ -7,10 +7,13 @@ import { darkAtom } from "@/constants/global/atoms";
 interface props {
   onSuccess: () => void;
   onFail: () => void;
-  option?: { dark?: boolean };
+  option?: {
+    dark?: boolean;
+  };
+  isChecked?: boolean;
 }
 
-const Toggle: React.FC<props> = ({ onSuccess, onFail, option }) => {
+const Toggle: React.FC<props> = ({ onSuccess, onFail, option, isChecked }) => {
   const [checked, setChecked] = React.useState(false);
   const setDarkMode = useSetRecoilState(darkAtom);
   const makeChecked = () => {
@@ -20,6 +23,7 @@ const Toggle: React.FC<props> = ({ onSuccess, onFail, option }) => {
     }
     onSuccess();
   };
+
   const makeNonChecked = () => {
     if (option?.dark) {
       document.documentElement.classList.remove("dark");
@@ -31,6 +35,10 @@ const Toggle: React.FC<props> = ({ onSuccess, onFail, option }) => {
     setChecked((prev) => !prev);
     checked ? makeNonChecked() : makeChecked();
   };
+
+  React.useEffect(() => {
+    setChecked(isChecked ?? false);
+  }, [isChecked]);
   return (
     <label className="relative inline-flex items-center cursor-pointer">
       <input
