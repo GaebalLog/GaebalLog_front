@@ -5,7 +5,7 @@ import utilConvertTime from "@/utils/util-datetime";
 import Button from "@/components/designSystem/Button";
 import ProfileImage from "@/components/designSystem/ProfileImage";
 import { openCommentEditorAtom } from "@/constants/global/atoms";
-import { isLoggedInAtom } from "@/hooks/useUserAuth";
+import { isLoggedInAtom, userAtom } from "@/hooks/useUserAuth";
 
 import BannedBtn from "../btn/BannedBtn";
 
@@ -35,14 +35,14 @@ const CommentCard: React.FC<commentCardProps> = ({
 }) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const [editingId, seteditingId] = useRecoilState(openCommentEditorAtom);
-
+  const myNick = useRecoilValue(userAtom)?.nickname;
   const time = utilConvertTime(createdAt);
 
   const onAddCommentClick = () => {
     if (editingId === commentId) return seteditingId(null);
     return seteditingId(commentId);
   };
-
+  console.log("닉네임", nickname, "내", myNick, nickname === myNick);
   return (
     <div className={isChildComment ? "mt-4" : ""}>
       <div className={styles.commentHeader}>
@@ -64,14 +64,16 @@ const CommentCard: React.FC<commentCardProps> = ({
             </>
           )}
         </div>
-        <div className={styles.buttonBox}>
-          <Button className="border" size="tab" color="white">
-            수정
-          </Button>
-          <Button className="border" size="tab" color="white">
-            삭제
-          </Button>
-        </div>
+        {myNick === nickname && (
+          <div className={styles.buttonBox}>
+            <Button className="border" size="tab" color="white">
+              수정
+            </Button>
+            <Button className="border" size="tab" color="white">
+              삭제
+            </Button>
+          </div>
+        )}
       </div>
       <span className={styles.date}>{time}</span>
       <div className={styles.content}>{content}</div>
