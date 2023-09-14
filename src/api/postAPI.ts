@@ -12,11 +12,9 @@ export interface allPostsType {
   hasMore: boolean;
   posts: postDetail[];
 }
-const userId = 1;
 export const postAPI = {
   create: (data: postDataType) => {
-    const sendData = { user_id: userId, ...data };
-    return instance.post("/post", sendData);
+    return instance.post("/post", { ...data });
   },
   getAll: (sort: "views" | "createdAt" | "neighbor", page: number) => {
     return instance.get<allPostsType>(`/post/all/${sort}?page=${page}`);

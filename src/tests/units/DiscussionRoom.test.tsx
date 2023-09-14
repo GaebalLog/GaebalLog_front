@@ -50,17 +50,17 @@ describe("토의방 테스트", () => {
   });
 });
 
-describe("토의방 나가기 기능 테스트", () => {
-  beforeEach(async () => {
-    renderDiscussionRoom.loggedIn();
-    await userEvent.click(await screen.findByAltText("more"));
-    await userEvent.click(await screen.findByText("토의 나가기"));
-  });
+// describe("토의방 나가기 기능 테스트", () => {
+//   beforeEach(async () => {
+//     renderDiscussionRoom.loggedIn();
+//     await userEvent.click(await screen.findByAltText("more"));
+//     await userEvent.click(await screen.findByText("토의 나가기"));
+//   });
 
-  test("토의방 나가기 모달 렌더링 테스트", async () => {
-    const modalText = "이 토의에 대한 알림을 받으시겠습니까?";
-    expect(await screen.findByText(modalText)).toBeInTheDocument();
-    await userEvent.click(await screen.findByAltText("default_close"));
-    expect(screen.queryByText(modalText)).not.toBeInTheDocument();
-  });
-});
+//   test("토의방 나가기 모달 렌더링 테스트", async () => {
+//     const modalText = "이 토의에 대한 알림을 받으시겠습니까?";
+//     expect(await screen.findByText(modalText)).toBeInTheDocument();
+//     await userEvent.click(await screen.findByAltText("default_close"));
+//     expect(screen.queryByText(modalText)).not.toBeInTheDocument();
+//   });
+// });

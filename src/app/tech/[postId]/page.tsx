@@ -1,16 +1,11 @@
 "use client";
 
 import React from "react";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { useRecoilValue } from "recoil";
+import { useSetRecoilState } from "recoil";
 
-import CommentsList from "@/components/detail/CommentsList";
-import CommentForm from "@/components/detail/form/CommentForm";
 import Contents from "@/components/detail/Contents";
-import ConfirmModal from "@/components/modal/common/ConfirmModal";
 import useModalController from "@/hooks/useModalController";
-import { nicknameAtom } from "@/constants/global/atoms";
 import { BG_COLOR } from "@/constants/global/colors";
 import { postAPI } from "@/api/postAPI";
 import utilConvertTime from "@/utils/util-datetime";
@@ -19,12 +14,14 @@ import DeleteConfirm from "@/components/modal/common/DeleteConfirm";
 import { utilDecodeImg } from "@/utils/util-decodeImg";
 import LikeView from "@/components/commonUI/LikeView";
 import useToggleLike from "@/hooks/postAPI/useToggleLike";
-import UpdateBtn from "@/hooks/featureBtn/updateBtn";
+import CommentContainer from "@/components/detail/CommentContainer";
+import UpdateBtn from "@/components/tech/updateBtn";
+import { commentAtom } from "@/constants/global/atoms";
 
 const styles = {
   contents: {
-    wrapper: `flex flex-col items-center w-[1632px]`,
-    innerContainer: `flex gap-[109px] w-[1632px] min-h-[880px]`,
+    wrapper: `flex flex-col items-center w-full]`,
+    innerContainer: `flex gap-[109px] w-full min-h-[880px]`,
     inner: `w-[909px] mt-[60px]`,
     category: `mt-[210px] w-[252px] ${BG_COLOR.general02} px-[16px] py-[24px] max-h-[256px]`,
     categoryTitle: `text-[24px] font-hack`,
@@ -37,25 +34,22 @@ const styles = {
 
 export interface detailParams {
   params: {
-    postId: number;
+    postId: string;
   };
 }
 // 기능 분리 필요 :: 컨텐츠 부분이랑 코멘트 부분
 const Detail = ({ params: { postId } }: detailParams) => {
+  const setPostId = useSetRecoilState(commentAtom);
   const [detailData, setDetailData] = React.useState<postListAuthor>();
-  const nickname = useRecoilValue(nicknameAtom);
   const { modal, openModal } = useModalController();
   useQuery({
     queryKey: ["detailContents", postId],
-    queryFn: () => postAPI.getDetail(postId),
+    queryFn: () => postAPI.getDetail(+postId),
     onSuccess: (data) => {
       setDetailData(data.data);
     },
   });
-  const { data: comments } = useQuery({
-    queryKey: ["comments", postId],
-    queryFn: () => axios.get("/api/comments"),
-  });
+
   const toggleLikeHandler = () => {
     setDetailData((prev) => {
       if (!prev) return prev;
@@ -70,6 +64,9 @@ const Detail = ({ params: { postId } }: detailParams) => {
   const { mutate: likeHandler } = useToggleLike({
     onToggle: toggleLikeHandler,
   });
+  React.useEffect(() => {
+    setPostId((prev) => ({ ...prev, postId: +postId }));
+  }, [setPostId, postId]);
   return (
     <div className={styles.contents.wrapper}>
       <div className={styles.contents.innerContainer}>
@@ -123,7 +120,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
               </div>
             )}
           </div>
-          {modal.deleteModal && <DeleteConfirm mode="tech" postId={postId} />}
+          {modal.deleteModal && <DeleteConfirm mode="tech" postId={+postId} />}
           <hr className={styles.line} />
           {detailData && (
             <Contents
@@ -133,29 +130,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
         </article>
       </div>
       <hr className={styles.line} />
-      <aside className={styles.comment.wrapper}>
-        <CommentForm count={comments?.data.length} />
-        <ul>
-          {comments?.data.map((comment: comment) => (
-            <li key={`comment_${comment.commentId}`}>
-              <CommentsList {...comment} />
-            </li>
-          ))}
-        </ul>
-      </aside>
-      {modal.defaultModal && (
-        <ConfirmModal
-          title={`${nickname} 님을 정말 차단하겠습니까?`}
-          content={
-            <>
-              <p>이 사람이 작성한 댓글은 모두 숨겨지고</p>
-              <p>이후 내 글에 댓글을 쓰거나 나와의 토의를 할 수 없게 됩니다.</p>
-            </>
-          }
-          onNegativeClick={() => {}}
-          onPositiveClick={() => {}}
-        />
-      )}
+      <CommentContainer />
     </div>
   );
 };
