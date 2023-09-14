@@ -1,23 +1,18 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
-import { openCommentEditorAtom } from "@/constants/global/atoms";
 
 import ArrowInNestedComment from "../icons/ArrowInNestedComment";
-import SubCommentForm from "../form/SubCommentForm";
 
 import CommentCard from "./CommentCard";
 import DeletedComment from "./DeletedComment";
 
 const styles = {
-  childCommentList: `grid grid-cols-[auto,1fr] pt-4 pl-[125px] pr-[55px] mb-6 ${BG_COLOR.general01}`,
+  childCommentList: `grid grid-cols-[auto,1fr] pt-4 pl-[125px] pr-[55px] mb-6 ${BG_COLOR.purple}`,
 };
 
 const GrandChildComment: React.FC<comment> = ({ ...comment }) => {
-  const selectedCommentId = useRecoilValue(openCommentEditorAtom);
-
-  const { commentId, parentId, postId, isDeleted } = comment;
+  const { isDeleted } = comment;
   return (
     <>
       {isDeleted ? (
@@ -27,9 +22,6 @@ const GrandChildComment: React.FC<comment> = ({ ...comment }) => {
           <ArrowInNestedComment className="mr-[22.6px]" />
           <CommentCard grandChildComment {...comment} />
         </div>
-      )}
-      {selectedCommentId === commentId && (
-        <SubCommentForm parentId={parentId} postId={postId} />
       )}
     </>
   );

@@ -16,7 +16,7 @@ const style = {
 };
 interface props {
   postId: number;
-  parentId: number | null;
+  parentId: number;
   parentComment?: boolean;
 }
 const SubCommentForm: React.FC<props> = ({

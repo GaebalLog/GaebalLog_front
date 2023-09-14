@@ -18,7 +18,7 @@ const styles = {
 const ChildComment: React.FC<parentsComment> = ({ ...comment }) => {
   const selectedCommentId = useRecoilValue(openCommentEditorAtom);
 
-  const { commentId, parentId, postId, isDeleted, child } = comment;
+  const { commentId, postId, isDeleted, child } = comment;
   return (
     <>
       {isDeleted ? (
@@ -30,7 +30,7 @@ const ChildComment: React.FC<parentsComment> = ({ ...comment }) => {
         </div>
       )}
       {selectedCommentId === commentId && (
-        <SubCommentForm parentId={parentId} postId={postId} />
+        <SubCommentForm parentId={commentId} postId={postId} />
       )}
       <ul>
         {child?.map((comment: comment) => (
