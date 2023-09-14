@@ -5,8 +5,8 @@ import { TEXT_COLOR } from "@/constants/global/colors";
 import { darkAtom } from "@/constants/global/atoms";
 
 interface props {
-  onSuccess: () => void;
-  onFail: () => void;
+  onSuccess: (checked?: boolean) => void;
+  onFail: (checked?: boolean) => void;
   option?: {
     dark?: boolean;
   };
@@ -21,7 +21,7 @@ const Toggle: React.FC<props> = ({ onSuccess, onFail, option, isChecked }) => {
       document.documentElement.classList.add("dark");
       setDarkMode(1);
     }
-    onSuccess();
+    onSuccess(checked);
   };
 
   const makeNonChecked = () => {
@@ -29,7 +29,7 @@ const Toggle: React.FC<props> = ({ onSuccess, onFail, option, isChecked }) => {
       document.documentElement.classList.remove("dark");
       setDarkMode(0);
     }
-    onFail();
+    onFail(checked);
   };
   const changeChecked = () => {
     setChecked((prev) => !prev);

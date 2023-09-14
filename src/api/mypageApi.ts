@@ -1,3 +1,5 @@
+import type { queryData } from "@/components/mypage/article/MySettings";
+
 import { instance } from "./api";
 
 export const mypageApi = {
@@ -14,5 +16,8 @@ export const mypageApi = {
   getAlertSetting: async () => {
     const { data } = await instance.get(`/users/preferences`);
     return data;
+  },
+  updateAlertSetting: async (payload: Partial<queryData>) => {
+    return await instance.patch(`/users/preferences`, payload);
   },
 };
