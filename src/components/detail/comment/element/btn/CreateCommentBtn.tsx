@@ -3,13 +3,11 @@ import React from "react";
 import Button from "@/components/designSystem/Button";
 import useCreateComment from "@/hooks/commentAPI/useCreateComment";
 
-const CreateCommentBtn: React.ComponentType<createComment> = ({
-  postId,
+const CreateCommentBtn: React.ComponentType<commentRequest> = ({
   parentId,
   content,
 }) => {
   const { mutate: onSubmitHandler } = useCreateComment({
-    postId,
     parentId: parentId ?? null,
     content,
   });

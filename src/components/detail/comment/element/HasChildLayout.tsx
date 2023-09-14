@@ -21,8 +21,7 @@ const HasChildLayout: React.FC<grandParentsComment> = ({ ...comment }) => {
   const [isChildCommentVisible, setIsChildCommentVisible] =
     React.useState(true);
   const editingId = useRecoilValue(openCommentEditorAtom);
-
-  const { commentId, postId, isDeleted, child } = comment;
+  const { commentId, isDeleted, child } = comment;
 
   return (
     <>
@@ -36,7 +35,7 @@ const HasChildLayout: React.FC<grandParentsComment> = ({ ...comment }) => {
         <Arrow up={isChildCommentVisible} down={!isChildCommentVisible} />
       </button>
       {editingId === commentId && (
-        <SubCommentForm parentComment parentId={commentId} postId={postId} />
+        <SubCommentForm parentComment parentId={commentId} />
       )}
       {isChildCommentVisible && (
         <ul>

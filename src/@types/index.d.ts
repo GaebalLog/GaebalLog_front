@@ -37,10 +37,12 @@ declare global {
   }
   type posts = post[];
 
-  export interface createComment {
-    postId: number;
+  export interface commentRequest {
     parentId?: number | null;
     content: string;
+  }
+  export interface createComment extends commentRequest {
+    postId: number;
   }
   interface comment {
     commentId: number;

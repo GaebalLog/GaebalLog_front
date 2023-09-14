@@ -3,21 +3,19 @@ import { useRecoilValue } from "recoil";
 
 import { commentAPI } from "@/api/commentAPI";
 import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { commentPageAtom } from "@/constants/global/atoms";
+import { commentAtom } from "@/constants/global/atoms";
 
-interface props {
-  postId: number;
-}
 interface commentList {
   totalResults: number;
   totalPages: number;
   comment: grandParentsComment[];
 }
-const useGetComments = ({ postId }: props) => {
-  const page = useRecoilValue(commentPageAtom);
+const useGetComments = () => {
+  const { postId, commentPage } = useRecoilValue(commentAtom);
   return useQuery<commentList>({
-    queryKey: [QUERY_KEYS.COMMENTS, postId, page],
-    queryFn: () => commentAPI.getComments(postId, page).then((res) => res.data),
+    queryKey: [QUERY_KEYS.COMMENTS, postId, commentPage],
+    queryFn: () =>
+      commentAPI.getComments(postId, commentPage).then((res) => res.data),
   });
 };
 

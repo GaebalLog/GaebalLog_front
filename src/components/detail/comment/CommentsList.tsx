@@ -19,7 +19,7 @@ const styles = {
 
 const CommentsList: React.FC<grandParentsComment> = ({ ...comment }) => {
   const editingId = useRecoilValue(openCommentEditorAtom);
-  const { commentId, postId, isDeleted, child } = comment;
+  const { commentId, isDeleted, child } = comment;
   const hasChildComments = child && child?.length > 0;
 
   return (
@@ -34,11 +34,7 @@ const CommentsList: React.FC<grandParentsComment> = ({ ...comment }) => {
           <HasChildLayout {...comment} />
         ) : (
           editingId === commentId && (
-            <SubCommentForm
-              parentComment
-              parentId={commentId}
-              postId={postId}
-            />
+            <SubCommentForm parentComment parentId={commentId} />
           )
         )}
       </div>

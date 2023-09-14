@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useSetRecoilState } from "recoil";
 
 import Contents from "@/components/detail/Contents";
 import useModalController from "@/hooks/useModalController";
@@ -13,8 +14,9 @@ import DeleteConfirm from "@/components/modal/common/DeleteConfirm";
 import { utilDecodeImg } from "@/utils/util-decodeImg";
 import LikeView from "@/components/commonUI/LikeView";
 import useToggleLike from "@/hooks/postAPI/useToggleLike";
-import UpdateBtn from "@/hooks/featureBtn/updateBtn";
 import CommentContainer from "@/components/detail/CommentContainer";
+import UpdateBtn from "@/components/tech/updateBtn";
+import { commentAtom } from "@/constants/global/atoms";
 
 const styles = {
   contents: {
@@ -37,6 +39,7 @@ export interface detailParams {
 }
 // 기능 분리 필요 :: 컨텐츠 부분이랑 코멘트 부분
 const Detail = ({ params: { postId } }: detailParams) => {
+  const setPostId = useSetRecoilState(commentAtom);
   const [detailData, setDetailData] = React.useState<postListAuthor>();
   const { modal, openModal } = useModalController();
   useQuery({
@@ -61,6 +64,9 @@ const Detail = ({ params: { postId } }: detailParams) => {
   const { mutate: likeHandler } = useToggleLike({
     onToggle: toggleLikeHandler,
   });
+  React.useEffect(() => {
+    setPostId((prev) => ({ ...prev, postId: +postId }));
+  }, [setPostId, postId]);
   return (
     <div className={styles.contents.wrapper}>
       <div className={styles.contents.innerContainer}>
@@ -124,7 +130,7 @@ const Detail = ({ params: { postId } }: detailParams) => {
         </article>
       </div>
       <hr className={styles.line} />
-      <CommentContainer postId={+postId} />
+      <CommentContainer />
     </div>
   );
 };

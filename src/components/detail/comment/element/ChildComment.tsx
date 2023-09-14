@@ -11,7 +11,7 @@ import ChildCommentCard from "./card/ChildCommentCard";
 const ChildComment: React.FC<parentsComment> = ({ ...comment }) => {
   const editingId = useRecoilValue(openCommentEditorAtom);
 
-  const { commentId, postId, isDeleted, child } = comment;
+  const { commentId, isDeleted, child } = comment;
   return (
     <>
       {isDeleted ? (
@@ -19,9 +19,7 @@ const ChildComment: React.FC<parentsComment> = ({ ...comment }) => {
       ) : (
         <ChildCommentCard deps="child" {...comment} />
       )}
-      {editingId === commentId && (
-        <SubCommentForm parentId={commentId} postId={postId} />
-      )}
+      {editingId === commentId && <SubCommentForm parentId={commentId} />}
       <ul>
         {child?.map((comment: comment) => (
           <li key={comment.commentId}>

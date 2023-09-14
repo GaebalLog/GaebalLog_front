@@ -15,15 +15,10 @@ const style = {
   buttonBox: `flex justify-end gap-1 mt-4 self-end`,
 };
 interface props {
-  postId: number;
   parentId: number;
   parentComment?: boolean;
 }
-const SubCommentForm: React.FC<props> = ({
-  parentComment,
-  postId,
-  parentId,
-}) => {
+const SubCommentForm: React.FC<props> = ({ parentComment, parentId }) => {
   const seteditingId = useSetRecoilState(openCommentEditorAtom);
   const { value, onChange } = useInput();
   return (
@@ -43,11 +38,7 @@ const SubCommentForm: React.FC<props> = ({
         <Button size="tab" color="black" onClick={() => seteditingId(null)}>
           취소
         </Button>
-        <CreateCommentBtn
-          postId={postId}
-          parentId={parentId}
-          content={value as string}
-        />
+        <CreateCommentBtn parentId={parentId} content={value as string} />
       </div>
     </div>
   );
