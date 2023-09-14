@@ -1,5 +1,4 @@
 import React from "react";
-import { useQueryClient } from "@tanstack/react-query";
 
 import Button from "@/components/designSystem/Button";
 import LoadingSpinner from "@/components/LoadingSpinner";
