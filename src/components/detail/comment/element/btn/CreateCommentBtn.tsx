@@ -2,13 +2,21 @@ import React from "react";
 
 import Button from "@/components/designSystem/Button";
 import useCreateComment from "@/hooks/commentAPI/useCreateComment";
+interface props extends commentRequest {
+  size: "lg" | "md";
+  onSuccess?: () => void;
+}
 
-const CreateCommentBtn: React.ComponentType<
-  commentRequest & { size: "lg" | "md" }
-> = ({ parentId, content, size }) => {
+const CreateCommentBtn: React.ComponentType<props> = ({
+  parentId,
+  content,
+  size,
+  onSuccess,
+}) => {
   const { mutate: onSubmitHandler } = useCreateComment({
     parentId: parentId ?? null,
     content,
+    onSuccess,
   });
   return (
     <Button

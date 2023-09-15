@@ -19,7 +19,7 @@ interface props {
 }
 const CommentForm: React.FC<props> = ({ count }) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
-  const { value, onChange } = useInput();
+  const { value, onChange, resetHandler } = useInput();
   return (
     <div className={styles.form}>
       <label htmlFor="comment" className={styles.label}>
@@ -34,7 +34,11 @@ const CommentForm: React.FC<props> = ({ count }) => {
             onChange={onChange}
             placeholder="댓글을 입력해주세요."
           />
-          <CreateCommentBtn content={value as string} size="lg" />
+          <CreateCommentBtn
+            content={value as string}
+            size="lg"
+            onSuccess={() => resetHandler()}
+          />
           <hr className={styles.line} />
         </>
       ) : (
