@@ -46,11 +46,8 @@ declare global {
   }
   interface comment {
     commentId: number;
-    postId: number;
-    parentId: number;
     nickname: string;
     profileImg: string;
-    userId: number;
     content: string;
     createdAt: string;
     isDeleted: boolean;

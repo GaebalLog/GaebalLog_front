@@ -6,10 +6,10 @@ import Detail from "@/app/tech/[postId]/page";
 import { renderLoggedInLayout, renderLoggedOutLayout } from "@/utils/util-test";
 
 const rederDetail = {
-  loggedOut: (postId: number) => {
+  loggedOut: (postId: string) => {
     renderLoggedOutLayout(<Detail params={{ postId }} />, { withHeader: true });
   },
-  loggedIn: (postId: number) => {
+  loggedIn: (postId: string) => {
     renderLoggedInLayout(<Detail params={{ postId }} />, {
       withHeader: true,
     });
@@ -18,7 +18,7 @@ const rederDetail = {
 
 describe("디테일 페이지 테스트", () => {
   beforeEach(() => {
-    rederDetail.loggedIn(37);
+    rederDetail.loggedIn("37");
   });
 
   test("서버에서 받아온 본문 렌더링", async () => {
