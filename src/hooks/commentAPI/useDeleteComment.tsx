@@ -1,15 +1,27 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRecoilValue } from "recoil";
 
 import { commentAPI } from "@/api/commentAPI";
+import { commentAtom } from "@/constants/global/atoms";
+import { QUERY_KEYS } from "@/constants/global/querykeys";
 
-import useGetComments from "./useGetComments";
-
-const useDeleteComment = ({ commentId }: { commentId: number }) => {
-  const { refetch } = useGetComments();
+const useDeleteComment = ({
+  commentId,
+  onSuccess,
+}: {
+  commentId: number;
+  onSuccess?: () => void;
+}) => {
+  const queryClient = useQueryClient();
+  const { postId, commentPage } = useRecoilValue(commentAtom);
   return useMutation({
     mutationFn: () => commentAPI.deleteComment(commentId),
     onSuccess: () => {
-      refetch();
+      queryClient
+        .invalidateQueries([QUERY_KEYS.COMMENTS, postId, commentPage])
+        .then(() => {
+          onSuccess && onSuccess();
+        });
     },
   });
 };

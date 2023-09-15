@@ -11,7 +11,6 @@ const styles = {
   form: `flex flex-col self-start`,
   label: `text-2xl font-bold`,
   textarea: `w-full h-[300px] mt-5 p-6 ${BG_COLOR.general02} ${BORDER_COLOR.container}`,
-  submitButton: `mt-4 self-end`,
   line: `w-full h-[3px] mt-[63px] mb-8 ${BG_COLOR.general01}`,
   blank: `mt-[63px] mb-8`,
 };
@@ -35,7 +34,7 @@ const CommentForm: React.FC<props> = ({ count }) => {
             onChange={onChange}
             placeholder="댓글을 입력해주세요."
           />
-          <CreateCommentBtn content={value as string} />
+          <CreateCommentBtn content={value as string} size="lg" />
           <hr className={styles.line} />
         </>
       ) : (

@@ -1,22 +1,27 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 
 import { commentAPI } from "@/api/commentAPI";
 import { commentAtom } from "@/constants/global/atoms";
+import { QUERY_KEYS } from "@/constants/global/querykeys";
 
-import useGetComments from "./useGetComments";
 interface params {
   parentId?: number | null;
   content: string;
+  onSuccess?: () => void;
 }
-const useCreateComment = ({ parentId, content }: params) => {
-  const { postId } = useRecoilValue(commentAtom);
+const useCreateComment = ({ parentId, content, onSuccess }: params) => {
+  const { postId, commentPage } = useRecoilValue(commentAtom);
   const data = { postId, parentId, content };
-  const { refetch } = useGetComments();
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: () => commentAPI.createComment(data),
     onSuccess: () => {
-      refetch();
+      queryClient
+        .invalidateQueries([QUERY_KEYS.COMMENTS, postId, commentPage])
+        .then(() => {
+          onSuccess && onSuccess();
+        });
     },
   });
 };
