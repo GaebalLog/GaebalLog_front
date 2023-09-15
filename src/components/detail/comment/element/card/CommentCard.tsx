@@ -49,14 +49,12 @@ const CommentCard: React.FC<commentCardProps> = ({
     if (editingId === commentId) return seteditingId(null);
     return seteditingId(commentId);
   };
-  const { mutate } = useUpdateComment({
+  const { mutate: updateHandler } = useUpdateComment({
     commentId,
     content: value as string,
     onSuccess: () => setUpdateComment(false),
   });
-  const updateHandler = () => {
-    mutate();
-  };
+
   return (
     <div className={isChildComment ? "mt-4" : ""}>
       <div className={styles.commentHeader}>

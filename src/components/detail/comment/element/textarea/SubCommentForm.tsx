@@ -21,7 +21,11 @@ interface props {
 }
 const SubCommentForm: React.FC<props> = ({ parentComment, parentId }) => {
   const seteditingId = useSetRecoilState(openCommentEditorAtom);
-  const { value, onChange } = useInput();
+  const { value, onChange, resetHandler } = useInput();
+  const afterCreateComment = () => {
+    seteditingId(null);
+    resetHandler();
+  };
   return (
     <div className="mt-8 mb-5">
       <div className="flex">
@@ -48,6 +52,7 @@ const SubCommentForm: React.FC<props> = ({ parentComment, parentId }) => {
           parentId={parentId}
           content={value as string}
           size="md"
+          onSuccess={afterCreateComment}
         />
       </div>
     </div>
