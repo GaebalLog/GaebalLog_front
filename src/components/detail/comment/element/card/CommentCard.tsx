@@ -52,10 +52,10 @@ const CommentCard: React.FC<commentCardProps> = ({
   const { mutate } = useUpdateComment({
     commentId,
     content: value as string,
+    onSuccess: () => setUpdateComment(false),
   });
   const updateHandler = () => {
     mutate();
-    setUpdateComment(false);
   };
   return (
     <div className={isChildComment ? "mt-4" : ""}>
