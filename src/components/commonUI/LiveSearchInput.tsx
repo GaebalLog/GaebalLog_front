@@ -1,15 +1,13 @@
 "use client";
 import React from "react";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 import Input from "@/components/designSystem/Input";
 import { BG_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
 import useInput from "@/hooks/useInput";
-import useDebounce from "@/hooks/useDebounce";
 import useModalController from "@/hooks/useModalController";
+import useLiveSearchList from "@/hooks/useLiveSearchList";
 
 import NonPortalModal from "../modal/NonPortalModal";
 
@@ -29,32 +27,29 @@ const typeStyles = {
 };
 
 interface liveSearchInputProps {
-  addCategory?: (selectedKeyword: string) => void;
   type: "keywordSearch" | "headerSearch" | "mypageSearch";
+  data?: string[];
   isRouter?: boolean;
   voiceSearch?: string | null;
   placeholder?: string;
+  clickResultList?: (selectedKeyword: string) => void;
 }
 
 const LiveSearchInput: React.FC<liveSearchInputProps> = ({
-  addCategory,
   type,
+  data,
   isRouter,
   voiceSearch,
   placeholder,
+  clickResultList,
 }) => {
   const { modal, openModal, closeModal } = useModalController();
-  const [displayedResults, setDisplayedResults] = React.useState([]);
   const [focusedIndex, setFocusedIndex] = React.useState<number | null>(null);
   const router = useRouter();
 
   const { value, setValue } = useInput();
-  const debouncedValue = useDebounce(value + "");
-  useQuery({
-    queryKey: ["liveSearch", debouncedValue],
-    queryFn: () => axios.get(`/api/liveSearch?value=${debouncedValue}`),
-    onSuccess: (data) => setDisplayedResults(data.data),
-  });
+
+  const { displayedResults } = useLiveSearchList(type, value, data);
 
   const { getIcon } = useIcon();
   const search = getIcon("search", 18, 22);
@@ -65,7 +60,7 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
   };
 
   const searchKeywordClick = (selectedKeyword: string) => {
-    addCategory && addCategory(selectedKeyword);
+    clickResultList && clickResultList(selectedKeyword);
     closeModal(type);
     isRouter && router.push(`/tech?keyword=${selectedKeyword}`);
     if (type === "keywordSearch") return setValue("");

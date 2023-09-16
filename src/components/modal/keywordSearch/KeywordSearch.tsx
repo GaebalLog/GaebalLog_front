@@ -76,7 +76,7 @@ const KeywordSearch = () => {
           <span className={styles.title}>Add my keywords</span>
           <LiveSearchInput
             type="keywordSearch"
-            addCategory={addCategory}
+            clickResultList={addCategory}
             placeholder="키워드를 추가하여 나만의 키워드를 만들어 보세요."
           />
           <div className={styles.keywordBox}>
