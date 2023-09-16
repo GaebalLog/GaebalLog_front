@@ -106,6 +106,13 @@ declare global {
     "My Friends' Articles",
   ] as const;
   type sortTab = (typeof sortTab)[number];
+
+  interface error {
+    response: {
+      data: object;
+      status: 500;
+    };
+  }
 }
 
 declare module "ckeditor5-custom-build/build/ckeditor" {

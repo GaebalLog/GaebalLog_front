@@ -42,7 +42,9 @@ const useSignupSubmit = (
         alert("회원가입 성공!");
         router.replace("/home");
       } catch (error) {
-        console.log("회원가입 실패 ::", error);
+        if ((error as error)?.response?.status === 500) {
+          alert("이미 존재하는 이메일입니다.");
+        } else alert("서버 연결 실패");
       }
     } else {
       alert("항목들을 전부 확인해주세요!");

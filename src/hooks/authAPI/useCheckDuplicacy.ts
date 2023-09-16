@@ -17,7 +17,9 @@ const useCheckDuplicacy = (emailValue: string, nicknameValue: string) => {
       await authAPI.emailConfirm(emailValue);
       setIsEmailDuplicated(false);
     } catch (error) {
-      setIsEmailDuplicated(true);
+      if ((error as error)?.response?.status === 500) {
+        setIsEmailDuplicated(true);
+      } else alert("서버 연결 실패");
     }
   }, [emailValue]);
   const nicknameCheckHandler = React.useCallback(async () => {
@@ -26,7 +28,9 @@ const useCheckDuplicacy = (emailValue: string, nicknameValue: string) => {
       await authAPI.nicknameConfirm(nicknameValue);
       setIsNicknameDuplicated(false);
     } catch (error) {
-      setIsNicknameDuplicated(true);
+      if ((error as error)?.response?.status === 500) {
+        setIsNicknameDuplicated(true);
+      } else alert("서버 연결 실패");
     }
   }, [nicknameValue]);
 
