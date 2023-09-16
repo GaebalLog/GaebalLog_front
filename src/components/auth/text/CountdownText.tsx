@@ -1,11 +1,11 @@
 import React from "react";
 
-interface countdownMsgProps {
+interface countdownTextProps {
   isEmailSent: boolean;
   resendClick: number;
 }
 
-const CountdownMsg: React.FC<countdownMsgProps> = ({
+const CountdownText: React.FC<countdownTextProps> = ({
   isEmailSent,
   resendClick,
 }) => {
@@ -41,4 +41,4 @@ const CountdownMsg: React.FC<countdownMsgProps> = ({
   );
 };
 
-export default CountdownMsg;
+export default CountdownText;

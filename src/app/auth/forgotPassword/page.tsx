@@ -4,11 +4,11 @@ import React from "react";
 
 import useInput from "@/hooks/useInput";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import InputWithLabel from "@/components/designSystem/InputWithLabel";
 import Button from "@/components/designSystem/Button";
 import useValidation from "@/hooks/useValidation";
-import CountdownMsg from "@/components/auth/CountdownMsg";
+import CountdownText from "@/components/auth/text/CountdownText";
 import { authAPI } from "@/api/authAPI";
+import InputWithLabel from "@/components/auth/input/InputWithLabel";
 
 const ForgotPassword = () => {
   const [isEmailSent, setIsEmailSent] = React.useState(false);
@@ -107,7 +107,7 @@ const ForgotPassword = () => {
             </Button>
           </div>
         </div>
-        <CountdownMsg isEmailSent={isEmailSent} resendClick={resendClick} />
+        <CountdownText isEmailSent={isEmailSent} resendClick={resendClick} />
         <InputWithLabel
           className="w-[511px]"
           label="비밀번호 재설정"

@@ -6,12 +6,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import InputWithLabel from "@/components/designSystem/InputWithLabel";
 import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
 import { authAPI, googleURI, kakaoURI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
 import useUserAuth from "@/hooks/useUserAuth";
+import InputWithLabel from "@/components/auth/input/InputWithLabel";
 
 const styles = {
   container: `flex flex-col items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
