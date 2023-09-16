@@ -44,7 +44,7 @@ const Signuppage = () => {
     nicknameCheckHandler,
   } = useCheckDuplicacy(emailInput.value + "", nicknameInput.value + "");
 
-  const { handleSubmit } = useSignupSubmit(
+  const { handleSignSubmit } = useSignupSubmit(
     isEmailValid,
     isEmailDuplicated,
     isNicknameDuplicated,
@@ -58,7 +58,7 @@ const Signuppage = () => {
 
   return (
     <div className={styles.wrapper}>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form className={styles.form} onSubmit={handleSignSubmit}>
         <Title>Sign up</Title>
         <div>
           <InputWithCheck

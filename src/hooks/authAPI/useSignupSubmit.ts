@@ -20,7 +20,7 @@ const useSignupSubmit = (
 
   const { setUserInfo } = useUserAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSignSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (
@@ -51,7 +51,7 @@ const useSignupSubmit = (
     }
   };
 
-  return { handleSubmit };
+  return { handleSignSubmit };
 };
 
 export default useSignupSubmit;
