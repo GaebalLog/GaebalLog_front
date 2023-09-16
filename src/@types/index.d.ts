@@ -113,6 +113,13 @@ declare global {
       status: 500;
     };
   }
+
+  interface preferencesResponse {
+    darkmodeStatus: boolean;
+    neighborAlert: boolean;
+    commentAlert: boolean;
+    chatAlert: boolean;
+  }
 }
 
 declare module "ckeditor5-custom-build/build/ckeditor" {
