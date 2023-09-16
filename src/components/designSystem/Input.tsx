@@ -6,16 +6,16 @@ import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import useModalController from "@/hooks/useModalController";
 
 const styles = {
-  searchModal: {
+  keywordSearch: {
     container: "relative w-full h-[48px] mb-[53px]",
     input: "w-full h-full pl-[30px] pr-[55px] rounded-full",
   },
-  header: {
+  headerSearch: {
     container: `flex relative w-[400px] h-[48px] rounded-[24px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.general06} ${BG_COLOR.primary}`,
     input:
       "w-[400px] h-[48px] px-[15px] rounded-r-[24px] bg-transparent outline-none",
   },
-  mypage: {
+  mypageSearch: {
     container: `flex relative w-[1325px] h-[48px] rounded-[24px] border border-solid mb-[32px] ${BORDER_COLOR.container} ${TEXT_COLOR.general06} ${BG_COLOR.primary}`,
     input: `w-[1325px] h-[48px] px-[15px] rounded-[24px] bg-transparent`,
   },
@@ -28,7 +28,7 @@ const styles = {
   },
 };
 interface InputProps {
-  type: "searchModal" | "header" | "mypage";
+  type: "keywordSearch" | "headerSearch" | "mypageSearch";
   value: string;
   placeholder?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
@@ -59,19 +59,19 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <div
-      className={styles[type].container}
+      className={styles[type]?.container}
       onClick={(e) => e.stopPropagation()}
     >
-      {type === "header" && (
+      {type === "headerSearch" && (
         <span
           className={styles.dropDown.drop}
-          onClick={() => toggleModal("headerSearch")}
+          onClick={() => toggleModal("headerTag")}
         >
           {searchSort}
           {downBtn}
         </span>
       )}
-      {modal.headerSearch && (
+      {modal.headerTag && (
         <ul className={styles.dropDown.ul}>
           {sortList.map((sort) => (
             <li
@@ -83,7 +83,7 @@ const Input: React.FC<InputProps> = ({
               }
               onClick={() => {
                 setSearchSort(sort);
-                closeModal("headerSearch");
+                closeModal("headerTag");
               }}
               onMouseOver={() => setHoveredItem(sort)}
               onMouseLeave={() => setHoveredItem(undefined)}
@@ -95,7 +95,7 @@ const Input: React.FC<InputProps> = ({
       )}
       <input
         id={type}
-        className={styles[type].input}
+        className={styles[type]?.input}
         value={value}
         onChange={onChange}
         placeholder={placeholder || "검색어를 입력해주세요."}

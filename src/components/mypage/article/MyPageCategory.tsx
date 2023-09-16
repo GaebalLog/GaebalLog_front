@@ -99,7 +99,7 @@ const MyPageCategory = () => {
       <h1 className="font-hack text-[24px] mb-[32px]">My Keyword Total time</h1>
       <div className="relative">
         <Input
-          type="mypage"
+          type="mypageSearch"
           placeholder="내가 추가한 나만의 키워드를 검색해보세요."
           value={keyword}
           onChange={(e) => {

@@ -22,6 +22,7 @@ const useCheckDuplicacy = (emailValue: string, nicknameValue: string) => {
       } else alert("서버 연결 실패");
     }
   }, [emailValue]);
+
   const nicknameCheckHandler = React.useCallback(async () => {
     if (nicknameValue === "") return setIsNicknameEmpty(true);
     try {
