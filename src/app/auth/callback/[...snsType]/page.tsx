@@ -12,7 +12,7 @@ interface snsTypeProps {
   };
 }
 
-const SnsLogin = ({ params: { snsType } }: snsTypeProps) => {
+const SnsLoginpage = ({ params: { snsType } }: snsTypeProps) => {
   const { setUserInfo } = useUserAuth();
   const searchParams = useSearchParams();
   const acceptedTypes = ["google", "github", "kakao"];
@@ -48,4 +48,4 @@ const SnsLogin = ({ params: { snsType } }: snsTypeProps) => {
   return <></>;
 };
 
-export default SnsLogin;
+export default SnsLoginpage;
