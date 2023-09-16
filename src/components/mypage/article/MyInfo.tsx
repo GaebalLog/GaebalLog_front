@@ -1,62 +1,26 @@
 "use client";
-import type { ChangeEvent } from "react";
 import React from "react";
 import Image from "next/image";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import { BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
 import Label from "@/components/commonUI/Label";
-import { mypageApi } from "@/api/mypageApi";
 import { userAtom } from "@/hooks/useUserAuth";
 import useInput from "@/hooks/useInput";
+import useUpdateNickname from "@/hooks/mypageAPI/useUpdateNickname";
+import useUpdateProfileImg from "@/hooks/mypageAPI/useUpdateProfileImg";
 
 const MyInfo = () => {
   const [newProfileImg, setNewProfileImg] = React.useState<string>("");
-  const imgRef = React.useRef<HTMLInputElement>(null);
-  const [{ nickname, profileImg }, setUser] = useRecoilState(userAtom);
+  const { nickname, profileImg } = useRecoilValue(userAtom);
 
   const nicknameInput = useInput();
 
-  // setNewProfileImg 훅이 필요(수정될때마다 서버와 동기화)
-  const onChangeImgHandler = async (e: ChangeEvent<HTMLInputElement>) => {
-    const imgSrc = e.target.files && e.target.files[0];
-    if (!imgSrc) return;
-    const reader = new FileReader();
-    reader.readAsDataURL(imgSrc);
-    reader.onloadend = async () => {
-      setNewProfileImg(reader.result as string);
-      const formData = new FormData();
-      formData.append("image", imgSrc);
-      try {
-        await mypageApi.updateProfileImg(formData);
-        setUser((prev) => ({ ...prev, profileImg: reader.result as string }));
-        alert("프로필 이미지 수정 성공");
-      } catch (error) {
-        console.log("프로필 이미지 수정 오류 ::", error);
-        alert("프로필 이미지 수정 실패");
-      }
-    };
-  };
+  const { handleUpdateProfileImg, handleRemoveProfileImg } =
+    useUpdateProfileImg(setNewProfileImg);
 
-  const removeImgHandler = () => {
-    setUser((prev) => ({
-      ...prev,
-      profileImg: "/assets/images/common/default_profile.png",
-    }));
-  };
-
-  const updateNicknameHandler = async () => {
-    try {
-      await mypageApi.updateNickname(nicknameInput.value + "");
-      setUser((prev) => ({ ...prev, nickname: nicknameInput.value + "" }));
-      alert("닉네임 수정 성공");
-      nicknameInput.setValue("");
-    } catch (error) {
-      console.log("닉네임 수정 오류 ::", error);
-      alert("닉네임 수정 실패");
-    }
-  };
+  const { handleUpdateNickname } = useUpdateNickname(nicknameInput);
 
   return (
     <React.Fragment>
@@ -75,12 +39,16 @@ const MyInfo = () => {
               <input
                 id="profileImg"
                 type="file"
-                onChange={onChangeImgHandler}
-                ref={imgRef}
+                onChange={handleUpdateProfileImg}
               />
             </div>
           </div>
-          <Button size="button" color="white" border onClick={removeImgHandler}>
+          <Button
+            size="button"
+            color="white"
+            border
+            onClick={handleRemoveProfileImg}
+          >
             이미지 제거
           </Button>
         </div>
@@ -101,7 +69,7 @@ const MyInfo = () => {
               size="button"
               color="white"
               border
-              onClick={updateNicknameHandler}
+              onClick={handleUpdateNickname}
             >
               수정
             </Button>
@@ -112,7 +80,12 @@ const MyInfo = () => {
             *회원 탈퇴 ( 회원 탈퇴 시 모든 데이터는 삭제되어 복구 되지
             않습니다.)
           </h1>
-          <Button size="button" color="white" border onClick={removeImgHandler}>
+          <Button
+            size="button"
+            color="white"
+            border
+            onClick={handleRemoveProfileImg}
+          >
             회원탈퇴
           </Button>
         </div>
