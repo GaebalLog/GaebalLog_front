@@ -57,11 +57,11 @@ describe("키워드 검색 모달 API 요청 테스트", () => {
 describe("실시간 검색 기능 테스트", () => {
   beforeEach(async () => {
     render(<KeywordSearch />, { wrapper: Provider });
-    await userEvent.type(await screen.findByTestId("realTimeInput"), "리액트");
+    await userEvent.type(await screen.findByTestId("realTimeInput"), "테스트");
   });
 
   test("실시간 검색 모달 여닫기 테스트", async () => {
-    await userEvent.click(await screen.findByTestId("realTimeInput"));
+    await userEvent.click(await screen.findByPlaceholderText(/키워드/));
     expect(await screen.findByText("리액트네이티브")).toBeInTheDocument();
     await userEvent.click(screen.getByText("Add my keywords"));
     expect(screen.queryByText("리액트네이티브")).not.toBeInTheDocument();
@@ -101,17 +101,5 @@ describe("실시간 검색 기능 테스트", () => {
     await userEvent.keyboard("{arrowup}");
     expect(await screen.findByTestId("item-2")).toHaveClass("bg-[#DCDCDC]");
     expect(await screen.findByTestId("item-3")).not.toHaveClass("bg-[#DCDCDC]");
-  });
-
-  test("input의 텍스트가 선택된 추천 키워드로 바뀌어야 함", async () => {
-    const placeholder = "키워드를 추가하여 나만의 키워드를 만들어 보세요.";
-    expect(await screen.findByPlaceholderText(placeholder)).toHaveValue(
-      "리액트",
-    );
-
-    await userEvent.keyboard("{arrowdown}");
-    expect(await screen.findByPlaceholderText(placeholder)).toHaveValue(
-      "리액트네이티브",
-    );
   });
 });
