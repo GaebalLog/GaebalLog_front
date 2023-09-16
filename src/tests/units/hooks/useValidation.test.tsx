@@ -2,16 +2,18 @@ import { renderHook } from "@testing-library/react";
 
 import useValidation from "@/hooks/useValidation";
 
-const testFn = (test: string, type: "email" | "password") => {
+const validateValue = (emailValue: string, passwordValue: string) => {
   return renderHook(() => {
-    const { isPassed } = useValidation(test, type);
-    return isPassed;
+    const { isEmailValid, isPasswordValid } = useValidation(
+      emailValue,
+      passwordValue,
+    );
+    return { isEmailValid, isPasswordValid };
   });
 };
 
 test("비밀번호 유효성 검사 테스트", async () => {
-  const { result: dd } = testFn("dd", "password");
-  expect(dd.current).toBe(false);
-  const { result: sjsjs } = testFn("!sjssjsjjs2212", "password");
-  expect(sjsjs.current).toBe(true);
+  const { result } = validateValue("dd", "password");
+  expect(result.current.isEmailValid).toBe(false);
+  expect(result.current.isPasswordValid).toBe(false);
 });
