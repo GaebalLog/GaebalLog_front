@@ -6,10 +6,10 @@ import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import useInput from "@/hooks/useInput";
 import { DateConvertor } from "@/utils/util-date";
 
-import NonPortalModal from "../modal/NonPortalModal";
+import NonPortalModal from "../../modal/NonPortalModal";
 
-import CustomNumberInput from "./CustomNumberInput";
 import Calendar from "./calendar/Calendar";
+import CustomNumberInput from "./CustomNumberInput";
 
 const styles = {
   settingOpenButton: `flex items-center gap-[11px] py-[9px] px-[19px] border ${BORDER_COLOR.button}`,

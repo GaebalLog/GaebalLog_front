@@ -5,10 +5,10 @@ import userEvent from "@testing-library/user-event";
 import Postpage from "@/app/post/create/[...type]/page";
 import Provider from "@/components/provider/Provider";
 import { renderLoggedInLayout } from "@/utils/util-test";
-import TimeSetting from "@/components/post/TimeSetting";
-import CustomNumberInput from "@/components/post/CustomNumberInput";
+import TimeSetting from "@/components/post/discussionTimeSetting/TimeSetting";
+import CustomNumberInput from "@/components/post/discussionTimeSetting/CustomNumberInput";
 import useInput from "@/hooks/useInput";
-import Calendar from "@/components/post/calendar/Calendar";
+import Calendar from "@/components/post/discussionTimeSetting/calendar/Calendar";
 import { CalendarManager } from "@/utils/util-date";
 
 const today = new Date();
