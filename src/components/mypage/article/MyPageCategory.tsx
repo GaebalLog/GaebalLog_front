@@ -7,6 +7,8 @@ import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
 import usePagination from "@/hooks/usePagination";
 import LiveSearchInput from "@/components/commonUI/LiveSearchInput";
+import mypageLiveSearchData from "@/utils/util-mypageLiveSearchData";
+import { QUERY_KEYS } from "@/constants/global/querykeys";
 
 import TimeOfLearning from "../TimeOfLearning";
 
@@ -17,7 +19,7 @@ const MyPageCategory = () => {
   const myCategoriesContainerRef = React.useRef<HTMLDivElement | null>(null);
 
   const { data } = useQuery({
-    queryKey: ["participatedlist"],
+    queryKey: [QUERY_KEYS.PARTICIPATEDLIST],
     queryFn: async () => await axios.get("/api/users/times"),
     onSuccess: (data) => {
       setParticipatedList(data.data.categories);
@@ -36,17 +38,10 @@ const MyPageCategory = () => {
   const prevBtn = getIcon("prevBtn", 48, 48, "cursor");
   const nextBtn = getIcon("nextBtn", 48, 48, "cursor");
 
-  const timelessCategories = data?.data?.categories.map(
-    (item: timeOfLearning) => item.category,
+  const { timelessCategories, filterCategories } = mypageLiveSearchData(
+    data?.data?.categories,
+    setParticipatedList,
   );
-
-  const filterCategories = (searchkey: string) => {
-    const fullList = data?.data?.categories;
-    const selectedResult = fullList?.filter((item: timeOfLearning) =>
-      item.category.includes(searchkey),
-    );
-    setParticipatedList(selectedResult);
-  };
 
   return (
     <div

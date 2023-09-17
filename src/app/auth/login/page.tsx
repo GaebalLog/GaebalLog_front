@@ -1,16 +1,13 @@
 "use client";
 
-import type { FormEvent } from "react";
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
-import { authAPI, googleURI, kakaoURI } from "@/api/authAPI";
+import { googleURI, kakaoURI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
-import useUserAuth from "@/hooks/useUserAuth";
 import InputWithLabel from "@/components/auth/input/InputWithLabel";
 import Title from "@/components/auth/text/Title";
 import ValidationText from "@/components/auth/text/ValidationText";
