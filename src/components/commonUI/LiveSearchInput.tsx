@@ -1,144 +1,92 @@
 "use client";
 import React from "react";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 
 import Input from "@/components/designSystem/Input";
 import { BG_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
-import useInput from "@/hooks/useInput";
-import useDebounce from "@/hooks/useDebounce";
+import useModalController from "@/hooks/useModalController";
+import useLiveSearchController from "@/hooks/liveSearch/useLiveSearchController";
+import useLiveSearchList from "@/hooks/liveSearch/useLiveSearchList";
 
 import NonPortalModal from "../modal/NonPortalModal";
 
 const typeStyles = {
-  searchModal: {
+  keywordSearch: {
     topLeft: { top: 50, left: 19.5 },
     modalWidth: "w-[1180px]",
   },
-  header: {
+  headerSearch: {
     topLeft: { top: 48, left: 19.5 },
     modalWidth: "w-[360px]",
+  },
+  mypageSearch: {
+    topLeft: { top: 50, left: 19.5 },
+    modalWidth: "w-[1280px]",
   },
 };
 
 interface liveSearchInputProps {
-  addCategory?: (selectedKeyword: string) => void;
-  type: "searchModal" | "header";
+  type: "keywordSearch" | "headerSearch" | "mypageSearch";
+  data?: string[];
   isRouter?: boolean;
   voiceSearch?: string | null;
   placeholder?: string;
+  clickResultList?: (selectedKeyword: string) => void;
 }
 
 const LiveSearchInput: React.FC<liveSearchInputProps> = ({
-  addCategory,
   type,
+  data,
   isRouter,
   voiceSearch,
   placeholder,
+  clickResultList,
 }) => {
-  const [isModal, setIsModal] = React.useState<boolean>(false);
-  const [displayedResults, setDisplayedResults] = React.useState([]);
   const [focusedIndex, setFocusedIndex] = React.useState<number | null>(null);
-  const modalRef = React.useRef<HTMLUListElement | null>(null);
-  const inputRef = React.useRef<HTMLLabelElement | null>(null);
-  const router = useRouter();
+  const [value, setValue] = React.useState("");
 
-  const { value, onChange, setValue } = useInput();
-  const debouncedValue = useDebounce(value + "");
-  const { data } = useQuery({
-    queryKey: ["liveSearch", debouncedValue],
-    queryFn: () => axios.get(`/api/liveSearch?value=${debouncedValue}`),
-    onSuccess: (data) => setDisplayedResults(data.data),
-  });
-
+  const { modal } = useModalController();
   const { getIcon } = useIcon();
   const search = getIcon("search", 18, 22);
 
+  const { displayedResults } = useLiveSearchList(type, value, data);
+  const { handleInputChange, searchedKeywordClick, handleKeyboard } =
+    useLiveSearchController(
+      type,
+      value,
+      setValue,
+      displayedResults,
+      focusedIndex,
+      setFocusedIndex,
+      isRouter,
+      voiceSearch,
+      clickResultList,
+    );
+
   const styles = {
-    searchUl: `${typeStyles[type].modalWidth} shadow-xl ${BG_COLOR.primary}`,
+    searchUl: `${typeStyles[type]?.modalWidth} ${
+      type === "mypageSearch" && "max-h-[300px]"
+    } shadow-xl overflow-y-auto ${BG_COLOR.primary}`,
     searchList: `flex items-center w-full h-[60px] cursor-pointer`,
   };
 
-  const modalOutsideClick = React.useCallback((event: MouseEvent) => {
-    if (!(event.target instanceof Node)) return;
-    const isClickInsideInput = inputRef.current?.contains(event.target);
-    const isClickInsideModal = modalRef.current?.contains(event.target);
-    if (!isClickInsideInput && !isClickInsideModal) {
-      setFocusedIndex(null);
-      setIsModal(false);
-    }
-  }, []);
-
-  const searchKeywordClick = (selectedKeyword: string) => {
-    addCategory && addCategory(selectedKeyword);
-    setIsModal((prev) => !prev);
-    setFocusedIndex(null);
-    isRouter && router.push(`/tech?keyword=${selectedKeyword}`);
-    if (type === "searchModal") return setValue("");
-  };
-
-  const keyboardHandler = (event: React.KeyboardEvent) => {
-    const { key } = event;
-    const maxIndex = (data?.data.length || 0) - 1;
-
-    if (key === "ArrowDown") {
-      return setFocusedIndex((prev) =>
-        prev !== null && prev < maxIndex ? prev + 1 : 0,
-      );
-    }
-    if (key === "ArrowUp") {
-      return setFocusedIndex((prev) =>
-        prev !== null && prev > 0 ? prev - 1 : maxIndex,
-      );
-    }
-    if (key === "Enter") {
-      const selectedResult =
-        focusedIndex !== null ? data?.data[focusedIndex] : value;
-      return searchKeywordClick(selectedResult);
-    }
-  };
-
-  React.useEffect(() => {
-    if (focusedIndex !== null && data?.data) {
-      setValue(data.data[focusedIndex]);
-    }
-  }, [focusedIndex, data, setValue]);
-
-  React.useEffect(() => {
-    if (voiceSearch) {
-      setValue(voiceSearch);
-      searchKeywordClick(voiceSearch);
-    }
-  }, [voiceSearch]);
-  React.useEffect(() => {
-    setIsModal(Boolean(value));
-  }, [value]);
-
-  React.useEffect(() => {
-    document.addEventListener("mousedown", modalOutsideClick);
-    return () => document.removeEventListener("mousedown", modalOutsideClick);
-  }, [modalOutsideClick]);
-
   return (
-    <div className="w-full" onKeyDown={keyboardHandler}>
+    <div className="w-full" onKeyDown={handleKeyboard}>
       <label
         data-testid="realTimeInput"
-        htmlFor="searchModal"
+        htmlFor="keywordSearch"
         className="relative"
-        ref={inputRef}
       >
         <Input
           type={type}
           placeholder={placeholder}
           value={value + ""}
-          onChange={onChange}
-          onClick={searchKeywordClick}
+          onClick={searchedKeywordClick}
+          onChange={handleInputChange}
         />
-        {isModal && (
-          <NonPortalModal topLeft={typeStyles[type].topLeft} nonBackdrop>
-            <ul className={styles.searchUl} ref={modalRef}>
+        {modal[type] && (
+          <NonPortalModal topLeft={typeStyles[type]?.topLeft} nonBackdrop>
+            <ul className={styles.searchUl}>
               {displayedResults?.map((result: string, i: number) => {
                 const bgColor =
                   focusedIndex === i ? BG_COLOR.general03 : BG_COLOR.primary;
@@ -148,8 +96,9 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
                     key={i}
                     data-testid={`item-${i}`}
                     className={`${styles.searchList} ${bgColor}`}
-                    onClick={() => searchKeywordClick(result)}
+                    onClick={() => searchedKeywordClick(result)}
                     onMouseEnter={() => setFocusedIndex(i)}
+                    onMouseLeave={() => setFocusedIndex(null)}
                   >
                     <div className="mx-5">{search}</div>
                     <span>{result}</span>

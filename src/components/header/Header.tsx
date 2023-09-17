@@ -83,7 +83,7 @@ const Header = () => {
               ))}
               <li className="flex gap-[16px] items-center">
                 <LiveSearchInput
-                  type="header"
+                  type="headerSearch"
                   isRouter
                   voiceSearch={voiceSearch}
                 />

@@ -26,7 +26,7 @@ const Calendar: React.FC<calendarProps> = ({
   const selectedDate = {
     year: yearValue,
     month: monthValue,
-    day: dateValue,
+    date: dateValue,
   };
   const [selectedYear, setSelectedYear] = React.useState(yearValue);
   const [selectedMonth, setSelectedMonth] = React.useState(monthValue);

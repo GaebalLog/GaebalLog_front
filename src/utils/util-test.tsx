@@ -46,7 +46,7 @@ export const renderLoggedOutLayout = (
   option?: option,
 ) => {
   server.use(
-    rest.get("/users", (req, res, ctx) => {
+    rest.get("/users/me", (req, res, ctx) => {
       return res.once(ctx.status(400));
     }),
   );

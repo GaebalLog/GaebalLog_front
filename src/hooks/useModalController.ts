@@ -3,7 +3,9 @@ import { atom } from "recoil";
 
 interface Atom {
   defaultModal: boolean;
+  headerTag: boolean;
   headerSearch: boolean;
+  keywordSearch: boolean;
   mypageSearch: boolean;
   myNeightborsType: boolean;
   discussionMore: boolean;
@@ -16,7 +18,9 @@ export const modalControlAtom = atom<Atom>({
   key: "modalController",
   default: {
     defaultModal: false,
+    headerTag: false,
     headerSearch: false,
+    keywordSearch: false,
     mypageSearch: false,
     myNeightborsType: false,
     discussionMore: false,

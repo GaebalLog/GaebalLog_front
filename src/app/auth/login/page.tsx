@@ -1,23 +1,22 @@
 "use client";
 
-import type { FormEvent } from "react";
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import InputWithLabel from "@/components/designSystem/InputWithLabel";
 import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
-import { authAPI, googleURI, kakaoURI } from "@/api/authAPI";
+import { googleURI, kakaoURI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
-import useUserAuth from "@/hooks/useUserAuth";
+import InputWithLabel from "@/components/auth/input/InputWithLabel";
+import Title from "@/components/auth/text/Title";
+import ValidationText from "@/components/auth/text/ValidationText";
+import useLoginSubmit from "@/hooks/authAPI/useLoginSubmit";
 
 const styles = {
   container: `flex flex-col items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
   loginSection: {
     wrapper: `w-[465px]`,
-    title: `text-[32px] text-center leading-normal mt-12 mb-[88px] font-hack`,
     form: `flex flex-col gap-[38px]`,
     localSignUp: `flex justify-center gap-11 mt-[18px] pl-[88px]`,
   },
@@ -48,9 +47,7 @@ const githubURL =
 
 const Loginpage = () => {
   const [isError, setIsError] = React.useState(false);
-  const router = useRouter();
 
-  const { setUserInfo } = useUserAuth();
   const emailInput = useInput();
   const passwordInput = useInput();
   const { getIcon } = useIcon();
@@ -59,24 +56,17 @@ const Loginpage = () => {
   const google = getIcon("google", 80, 80);
   const github = getIcon("github", 80, 80);
 
-  const LoginHandler = async (e: FormEvent) => {
-    e.preventDefault();
-    try {
-      const { data } = await authAPI.localLogin({
-        email: emailInput.value + "",
-        password: passwordInput.value + "",
-      });
-      setUserInfo(data);
-      router.replace("/home");
-    } catch (error) {
-      setIsError(true);
-    }
-  };
+  const { handleLoginSubmit } = useLoginSubmit(
+    emailInput.value + "",
+    passwordInput.value + "",
+    setIsError,
+  );
+
   return (
     <div className={styles.container}>
       <section className={styles.loginSection.wrapper}>
-        <h1 className={styles.loginSection.title}>Log in</h1>
-        <form className={styles.loginSection.form}>
+        <Title type="login">Log in</Title>
+        <form className={styles.loginSection.form} onSubmit={handleLoginSubmit}>
           <InputWithLabel
             label="E-mail"
             type="email"
@@ -89,14 +79,13 @@ const Loginpage = () => {
             value={passwordInput.value + ""}
             onChange={passwordInput.onChange}
           />
-          <p
-            className={`-mt-[30px] -mb-7 select-none ${
-              isError ? TEXT_COLOR.error : "text-transparent"
-            }`}
-          >
-            아이디 또는 비밀번호를 다시 확인하세요.
-          </p>
-          <Button size="bigLogin" color="white" onClick={LoginHandler}>
+          <ValidationText
+            text="아이디 또는 비밀번호를 다시 확인하세요."
+            type="default"
+            isHighlightColor={isError}
+            isLoginPage
+          />
+          <Button size="bigLogin" color="white">
             Log in
           </Button>
         </form>
