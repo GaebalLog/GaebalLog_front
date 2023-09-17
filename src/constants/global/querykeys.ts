@@ -3,4 +3,6 @@ export const QUERY_KEYS = {
   POSTLIST: "postlist",
   COMMENTS: "comments",
   ALERTSETTING: "alertSetting",
+  PARTICIPATEDLIST: "participatedList",
+  LIVESEARCH: "liveSearch",
 };

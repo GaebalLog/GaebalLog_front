@@ -2,18 +2,20 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-import useDebounce from "./useDebounce";
+import { QUERY_KEYS } from "@/constants/global/querykeys";
+
+import useDebounce from "../useDebounce";
 
 const useLiveSearchList = (
   type: "keywordSearch" | "headerSearch" | "mypageSearch",
-  value?: string | number,
+  value: string,
   data?: string[],
 ) => {
   const [displayedResults, setDisplayedResults] = React.useState([""]);
-  const debouncedValue = useDebounce(value + "");
+  const debouncedValue = useDebounce(value);
 
   useQuery({
-    queryKey: ["liveSearch", debouncedValue],
+    queryKey: [QUERY_KEYS.LIVESEARCH, debouncedValue],
     queryFn: () => axios.get(`/api/liveSearch?value=${debouncedValue}`),
     onSuccess: (data) => setDisplayedResults(data.data),
     enabled: type !== "mypageSearch",
@@ -21,7 +23,7 @@ const useLiveSearchList = (
 
   React.useEffect(() => {
     if (data) {
-      const filteredResult = data?.filter((item) => item.includes(value + ""));
+      const filteredResult = data?.filter((item) => item.includes(value));
       setDisplayedResults(filteredResult);
     }
   }, [value]);
