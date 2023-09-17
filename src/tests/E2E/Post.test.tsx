@@ -290,7 +290,7 @@ describe("토의 시간 설정 테스트", () => {
       expect(await screen.findByDisplayValue("28일")).toBeInTheDocument();
     });
 
-    test("월을 직접 수정해 3월로 바꾸고 다른 곳 클릭하면 28일로 바뀌어야 함", async () => {
+    test("월을 직접 수정해 2월로 바꾸고 다른 곳 클릭하면 31일이 28일로 바뀌어야 함", async () => {
       setDefaultDateSetting("2111", "03", "31");
       expect(await screen.findByDisplayValue("31일")).toBeInTheDocument();
       await userEvent.clear(await monthInput);
