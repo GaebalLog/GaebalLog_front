@@ -11,7 +11,7 @@ const styles = {
 };
 
 interface DayProps {
-  selectedDate: { year: number; month: number; day: number };
+  selectedDate: { year: number; month: number; date: number };
   selectedYear: number;
   selectedMonth: number;
   prevMonth: () => void;

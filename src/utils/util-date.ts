@@ -6,13 +6,13 @@ export class CalendarManager {
   private selectedDate: {
     year: number;
     month: number;
-    day: number;
+    date: number;
   };
 
   constructor(
     selectedYear: number,
     selectedMonth: number,
-    selectedDate: { year: number; month: number; day: number },
+    selectedDate: { year: number; month: number; date: number },
   ) {
     this.selectedYear = selectedYear;
     this.selectedMonth = selectedMonth;
@@ -58,7 +58,7 @@ export class CalendarManager {
     if (
       this.selectedDate.year === this.selectedYear &&
       this.selectedDate.month === this.selectedMonth &&
-      this.selectedDate.day === day
+      this.selectedDate.date === day
     )
       return `rounded-full bg-[#967AC3] ${TEXT_COLOR.inverse}`;
   }
