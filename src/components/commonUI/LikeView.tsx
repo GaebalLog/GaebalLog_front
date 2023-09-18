@@ -1,8 +1,11 @@
+"use client";
 import React from "react";
 
 import useIcon from "@/hooks/useIcon";
+import useModalController from "@/hooks/useModalController";
 
 import Button from "../designSystem/Button";
+import RequireLoginConfirm from "../modal/confirm/RequireLoginConfirm";
 interface props {
   liked?: boolean;
   like?: number;
@@ -17,6 +20,8 @@ const LikeView: React.FC<props> = ({
   view,
   option,
 }) => {
+  const { modal } = useModalController();
+
   const { getIcon } = useIcon();
   const likeIcon = getIcon("heart", 16, 14, "cursor hover");
   const checkedLikeIcon = getIcon("checked_heart", 16, 14, "cursor hover");
@@ -44,12 +49,16 @@ const LikeView: React.FC<props> = ({
           color="background"
           rounded
           className={`flex-wrap ${btn.className} cursor-default`}
-          onClick={btn.onClick}
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+            e.stopPropagation();
+            btn.onClick && btn.onClick();
+          }}
         >
           {btn.icon}
           {btn.count}
         </Button>
       ))}
+      {modal.requiredLogin && <RequireLoginConfirm />}
     </div>
   );
 };

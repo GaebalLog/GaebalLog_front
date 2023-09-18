@@ -11,6 +11,7 @@ interface Atom {
   deleteModal: boolean;
   calendarModal: boolean;
   thumbnailSelectModal: boolean;
+  requiredLogin: boolean;
 }
 export const modalControlAtom = atom<Atom>({
   key: "modalController",
@@ -24,6 +25,7 @@ export const modalControlAtom = atom<Atom>({
     deleteModal: false,
     thumbnailSelectModal: false,
     calendarModal: false,
+    requiredLogin: false,
   },
 });
 export const activatedModalIdAtom = atom<string | number | null>({
