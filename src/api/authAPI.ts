@@ -44,6 +44,9 @@ export const authAPI = {
   },
 
   myKeywords: () => {
-    return instance.get(`/users/keywords`);
+    return instance.get(`/keywords`);
+  },
+  postKeywords: (keyword: string[]) => {
+    return instance.post(`/keywords`, { keyword });
   },
 };
