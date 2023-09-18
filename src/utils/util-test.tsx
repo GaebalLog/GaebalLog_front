@@ -6,13 +6,20 @@ import { rest } from "msw";
 import Provider from "@/components/provider/Provider";
 import Header from "@/components/header/Header";
 import MyPageCategory from "@/components/mypage/article/MyPageCategory";
-import { isLoggedInAtom } from "@/hooks/useUserAuth";
+import { isLoggedInAtom, userAtom } from "@/hooks/useUserAuth";
 import { server } from "@/tests/msw/server";
 
 const mockInitializeState =
   (isLoggedInValue: boolean) =>
   ({ set }: MutableSnapshot) => {
     set(isLoggedInAtom, isLoggedInValue);
+    if (isLoggedInAtom) {
+      set(userAtom, {
+        nickname: "카카오",
+        profileImg:
+          "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+      });
+    }
   };
 
 /**

@@ -9,14 +9,15 @@ export const postHandler = [
       return res(
         ctx.status(200),
         ctx.json({
-          postId: 29,
-          nickname: "chxxyx@naver.com",
-          title: "update4",
-          content: "update45",
+          postId: 37,
+          nickname: "카카오",
+          title: "디테일 페이지 제목",
+          content: "디테일 페이지 내용",
           view: null,
           like: null,
           img: "test img update4",
           categories: ["jwt", "aws", "mysql"],
+          isAuthor: true,
           createdAt: "2023-08-28 17:08:22",
         }),
       );
@@ -55,7 +56,7 @@ export const postHandler = [
           hasMore: false,
           posts: [
             {
-              postId: 29,
+              postId: 37,
               nickname: "nickname",
               title: "title",
               content: "마지막",
@@ -75,7 +76,8 @@ export const postHandler = [
 
   rest.delete("/post/:id", (req, res, ctx) => {
     const postId = req.params.id;
-    if (postId == "37") return res(ctx.status(200), ctx.json({ result: true }));
+    console.log(postId);
+    if (postId == "37") return res(ctx.status(201), ctx.json({ result: true }));
   }),
 
   rest.post("/post", (req, res, ctx) => {
