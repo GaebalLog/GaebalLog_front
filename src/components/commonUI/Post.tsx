@@ -39,7 +39,8 @@ const Post: React.FC<{
     router.push(`/tech/${post.postId}`);
   };
 
-  const checkBookmarkHandler = () => {
+  const checkBookmarkHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
     bookmarkHandler(post.postId);
   };
 
