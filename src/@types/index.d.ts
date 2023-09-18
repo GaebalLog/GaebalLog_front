@@ -59,6 +59,11 @@ declare global {
   interface grandParentsComment extends comment {
     child: parentsComment[];
   }
+  interface commentList {
+    totalResults: number;
+    totalPages: number;
+    comment: grandParentsComment[];
+  }
   interface discussion {
     chatListId: number;
     nickname: string;

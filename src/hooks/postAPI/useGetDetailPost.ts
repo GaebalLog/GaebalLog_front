@@ -17,6 +17,7 @@ const useGetDetailPost = ({
     onSuccess: (data) => {
       onSuccessSet(data.data);
     },
+    enabled: postId !== 0,
   });
 };
 

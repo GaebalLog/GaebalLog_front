@@ -2,10 +2,8 @@
 import React from "react";
 
 import useIcon from "@/hooks/useIcon";
-import useModalController from "@/hooks/useModalController";
 
 import Button from "../designSystem/Button";
-import RequireLoginConfirm from "../modal/confirm/RequireLoginConfirm";
 interface props {
   liked?: boolean;
   like?: number;
@@ -20,8 +18,6 @@ const LikeView: React.FC<props> = ({
   view,
   option,
 }) => {
-  const { modal } = useModalController();
-
   const { getIcon } = useIcon();
   const likeIcon = getIcon("heart", 16, 14, "cursor hover");
   const checkedLikeIcon = getIcon("checked_heart", 16, 14, "cursor hover");
@@ -58,7 +54,6 @@ const LikeView: React.FC<props> = ({
           {btn.count}
         </Button>
       ))}
-      {modal.requiredLogin && <RequireLoginConfirm />}
     </div>
   );
 };
