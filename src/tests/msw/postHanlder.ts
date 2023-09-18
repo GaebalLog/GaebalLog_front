@@ -22,7 +22,21 @@ export const postHandler = [
         }),
       );
     } else {
-      return res(ctx.status(404));
+      return res(
+        ctx.status(200),
+        ctx.json({
+          postId: 29,
+          nickname: "카카오1",
+          title: "디테일 페이지 제목",
+          content: "디테일 페이지 내용",
+          view: null,
+          like: null,
+          img: "test img update4",
+          categories: ["jwt", "aws", "mysql"],
+          isAuthor: false,
+          createdAt: "2023-08-28 17:08:22",
+        }),
+      );
     }
   }),
 
@@ -76,7 +90,6 @@ export const postHandler = [
 
   rest.delete("/post/:id", (req, res, ctx) => {
     const postId = req.params.id;
-    console.log(postId);
     if (postId == "37") return res(ctx.status(201), ctx.json({ result: true }));
   }),
 
@@ -94,6 +107,15 @@ export const postHandler = [
     const postData = req.body as postDataType;
     if (isCreatePost(postData)) {
       return res(ctx.status(201));
+    }
+  }),
+
+  rest.get("/post/:id/verification", (req, res, ctx) => {
+    const postId = req.params.id;
+    if (postId == "37") {
+      return res(ctx.status(200), ctx.json({ result: true }));
+    } else {
+      return res(ctx.status(200), ctx.json({ result: false }));
     }
   }),
 ];

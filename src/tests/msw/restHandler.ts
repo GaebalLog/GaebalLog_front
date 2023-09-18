@@ -21,9 +21,6 @@ export const restHandler = [
       ]),
     );
   }),
-  // rest.delete("/api/keywords/:categoryId", (req, res, ctx) => {
-  //   return res(ctx.status(200));
-  // }),
   rest.get("/api/trendCategories", (req, res, ctx) => {
     return res(
       ctx.status(200),
@@ -245,33 +242,4 @@ export const restHandler = [
     ];
     return res(ctx.status(200), ctx.json({ categories }));
   }),
-
-  // api 반영
-  rest.get(
-    `${process.env.NEXT_PUBLIC_MAIN_SERVER}/api/post`,
-    (req, res, ctx) => {
-      const postId = req.url.searchParams.get("id");
-
-      if (postId == "37") {
-        return res(
-          ctx.status(200),
-          ctx.json({
-            data: {
-              postId: 29,
-              email: "chxxyx@naver.com",
-              title: "update4",
-              content: "update45",
-              view: null,
-              like: null,
-              img: "test img update4",
-              categories: ["jwt", "aws", "mysql"],
-              createdDt: "2023-08-28 17:08:22",
-            },
-          }),
-        );
-      } else {
-        return res(ctx.status(404));
-      }
-    },
-  ),
 ];
