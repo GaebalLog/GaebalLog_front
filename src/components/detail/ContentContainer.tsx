@@ -1,5 +1,4 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
 
 import Contents from "@/components/detail/content/Contents";
 import utilConvertTime from "@/utils/util-datetime";
@@ -12,7 +11,6 @@ import useGetDetailPost from "@/hooks/postAPI/useGetDetailPost";
 import useToggleLike from "@/hooks/postAPI/useToggleLike";
 import useModalController from "@/hooks/useModalController";
 import { BG_COLOR } from "@/constants/global/colors";
-import { commentAtom } from "@/constants/global/atoms";
 
 const styles = {
   innerContainer: `flex gap-[109px] w-full min-h-[880px]`,
@@ -23,7 +21,6 @@ const styles = {
 };
 const ContentContainer = () => {
   const [detailData, setDetailData] = React.useState<postListAuthor>();
-  const { postId } = useRecoilValue(commentAtom);
   const { modal, openModal } = useModalController();
   useGetDetailPost({ onSuccessSet: setDetailData });
 
@@ -93,7 +90,9 @@ const ContentContainer = () => {
             </div>
           )}
         </div>
-        {modal.deleteModal && <DeleteConfirm mode="tech" postId={postId} />}
+        {modal.deleteModal && (
+          <DeleteConfirm mode="tech" postId={detailData?.postId as number} />
+        )}
         <hr className={styles.line} />
         {detailData && (
           <Contents
