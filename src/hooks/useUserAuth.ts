@@ -2,7 +2,7 @@ import { atom, useSetRecoilState } from "recoil";
 
 interface setUserInfoParameter {
   nickname: string;
-  image_url: string;
+  imageUrl: string;
 }
 
 export const isLoggedInAtom = atom<boolean | null>({
@@ -23,7 +23,7 @@ const useUserAuth = () => {
   const setUser = useSetRecoilState(userAtom);
 
   const setUserInfo = (data: setUserInfoParameter) => {
-    setUser({ nickname: data.nickname, profileImg: data.image_url });
+    setUser({ nickname: data.nickname, profileImg: data.imageUrl });
     setisLoggedIn(true);
   };
 
