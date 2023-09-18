@@ -6,7 +6,7 @@ export const githubURI = process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI;
 
 export const authAPI = {
   userAuth: () => {
-    return instance.get(`/users`);
+    return instance.get(`/users/me`);
   },
 
   // 로컬

@@ -1,14 +1,9 @@
 import React from "react";
 
-import { TEXT_COLOR } from "@/constants/global/colors";
+import Button from "../../designSystem/Button";
+import ValidationText from "../text/ValidationText";
 
-import InputWithLabel from "../designSystem/InputWithLabel";
-import Button from "../designSystem/Button";
-
-const styles = {
-  checkDuplicateButton: `mt-auto ml-6 mb-1`,
-  duplicationMsg: `-mt-[10px] select-none`,
-};
+import InputWithLabel from "./InputWithLabel";
 
 interface InputWithCheckProps {
   type: "email" | "nickname";
@@ -46,7 +41,7 @@ const InputWithCheck: React.FC<InputWithCheckProps> = ({
             }}
           />
         </div>
-        <div className={styles.checkDuplicateButton}>
+        <div className="mt-auto ml-6 mb-1">
           <Button
             data-testid={`${type}Check`}
             type="button"
@@ -59,14 +54,16 @@ const InputWithCheck: React.FC<InputWithCheckProps> = ({
         </div>
       </div>
       {isDuplicated === false && (
-        <p className={`${styles.duplicationMsg} ${TEXT_COLOR.success}`}>
-          {`사용 가능한 ${msgText} 입니다.`}
-        </p>
+        <ValidationText
+          text={`사용 가능한 ${msgText} 입니다.`}
+          type="success"
+        />
       )}
       {isDuplicated && (
-        <p className={`${styles.duplicationMsg} ${TEXT_COLOR.error}`}>
-          {`이미 존재하는 ${msgText}입니다.다른 ${msgText}을 입력해주세요.`}
-        </p>
+        <ValidationText
+          text={`이미 존재하는 ${msgText}입니다.다른 ${msgText}을 입력해주세요.`}
+          type="error"
+        />
       )}
     </>
   );

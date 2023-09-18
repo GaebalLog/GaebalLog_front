@@ -17,7 +17,7 @@ import ThumbnailSelector from "@/components/post/ThumbnailSelector";
 import useModalController from "@/hooks/useModalController";
 
 const TimeSetting = dynamic(
-  () => import("../../../../components/post/TimeSetting"),
+  () => import("../../../../components/post/discussionTimeSetting/TimeSetting"),
 );
 
 const styles = {
