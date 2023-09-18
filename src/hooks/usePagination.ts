@@ -14,22 +14,19 @@ const usePagination = <T extends string[] | timeOfLearning[]>(
     HTMLUListElement | HTMLDivElement | null
   >,
 ): usePaginationReturnType<T> => {
-  const [remainingCategoryCount, setRemainingCategoryCount] = React.useState(0);
   const [renderedItemCount, setRenderedItemCount] = React.useState(0);
+  const [dataLength, setDataLength] = React.useState(data?.length);
   const [index, setIndex] = React.useState(0);
   const [renderedItemCountArray, setRenderedItemCountArray] = React.useState<
     number[]
   >([]);
 
   const slicedMyCategories = data?.slice(index) as T;
-  const isFirstPage = remainingCategoryCount === data?.length;
-  const isLastPage = index + renderedItemCount === data?.length;
+  const isFirstPage = index === 0;
+  const isLastPage = index + renderedItemCount === dataLength;
 
   const handleNext = () => {
     setIndex((prev) => prev + renderedItemCount);
-    setRemainingCategoryCount((prev) =>
-      prev > 0 ? prev - renderedItemCount : 0,
-    );
     setRenderedItemCountArray((prev) => [...prev, renderedItemCount]);
   };
 
@@ -37,7 +34,6 @@ const usePagination = <T extends string[] | timeOfLearning[]>(
     const lastRenderedItemCount =
       renderedItemCountArray[renderedItemCountArray?.length - 1];
     setIndex((prev) => prev - lastRenderedItemCount);
-    setRemainingCategoryCount((prev) => prev + lastRenderedItemCount);
     setRenderedItemCountArray((prev) => {
       prev.pop();
       return prev;
@@ -54,14 +50,12 @@ const usePagination = <T extends string[] | timeOfLearning[]>(
         (item) => item.offsetTop < container.clientHeight,
       );
       setRenderedItemCount(renderedItems.length);
+      setDataLength(data?.length);
     }
   }, [data, index, containerRef]);
 
   React.useEffect(() => {
-    setRemainingCategoryCount(slicedMyCategories?.length);
-    if (slicedMyCategories?.length === 0 && index > 0) {
-      handlePrev();
-    }
+    if (slicedMyCategories?.length === 0 && index > 0) handlePrev();
   }, [slicedMyCategories]);
 
   return {
