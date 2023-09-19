@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 import { BG_COLOR } from "@/constants/global/colors";
@@ -42,6 +42,16 @@ const KeywordSearch = () => {
     },
   );
 
+  const { mutate } = useMutation({
+    mutationFn: (selectedKeyword: string) =>
+      authAPI.createKeywords(selectedKeyword),
+    onSuccess(data, variables) {
+      if (!slicedMyCategories.includes(variables)) {
+        setMyCategories((prev: string[]) => [...prev, variables]);
+      }
+    },
+  });
+
   const {
     isFirstPage,
     isLastPage,
@@ -54,12 +64,6 @@ const KeywordSearch = () => {
   const prevBtn = getIcon("prevBtn", 48, 48, "cursor");
   const nextBtn = getIcon("nextBtn", 48, 48, "cursor");
 
-  const addCategory = (selectedKeyword: string) => {
-    if (!slicedMyCategories.includes(selectedKeyword)) {
-      setMyCategories((prev: string[]) => [...prev, selectedKeyword]);
-    }
-  };
-
   return (
     <Modal isBgColor isFixed blockScroll>
       <div className={styles.container}>
@@ -67,7 +71,7 @@ const KeywordSearch = () => {
           <span className={styles.title}>Add my keywords</span>
           <LiveSearchInput
             type="keywordSearch"
-            clickResultList={addCategory}
+            clickResultList={(selectedKeyword) => mutate(selectedKeyword)}
             placeholder="키워드를 추가하여 나만의 키워드를 만들어 보세요."
           />
           <div className={styles.keywordBox}>

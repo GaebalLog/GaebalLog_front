@@ -52,7 +52,10 @@ export const authAPI = {
   myKeywords: () => {
     return instance.get(`/keywords`);
   },
-  postKeywords: (keyword: string[]) => {
-    return instance.post(`/keywords`, { keyword });
+  createKeywords: (keyword: string) => {
+    return instance.post(`/users/keywords`, { keyword });
+  },
+  deleteKeywords: (keyword: string) => {
+    return instance.delete(`/users/keywords`, { keyword });
   },
 };
