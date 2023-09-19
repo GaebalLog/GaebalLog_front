@@ -5,7 +5,7 @@ import React from "react";
 import Button from "@/components/designSystem/Button";
 import { BG_COLOR } from "@/constants/global/colors";
 import CheckBox from "@/components/auth/signup/CheckBox";
-import InputWithCheck from "@/components/auth/input/InputWithCheck";
+import InputWithDuplicationCheck from "@/components/auth/input/InputWithDuplicationCheck";
 import InputWithLabel from "@/components/auth/input/InputWithLabel";
 import ValidationText from "@/components/auth/text/ValidationText";
 import Title from "@/components/auth/text/Title";
@@ -61,7 +61,7 @@ const Signuppage = () => {
       <form className={styles.form} onSubmit={handleSignSubmit}>
         <Title>Sign up</Title>
         <div>
-          <InputWithCheck
+          <InputWithDuplicationCheck
             type="email"
             inputValue={emailInput}
             setDuplicated={setIsEmailDuplicated}
@@ -77,7 +77,7 @@ const Signuppage = () => {
           )}
         </div>
         <div>
-          <InputWithCheck
+          <InputWithDuplicationCheck
             type="nickname"
             inputValue={nicknameInput}
             setDuplicated={setIsNicknameDuplicated}

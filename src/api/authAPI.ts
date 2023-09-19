@@ -31,6 +31,12 @@ export const authAPI = {
   sendEmail: async (email: string) => {
     return await instance.post("/users/password-reset/request", { email });
   },
+  checkCode: async (code: string) => {
+    return await instance.post("/users/password-reset/confirm", { code });
+  },
+  changePassword: async (payload: { email: string; password: string }) => {
+    return await instance.post("/users/password-reset", payload);
+  },
 
   // 소셜
   googleLogin: (code: string) => {

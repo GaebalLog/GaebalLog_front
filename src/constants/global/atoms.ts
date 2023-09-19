@@ -7,7 +7,7 @@ export const modalAtom = atom({
 
 export const darkAtom = atom({
   key: "dark",
-  default: 0,
+  default: 1,
 });
 
 export const openCommentEditorAtom = atom<string | number | null>({

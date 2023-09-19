@@ -10,6 +10,8 @@ import CountdownText from "@/components/auth/text/CountdownText";
 import { authAPI } from "@/api/authAPI";
 import InputWithLabel from "@/components/auth/input/InputWithLabel";
 import ValidationText from "@/components/auth/text/ValidationText";
+import InputWithSendEmail from "@/components/auth/input/InputWithSendEmail";
+import InputEmailCodeCheck from "@/components/auth/input/inputEmailCodeCheck";
 
 const styles = {
   wrapper: `flex justify-center items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
@@ -35,67 +37,31 @@ const ForgotPassword = () => {
     passwordInput.value + "",
   );
 
-  const sendMail = async () => {
-    await authAPI.sendEmail(emailInput.value + "");
-    if (!isEmailSent) setIsEmailSent(true);
-    if (isEmailSent) setResendClick((prev) => prev + 1);
+  const changePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await authAPI.changePassword({
+      email: emailInput.value + "",
+      password: passwordInput.value + "",
+    });
   };
 
   return (
     <div className={styles.wrapper}>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={changePassword}>
         <h1 className={styles.title}>Forgot your password?</h1>
-        <div>
-          <div className="flex">
-            <div className="w-[511px]">
-              <InputWithLabel
-                label="E-mail"
-                type="email"
-                value={emailInput.value + ""}
-                onChange={emailInput.onChange}
-              />
-            </div>
-            <div className={styles.checkDuplicateButton}>
-              <Button
-                data-testid="sendEmail"
-                type="button"
-                size="sendEmail"
-                color="white"
-                onClick={sendMail}
-              >
-                {isEmailSent ? "인증번호 재 발송" : "인증번호 발송"}
-              </Button>
-            </div>
-          </div>
-          <ValidationText
-            text="입력한 이메일은 잘못 된 형식입니다."
-            type="default"
-            isHighlightColor={!isEmailValid && emailInput.value !== ""}
-          />
-        </div>
-        <div className="flex">
-          <div className="w-[511px]">
-            <InputWithLabel
-              className="w-[511px]"
-              label="인증번호"
-              type="text"
-              value={verificationCode.value + ""}
-              onChange={verificationCode.onChange}
-            />
-          </div>
-          <div className={styles.checkDuplicateButton}>
-            <Button
-              data-testid="sendEmail"
-              type="button"
-              size="sendEmail"
-              color="white"
-              onClick={sendMail}
-            >
-              확인
-            </Button>
-          </div>
-        </div>
-        <CountdownText isEmailSent={isEmailSent} resendClick={resendClick} />
+        <InputWithSendEmail
+          isEmailSent={isEmailSent}
+          isEmailValid={isEmailValid}
+          setIsEmailSent={setIsEmailSent}
+          setResendClick={setResendClick}
+          {...emailInput}
+        />
+        <InputEmailCodeCheck
+          isEmailSent={isEmailSent}
+          resendClick={resendClick}
+          setIsEmailSent={setIsEmailSent}
+          {...verificationCode}
+        />
         <div>
           <InputWithLabel
             className="w-[511px]"
