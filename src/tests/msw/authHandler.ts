@@ -3,7 +3,10 @@ import { rest } from "msw";
 export const authHandler = [
   //인증
   rest.get("/users/me", (req, res, ctx) => {
-    return res(ctx.status(200));
+    return res(
+      ctx.status(200),
+      ctx.json({ nickname: "카카오", image_url: "" }),
+    );
   }),
 
   //로컬

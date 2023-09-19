@@ -12,14 +12,15 @@ import { server } from "@/tests/msw/server";
 const mockInitializeState =
   (isLoggedInValue: boolean) =>
   ({ set }: MutableSnapshot) => {
-    set(isLoggedInAtom, isLoggedInValue);
-    if (isLoggedInAtom) {
+    if (isLoggedInValue) {
+      set(isLoggedInAtom, true);
       set(userAtom, {
         nickname: "카카오",
         profileImg:
           "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
       });
     } else {
+      set(isLoggedInAtom, false);
       set(userAtom, { nickname: "", profileImg: "" });
     }
   };
