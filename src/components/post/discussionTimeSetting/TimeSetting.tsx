@@ -9,7 +9,9 @@ import { DateConvertor } from "@/utils/util-date";
 import NonPortalModal from "../../modal/NonPortalModal";
 
 import Calendar from "./calendar/Calendar";
-import CustomNumberInput from "./CustomNumberInput";
+import HalfDayInput from "./inputs/HalfDayInput";
+import HourMinutesInput from "./inputs/HourMinutesInput";
+import YearMonthDayInput from "./inputs/YearMonthDayInput";
 
 const styles = {
   settingOpenButton: `flex items-center gap-[11px] py-[9px] px-[19px] border ${BORDER_COLOR.button}`,
@@ -39,30 +41,29 @@ const TimeSetting: React.FC<TimeSettingProps> = ({ setTimeSetting }) => {
   const month = useInput(new Date().getMonth() + 1);
   const date = useInput(new Date().getDate());
 
-  React.useEffect(() => {
-    const startDate = new DateConvertor(
-      +year.value,
-      +month.value - 1,
-      +date.value,
-      startHalfDay.value + "",
-      +startHour.value,
-      +startMinutes.value,
-    );
-    const endDate = new DateConvertor(
-      +year.value,
-      +month.value - 1,
-      +date.value,
-      endHalfDay.value + "",
-      +endHour.value,
-      +endMinutes.value,
-    );
+  const startDate = new DateConvertor(
+    +year.value,
+    +month.value,
+    +date.value,
+    startHalfDay.value + "",
+    +startHour.value,
+    +startMinutes.value,
+  );
+  const endDate = new DateConvertor(
+    +year.value,
+    +month.value,
+    +date.value,
+    endHalfDay.value + "",
+    +endHour.value,
+    +endMinutes.value,
+  );
 
+  React.useEffect(() => {
     setTimeSetting({
       startDate: startDate.convertToISOString(),
       endDate: endDate.convertToISOString(),
     });
   }, [
-    setTimeSetting,
     year.value,
     month.value,
     date.value,
@@ -97,9 +98,9 @@ const TimeSetting: React.FC<TimeSettingProps> = ({ setTimeSetting }) => {
                 (직접 입력하여 시간을 설정할 수 있습니다.)
               </p>
               <div className="flex gap-4">
-                <CustomNumberInput type="halfDay" {...startHalfDay} />
-                <CustomNumberInput type="hour" {...startHour} />
-                <CustomNumberInput type="minutes" {...startMinutes} />
+                <HalfDayInput {...startHalfDay} />
+                <HourMinutesInput type="hour" {...startHour} />
+                <HourMinutesInput type="minutes" {...startMinutes} />
               </div>
             </div>
             <div>
@@ -108,9 +109,9 @@ const TimeSetting: React.FC<TimeSettingProps> = ({ setTimeSetting }) => {
                 (직접 입력하여 시간을 설정할 수 있습니다.)
               </p>
               <div className="flex gap-4">
-                <CustomNumberInput type="halfDay" {...endHalfDay} />
-                <CustomNumberInput type="hour" {...endHour} />
-                <CustomNumberInput type="minutes" {...endMinutes} />
+                <HalfDayInput {...endHalfDay} />
+                <HourMinutesInput type="hour" {...endHour} />
+                <HourMinutesInput type="minutes" {...endMinutes} />
               </div>
             </div>
             <div>
@@ -119,7 +120,7 @@ const TimeSetting: React.FC<TimeSettingProps> = ({ setTimeSetting }) => {
                 (시작 기간을 설정하여 예약할 수 있습니다.)
               </p>
               <div className="flex gap-4">
-                <CustomNumberInput
+                <YearMonthDayInput
                   type="year"
                   yearValue={year.value}
                   monthValue={month.value}
@@ -127,7 +128,7 @@ const TimeSetting: React.FC<TimeSettingProps> = ({ setTimeSetting }) => {
                   setDate={date.setValue}
                   {...year}
                 />
-                <CustomNumberInput
+                <YearMonthDayInput
                   type="month"
                   yearValue={year.value}
                   monthValue={month.value}
@@ -135,7 +136,7 @@ const TimeSetting: React.FC<TimeSettingProps> = ({ setTimeSetting }) => {
                   setDate={date.setValue}
                   {...month}
                 />
-                <CustomNumberInput
+                <YearMonthDayInput
                   type="days"
                   yearValue={year.value}
                   monthValue={month.value}

@@ -2,7 +2,7 @@
 import React from "react";
 
 import Button from "@/components/designSystem/Button";
-import MyInfo from "@/components/mypage/article/MyInfo";
+import MyInfo from "@/components/mypage/article/myInfo/MyInfo";
 import MySettings from "@/components/mypage/article/MySettings";
 import MyWritten from "@/components/mypage/article/MyWritten";
 import Mydiscussions from "@/components/mypage/article/Mydiscussions";

@@ -2,18 +2,39 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import CustomNumberInput from "@/components/post/discussionTimeSetting/CustomNumberInput";
 import useInput from "@/hooks/useInput";
 import Provider from "@/components/provider/Provider";
 import TimeSetting from "@/components/post/discussionTimeSetting/TimeSetting";
+import HalfDayInput from "@/components/post/discussionTimeSetting/inputs/HalfDayInput";
+import HourMinutesInput from "@/components/post/discussionTimeSetting/inputs/HourMinutesInput";
+import YearMonthDayInput from "@/components/post/discussionTimeSetting/inputs/YearMonthDayInput";
 
 describe("토의 시간 설정 테스트", () => {
   const TestComponent: React.FC<{
     type: "halfDay" | "hour" | "minutes" | "year" | "month" | "days";
     initialState: string | number;
   }> = ({ type, initialState }) => {
-    const startHalfDay = useInput(initialState);
-    return <CustomNumberInput type={type} {...startHalfDay} />;
+    const inputValue = useInput(initialState);
+
+    let Component;
+
+    switch (type) {
+      case "halfDay":
+        Component = <HalfDayInput {...inputValue} />;
+        break;
+      case "hour":
+      case "minutes":
+        Component = <HourMinutesInput type={type} {...inputValue} />;
+        break;
+      case "year":
+      case "month":
+      case "days":
+      default:
+        Component = <YearMonthDayInput type={type} {...inputValue} />;
+        break;
+    }
+
+    return Component;
   };
 
   test("업/다운 버튼으로 '오전, 오후' 잘 바뀌는지 테스트", async () => {
@@ -84,11 +105,7 @@ describe("토의 시간 설정 테스트", () => {
     await userEvent.click(await screen.findByTestId("days_up"));
     expect(await screen.findByDisplayValue("02일")).toBeInTheDocument();
     await userEvent.click(await screen.findByTestId("days_down"));
-    await userEvent.click(await screen.findByTestId("days_down"));
-    await userEvent.click(await screen.findByTestId("days_down"));
-    await userEvent.click(await screen.findByTestId("days_down"));
-    await userEvent.click(await screen.findByTestId("days_down"));
-    expect(await screen.findByDisplayValue(/2/)).toBeInTheDocument();
+    expect(await screen.findByDisplayValue("01일")).toBeInTheDocument();
   });
 
   test("수동으로 인풋값 바꿨을 때 두 자리 숫자까지만 입력돼야 함", async () => {
@@ -135,10 +152,10 @@ describe("토의 시간 설정 테스트", () => {
     ).toBeInTheDocument();
   });
 
-  test("그 외 인풋에 아무것도 입력 안 하고 넘어가면 '01'이 되어야 함", async () => {
+  test("시간 인풋에 아무것도 입력 안 하고 넘어가면 '12'가 되어야 함", async () => {
     render(
       <>
-        <TestComponent type="hour" initialState={12} />
+        <TestComponent type="hour" initialState={"01"} />
         <div>다른 거 클릭</div>
       </>,
       {
@@ -150,7 +167,43 @@ describe("토의 시간 설정 테스트", () => {
 
     await userEvent.clear(input);
     await userEvent.click(await screen.findByText("다른 거 클릭"));
-    expect(await screen.findByDisplayValue("01시")).toBeInTheDocument();
+    expect(await screen.findByDisplayValue("12시")).toBeInTheDocument();
+  });
+
+  test("분 인풋에 아무것도 입력 안 하고 넘어가면 '00'가 되어야 함", async () => {
+    render(
+      <>
+        <TestComponent type="minutes" initialState={"01"} />
+        <div>다른 거 클릭</div>
+      </>,
+      {
+        wrapper: Provider,
+      },
+    );
+
+    const input = await screen.findByTestId(/input/);
+
+    await userEvent.clear(input);
+    await userEvent.click(await screen.findByText("다른 거 클릭"));
+    expect(await screen.findByDisplayValue("00분")).toBeInTheDocument();
+  });
+
+  test("그 외 인풋에 아무것도 입력 안 하고 넘어가면 '01'이 되어야 함", async () => {
+    render(
+      <>
+        <TestComponent type="month" initialState={12} />
+        <div>다른 거 클릭</div>
+      </>,
+      {
+        wrapper: Provider,
+      },
+    );
+
+    const input = await screen.findByTestId(/input/);
+
+    await userEvent.clear(input);
+    await userEvent.click(await screen.findByText("다른 거 클릭"));
+    expect(await screen.findByDisplayValue("01월")).toBeInTheDocument();
   });
 
   describe("년도, 월 인풋 변경 시 일이 자동으로 바뀌어야 함", () => {
