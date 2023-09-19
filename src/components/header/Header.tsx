@@ -13,6 +13,7 @@ import logo from "../../../public/assets/images/home/logo.png";
 import LiveSearchInput from "../commonUI/LiveSearchInput";
 import VoiceSearch from "../VoiceSearch";
 import Modal from "../modal/Modal";
+import Toggle from "../designSystem/Toggle";
 
 import LoggedInBox from "./LoggedInBox";
 import NotLoggedInBox from "./NotLoggedInBox";
@@ -97,7 +98,18 @@ const Header = () => {
             </ul>
           )}
           <ul className={styles.profileUl}>
-            {isLoggedIn ? <LoggedInBox /> : <NotLoggedInBox />}
+            <Toggle
+              onSuccess={() => console.log("success")}
+              onFail={() => console.log("fail")}
+              option={{ dark: true }}
+            />
+            {isLoggedIn === null ? (
+              <div className="w-[206px]"></div>
+            ) : isLoggedIn ? (
+              <LoggedInBox />
+            ) : (
+              <NotLoggedInBox />
+            )}
           </ul>
         </nav>
       </ul>

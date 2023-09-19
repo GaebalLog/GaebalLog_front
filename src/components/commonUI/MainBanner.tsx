@@ -129,7 +129,9 @@ const MainBanner = () => {
           ))}
         </div>
         <div className={styles.banner.createDiv}>
-          {nickname === "" ? (
+          {nickname === null ? (
+            <></>
+          ) : nickname === "" ? (
             <Link href={"auth/signup"}>{"<Create an Account />"}</Link>
           ) : (
             <span>{`Welcome to ${nickname} 님`}</span>

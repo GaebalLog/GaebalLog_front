@@ -9,7 +9,7 @@ interface props {
 }
 const SettingsProvider: React.FC<props> = ({ children }) => {
   const { allCloseModal } = useModalController();
-  const { setUserInfo } = useUserAuth();
+  const { setUserInfo, logout } = useUserAuth();
 
   React.useEffect(() => {
     const fetchAuth = async () => {
@@ -17,7 +17,7 @@ const SettingsProvider: React.FC<props> = ({ children }) => {
         const { data } = await authAPI.userAuth();
         setUserInfo(data);
       } catch (error) {
-        console.log("유저 인증 실패", error);
+        logout();
       }
     };
 

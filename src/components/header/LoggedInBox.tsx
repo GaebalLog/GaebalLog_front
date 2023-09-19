@@ -7,7 +7,6 @@ import useIcon from "@/hooks/useIcon";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 import Button from "../designSystem/Button";
-import Toggle from "../designSystem/Toggle";
 
 const LoggedInBox = () => {
   const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
@@ -27,11 +26,6 @@ const LoggedInBox = () => {
 
   return (
     <>
-      <Toggle
-        onSuccess={() => console.log("success")}
-        onFail={() => console.log("fail")}
-        option={{ dark: true }}
-      />
       <li data-testid="logout">{alarm}</li>
       <li>
         <Link href="/mypage">{profile}</Link>
