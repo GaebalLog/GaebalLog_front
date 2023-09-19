@@ -60,7 +60,10 @@ const CommentCard: React.FC<commentCardProps> = ({
       <div className={styles.commentHeader}>
         <div className={styles.metaInfoWrapper}>
           <ProfileImage idForModal={commentId} profileImage={profileImg} />
-          <span className={styles.nickname}>{nickname}</span>
+          <span className={styles.nickname}>
+            {nickname}
+            {`${myNick}`}
+          </span>
           {isLoggedIn && (
             <>
               <BannedBtn nickname={nickname} />
@@ -100,7 +103,7 @@ const CommentCard: React.FC<commentCardProps> = ({
             ) : (
               <>
                 <Button
-                  className="border"
+                  className="border hi"
                   size="tab"
                   color="white"
                   onClick={() => setUpdateComment(true)}

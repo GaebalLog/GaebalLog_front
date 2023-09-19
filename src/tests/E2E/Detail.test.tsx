@@ -50,29 +50,35 @@ describe("댓글 컴포넌트 테스트", () => {
   beforeEach(() => {
     renderDetail.loggedIn("29");
   });
+
   test("댓글 렌더링 테스트", async () => {
     expect(await screen.findByText("댓글 내용입니다.")).toBeInTheDocument();
+  });
+
+  test("댓글 작성 기능 테스트", async () => {
+    const input = await screen.findByPlaceholderText("댓글을 입력해주세요.");
+    const submitBtn = screen.getByText("작성완료");
+    await userEvent.type(input, "댓글 작성 테스트");
+    await userEvent.click(submitBtn);
+    expect(await screen.findByText("댓글 작성 테스트")).toBeInTheDocument();
   });
 
   test("댓글에 대한 댓글은 하나의 입력창만을 가져야 한다.", async () => {
     const replyBtn = await screen.findByTestId("addCommentButton_1");
     await userEvent.click(replyBtn);
     expect(
-      (
-        await screen.findAllByPlaceholderText(
-          "선택하신 댓글에 대한 댓글을 입력해주세요.",
-        )
+      screen.getAllByPlaceholderText(
+        "선택하신 댓글에 대한 댓글을 입력해주세요.",
       ).length,
     ).toBe(1);
     await userEvent.click(await screen.findByTestId("addCommentButton_2"));
     expect(
-      (
-        await screen.findAllByPlaceholderText(
-          "선택하신 댓글에 대한 댓글을 입력해주세요.",
-        )
+      screen.getAllByPlaceholderText(
+        "선택하신 댓글에 대한 댓글을 입력해주세요.",
       ).length,
     ).toBe(1);
   });
+
   test("삭제된 댓글(API 응답에 isDeleted가 true인 경우 삭제된 댓글 UI 렌더링", async () => {
     expect(await screen.findByText("삭제 된 댓글 입니다.")).toBeInTheDocument();
   });
@@ -96,8 +102,8 @@ describe("댓글 삭제 수정 기능", () => {
     await userEvent.click(updateBtn);
     const finishBtn = screen.getByText("완료");
     await userEvent.click(finishBtn);
-    await waitFor(() =>
-      expect(screen.queryByText("완료")).not.toBeInTheDocument(),
-    );
+    await waitFor(() => {
+      expect(screen.queryByText("완료")).not.toBeInTheDocument();
+    });
   });
 });
