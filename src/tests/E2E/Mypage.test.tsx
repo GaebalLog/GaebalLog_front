@@ -95,4 +95,10 @@ describe("MyInfo 테스트", () => {
   });
 });
 
-
+test("MyWritten 렌더링 및 경로 이동 테스트", async () => {
+  renderMypage.loggedIn();
+  await userEvent.click(await screen.findByText("내가 쓴 글"));
+  expect(await screen.findAllByText("title")).toHaveLength(3);
+  await userEvent.click(await screen.findByTestId("post1"));
+  expect(mockNavigation).toHaveBeenCalledWith("/tech/1");
+});

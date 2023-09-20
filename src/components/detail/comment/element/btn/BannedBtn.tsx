@@ -1,7 +1,7 @@
 import React from "react";
 
 import ConfirmModal from "@/components/modal/common/ConfirmModal";
-import { mypageAPI } from "@/api/mypageApi";
+import { mypageAPI } from "@/api/mypageAPI";
 
 const BannedBtn = ({ nickname }: { nickname: string }) => {
   const [modal, openModal] = React.useState(false);
