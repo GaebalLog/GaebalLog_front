@@ -18,6 +18,7 @@ declare global {
     createdAt: string;
     bookmarked: boolean;
   }
+
   interface postListAuthor extends postDetail {
     isAuthor: boolean;
   }

@@ -13,7 +13,7 @@ const UpdateBtn: React.FC<props> = ({ postId }) => {
     if (!postId) return alert("권한이 없습니다.");
     const result = await postAPI.verify(postId);
     if (result.status === 200) {
-      router.push(`/post/update/${postId}`);
+      router.push(`/tech/update/${postId}`);
     }
   };
   return (

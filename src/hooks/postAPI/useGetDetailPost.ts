@@ -7,13 +7,16 @@ import { postAPI } from "@/api/postAPI";
 
 const useGetDetailPost = ({
   onSuccessSet,
+  optionalId,
 }: {
   onSuccessSet: (data: postListAuthor) => void;
+  optionalId?: number;
 }) => {
   const { postId } = useRecoilValue(commentAtom);
+  const Id = optionalId ?? postId;
   return useQuery({
-    queryKey: [QUERY_KEYS.POST, postId],
-    queryFn: () => postAPI.getDetail(postId),
+    queryKey: [QUERY_KEYS.POST, Id],
+    queryFn: () => postAPI.getDetail(Id),
     onSuccess: (data) => {
       onSuccessSet(data.data);
     },

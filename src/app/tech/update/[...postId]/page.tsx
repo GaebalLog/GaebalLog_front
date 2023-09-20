@@ -1,11 +1,8 @@
 "use client";
 
 import React from "react";
-// import dynamic from "next/dynamic";
-import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-import PostEditor from "@/components/post/PostEditor";
 import Button from "@/components/designSystem/Button";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import AddTagInput from "@/components/post/AddTagInput";
@@ -17,10 +14,8 @@ import { utilExtractImages } from "@/utils/util-extractImage";
 import { utilDecodeImg } from "@/utils/util-decodeImg";
 import useModalController from "@/hooks/useModalController";
 import ThumbnailSelector from "@/components/post/ThumbnailSelector";
-
-// const TimeSetting = dynamic(
-//   () => import("../../../../components/post/TimeSetting"),
-// );
+import PostEditor from "@/components/post/PostEditor";
+import useGetDetailPost from "@/hooks/postAPI/useGetDetailPost";
 
 const styles = {
   wrapper: `w-full h-[calc(100vh-94px)] flex justify-center`,
@@ -41,14 +36,12 @@ const styles = {
 
 export interface postpageParams {
   params: {
-    articleId: number;
+    postId: string;
   };
 }
 
 const UpdatePage: React.ComponentType<postpageParams> = withAuth(
-  ({ params: { articleId } }) => {
-    const [article, setArticle] = React.useState<string>("");
-
+  ({ params: { postId } }) => {
     const [data, setData] = React.useState<postDataType>({
       title: "",
       content: "",
@@ -59,42 +52,36 @@ const UpdatePage: React.ComponentType<postpageParams> = withAuth(
     const router = useRouter();
     const { openModal } = useModalController();
 
+    const [article, setArticle] = React.useState<string>("");
     React.useEffect(() => {
       setData((prev) => ({ ...prev, content: utilReplaceImg(article) }));
       setData((prev) => ({ ...prev, img: utilExtractImages(article) }));
     }, [article]);
 
-    const { isError } = useQuery({
-      queryKey: ["detailContents", articleId],
-      queryFn: () => postAPI.getDetail(articleId),
-      onSuccess: (data) => {
-        setData({
-          title: data.data.title,
-          content: data.data.content,
-          categories: data.data.categories,
-          thumbnail: data.data.thumbnail,
-          img: data.data.img,
-        });
-        setArticle(utilDecodeImg(data.data.content, data.data.img));
-      },
-    });
+    const setBeforeData = (data: postListAuthor) => {
+      setData({
+        title: data?.title,
+        content: data?.content,
+        categories: data.categories,
+        thumbnail: data.thumbnail,
+        img: data.img,
+      });
+      setArticle(utilDecodeImg(data.content, data.img));
+    };
+
+    useGetDetailPost({ onSuccessSet: setBeforeData, optionalId: +postId });
+
     const handleSubmit = async () => {
       const feedData = data.thumbnail
         ? data
         : { ...data, thumbnail: data.img[0] };
-      const result = await postAPI.update(articleId, feedData);
-      if (result.status === 201) router.push(`/tech/${articleId}`);
+      const result = await postAPI.update(+postId, feedData);
+      if (result.status === 201) router.push(`/tech/${postId}`);
     };
 
     const confirmThumbnail = async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
       return openModal("thumbnailSelectModal");
-      // const thumbnailList = [...data.img].reduce<string[]>((acc, value) => {
-      //   if (!acc.includes(value)) acc.push(value);
-      //   return acc;
-      // }, []);
-      // if (thumbnailList.length < 2) return handleSubmit();
-      // else openModal("thumbnailSelectModal");
     };
 
     const titleChangeHanlder = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,7 +100,6 @@ const UpdatePage: React.ComponentType<postpageParams> = withAuth(
     const setThumbnail = (thumbnail: string) => {
       setData((prev) => ({ ...prev, thumbnail }));
     };
-    if (isError) return <p>에러</p>;
     return (
       <main className={styles.wrapper}>
         <div className={styles.form}>
