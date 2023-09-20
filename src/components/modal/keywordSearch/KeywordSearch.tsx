@@ -44,7 +44,7 @@ const KeywordSearch = () => {
 
   const { mutate } = useMutation({
     mutationFn: (selectedKeyword: string) =>
-      authAPI.createKeywords(selectedKeyword),
+      authAPI.updateKeywords(selectedKeyword),
     onMutate(variables: string) {
       if (!slicedMyCategories.includes(variables)) {
         setMyCategories((prev: string[]) => [...prev, variables]);

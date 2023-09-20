@@ -8,6 +8,7 @@ import CountdownText from "../text/CountdownText";
 import InputWithLabel from "./InputWithLabel";
 
 interface props {
+  email: string;
   value: string | number;
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -18,6 +19,7 @@ interface props {
 }
 
 const InputEmailCodeCheck: React.FC<props> = ({
+  email,
   value,
   onChange,
   isEmailSent,
@@ -27,7 +29,7 @@ const InputEmailCodeCheck: React.FC<props> = ({
   const checkVerificationCode = async () => {
     if (!isEmailSent) return;
     try {
-      await authAPI.checkCode(value + "");
+      await authAPI.checkCode(value + "", email);
       alert("인증 성공");
       setIsEmailSent(false);
     } catch (error) {
@@ -36,7 +38,7 @@ const InputEmailCodeCheck: React.FC<props> = ({
   };
 
   return (
-    <div>
+    <>
       <div className="flex">
         <div className="w-[511px]">
           <InputWithLabel
@@ -60,7 +62,7 @@ const InputEmailCodeCheck: React.FC<props> = ({
         </div>
       </div>
       <CountdownText isEmailSent={isEmailSent} resendClick={resendClick} />
-    </div>
+    </>
   );
 };
 

@@ -31,8 +31,11 @@ export const authAPI = {
   sendEmail: async (email: string) => {
     return await instance.post("/users/password-reset/request", { email });
   },
-  checkCode: async (code: string) => {
-    return await instance.post("/users/password-reset/confirm", { code });
+  checkCode: async (code: string, email: string) => {
+    return await instance.post("/users/password-reset/confirm", {
+      code,
+      email,
+    });
   },
   changePassword: async (payload: { email: string; password: string }) => {
     return await instance.post("/users/password-reset", payload);
@@ -52,10 +55,17 @@ export const authAPI = {
   myKeywords: () => {
     return instance.get(`/keywords`);
   },
-  createKeywords: (keyword: string) => {
+  updateKeywords: (keyword: string) => {
     return instance.post(`/users/keywords`, { keyword });
   },
-  deleteKeywords: (keyword: string) => {
-    return instance.delete(`/users/keywords`, { keyword });
+
+  getBlockUser: () => {
+    return instance.get(`/users/block`);
+  },
+  blockUser: (block_id: string) => {
+    return instance.post(`/users/block/${block_id}`);
+  },
+  getFollowing: (id: number, targetId: number) => {
+    return instance.post(`/users/neighbors/${id}`, { targetId });
   },
 };

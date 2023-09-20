@@ -6,12 +6,11 @@ import useInput from "@/hooks/useInput";
 import { BG_COLOR } from "@/constants/global/colors";
 import Button from "@/components/designSystem/Button";
 import useValidation from "@/hooks/useValidation";
-import CountdownText from "@/components/auth/text/CountdownText";
 import { authAPI } from "@/api/authAPI";
 import InputWithLabel from "@/components/auth/input/InputWithLabel";
 import ValidationText from "@/components/auth/text/ValidationText";
 import InputWithSendEmail from "@/components/auth/input/InputWithSendEmail";
-import InputEmailCodeCheck from "@/components/auth/input/inputEmailCodeCheck";
+import InputEmailCodeCheck from "@/components/auth/input/InputEmailCodeCheck";
 
 const styles = {
   wrapper: `flex justify-center items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
@@ -57,6 +56,7 @@ const ForgotPassword = () => {
           {...emailInput}
         />
         <InputEmailCodeCheck
+          email={emailInput.value + ""}
           isEmailSent={isEmailSent}
           resendClick={resendClick}
           setIsEmailSent={setIsEmailSent}
