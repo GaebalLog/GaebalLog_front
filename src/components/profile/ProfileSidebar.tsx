@@ -6,13 +6,15 @@ import { useRecoilValue } from "recoil";
 
 import { userAtom } from "@/hooks/useUserAuth";
 
+import default_profile from "../../../public/assets/images/common/default_profile.png";
+
 const ProfileSidebar = () => {
   const { nickname, profileImg } = useRecoilValue(userAtom);
 
   return (
     <div className="flex flex-col items-center gap-[32px] py-[57px] pr-[76px]">
       <Image
-        src={profileImg ?? ""}
+        src={profileImg ?? default_profile}
         alt="프로필 사진"
         width={200}
         height={200}

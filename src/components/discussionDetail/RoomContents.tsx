@@ -15,6 +15,7 @@ import Button from "../designSystem/Button";
 import LoadingSpinner from "../LoadingSpinner";
 import Modal from "../modal/Modal";
 import ConfirmModal from "../modal/common/ConfirmModal";
+import thumbnail_default from "../../../public/assets/images/common/thumbnail_default.png";
 
 const styles = {
   container: `relative overflow-y-auto w-[1100px] h-[62%] p-4 ${BG_COLOR.primary} ${BORDER_COLOR.button}`,
@@ -130,7 +131,7 @@ const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
         <figure className={styles.roomInfoBox.imageDiv}>
           <Image
             className="object-contain"
-            src={data?.data.thumbnail ?? ""}
+            src={data?.data.thumbnail ?? thumbnail_default}
             alt="썸네일"
             fill
             sizes="660.5px"

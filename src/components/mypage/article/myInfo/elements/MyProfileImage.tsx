@@ -7,6 +7,8 @@ import Button from "@/components/designSystem/Button";
 import useUpdateProfileImg from "@/hooks/mypageAPI/useUpdateProfileImg";
 import { userAtom } from "@/hooks/useUserAuth";
 
+import default_profile from "../../../../../../public/assets/images/common/default_profile.png";
+
 const MyProfileImage: React.FC = () => {
   const [newProfileImg, setNewProfileImg] = React.useState<string>("");
   const { profileImg } = useRecoilValue(userAtom);
@@ -19,7 +21,9 @@ const MyProfileImage: React.FC = () => {
       <div className="relative w-[200px] h-[200px]">
         <Image
           className="rounded-full object-cover"
-          src={newProfileImg !== "" ? newProfileImg : profileImg ?? ""}
+          src={
+            newProfileImg !== "" ? newProfileImg : profileImg ?? default_profile
+          }
           fill
           sizes="200px"
           alt="프로필사진"

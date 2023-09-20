@@ -25,7 +25,7 @@ const MyNeightborProfile: React.FC<props> = ({
 }) => {
   const router = useRouter();
   const { getIcon } = useIcon();
-  const defaultrofile = getIcon("default_profile", 40, 40);
+  const defaultProfile = getIcon("default_profile", 40, 40);
   const btnList = [
     {
       text: "이웃 정보 보기",
@@ -55,7 +55,7 @@ const MyNeightborProfile: React.FC<props> = ({
         {profileImage ? (
           <Image src={profileImage} alt={nickname} width={40} height={40} />
         ) : (
-          defaultrofile
+          defaultProfile
         )}
         <span className={styles.nickname}>{nickname}</span>
       </div>
