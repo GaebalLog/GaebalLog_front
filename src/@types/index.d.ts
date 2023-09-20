@@ -23,6 +23,21 @@ declare global {
     isAuthor: boolean;
   }
 
+  // discussion
+  interface discussion {
+    discussionId: number;
+    thumbnail: string;
+    title: string;
+    category: string[];
+    remainingTime: number;
+    isparticipated: boolean;
+    bookmarked: boolean;
+    liked: boolean;
+    like: number;
+    view: number;
+    nickname: string;
+  }
+
   // Home 화면
   interface post {
     postId: number;
@@ -65,16 +80,6 @@ declare global {
     totalPages: number;
     comment: grandParentsComment[];
   }
-  interface discussion {
-    chatListId: number;
-    nickname: string;
-    title: string;
-    categories: string[];
-    thumbnail: string;
-    remainingTime: number;
-    isparticipated: bool;
-  }
-  type discussions = discussion[];
   interface chat {
     chatId: number;
     userId: number;

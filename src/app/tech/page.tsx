@@ -16,6 +16,10 @@ const TechPage = () => {
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage } = useGetPost({
     sort,
   });
+  React.useEffect(() => {
+    const list = data?.pages.flatMap((page) => page?.data.posts) || [];
+    setPostList(list);
+  }, [data]);
   const toggleBookmark = (postId: number) => {
     setPostList((prev) => {
       return prev.map((post) =>
@@ -44,10 +48,6 @@ const TechPage = () => {
   const { mutate: likeHandler } = useToggleLike({
     onToggle: toggleLikeHandler,
   });
-  React.useEffect(() => {
-    const list = data?.pages.flatMap((page) => page?.data.posts) || [];
-    setPostList(list);
-  }, [data]);
 
   return (
     <div className="w-[1632px] flex justify-between mt-[20px]">

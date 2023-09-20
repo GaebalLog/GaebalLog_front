@@ -6,4 +6,5 @@ export const QUERY_KEYS = {
   ALERTSETTING: "alertSetting",
   PARTICIPATEDLIST: "participatedList",
   LIVESEARCH: "liveSearch",
+  DISCUSSIONLIST: "discussionList",
 };
