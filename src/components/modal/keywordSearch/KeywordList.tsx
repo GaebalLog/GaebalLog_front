@@ -33,7 +33,7 @@ const KeywordList: React.FC<keywordListProps> = ({
 
   const { mutate } = useMutation({
     mutationFn: (selectedKeyword: string) =>
-      authAPI.deleteKeywords(selectedKeyword),
+      authAPI.updateKeywords(selectedKeyword),
     onSuccess(data, variables) {
       setMyCategories &&
         setMyCategories((prev) =>

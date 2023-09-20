@@ -19,7 +19,7 @@ const MyNicknameInput = () => {
       <div className={`flex ${TEXT_COLOR.primary}`}>
         <input
           data-testid="nicknameInput"
-          placeholder={nickname}
+          placeholder={nickname ?? ""}
           className={`w-[200px] bg-inherit py-[12px] ${BORDER_COLOR.containerBottom}`}
           {...nicknameInput}
         />

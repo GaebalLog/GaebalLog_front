@@ -114,7 +114,7 @@ const KeywordSearch = () => {
               isLoading={trendCategoriesLoading}
             />
           </div>
-          <OkCancelButton data={slicedMyCategories} />
+          <OkCancelButton />
         </div>
       </div>
     </Modal>

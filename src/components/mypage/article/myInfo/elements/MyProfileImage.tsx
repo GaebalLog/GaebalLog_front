@@ -19,7 +19,7 @@ const MyProfileImage: React.FC = () => {
       <div className="relative w-[200px] h-[200px]">
         <Image
           className="rounded-full object-cover"
-          src={newProfileImg !== "" ? newProfileImg : profileImg}
+          src={newProfileImg !== "" ? newProfileImg : profileImg ?? ""}
           fill
           sizes="200px"
           alt="프로필사진"

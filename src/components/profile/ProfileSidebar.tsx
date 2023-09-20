@@ -12,7 +12,7 @@ const ProfileSidebar = () => {
   return (
     <div className="flex flex-col items-center gap-[32px] py-[57px] pr-[76px]">
       <Image
-        src={profileImg}
+        src={profileImg ?? ""}
         alt="프로필 사진"
         width={200}
         height={200}
