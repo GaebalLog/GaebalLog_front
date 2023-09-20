@@ -5,11 +5,6 @@ export const modalAtom = atom({
   default: false,
 });
 
-export const darkAtom = atom({
-  key: "dark",
-  default: 1,
-});
-
 export const openCommentEditorAtom = atom<string | number | null>({
   key: "openCommentEditorId",
   default: null,
