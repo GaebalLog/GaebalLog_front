@@ -1,7 +1,7 @@
 import type React from "react";
 import { useSetRecoilState } from "recoil";
 
-import { mypageApi } from "@/api/mypageApi";
+import { mypageAPI } from "@/api/mypageAPI";
 
 import { userAtom } from "../useUserAuth";
 
@@ -33,7 +33,7 @@ const useUpdateProfileImg = (
       const formData = new FormData();
       formData.append("image", imgSrc);
       try {
-        await mypageApi.updateProfileImg(formData);
+        await mypageAPI.updateProfileImg(formData);
         setUser((prev) => ({ ...prev, profileImg: reader.result as string }));
         alert("프로필 이미지 수정 성공");
       } catch (error) {

@@ -28,31 +28,6 @@ export const authHandler = [
     return res(ctx.status(500));
   }),
 
-  //마이페이지
-  rest.patch("/users/name", (req, res, ctx) => {
-    return res(ctx.status(200));
-  }),
-  rest.patch("/users/image", (req, res, ctx) => {
-    return res(ctx.status(200));
-  }),
-  rest.get("/api/users/times", (req, res, ctx) => {
-    const categories: timeOfLearning[] = [
-      {
-        category: "리액트",
-        timespent: 1,
-      },
-      {
-        category: "Next",
-        timespent: 20000,
-      },
-      {
-        category: "Javascript",
-        timespent: 3,
-      },
-    ];
-    return res(ctx.status(200), ctx.json({ categories }));
-  }),
-
   //소셜
   rest.post("/auth/google", (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ nickname: "구글", image_url: "" }));

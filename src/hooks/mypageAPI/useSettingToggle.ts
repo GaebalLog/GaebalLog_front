@@ -1,16 +1,16 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { mypageApi } from "@/api/mypageApi";
+import { mypageAPI } from "@/api/mypageAPI";
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 
 const useSettingToggle = () => {
   const { data } = useQuery<preferencesResponse>({
     queryKey: [QUERY_KEYS.ALERTSETTING],
-    queryFn: () => mypageApi.getAlertSetting(),
+    queryFn: () => mypageAPI.getAlertSetting(),
   });
   const { mutate } = useMutation({
     mutationFn: (payload: Partial<preferencesResponse>) =>
-      mypageApi.updateAlertSetting(payload),
+      mypageAPI.updateAlertSetting(payload),
   });
 
   const myOptions = [

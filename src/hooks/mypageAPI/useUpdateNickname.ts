@@ -1,7 +1,7 @@
 import type React from "react";
 import { useSetRecoilState } from "recoil";
 
-import { mypageApi } from "@/api/mypageApi";
+import { mypageAPI } from "@/api/mypageAPI";
 
 import { userAtom } from "../useUserAuth";
 
@@ -15,7 +15,7 @@ const useUpdateNickname = ({ value, setValue }: parameter) => {
 
   const handleUpdateNickname = async () => {
     try {
-      await mypageApi.updateNickname(value + "");
+      await mypageAPI.updateNickname(value + "");
       setUser((prev) => ({ ...prev, nickname: value + "" }));
       alert("닉네임 수정 성공");
       setValue("");

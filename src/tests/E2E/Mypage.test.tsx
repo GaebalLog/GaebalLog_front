@@ -51,7 +51,7 @@ test("My Keyword Total time 검색창에 내 카테고리를 검색하면 자동
   expect(await screen.findByText("# 리액트")).toBeInTheDocument();
 });
 
-describe("테스트", () => {
+describe("MyInfo 테스트", () => {
   test("프로필 이미지 수정 기능", async () => {
     renderMypage.loggedIn();
     const file = new File(["testImg"], "testImg.png", {
@@ -94,3 +94,5 @@ describe("테스트", () => {
     renderMypage.loggedIn();
   });
 });
+
+

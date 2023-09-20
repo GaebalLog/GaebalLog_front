@@ -1,7 +1,7 @@
 import React from "react";
 
 import ConfirmModal from "@/components/modal/common/ConfirmModal";
-import { authAPI } from "@/api/authAPI";
+import { mypageAPI } from "@/api/mypageApi";
 
 const BannedBtn = ({ nickname }: { nickname: string }) => {
   const [modal, openModal] = React.useState(false);
@@ -11,7 +11,7 @@ const BannedBtn = ({ nickname }: { nickname: string }) => {
   };
 
   const addBlockUser = async () => {
-    await authAPI.blockUser("");
+    await mypageAPI.blockUser("");
   };
 
   return (
