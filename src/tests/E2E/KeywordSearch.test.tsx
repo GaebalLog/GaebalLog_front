@@ -10,7 +10,7 @@ import { renderHome } from "./Home.test";
 
 test("edit 버튼을 누르면 키워드 검색 모달이 열리고 Cancel 버튼을 누르면 닫힌다.", async () => {
   renderHome.loggedIn();
-  await userEvent.click(screen.getByRole("button", { name: /Edit/ }));
+  await userEvent.click(await screen.findByRole("button", { name: /Edit/ }));
   expect(
     await screen.findByRole("button", { name: "Cancel" }),
   ).toBeInTheDocument();
