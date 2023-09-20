@@ -18,13 +18,25 @@ const styles = {
   settingModalWrapper: `flex flex-col w-[445px] px-5 py-[30px] gap-[30px] ${BG_COLOR.primary} ${BORDER_COLOR.button}`,
 };
 
-interface TimeSettingProps {
+interface timeSettingProps {
   setTimeSetting: React.Dispatch<
     React.SetStateAction<{ startDate: string; endDate: string }>
   >;
 }
 
-const TimeSetting: React.FC<TimeSettingProps> = ({ setTimeSetting }) => {
+interface yearMonthDayInputs {
+  type: "year" | "month" | "days";
+  valueProps: {
+    value: string | number;
+    onChange: (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => void;
+    setValue: React.Dispatch<React.SetStateAction<string | number>>;
+    resetHandler: () => void;
+  };
+}
+
+const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
   const { modal, openModal, closeModal } = useModalController();
   const { getIcon } = useIcon();
   const downArrow = getIcon("downBtn", 10, 10);
@@ -40,6 +52,21 @@ const TimeSetting: React.FC<TimeSettingProps> = ({ setTimeSetting }) => {
   const year = useInput(new Date().getFullYear());
   const month = useInput(new Date().getMonth() + 1);
   const date = useInput(new Date().getDate());
+
+  const yearMonthDayInputs: yearMonthDayInputs[] = [
+    {
+      type: "year",
+      valueProps: year,
+    },
+    {
+      type: "month",
+      valueProps: month,
+    },
+    {
+      type: "days",
+      valueProps: date,
+    },
+  ];
 
   const startDate = new DateConvertor(
     +year.value,
@@ -120,28 +147,18 @@ const TimeSetting: React.FC<TimeSettingProps> = ({ setTimeSetting }) => {
                 (시작 기간을 설정하여 예약할 수 있습니다.)
               </p>
               <div className="flex gap-4">
-                <YearMonthDayInput
-                  type="year"
-                  yearValue={year.value}
-                  monthValue={month.value}
-                  dateValue={date.value}
-                  setDate={date.setValue}
-                  {...year}
-                />
-                <YearMonthDayInput
-                  type="month"
-                  yearValue={year.value}
-                  monthValue={month.value}
-                  dateValue={date.value}
-                  setDate={date.setValue}
-                  {...month}
-                />
-                <YearMonthDayInput
-                  type="days"
-                  yearValue={year.value}
-                  monthValue={month.value}
-                  {...date}
-                />
+                {yearMonthDayInputs.map((input, i) => (
+                  <div key={i}>
+                    <YearMonthDayInput
+                      type={input.type}
+                      yearValue={year.value}
+                      monthValue={month.value}
+                      dateValue={date.value}
+                      setDate={date.setValue}
+                      {...input.valueProps}
+                    />
+                  </div>
+                ))}
                 <div
                   data-testid="calendar"
                   className={`relative flex justify-center items-center w-[45px] h-[45px] ${BORDER_COLOR.button} cursor-pointer`}
