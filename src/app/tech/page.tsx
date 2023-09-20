@@ -64,7 +64,7 @@ const TechPage = () => {
                 <Post
                   post={post}
                   key={post.postId}
-                  bookmarkHandler={() => bookmarkHandler(post.postId)}
+                  bookmarkHandler={bookmarkHandler}
                   likeHandler={likeHandler}
                 />
               );
