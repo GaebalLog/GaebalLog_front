@@ -109,9 +109,15 @@ const Loginpage = () => {
       <section>
         <h4 className={styles.social.title}>간편 로그인</h4>
         <div className={styles.social.iconBox}>
-          <Link href={kakaoURL}>{kakao}</Link>
-          <Link href={googleURL}>{google}</Link>
-          <Link href={githubURL}>{github}</Link>
+          <Link href={kakaoURL} replace>
+            {kakao}
+          </Link>
+          <Link href={googleURL} replace>
+            {google}
+          </Link>
+          <Link href={githubURL} replace>
+            {github}
+          </Link>
         </div>
       </section>
     </div>

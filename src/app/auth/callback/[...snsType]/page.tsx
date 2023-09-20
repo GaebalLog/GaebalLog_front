@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { notFound, redirect, useSearchParams } from "next/navigation";
+import { notFound, useRouter, useSearchParams } from "next/navigation";
 
 import { authAPI } from "@/api/authAPI";
 import useUserAuth from "@/hooks/useUserAuth";
@@ -15,7 +15,8 @@ interface snsTypeProps {
 const SnsLoginpage = ({ params: { snsType } }: snsTypeProps) => {
   const { setUserInfo } = useUserAuth();
   const searchParams = useSearchParams();
-  const acceptedTypes = ["google", "github", "kakao"];
+  const router = useRouter();
+  const acceptedTypes = ["google", "github", "kakao", "local"];
   const isSocialParams = acceptedTypes.includes(snsType[0]);
 
   React.useEffect(() => {
@@ -42,7 +43,7 @@ const SnsLoginpage = ({ params: { snsType } }: snsTypeProps) => {
       }
     };
     fetchSocialLogin();
-    redirect("/home");
+    router.back();
   }, []);
 
   return <></>;
