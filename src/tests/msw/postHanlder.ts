@@ -95,7 +95,6 @@ export const postHandler = [
     };
     const postData = req.body as postDataType;
     if (isCreatePost(postData)) {
-      console.log("in");
       posts.push({
         postId: 38,
         nickname: "글 작성",
