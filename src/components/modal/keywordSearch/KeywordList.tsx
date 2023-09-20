@@ -1,8 +1,10 @@
 import React from "react";
+import { useMutation } from "@tanstack/react-query";
 
 import Button from "@/components/designSystem/Button";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import useIcon from "@/hooks/useIcon";
+import { authAPI } from "@/api/authAPI";
 
 const styles = {
   keywordList: `relative flex flex-wrap gap-[10px] h-[100px] px-1 mt-[22px] overflow-y-hidden`,
@@ -29,12 +31,16 @@ const KeywordList: React.FC<keywordListProps> = ({
   const { getIcon } = useIcon();
   const close = getIcon("close", 18, 18);
 
-  const deleteMyCategory = (selectedCategory: string) => {
-    setMyCategories &&
-      setMyCategories((prev) =>
-        prev.filter((category) => category !== selectedCategory),
-      );
-  };
+  const { mutate } = useMutation({
+    mutationFn: (selectedKeyword: string) =>
+      authAPI.updateKeywords(selectedKeyword),
+    onSuccess(data, variables) {
+      setMyCategories &&
+        setMyCategories((prev) =>
+          prev.filter((category) => category !== variables),
+        );
+    },
+  });
 
   if (isLoading)
     return (
@@ -55,7 +61,14 @@ const KeywordList: React.FC<keywordListProps> = ({
             size="category"
             color="category"
             rounded
-            onClick={!nonIcon ? () => deleteMyCategory(category) : undefined}
+            onClick={
+              !nonIcon
+                ? (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                    e.preventDefault();
+                    mutate(category);
+                  }
+                : undefined
+            }
           >
             <div className="max-w-[374px] truncate">
               <span>#{category}</span>

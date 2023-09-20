@@ -1,15 +1,20 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 
 import useModalController from "@/hooks/useModalController";
-import useUserAuth from "@/hooks/useUserAuth";
+import useUserAuth, { isLoggedInAtom } from "@/hooks/useUserAuth";
 import { authAPI } from "@/api/authAPI";
+
+import LoadingSpinner, { loadingAtom } from "../LoadingSpinner";
 
 interface props {
   children: React.ReactNode;
 }
 const SettingsProvider: React.FC<props> = ({ children }) => {
   const { allCloseModal } = useModalController();
-  const { setUserInfo } = useUserAuth();
+  const { setUserInfo, logout } = useUserAuth();
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+  const isVisible = useRecoilValue(loadingAtom);
 
   React.useEffect(() => {
     const fetchAuth = async () => {
@@ -17,7 +22,7 @@ const SettingsProvider: React.FC<props> = ({ children }) => {
         const { data } = await authAPI.userAuth();
         setUserInfo(data);
       } catch (error) {
-        console.log("유저 인증 실패", error);
+        logout();
       }
     };
 
@@ -26,7 +31,14 @@ const SettingsProvider: React.FC<props> = ({ children }) => {
 
   return (
     <div className="flex flex-col items-center" onClick={allCloseModal}>
-      {children}
+      {isLoggedIn === null || isVisible ? (
+        <div className="flex flex-col justify-center items-center h-screen">
+          <LoadingSpinner isSetTime />
+          <p className="mt-5 text-lg font-bold">Loading</p>
+        </div>
+      ) : (
+        children
+      )}
     </div>
   );
 };

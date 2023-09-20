@@ -21,7 +21,7 @@ const useLoginSubmit = (
         password: password + "",
       });
       setUserInfo(data);
-      router.replace("/home");
+      router.replace("/auth/callback/local");
     } catch (error) {
       setIsError(true);
     }

@@ -5,7 +5,7 @@ export const restHandler = [
   rest.get("/api/categories", (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(["test1", "test2", "test3"]));
   }),
-  rest.get("/users/keywords", (req, res, ctx) => {
+  rest.get("/keywords", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json([

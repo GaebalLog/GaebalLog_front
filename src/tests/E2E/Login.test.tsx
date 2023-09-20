@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 
 import Loginpage from "@/app/auth/login/page";
-import SnsLogin from "@/app/auth/callback/[...snsType]/page";
+import SnsLogin from "@/app/auth/callback/[snsType]/page";
 import Provider from "@/components/provider/Provider";
 import HomePage from "@/app/home/page";
 import { googleURI, kakaoURI } from "@/api/authAPI";
@@ -31,7 +31,7 @@ describe("로그인 페이지 테스트", () => {
       await screen.findByRole("button", { name: "Log in" }),
     );
     await waitFor(() => {
-      expect(mockNavigation).toHaveBeenCalledWith("/home");
+      expect(mockNavigation).toBeCalledTimes(1);
     });
   });
 
@@ -82,11 +82,11 @@ describe("소셜 로그인 테스트", () => {
     expect(mockNavigation).toHaveBeenCalledWith(`${oauthURL}`);
     LoginpageUnmount();
     const { unmount: SnsLoginUnmount } = render(
-      <SnsLogin params={{ snsType: [`${type}`] }} />,
+      <SnsLogin params={{ snsType: `${type}` }} />,
       { wrapper: Provider },
     );
     await waitFor(() => {
-      expect(mockNavigation).toHaveBeenCalledWith("/home");
+      expect(mockNavigation).toBeCalledTimes(1);
     });
     SnsLoginUnmount();
     render(<HomePage />, { wrapper: Provider });

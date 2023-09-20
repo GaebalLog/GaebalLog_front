@@ -1,6 +1,6 @@
-import Image from "next/image";
 import React from "react";
 import { useRecoilValue } from "recoil";
+import Image from "next/image";
 
 import Label from "@/components/commonUI/Label";
 import Button from "@/components/designSystem/Button";
@@ -16,13 +16,15 @@ const MyProfileImage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center gap-[40px] w-[350px] px-[40px] py-[70px]">
-      <Image
-        src={newProfileImg !== "" ? newProfileImg : profileImg}
-        alt="프로필사진"
-        width={200}
-        height={200}
-        className="h-[200px] !important"
-      />
+      <div className="relative w-[200px] h-[200px]">
+        <Image
+          className="rounded-full object-cover"
+          src={newProfileImg !== "" ? newProfileImg : profileImg ?? ""}
+          fill
+          sizes="200px"
+          alt="프로필사진"
+        />
+      </div>
       <div className="flex items-center gap-[20px]">
         <div className="h-full relative">
           <Label htmlFor="profileImg">이미지 수정</Label>

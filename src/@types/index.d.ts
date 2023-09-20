@@ -115,10 +115,10 @@ declare global {
   }
 
   interface preferencesResponse {
-    darkmodeStatus: boolean;
     neighborAlert: boolean;
     commentAlert: boolean;
     chatAlert: boolean;
+    setNeighborPrivate: boolean;
   }
 }
 
