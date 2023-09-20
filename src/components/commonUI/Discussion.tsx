@@ -10,13 +10,21 @@ import Button from "../designSystem/Button";
 
 import LikeView from "./LikeView";
 
-const Discussion: React.FC<{ discussion: discussion }> = ({ discussion }) => {
+const Discussion: React.FC<{
+  discussion: discussion;
+  bookmarkHandler: (postId: number) => void;
+  likeHandler: (postId: number) => void;
+}> = ({ discussion, bookmarkHandler, likeHandler }) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const router = useRouter();
 
   const { getIcon } = useIcon();
   const bookmark = getIcon("bookmark", 48, 80, "cursor hover");
   const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
+
+  const clickHeartHandler = () => {
+    likeHandler(discussion.discussionId);
+  };
 
   const onClickHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {
     if (!(e.target instanceof HTMLElement)) {
@@ -28,8 +36,9 @@ const Discussion: React.FC<{ discussion: discussion }> = ({ discussion }) => {
     router.push(`/discussion/${discussion.discussionId}`);
   };
 
-  const checkBookmarkHandler = () => {
-    console.log("북마크 클릭시 처리");
+  const checkBookmarkHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    bookmarkHandler(discussion.discussionId);
   };
 
   return (
@@ -81,7 +90,7 @@ const Discussion: React.FC<{ discussion: discussion }> = ({ discussion }) => {
       <div>
         <LikeView
           like={discussion.like}
-          likeHandler={() => console.log("in")}
+          likeHandler={clickHeartHandler}
           liked={discussion.liked}
           view={discussion.view}
           option={{ absolute: true }}

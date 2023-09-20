@@ -13,30 +13,15 @@ export interface allDiscussionsType {
   discussions: discussion[];
 }
 export const discussionAPI = {
-  create: (data: postDataType) => {
-    return instance.post("/post", { ...data });
-  },
   getAll: (sort: "views" | "createdAt" | "neighbor", page: number) => {
     return instance.get<allDiscussionsType>(
       `/discussions/all/${sort}?page=${page}`,
     );
   },
-  getDetail: (postId: number) => {
-    return instance.get<postListAuthor>(`/post/detail/${postId}`);
+  toggleBookmark: (discussionId: number) => {
+    return instance.post(`/discussions/${discussionId}/bookmark`);
   },
-  delete: (postId: number) => {
-    return instance.delete(`/post/${postId}`);
-  },
-  update: (postId: number, data: postDataType) => {
-    return instance.patch(`/post/${postId}`, { ...data });
-  },
-  toggleBookmark: (postId: number) => {
-    return instance.post(`/post/${postId}/bookmark`);
-  },
-  toggleLike: (postId: number) => {
-    return instance.post(`/post/${postId}/like`);
-  },
-  verify: (postId: number) => {
-    return instance.get(`/post/${postId}/verification`);
+  toggleLike: (discussionId: number) => {
+    return instance.post(`/discussions/${discussionId}/like`);
   },
 };
