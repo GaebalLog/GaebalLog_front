@@ -18,7 +18,7 @@ const TimeOfLearning: React.FC<{ category: timeOfLearning }> = ({
         color="white"
         rounded
         border
-        className="cursor-default"
+        className="flex items-center cursor-default"
       >
         # {category.category}
       </Button>

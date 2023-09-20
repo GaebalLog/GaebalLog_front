@@ -57,7 +57,7 @@ const MyPageCategory = () => {
         />
       </div>
       <div
-        className="relative flex h-[210px] gap-[16px] px-[150px] flex-wrap overflow-hidden content-start slide-right-enter-active"
+        className="relative flex self-start h-[210px] gap-[16px] px-[150px] flex-wrap overflow-hidden content-start slide-right-enter-active"
         ref={myCategoriesContainerRef}
       >
         {slicedMyCategories?.map((category: timeOfLearning, i: number) => (
