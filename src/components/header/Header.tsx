@@ -103,13 +103,7 @@ const Header = () => {
               onFail={() => console.log("fail")}
               option={{ dark: true }}
             />
-            {isLoggedIn === null ? (
-              <div className="w-[206px]"></div>
-            ) : isLoggedIn ? (
-              <LoggedInBox />
-            ) : (
-              <NotLoggedInBox />
-            )}
+            {isLoggedIn ? <LoggedInBox /> : <NotLoggedInBox />}
           </ul>
         </nav>
       </ul>
