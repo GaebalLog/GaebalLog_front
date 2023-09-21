@@ -14,9 +14,9 @@ const styles = {
   btnBox: "absolute right-0 flex items-center gap-[24px]",
 };
 interface props extends neighborItem {
-  bannned?: boolean;
+  bannned: boolean;
 }
-const MyNeightborProfile: React.FC<props> = ({
+const NeighborProfile: React.FC<props> = ({
   nickname,
   profileImage,
   userId,
@@ -84,4 +84,4 @@ const MyNeightborProfile: React.FC<props> = ({
   );
 };
 
-export default MyNeightborProfile;
+export default NeighborProfile;

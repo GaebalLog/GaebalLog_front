@@ -4,23 +4,21 @@ import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import useModalController from "@/hooks/useModalController";
 import useIcon from "@/hooks/useIcon";
 
-import AddByMe from "./neighbors/AddedByMe";
-import AddByYou from "./neighbors/AddedByYou";
-import BannedByMe from "./neighbors/BannedByMe";
+import NeighborCard from "./elements/NeighborCard";
 
 const neighborsTypeList = [
   "내가 추가한 이웃",
   "나를 추가한 이웃",
+  "서로 이웃",
   "차단한 이웃",
 ] as const;
 
 const styles = {
   dropDown: {
     container: `flex relative w-[200px] h-[48px] rounded-[3px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.general06} ${BG_COLOR.primary}`,
-    drop: "w-[200px] h-[48px] cursor-pointer flex items-center justify-center text-[20px] gap-[10px]",
-    ul: `absolute top-[48px] left-0 z-10 w-[200px] max-h-[170px] overflow-y-auto rounded-[10px] text-[20px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.primary}`,
-    noSelected: `w-full h-[48px] px-[30px] flex items-center cursor-pointer ${BG_COLOR.general01}`,
-    selected: `w-full h-[48px] px-[30px] flex items-center cursor-pointer ${BG_COLOR.general06}`,
+    drop: "w-full h-[48px] cursor-pointer flex items-center justify-center text-[20px] gap-[10px]",
+    ul: `absolute top-[46px] left-0 z-10 w-full max-h-[170px] text-[20px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.primary}`,
+    li: `w-full h-[48px] flex items-center justify-center cursor-pointer`,
   },
 };
 
@@ -37,11 +35,13 @@ const MyNeighborList = () => {
   const render = () => {
     switch (neighborType) {
       case "내가 추가한 이웃":
-        return <AddByMe />;
+        return <NeighborCard type="addedByMe" />;
       case "나를 추가한 이웃":
-        return <AddByYou />;
+        return <NeighborCard type="addedByYou" />;
+      case "서로 이웃":
+        return <NeighborCard type="addedByBoth" />;
       case "차단한 이웃":
-        return <BannedByMe />;
+        return <NeighborCard type="bannedByMe" />;
     }
   };
   const renderedList = render();
@@ -63,11 +63,9 @@ const MyNeighborList = () => {
             {neighborsTypeList.map((type) => (
               <li
                 key={type}
-                className={
-                  hoveredItem === type
-                    ? styles.dropDown.selected
-                    : styles.dropDown.noSelected
-                }
+                className={`${styles.dropDown.li} ${
+                  hoveredItem === type ? BG_COLOR.general06 : BG_COLOR.general01
+                }`}
                 onClick={() => {
                   setNeighborType(type);
                   closeModal("myNeightborsType");

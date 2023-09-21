@@ -7,5 +7,8 @@ export const QUERY_KEYS = {
   PARTICIPATEDLIST: "participatedList",
   LIVESEARCH: "liveSearch",
   DISCUSSIONLIST: "discussionList",
-  BLOCKUSER: "blockUser",
+  ADDEDBYME: "addedByMe",
+  ADDEDBYYOU: "addedByYou",
+  ADDEDBYBOTH: "addedByBoth",
+  BANNEDBYME: "bannedByMe",
 };

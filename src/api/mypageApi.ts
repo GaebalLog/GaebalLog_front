@@ -20,13 +20,19 @@ export const mypageApi = {
     return await instance.patch(`/users/preferences`, payload);
   },
 
-  getBlockUser: () => {
-    return instance.get(`/users/block`);
-  },
   blockUser: (block_id: string) => {
     return instance.post(`/users/block/${block_id}`);
   },
-  getFollowing: (id: number, targetId: number) => {
-    return instance.post(`/users/neighbors/${id}`, { targetId });
+  getAddedByMe: () => {
+    return instance.get(`/neighbors`);
+  },
+  getAddedByYou: () => {
+    return instance.get(`/neighbors`);
+  },
+  getAddedByBoth: () => {
+    return instance.get(`/neighbors`);
+  },
+  getBannedByMe: () => {
+    return instance.get(`/users/block`);
   },
 };
