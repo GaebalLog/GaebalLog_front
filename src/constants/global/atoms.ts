@@ -14,6 +14,6 @@ export const commentAtom = atom<{ commentPage: number; postId: number }>({
   key: "comment",
   default: {
     commentPage: 1,
-    postId: 1,
+    postId: 0,
   },
 });

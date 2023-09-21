@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 import useIcon from "@/hooks/useIcon";
@@ -44,7 +45,10 @@ const LikeView: React.FC<props> = ({
           color="background"
           rounded
           className={`flex-wrap ${btn.className} cursor-default`}
-          onClick={btn.onClick}
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+            e.stopPropagation();
+            btn.onClick && btn.onClick();
+          }}
         >
           {btn.icon}
           {btn.count}

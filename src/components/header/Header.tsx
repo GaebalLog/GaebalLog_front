@@ -33,8 +33,8 @@ const noHeaderPathList = [
   "/auth/login",
   "/auth/signup",
   "/auth/forgotPassword",
-  "/post/create/tech",
-  "/post/create/discussion",
+  "/tech/create",
+  "/discussion/create",
 ];
 
 const Header = () => {

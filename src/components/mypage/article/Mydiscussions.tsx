@@ -19,7 +19,7 @@ const Mydiscussions = () => {
     <div className="flex w-full h-full flex-col px-[44px] py-[24px]">
       <SortBar tab={tab} setTab={setTab} option="mypage" />
       <article className="flex gap-[24px]">
-        {discussionList?.map((discussion: discussion) => {
+        {discussionList?.map((discussion: beforeDiscussion) => {
           return (
             <MyDiscussion
               key={`post${discussion.chatListId}`}

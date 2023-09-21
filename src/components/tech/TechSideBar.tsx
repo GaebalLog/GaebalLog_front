@@ -16,7 +16,7 @@ const TechSideBar = () => {
     <StickyStyle>
       {isLoggedIn ? (
         <div className="flex flex-col gap-[16px]">
-          <Link href="/post/create/tech">
+          <Link href="/tech/create">
             <Button
               size="middleCreate"
               color="background"

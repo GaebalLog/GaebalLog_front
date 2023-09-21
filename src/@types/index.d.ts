@@ -18,9 +18,36 @@ declare global {
     createdAt: string;
     bookmarked: boolean;
   }
+
   interface postListAuthor extends postDetail {
     isAuthor: boolean;
   }
+
+  // discussion
+  interface discussion {
+    discussionId: number;
+    thumbnail: string;
+    title: string;
+    category: string[];
+    remainingTime: number;
+    isparticipated: boolean;
+    bookmarked: boolean;
+    liked: boolean;
+    like: number;
+    view: number;
+    nickname: string;
+  }
+
+  interface beforeDiscussion {
+    chatListId: number;
+    nickname: string;
+    title: string;
+    categories: string[];
+    thumbnail: string;
+    remainingTime: number;
+    isparticipated: boolean;
+  }
+  type discussions = beforeDiscussion[];
 
   // Home 화면
   interface post {
@@ -59,16 +86,11 @@ declare global {
   interface grandParentsComment extends comment {
     child: parentsComment[];
   }
-  interface discussion {
-    chatListId: number;
-    nickname: string;
-    title: string;
-    categories: string[];
-    thumbnail: string;
-    remainingTime: number;
-    isparticipated: bool;
+  interface commentList {
+    totalResults: number;
+    totalPages: number;
+    comment: grandParentsComment[];
   }
-  type discussions = discussion[];
   interface chat {
     chatId: number;
     userId: number;

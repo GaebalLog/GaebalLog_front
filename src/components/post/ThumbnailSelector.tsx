@@ -41,6 +41,7 @@ const ThumbnailSelector: React.FC<props> = ({
     if (thumbnail) return handleSubmit();
     else return alert("썸네일을 선택해주세요");
   };
+
   const onChangeImgHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     const imgSrc = e.target.files && e.target.files[0];
     if (!imgSrc) return;
