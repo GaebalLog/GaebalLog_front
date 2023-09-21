@@ -2,7 +2,7 @@ import { instance } from "./api";
 
 export const commentAPI = {
   getComments: (postId: number, page: number) =>
-    instance.get(`/comments?postId=${postId}&page=${page}`),
+    instance.get<commentList>(`/comments?postId=${postId}&page=${page}`),
   createComment: (data: createComment) =>
     instance.post(`/comments`, { ...data }),
   deleteComment: (commentId: number) =>

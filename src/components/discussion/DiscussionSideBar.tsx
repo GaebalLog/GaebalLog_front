@@ -18,7 +18,7 @@ const DiscussionSideBar = () => {
     <StickyStyle>
       {isLoggedIn ? (
         <div className="flex flex-col gap-[16px]">
-          <Link href="/post/create/discussion">
+          <Link href="/discussion/create">
             <Button
               size="middleCreate"
               color="background"

@@ -1,20 +1,20 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 
-import { postAPI } from "@/api/postAPI";
+import { discussionAPI } from "@/api/discussionAPI";
 
 import { isLoggedInAtom } from "../useUserAuth";
 import useModalController from "../useModalController";
 interface props {
-  onToggle: (postId: number) => void;
+  onToggle: (discussionId: number) => void;
 }
-const useToggleLike = ({ onToggle }: props) => {
+const useToggleDiscussionLike = ({ onToggle }: props) => {
   const isLoggedin = useRecoilValue(isLoggedInAtom);
   const { openModal } = useModalController();
   const mutation = useMutation({
-    mutationFn: postAPI.toggleLike,
-    onSuccess: (error, postId) => {
-      onToggle(postId);
+    mutationFn: discussionAPI.toggleLike,
+    onSuccess: (error, discussionId) => {
+      onToggle(discussionId);
     },
   });
   if (!isLoggedin)
@@ -24,4 +24,4 @@ const useToggleLike = ({ onToggle }: props) => {
   else return mutation;
 };
 
-export default useToggleLike;
+export default useToggleDiscussionLike;

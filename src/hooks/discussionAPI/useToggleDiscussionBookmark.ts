@@ -1,24 +1,24 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 
-import { postAPI } from "@/api/postAPI";
+import { discussionAPI } from "@/api/discussionAPI";
 
 import { isLoggedInAtom } from "../useUserAuth";
 import useModalController from "../useModalController";
 interface props {
-  onToggle: (postId: number) => void;
+  onToggle: (discussionId: number) => void;
 }
-const useToggleBookmark = ({ onToggle }: props) => {
+const useToggleDiscussionBookmark = ({ onToggle }: props) => {
   const isLoggedin = useRecoilValue(isLoggedInAtom);
   const { openModal } = useModalController();
   const mutation = useMutation({
-    mutationFn: postAPI.toggleBookmark,
-    onSuccess(data, postId) {
-      onToggle(postId);
+    mutationFn: discussionAPI.toggleBookmark,
+    onSuccess(data, discussionId) {
+      onToggle(discussionId);
     },
   });
   if (!isLoggedin) return { mutate: () => openModal("requiredLogin") };
   return mutation;
 };
 
-export default useToggleBookmark;
+export default useToggleDiscussionBookmark;

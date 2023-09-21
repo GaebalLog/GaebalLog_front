@@ -34,7 +34,7 @@ const SubCommentForm: React.FC<props> = ({ parentComment, parentId }) => {
         />
         <textarea
           className={style.textarea}
-          placeholder="댓글을 입력해주세요."
+          placeholder="선택하신 댓글에 대한 댓글을 입력해주세요."
           value={value}
           onChange={onChange}
         />

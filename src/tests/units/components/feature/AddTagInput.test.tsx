@@ -2,7 +2,7 @@ import React from "react";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import Postpage from "@/app/post/create/[...type]/page";
+import Postpage from "@/app/discussion/create/page";
 import { renderLoggedInLayout } from "@/utils/util-test";
 
 describe("태그 인풋 테스트", () => {

@@ -6,7 +6,9 @@ import getTime from "@/utils/util-getTime";
 
 import Button from "../designSystem/Button";
 
-const MyDiscussion: React.FC<{ discussion: discussion }> = ({ discussion }) => {
+const MyDiscussion: React.FC<{ discussion: beforeDiscussion }> = ({
+  discussion,
+}) => {
   const router = useRouter();
 
   const onClickHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {

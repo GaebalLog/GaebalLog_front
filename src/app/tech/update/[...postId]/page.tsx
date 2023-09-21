@@ -1,27 +1,24 @@
 "use client";
 
 import React from "react";
-import { notFound, useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 
-import PostEditor from "@/components/post/PostEditor";
 import Button from "@/components/designSystem/Button";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import AddTagInput from "@/components/post/AddTagInput";
 import withAuth from "@/components/provider/withAuth";
 import type { postDataType } from "@/api/postAPI";
 import { postAPI } from "@/api/postAPI";
-import { utilExtractImages } from "@/utils/util-extractImage";
 import { utilReplaceImg } from "@/utils/util-replaceImg";
-import ThumbnailSelector from "@/components/post/ThumbnailSelector";
+import { utilExtractImages } from "@/utils/util-extractImage";
+import { utilDecodeImg } from "@/utils/util-decodeImg";
 import useModalController from "@/hooks/useModalController";
-
-const TimeSetting = dynamic(
-  () => import("../../../../components/post/discussionTimeSetting/TimeSetting"),
-);
+import ThumbnailSelector from "@/components/post/ThumbnailSelector";
+import PostEditor from "@/components/post/PostEditor";
+import useGetDetailPost from "@/hooks/postAPI/useGetDetailPost";
 
 const styles = {
-  wrapper: `relative w-full h-[calc(100vh-94px)] flex justify-center`,
+  wrapper: `w-full h-[calc(100vh-94px)] flex justify-center`,
   form: `flex flex-col`,
   titleBox: {
     wrapper: `flex items-center mt-5 mb-[31px]`,
@@ -39,13 +36,12 @@ const styles = {
 
 export interface postpageParams {
   params: {
-    type: string[];
+    postId: string;
   };
 }
 
-const Postpage: React.ComponentType<postpageParams> = withAuth(
-  ({ params: { type } }) => {
-    const [article, setArticle] = React.useState<string>("");
+const UpdatePage: React.ComponentType<postpageParams> = withAuth(
+  ({ params: { postId } }) => {
     const [data, setData] = React.useState<postDataType>({
       title: "",
       content: "",
@@ -53,39 +49,39 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
       thumbnail: null,
       categories: [],
     });
-    const [timeSetting, setTimeSetting] = React.useState({
-      startDate: "",
-      endDate: "",
-    });
-
     const router = useRouter();
     const { openModal } = useModalController();
 
+    const [article, setArticle] = React.useState<string>("");
     React.useEffect(() => {
       setData((prev) => ({ ...prev, content: utilReplaceImg(article) }));
       setData((prev) => ({ ...prev, img: utilExtractImages(article) }));
     }, [article]);
 
+    const setBeforeData = (data: postListAuthor) => {
+      setData({
+        title: data?.title,
+        content: data?.content,
+        categories: data.categories,
+        thumbnail: data.thumbnail,
+        img: data.img,
+      });
+      setArticle(utilDecodeImg(data.content, data.img));
+    };
+
+    useGetDetailPost({ onSuccessSet: setBeforeData, optionalId: +postId });
+
     const handleSubmit = async () => {
       const feedData = data.thumbnail
         ? data
         : { ...data, thumbnail: data.img[0] };
-      const result = await postAPI.create(feedData);
-      if (result.status === 201) {
-        router.push(`/tech/${result.data.id}`);
-        return alert("성공적으로 작성되었습니다.");
-      }
-      console.log(timeSetting);
+      const result = await postAPI.update(+postId, feedData);
+      if (result.status === 201) router.push(`/tech/${postId}`);
     };
+
     const confirmThumbnail = async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
       return openModal("thumbnailSelectModal");
-      // const thumbnailList = [...data.img].reduce<string[]>((acc, value) => {
-      //   if (!acc.includes(value)) acc.push(value);
-      //   return acc;
-      // }, []);
-      // if (thumbnailList.length < 2) return handleSubmit();
-      // else openModal("thumbnailSelectModal");
     };
 
     const titleChangeHanlder = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,11 +100,6 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
     const setThumbnail = (thumbnail: string) => {
       setData((prev) => ({ ...prev, thumbnail }));
     };
-
-    React.useEffect(() => {
-      if (type[0] !== "tech" && type[0] !== "discussion") return notFound();
-    }, [type]);
-
     return (
       <main className={styles.wrapper}>
         <div className={styles.form}>
@@ -119,9 +110,6 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
               onChange={titleChangeHanlder}
               placeholder="제목을 입력해주세요."
             />
-            {type[0] === "discussion" && (
-              <TimeSetting setTimeSetting={setTimeSetting} />
-            )}
           </div>
           <PostEditor content={article} editHandler={contentHandler} />
           <ThumbnailSelector
@@ -136,8 +124,13 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
               setCategories={categoryHandler}
             />
             <div className={styles.bottomBox.buttonDiv}>
-              <Button className="px-12" size="bigLogin" color="lightGrey">
-                임시 저장
+              <Button
+                className="px-12"
+                size="bigLogin"
+                color="lightGrey"
+                onClick={() => router.back()}
+              >
+                수정 취소
               </Button>
               <Button
                 type="submit"
@@ -146,7 +139,7 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
                 color="black"
                 onClick={confirmThumbnail}
               >
-                작성 완료
+                수정 완료
               </Button>
             </div>
           </div>
@@ -156,4 +149,4 @@ const Postpage: React.ComponentType<postpageParams> = withAuth(
   },
 );
 
-export default Postpage;
+export default UpdatePage;
