@@ -38,6 +38,17 @@ declare global {
     nickname: string;
   }
 
+  interface beforeDiscussion {
+    chatListId: number;
+    nickname: string;
+    title: string;
+    categories: string[];
+    thumbnail: string;
+    remainingTime: number;
+    isparticipated: boolean;
+  }
+  type discussions = beforeDiscussion[];
+
   // Home 화면
   interface post {
     postId: number;

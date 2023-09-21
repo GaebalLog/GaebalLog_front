@@ -46,7 +46,7 @@ describe("토의방 테스트", () => {
   test("수정하기 누르면 글 작성 페이지로 이동해야 함", async () => {
     await userEvent.click(await screen.findByAltText("more"));
     await userEvent.click(await screen.findByText("수정하기"));
-    expect(mockNavigation).toHaveBeenCalledWith("/post/create/discussion");
+    expect(mockNavigation).toHaveBeenCalledWith("/discussion/create");
   });
 });
 

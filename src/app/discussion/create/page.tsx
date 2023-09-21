@@ -14,10 +14,13 @@ import { utilExtractImages } from "@/utils/util-extractImage";
 import { utilReplaceImg } from "@/utils/util-replaceImg";
 import ThumbnailSelector from "@/components/post/ThumbnailSelector";
 import useModalController from "@/hooks/useModalController";
-
 const PostEditor = dynamic(() => import("@/components/post/PostEditor"), {
   ssr: false,
 });
+const TimeSetting = dynamic(
+  () => import("../../../components/post/discussionTimeSetting/TimeSetting"),
+);
+
 const styles = {
   wrapper: `relative w-full h-[calc(100vh-94px)] flex justify-center`,
   form: `flex flex-col`,
@@ -44,6 +47,10 @@ const Postpage: React.ComponentType = withAuth(() => {
     thumbnail: null,
     categories: [],
   });
+  const [timeSetting, setTimeSetting] = React.useState({
+    startDate: "",
+    endDate: "",
+  });
 
   const router = useRouter();
   const { openModal } = useModalController();
@@ -62,6 +69,7 @@ const Postpage: React.ComponentType = withAuth(() => {
       router.push(`/tech/${result.data.id}`);
       return alert("성공적으로 작성되었습니다.");
     }
+    console.log(timeSetting);
   };
   const confirmThumbnail = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -95,6 +103,7 @@ const Postpage: React.ComponentType = withAuth(() => {
             onChange={titleChangeHanlder}
             placeholder="제목을 입력해주세요."
           />
+          <TimeSetting setTimeSetting={setTimeSetting} />
         </div>
         <PostEditor content={article} editHandler={contentHandler} />
         <ThumbnailSelector

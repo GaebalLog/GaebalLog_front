@@ -76,7 +76,7 @@ describe("홈 화면 테스트", () => {
       name: "+ Create Article",
     });
     await userEvent.click(createArticleBtn);
-    expect(mockNavigation).toHaveBeenCalledWith("/post/create/tech");
+    expect(mockNavigation).toHaveBeenCalledWith("tech/create");
   });
 
   test("글 리스트 클릭시 페이지 이동", async () => {

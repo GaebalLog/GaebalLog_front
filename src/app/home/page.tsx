@@ -75,7 +75,7 @@ const HomePage = () => {
         <div className="w-full">
           {isLoggedIn && (
             <div className="relative flex gap-[40px] pt-[34px] mb-[20px]">
-              <Link href="/post/create/tech">
+              <Link href="/tech/create">
                 <button
                   className={`absolute top-0 right-0 text-[24px] ${TEXT_COLOR.primary}`}
                 >
