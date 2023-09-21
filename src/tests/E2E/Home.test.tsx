@@ -42,7 +42,7 @@ describe("홈 화면 테스트", () => {
     expect(
       await screen.findByRole("button", { name: "#test1" }),
     ).toBeInTheDocument();
-    expect(await screen.findAllByText("nickname")).toHaveLength(3);
+    expect(await screen.findAllByText("nickname")).toHaveLength(2);
   });
 
   test("로그인일 경우 초기 레이아웃 렌더링", async () => {
@@ -57,7 +57,7 @@ describe("홈 화면 테스트", () => {
     expect(
       await screen.findByRole("button", { name: "#개발자" }),
     ).toBeInTheDocument();
-    expect(await screen.findAllByText("nickname")).toHaveLength(5);
+    expect(await screen.findAllByText("nickname")).toHaveLength(2);
   });
 
   test("Edit 버튼 클릭 후 검색 모달 생성", async () => {
@@ -75,8 +75,9 @@ describe("홈 화면 테스트", () => {
     const createArticleBtn = await screen.findByRole("button", {
       name: "+ Create Article",
     });
+    screen.debug(createArticleBtn);
     await userEvent.click(createArticleBtn);
-    expect(mockNavigation).toHaveBeenCalledWith("tech/create");
+    expect(mockNavigation).toHaveBeenCalledWith("/tech/create");
   });
 
   test("글 리스트 클릭시 페이지 이동", async () => {

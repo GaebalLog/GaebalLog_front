@@ -60,18 +60,23 @@ export const postHandler = [
         }),
       );
     } else if (sort === "views" && page && page === "2") {
-      posts.push({
-        postId: 37,
-        nickname: "nickname",
-        title: "title",
-        content: "마지막",
-        view: null,
-        like: null,
-        img: ["img"],
-        categories: ["jwt", "aws", "mysql"],
-        createdDt: "2023-08-28 17:08:22",
-      });
-      return res(ctx.status(200), ctx.json({ hasMore: false, posts: posts }));
+      return res(
+        ctx.status(200),
+        ctx.json({
+          hasMore: false,
+          posts: {
+            postId: 37,
+            nickname: "nickname",
+            title: "title",
+            content: "마지막",
+            view: null,
+            like: null,
+            img: ["img"],
+            categories: ["jwt", "aws", "mysql"],
+            createdDt: "2023-08-28 17:08:22",
+          },
+        }),
+      );
     } else {
       return res(ctx.status(500));
     }
