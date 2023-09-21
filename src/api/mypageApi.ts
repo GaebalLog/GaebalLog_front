@@ -1,6 +1,6 @@
 import { instance } from "./api";
 
-export const mypageAPI = {
+export const mypageApi = {
   updateNickname: (nickname: string) => {
     return instance.patch(`/users/name`, { nickname });
   },

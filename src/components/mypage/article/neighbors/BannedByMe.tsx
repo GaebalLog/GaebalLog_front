@@ -2,14 +2,14 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { mypageAPI } from "@/api/mypageAPI";
+import { mypageApi } from "@/api/mypageApi";
 
 import MyNeightborProfile from "./profile/MyNeighborProfile";
 
 const BannedByMe = () => {
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.BLOCKUSER],
-    queryFn: async () => await mypageAPI.getBlockUser(),
+    queryFn: async () => await mypageApi.getBlockUser(),
   });
   const neighborList: neighborItem[] = data?.data;
 
