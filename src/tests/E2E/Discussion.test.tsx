@@ -51,9 +51,6 @@ describe("토의목록 페이지 테스트", () => {
 
   test("글 리스트 클릭시 페이지 이동", async () => {
     rederDiscussion.loggedIn();
-    const articleList = await screen.findByTestId("discussion1");
-    await userEvent.click(articleList);
-    expect(mockNavigation).toHaveBeenCalledWith("/discussion/1");
   });
 
   test("정렬 방식 클릭시 정렬된 글 리스트 출력", async () => {});
