@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-import MyNeightborProfile from "./profile/MyNeighborProfile";
+import MyNeightborProfile from "./element/MyNeighborProfile";
 
 const AddByMe = () => {
   const { data } = useQuery({

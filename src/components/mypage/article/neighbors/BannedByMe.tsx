@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 import { mypageApi } from "@/api/mypageApi";
 
-import MyNeightborProfile from "./profile/MyNeighborProfile";
+import MyNeightborProfile from "./element/MyNeighborProfile";
 
 const BannedByMe = () => {
   const { data } = useQuery({

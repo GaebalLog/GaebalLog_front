@@ -1,9 +1,8 @@
 import React from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import useIcon from "@/hooks/useIcon";
 import { TEXT_COLOR } from "@/constants/global/colors";
+import ProfileImage from "@/components/designSystem/ProfileImage";
 
 import Button from "../../../../designSystem/Button";
 
@@ -24,8 +23,6 @@ const MyNeightborProfile: React.FC<props> = ({
   bannned,
 }) => {
   const router = useRouter();
-  const { getIcon } = useIcon();
-  const defaultProfile = getIcon("default_profile", 40, 40);
   const btnList = [
     {
       text: "이웃 정보 보기",
@@ -52,11 +49,11 @@ const MyNeightborProfile: React.FC<props> = ({
   return (
     <div id={userId.toString()} className={styles.container}>
       <div className={styles.profileBox}>
-        {profileImage ? (
-          <Image src={profileImage} alt={nickname} width={40} height={40} />
-        ) : (
-          defaultProfile
-        )}
+        <ProfileImage
+          idForModal={userId}
+          profileImage={profileImage}
+          preventModalOpen
+        />
         <span className={styles.nickname}>{nickname}</span>
       </div>
       <div className={styles.btnBox}>
