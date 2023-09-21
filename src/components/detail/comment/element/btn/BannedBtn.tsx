@@ -1,6 +1,7 @@
 import React from "react";
 
 import ConfirmModal from "@/components/modal/common/ConfirmModal";
+import { authAPI } from "@/api/authAPI";
 
 const BannedBtn = ({ nickname }: { nickname: string }) => {
   const [modal, openModal] = React.useState(false);
@@ -8,6 +9,11 @@ const BannedBtn = ({ nickname }: { nickname: string }) => {
   const onBlockClick = () => {
     modal ? openModal(false) : openModal(true);
   };
+
+  const addBlockUser = async () => {
+    await authAPI.blockUser("");
+  };
+
   return (
     <div onClick={(e) => e.stopPropagation()}>
       <button className="ml-10" onClick={onBlockClick}>
@@ -26,7 +32,7 @@ const BannedBtn = ({ nickname }: { nickname: string }) => {
             onBlockClick();
           }}
           onPositiveClick={() => {
-            onBlockClick();
+            addBlockUser();
           }}
         />
       )}

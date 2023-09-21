@@ -26,12 +26,12 @@ describe("마이페이지 화면 테스트", () => {
 
   test("로그인일 경우 접근시 마이페이지 화면 노출", async () => {
     renderMypage.loggedIn();
-    expect(screen.getByTestId("renderedMypage")).toBeInTheDocument();
+    expect(await screen.findByTestId("renderedMypage")).toBeInTheDocument();
   });
 
   test("검색창에 내 카테고리를 검색하면 자동추천이 노출된다.", async () => {
     renderMypage.loggedIn();
-    const searchInput = screen.getByPlaceholderText(
+    const searchInput = await screen.findByPlaceholderText(
       "내가 추가한 나만의 키워드를 검색해보세요.",
     );
     await waitFor(() => {
@@ -46,7 +46,7 @@ describe("마이페이지 화면 테스트", () => {
     const file = new File(["testImg"], "testImg.png", {
       type: "image/png",
     });
-    const updateImgBtn = screen.getByLabelText("이미지 수정");
+    const updateImgBtn = await screen.findByLabelText("이미지 수정");
     await userEvent.upload(updateImgBtn, file);
     const imgElement = await screen.findByAltText("프로필사진");
     expect(imgElement.getAttribute("src")).toContain(
@@ -56,7 +56,7 @@ describe("마이페이지 화면 테스트", () => {
 
   test("프로필 이미지 제거버튼 클릭시 기본 사진으로 설정", async () => {
     renderMypage.loggedIn();
-    const deleteImgBtn = screen.getByText("이미지 제거");
+    const deleteImgBtn = await screen.findByText("이미지 제거");
     await userEvent.click(deleteImgBtn);
     await waitFor(() => {
       const imgElement = screen.getByAltText("프로필사진");
@@ -66,7 +66,7 @@ describe("마이페이지 화면 테스트", () => {
 
   test("닉네임 수정기능", async () => {
     renderMypage.loggedIn();
-    const nicknameInput = screen.getByTestId("nicknameInput");
+    const nicknameInput = await screen.findByTestId("nicknameInput");
     await userEvent.type(nicknameInput, "테스트닉네임");
     await waitFor(() => {
       expect(nicknameInput).toHaveValue("테스트닉네임");

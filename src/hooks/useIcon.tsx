@@ -2,9 +2,9 @@ import React from "react";
 import Image from "next/image";
 import { useRecoilValue } from "recoil";
 
-import { darkAtom } from "@/constants/global/atoms";
-
 import ICON from "../../public/assets/icons/common";
+
+import { darkAtom } from "./useUserAuth";
 
 const useIcon = () => {
   const dark = useRecoilValue(darkAtom);

@@ -37,9 +37,9 @@ const useSettingToggle = () => {
     },
     {
       text: "이웃 비공개",
-      isChecked: data?.darkmodeStatus,
+      isChecked: data?.setNeighborPrivate,
       onChange: (checked?: boolean) => {
-        mutate({ darkmodeStatus: !checked });
+        mutate({ setNeighborPrivate: !checked });
       },
       subDescription:
         "* 이웃 비공개 시, 내가 추가한 이웃과 나를 추가한 이웃이 다른 사람에게 보이지 않습니다.",

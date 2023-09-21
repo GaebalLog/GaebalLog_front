@@ -16,6 +16,7 @@ export const mockNavigation = jest.fn();
 const useRouter = () => ({
   push: mockNavigation,
   replace: mockNavigation,
+  back: mockNavigation,
 });
 
 const useSearchParams = () => ({

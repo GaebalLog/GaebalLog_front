@@ -91,7 +91,7 @@ describe("홈 화면 테스트", () => {
 describe("키워드 목록 컴포넌트 테스트", () => {
   test("키워드가 없을 때 데이터 없음이 떠야 함", async () => {
     server.use(
-      rest.get("/users/keywords", (req, res, ctx) => {
+      rest.get("/keywords", (req, res, ctx) => {
         return res.once(ctx.status(200), ctx.json([]));
       }),
     );

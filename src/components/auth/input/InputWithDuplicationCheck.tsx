@@ -5,7 +5,7 @@ import ValidationText from "../text/ValidationText";
 
 import InputWithLabel from "./InputWithLabel";
 
-interface InputWithCheckProps {
+interface InputWithDuplicationCheckProps {
   type: "email" | "nickname";
   inputValue: {
     value: string | number;
@@ -16,7 +16,7 @@ interface InputWithCheckProps {
   isDuplicated: boolean | null;
 }
 
-const InputWithCheck: React.FC<InputWithCheckProps> = ({
+const InputWithDuplicationCheck: React.FC<InputWithDuplicationCheckProps> = ({
   type,
   inputValue,
   setDuplicated,
@@ -69,4 +69,4 @@ const InputWithCheck: React.FC<InputWithCheckProps> = ({
   );
 };
 
-export default InputWithCheck;
+export default InputWithDuplicationCheck;

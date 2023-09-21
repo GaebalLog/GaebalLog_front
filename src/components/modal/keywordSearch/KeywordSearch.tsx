@@ -1,11 +1,8 @@
 import React from "react";
-import { useSetRecoilState } from "recoil";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 import { BG_COLOR } from "@/constants/global/colors";
-import Button from "@/components/designSystem/Button";
-import { modalAtom } from "@/constants/global/atoms";
 import useIcon from "@/hooks/useIcon";
 import usePagination from "@/hooks/usePagination";
 import { authAPI } from "@/api/authAPI";
@@ -15,6 +12,7 @@ import Modal from "../Modal";
 import LiveSearchInput from "../../commonUI/LiveSearchInput";
 
 import KeywordList from "./KeywordList";
+import OkCancelButton from "./elements/OkCancelButton";
 
 const styles = {
   container: `flex justify-center w-[1330px] h-[700px] ${BG_COLOR.general02}`,
@@ -23,11 +21,9 @@ const styles = {
   keywordBox: `self-start w-full h-[155px]`,
   keywordBoxTitle: `text-[18px] leading-[22.5px] text-[#888888]`,
   line: `w-[1330px] h-[3px] bg-[#DCDCDC] mt-[30px] mb-5`,
-  buttonBox: `self-end mt-[57px]`,
 };
 
 const KeywordSearch = () => {
-  const setIsModal = useSetRecoilState(modalAtom);
   const [myCategories, setMyCategories] = React.useState<string[]>([]);
   const myCategoriesContainerRef = React.useRef<HTMLUListElement | null>(null);
 
@@ -46,6 +42,16 @@ const KeywordSearch = () => {
     },
   );
 
+  const { mutate } = useMutation({
+    mutationFn: (selectedKeyword: string) =>
+      authAPI.updateKeywords(selectedKeyword),
+    onMutate(variables: string) {
+      if (!slicedMyCategories.includes(variables)) {
+        setMyCategories((prev: string[]) => [...prev, variables]);
+      }
+    },
+  });
+
   const {
     isFirstPage,
     isLastPage,
@@ -58,17 +64,6 @@ const KeywordSearch = () => {
   const prevBtn = getIcon("prevBtn", 48, 48, "cursor");
   const nextBtn = getIcon("nextBtn", 48, 48, "cursor");
 
-  const addCategory = (selectedKeyword: string) => {
-    if (!slicedMyCategories.includes(selectedKeyword)) {
-      setMyCategories((prev: string[]) => [...prev, selectedKeyword]);
-    }
-  };
-
-  const handleSubmit = () => {
-    console.log(slicedMyCategories);
-    // setIsModal((prev) => !prev);
-  };
-
   return (
     <Modal isBgColor isFixed blockScroll>
       <div className={styles.container}>
@@ -76,7 +71,7 @@ const KeywordSearch = () => {
           <span className={styles.title}>Add my keywords</span>
           <LiveSearchInput
             type="keywordSearch"
-            clickResultList={addCategory}
+            clickResultList={(selectedKeyword) => mutate(selectedKeyword)}
             placeholder="키워드를 추가하여 나만의 키워드를 만들어 보세요."
           />
           <div className={styles.keywordBox}>
@@ -119,24 +114,7 @@ const KeywordSearch = () => {
               isLoading={trendCategoriesLoading}
             />
           </div>
-          <div className={styles.buttonBox}>
-            <Button
-              className="mr-6"
-              size="confirm"
-              color="black"
-              onClick={handleSubmit}
-            >
-              Ok
-            </Button>
-            <Button
-              size="confirm"
-              color="cancelButton"
-              border
-              onClick={() => setIsModal((prev) => !prev)}
-            >
-              Cancel
-            </Button>
-          </div>
+          <OkCancelButton />
         </div>
       </div>
     </Modal>

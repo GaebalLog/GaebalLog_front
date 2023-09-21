@@ -1,13 +1,15 @@
 import React from "react";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+
+import { QUERY_KEYS } from "@/constants/global/querykeys";
+import { authAPI } from "@/api/authAPI";
 
 import MyNeightborProfile from "./profile/MyNeighborProfile";
 
 const BannedByMe = () => {
   const { data } = useQuery({
-    queryKey: ["neighborlist"],
-    queryFn: async () => await axios.get("/api/neighbors/me"),
+    queryKey: [QUERY_KEYS.BLOCKUSER],
+    queryFn: async () => await authAPI.getBlockUser(),
   });
   const neighborList: neighborItem[] = data?.data;
 
