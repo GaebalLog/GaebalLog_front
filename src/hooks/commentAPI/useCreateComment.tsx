@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 
 import { commentAPI } from "@/api/commentAPI";
-import { commentAtom } from "@/constants/global/atoms";
+import { postAtom } from "@/constants/global/atoms";
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 
 interface params {
@@ -11,7 +11,7 @@ interface params {
   onSuccess?: () => void;
 }
 const useCreateComment = ({ parentId, content, onSuccess }: params) => {
-  const { postId, commentPage } = useRecoilValue(commentAtom);
+  const { postId, commentPage } = useRecoilValue(postAtom);
   const data = { postId, parentId, content };
   const queryClient = useQueryClient();
   return useMutation({

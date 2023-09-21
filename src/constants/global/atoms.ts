@@ -10,10 +10,16 @@ export const openCommentEditorAtom = atom<string | number | null>({
   default: null,
 });
 
-export const commentAtom = atom<{ commentPage: number; postId: number }>({
-  key: "comment",
+export const postAtom = atom<{ commentPage: number; postId: number }>({
+  key: "post",
   default: {
     commentPage: 1,
     postId: 0,
+  },
+});
+export const discussionAtom = atom<{ discussionId: number }>({
+  key: "discussion",
+  default: {
+    discussionId: 0,
   },
 });

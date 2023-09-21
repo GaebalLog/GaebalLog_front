@@ -13,7 +13,7 @@ export const GET = async () => {
       thumbnail:
         "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
       isBookmarked: true,
-      createdAt: new Date(),
+      createdAt: "2021-08-10T14:00:00.000Z",
     },
     {
       postId: 2,
@@ -26,7 +26,7 @@ export const GET = async () => {
       thumbnail:
         "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
       isBookmarked: false,
-      createdAt: new Date(),
+      createdAt: "2021-08-10T14:00:00.000Z",
     },
     {
       postId: 3,
@@ -39,7 +39,7 @@ export const GET = async () => {
       thumbnail:
         "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
       isBookmarked: true,
-      createdAt: new Date(),
+      createdAt: "2021-08-10T14:00:00.000Z",
     },
   ];
   return NextResponse.json({ posts });

@@ -1,15 +1,14 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
 import useModalController from "@/hooks/useModalController";
+import useGetDetailDiscussion from "@/hooks/discussionAPI/useGetDetailDiscussion";
+import { utilDateKr } from "@/utils/util-datetimeKr";
 
 import Button from "../designSystem/Button";
 import LoadingSpinner from "../LoadingSpinner";
@@ -17,7 +16,7 @@ import Modal from "../modal/Modal";
 import ConfirmModal from "../modal/common/ConfirmModal";
 
 const styles = {
-  container: `relative overflow-y-auto w-[1100px] h-[62%] p-4 ${BG_COLOR.primary} ${BORDER_COLOR.button}`,
+  container: `relative overflow-y-auto w-[68.75rem] h-[62%] p-4 ${BG_COLOR.primary} ${BORDER_COLOR.button}`,
   header: {
     wrapper: `flex justify-between items-center mb-2`,
     titleBox: `flex items-center`,
@@ -32,31 +31,11 @@ const styles = {
   },
 };
 
-interface chatroom {
-  data: {
-    chatRoomId: number;
-    userId: number;
-    socketRoom: [];
-    ChatList: [];
-    title: string;
-    content: string;
-    thumbnail: string;
-    like: number;
-    myParticipationTime: string;
-    discussionEndTime: string;
-    remainingTime: string;
-  };
-}
-
-const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
+const RoomContents = () => {
   const [topLeft, setTopLeft] = React.useState({ top: "0px", left: "0px" });
   const router = useRouter();
-  const { modal, openModal, allCloseModal } = useModalController();
-  const { data, isLoading } = useQuery<chatroom>({
-    queryKey: ["chatRoom", chatRoomId],
-    queryFn: () => axios.get(`/api/chatrooms/${chatRoomId}`),
-  });
-
+  const { modal, openModal, toggleModal, allCloseModal } = useModalController();
+  const { data, isLoading } = useGetDetailDiscussion();
   const { getIcon } = useIcon();
   const like = getIcon("like", 18, 18);
   const more = getIcon("more", 5, 5);
@@ -66,10 +45,10 @@ const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
   ) => {
     const rect = event.currentTarget.getBoundingClientRect();
     setTopLeft({
-      top: `${rect.top + 80}px`,
+      top: `${rect.top + 30}px`,
       left: `${rect.left + 17}px`,
     });
-    openModal("discussionMore");
+    toggleModal("discussionMore");
   };
 
   const discussionExitHandler = () => {
@@ -93,49 +72,19 @@ const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
           <div className={styles.header.titleLabel}>주제</div>
           <h1 className={styles.header.title}>{data?.data.title}</h1>
         </div>
-        <div onClick={(e) => e.stopPropagation()}>
+        <div onClick={(e) => e.stopPropagation()} className="relative">
           <button className="px-4" onClick={moreOptionModalHandler}>
             {more}
           </button>
-          {modal.discussionMore && (
-            <Modal positionOption={topLeft} nonBackdrop>
-              <div className={`flex flex-col ${BORDER_COLOR.button}`}>
-                <Link
-                  className="text-center"
-                  href={"/discussion/create"}
-                  onClick={() => allCloseModal()}
-                >
-                  <Button
-                    className={`w-full py-4 px-[30px]`}
-                    size="tab"
-                    color="white"
-                  >
-                    수정하기
-                  </Button>
-                </Link>
-                <Button
-                  className={`py-4 px-[30px]`}
-                  size="tab"
-                  color="white"
-                  onClick={discussionExitHandler}
-                >
-                  토의 나가기
-                </Button>
-              </div>
-            </Modal>
-          )}
         </div>
       </header>
       <div className={styles.roomInfoBox.wrapper}>
-        <figure className={styles.roomInfoBox.imageDiv}>
-          <Image
+        <div className={styles.roomInfoBox.imageDiv}>
+          <div
             className="object-contain"
-            src={data?.data.thumbnail ?? ""}
-            alt="썸네일"
-            fill
-            sizes="660.5px"
+            dangerouslySetInnerHTML={{ __html: data?.data.thumbnail ?? "" }}
           />
-        </figure>
+        </div>
         <aside className={styles.roomInfoBox.aside}>
           <div>
             <Button size="withIcon" color="white" border rounded>
@@ -146,11 +95,11 @@ const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
           <div>
             <div className={styles.roomInfoBox.timeInfo}>
               <strong className={`mr-4`}>나의 참가시간</strong>
-              <span>{data?.data.myParticipationTime}</span>
+              <span>{data?.data.elapsedTime}</span>
             </div>
             <div className={styles.roomInfoBox.timeInfo}>
               <strong className={`mr-4`}>토의 종료 예정시간</strong>
-              <span>{data?.data.discussionEndTime}</span>
+              <span>{utilDateKr(data?.data.endTime as string)}</span>
             </div>
             <div className={styles.roomInfoBox.timeInfo}>
               <strong className={`mr-4`}>남은시간</strong>
@@ -175,6 +124,35 @@ const RoomContents: React.FC<{ chatRoomId: number }> = ({ chatRoomId }) => {
           onNegativeClick={() => router.back()}
           onPositiveClick={() => router.back()}
         />
+      )}
+      {modal.discussionMore && (
+        <Modal positionOption={topLeft} nonBackdrop>
+          <div className={`flex flex-col ${BORDER_COLOR.button}`}>
+            {data?.data.isAuthor && (
+              <Link
+                className="text-center"
+                href={"/discussion/create"}
+                onClick={() => allCloseModal()}
+              >
+                <Button
+                  className={`w-full py-4 px-[30px]`}
+                  size="tab"
+                  color="white"
+                >
+                  수정하기
+                </Button>
+              </Link>
+            )}
+            <Button
+              className={`py-4 px-[30px]`}
+              size="tab"
+              color="white"
+              onClick={discussionExitHandler}
+            >
+              토의 나가기
+            </Button>
+          </div>
+        </Modal>
       )}
     </section>
   );
