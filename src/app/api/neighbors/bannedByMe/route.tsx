@@ -5,12 +5,12 @@ export const GET = async () => {
   const neighbors = [
     {
       userId: 1,
-      nickname: "no.4",
+      nickname: "차단한 이웃1",
       profileImg: null,
     },
     {
       userId: 2,
-      nickname: "no.7",
+      nickname: "차단한 이웃2",
       profileImg: null,
     },
   ];

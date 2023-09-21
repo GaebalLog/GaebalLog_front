@@ -68,4 +68,65 @@ export const myPageHandler = [
     ];
     return res(ctx.status(200), ctx.json({ posts }));
   }),
+
+  rest.get("/api/neighbors/addedByMe", (req, res, ctx) => {
+    const neighbors = [
+      {
+        userId: 1,
+        nickname: "내가 추가한 이웃1",
+        profileImg: null,
+      },
+      {
+        userId: 2,
+        nickname: "내가 추가한 이웃2",
+        profileImg: null,
+      },
+    ];
+    return res(ctx.status(200), ctx.json({ neighbors }));
+  }),
+  rest.get("/api/neighbors/addedByYou", (req, res, ctx) => {
+    const neighbors = [
+      {
+        userId: 1,
+        nickname: "나를 추가한 이웃1",
+        profileImg: null,
+      },
+      {
+        userId: 2,
+        nickname: "나를 추가한 이웃2",
+        profileImg: null,
+      },
+    ];
+    return res(ctx.status(200), ctx.json({ neighbors }));
+  }),
+  rest.get("/api/neighbors/addedByBoth", (req, res, ctx) => {
+    const neighbors = [
+      {
+        userId: 1,
+        nickname: "서로 이웃1",
+        profileImg: null,
+      },
+      {
+        userId: 2,
+        nickname: "서로 이웃2",
+        profileImg: null,
+      },
+    ];
+    return res(ctx.status(200), ctx.json({ neighbors }));
+  }),
+  rest.get("/api/neighbors/bannedByMe", (req, res, ctx) => {
+    const neighbors = [
+      {
+        userId: 1,
+        nickname: "차단한 이웃1",
+        profileImg: null,
+      },
+      {
+        userId: 2,
+        nickname: "차단한 이웃2",
+        profileImg: null,
+      },
+    ];
+    return res(ctx.status(200), ctx.json({ neighbors }));
+  }),
 ];
