@@ -8,4 +8,5 @@ export const QUERY_KEYS = {
   LIVESEARCH: "liveSearch",
   DISCUSSIONLIST: "discussionList",
   BLOCKUSER: "blockUser",
+  DISCUSSION: "discussion",
 };

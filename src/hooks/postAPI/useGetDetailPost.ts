@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { commentAtom } from "@/constants/global/atoms";
+import { postAtom } from "@/constants/global/atoms";
 import { postAPI } from "@/api/postAPI";
 
 const useGetDetailPost = ({
@@ -12,7 +12,7 @@ const useGetDetailPost = ({
   onSuccessSet: (data: postListAuthor) => void;
   optionalId?: number;
 }) => {
-  const { postId } = useRecoilValue(commentAtom);
+  const { postId } = useRecoilValue(postAtom);
   const Id = optionalId ?? postId;
   return useQuery({
     queryKey: [QUERY_KEYS.POST, Id],
@@ -20,7 +20,7 @@ const useGetDetailPost = ({
     onSuccess: (data) => {
       onSuccessSet(data.data);
     },
-    enabled: postId !== 0,
+    enabled: Id !== 0,
   });
 };
 

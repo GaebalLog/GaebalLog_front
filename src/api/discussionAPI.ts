@@ -18,6 +18,9 @@ export const discussionAPI = {
       `/discussions/all/${sort}?page=${page}`,
     );
   },
+  getDetail: (discussionId: number) => {
+    return instance.get<detailDisccussion>(`/discussions/${discussionId}`);
+  },
   toggleBookmark: (discussionId: number) => {
     return instance.post(`/discussions/${discussionId}/bookmark`);
   },

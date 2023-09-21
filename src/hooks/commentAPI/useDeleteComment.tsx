@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 
 import { commentAPI } from "@/api/commentAPI";
-import { commentAtom } from "@/constants/global/atoms";
+import { postAtom } from "@/constants/global/atoms";
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 
 const useDeleteComment = ({
@@ -13,7 +13,7 @@ const useDeleteComment = ({
   onSuccess?: () => void;
 }) => {
   const queryClient = useQueryClient();
-  const { postId, commentPage } = useRecoilValue(commentAtom);
+  const { postId, commentPage } = useRecoilValue(postAtom);
   return useMutation({
     mutationFn: () => commentAPI.deleteComment(commentId),
     onSuccess: () => {

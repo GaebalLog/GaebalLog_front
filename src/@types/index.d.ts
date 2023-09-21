@@ -30,14 +30,34 @@ declare global {
     title: string;
     category: string[];
     remainingTime: number;
-    isparticipated: boolean;
     bookmarked: boolean;
     liked: boolean;
     like: number;
     view: number;
     nickname: string;
   }
-
+  interface detailDisccussion extends discussion {
+    content: string;
+    isAuthor: boolean;
+    startTime: string;
+    endTime: string;
+    elapsedTime: string;
+  }
+  interface chatroom {
+    data: {
+      chatRoomId: number;
+      userId: number;
+      socketRoom: [];
+      ChatList: [];
+      title: string;
+      content: string;
+      thumbnail: string;
+      like: number;
+      myParticipationTime: string;
+      discussionEndTime: string;
+      remainingTime: string;
+    };
+  }
   interface beforeDiscussion {
     chatListId: number;
     nickname: string;
@@ -60,7 +80,7 @@ declare global {
     like: number;
     count: number;
     isBookmarked: boolean;
-    createdAt: Date;
+    createdAt: string;
   }
   type posts = post[];
 

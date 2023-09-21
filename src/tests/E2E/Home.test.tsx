@@ -75,7 +75,6 @@ describe("홈 화면 테스트", () => {
     const createArticleBtn = await screen.findByRole("button", {
       name: "+ Create Article",
     });
-    screen.debug(createArticleBtn);
     await userEvent.click(createArticleBtn);
     expect(mockNavigation).toHaveBeenCalledWith("/tech/create");
   });

@@ -5,7 +5,7 @@ import { useSetRecoilState } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
 import CommentContainer from "@/components/detail/CommentContainer";
-import { commentAtom } from "@/constants/global/atoms";
+import { postAtom } from "@/constants/global/atoms";
 import ContentContainer from "@/components/detail/ContentContainer";
 
 const styles = {
@@ -22,7 +22,7 @@ export interface detailParams {
   };
 }
 const Detail = ({ params: { postId } }: detailParams) => {
-  const setPostId = useSetRecoilState(commentAtom);
+  const setPostId = useSetRecoilState(postAtom);
 
   React.useEffect(() => {
     setPostId((prev) => ({ ...prev, postId: +postId }));
