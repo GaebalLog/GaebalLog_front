@@ -17,7 +17,7 @@ const styles = {
   dropDown: {
     container: `flex relative w-[200px] h-[48px] rounded-[3px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.general06} ${BG_COLOR.primary}`,
     drop: "w-full h-[48px] cursor-pointer flex items-center justify-center text-[20px] gap-[10px]",
-    ul: `absolute top-[46px] left-0 z-10 w-full max-h-[170px] text-[20px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.primary}`,
+    ul: `absolute top-[46px] left-0 w-full max-h-[170px] text-[20px] border border-solid ${BORDER_COLOR.container} ${TEXT_COLOR.primary}`,
     li: `w-full h-[48px] flex items-center justify-center cursor-pointer`,
   },
 };
@@ -46,42 +46,46 @@ const MyNeighborList = () => {
   };
   const renderedList = render();
   return (
-    <div className={`px-[54px] py-[40px] w-full h-full overflow-auto`}>
+    <div className={`relative px-[54px] pb-[40px] w-full h-full overflow-auto`}>
       <div
-        className={styles.dropDown.container}
-        onClick={(e) => e.stopPropagation()}
+        className={`sticky top-0 z-10 pt-[40px] pb-[20px] ${BG_COLOR.general02}`}
       >
-        <span
-          className={styles.dropDown.drop}
-          onClick={() => toggleModal("myNeightborsType")}
+        <div
+          className={styles.dropDown.container}
+          onClick={(e) => e.stopPropagation()}
         >
-          {neighborType}
-          {downBtn}
-        </span>
-        {modal.myNeightborsType && (
-          <ul className={styles.dropDown.ul}>
-            {neighborsTypeList.map((type) => (
-              <li
-                key={type}
-                className={`${styles.dropDown.li} ${
-                  hoveredItem === type ? BG_COLOR.general06 : BG_COLOR.general01
-                }`}
-                onClick={() => {
-                  setNeighborType(type);
-                  closeModal("myNeightborsType");
-                }}
-                onMouseOver={() => setHoveredItem(type)}
-                onMouseLeave={() => setHoveredItem(undefined)}
-              >
-                {type}
-              </li>
-            ))}
-          </ul>
-        )}
+          <span
+            className={styles.dropDown.drop}
+            onClick={() => toggleModal("myNeightborsType")}
+          >
+            {neighborType}
+            {downBtn}
+          </span>
+          {modal.myNeightborsType && (
+            <ul className={styles.dropDown.ul}>
+              {neighborsTypeList.map((type) => (
+                <li
+                  key={type}
+                  className={`${styles.dropDown.li} ${
+                    hoveredItem === type
+                      ? BG_COLOR.general06
+                      : BG_COLOR.general01
+                  }`}
+                  onClick={() => {
+                    setNeighborType(type);
+                    closeModal("myNeightborsType");
+                  }}
+                  onMouseOver={() => setHoveredItem(type)}
+                  onMouseLeave={() => setHoveredItem(undefined)}
+                >
+                  {type}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
-      <article className="flex flex-col gap-[16px] mt-[40px]">
-        {renderedList}
-      </article>
+      <article className="flex flex-col gap-[16px]">{renderedList}</article>
     </div>
   );
 };
