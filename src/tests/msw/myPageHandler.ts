@@ -1,5 +1,8 @@
 import { rest } from "msw";
 
+const profileImage =
+  "https://images.unsplash.com/photo-1690552820653-fab322051836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=675&q=80";
+
 export const myPageHandler = [
   rest.patch("/users/name", (req, res, ctx) => {
     return res(ctx.status(200));
@@ -74,59 +77,59 @@ export const myPageHandler = [
       {
         userId: 1,
         nickname: "내가 추가한 이웃1",
-        profileImg: null,
+        profileImage: profileImage,
       },
       {
         userId: 2,
         nickname: "내가 추가한 이웃2",
-        profileImg: null,
+        profileImage: profileImage,
       },
     ];
-    return res(ctx.status(200), ctx.json({ neighbors }));
+    return res(ctx.status(200), ctx.json([...neighbors]));
   }),
   rest.get("/api/neighbors/addedByYou", (req, res, ctx) => {
     const neighbors = [
       {
         userId: 1,
         nickname: "나를 추가한 이웃1",
-        profileImg: null,
+        profileImage: profileImage,
       },
       {
         userId: 2,
         nickname: "나를 추가한 이웃2",
-        profileImg: null,
+        profileImage: profileImage,
       },
     ];
-    return res(ctx.status(200), ctx.json({ neighbors }));
+    return res(ctx.status(200), ctx.json([...neighbors]));
   }),
   rest.get("/api/neighbors/addedByBoth", (req, res, ctx) => {
     const neighbors = [
       {
         userId: 1,
         nickname: "서로 이웃1",
-        profileImg: null,
+        profileImage: profileImage,
       },
       {
         userId: 2,
         nickname: "서로 이웃2",
-        profileImg: null,
+        profileImage: profileImage,
       },
     ];
-    return res(ctx.status(200), ctx.json({ neighbors }));
+    return res(ctx.status(200), ctx.json([...neighbors]));
   }),
   rest.get("/api/neighbors/bannedByMe", (req, res, ctx) => {
     const neighbors = [
       {
         userId: 1,
         nickname: "차단한 이웃1",
-        profileImg: null,
+        profileImage: profileImage,
       },
       {
         userId: 2,
         nickname: "차단한 이웃2",
-        profileImg: null,
+        profileImage: profileImage,
       },
     ];
-    return res(ctx.status(200), ctx.json({ neighbors }));
+    return res(ctx.status(200), ctx.json([...neighbors]));
   }),
 ];

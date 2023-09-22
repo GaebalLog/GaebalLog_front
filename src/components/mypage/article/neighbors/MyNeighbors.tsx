@@ -55,6 +55,7 @@ const MyNeighborList = () => {
           onClick={(e) => e.stopPropagation()}
         >
           <span
+            data-testid="neighborDropDown"
             className={styles.dropDown.drop}
             onClick={() => toggleModal("myNeightborsType")}
           >

@@ -6,12 +6,12 @@ export const GET = async () => {
     {
       userId: 1,
       nickname: "차단한 이웃1",
-      profileImg: null,
+      profileImage: null,
     },
     {
       userId: 2,
       nickname: "차단한 이웃2",
-      profileImg: null,
+      profileImage: null,
     },
   ];
   return NextResponse.json(neighbors);

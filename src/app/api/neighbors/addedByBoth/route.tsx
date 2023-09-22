@@ -6,52 +6,52 @@ export const GET = async () => {
     {
       userId: 1,
       nickname: "서로 이웃1",
-      profileImg: null,
+      profileImage: null,
     },
     {
       userId: 2,
       nickname: "서로 이웃2",
-      profileImg: null,
+      profileImage: null,
     },
     {
       userId: 3,
       nickname: "서로 이웃3",
-      profileImg: null,
+      profileImage: null,
     },
     {
       userId: 4,
       nickname: "서로 이웃4",
-      profileImg: null,
+      profileImage: null,
     },
     {
       userId: 5,
       nickname: "서로 이웃5",
-      profileImg: null,
+      profileImage: null,
     },
     {
       userId: 6,
       nickname: "서로 이웃6",
-      profileImg: null,
+      profileImage: null,
     },
     {
       userId: 7,
       nickname: "서로 이웃7",
-      profileImg: null,
+      profileImage: null,
     },
     {
       userId: 8,
       nickname: "서로 이웃8",
-      profileImg: null,
+      profileImage: null,
     },
     {
       userId: 9,
       nickname: "서로 이웃9",
-      profileImg: null,
+      profileImage: null,
     },
     {
       userId: 10,
       nickname: "서로 이웃10",
-      profileImg: null,
+      profileImage: null,
     },
   ];
   return NextResponse.json(neighbors);
