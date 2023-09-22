@@ -96,6 +96,13 @@ export default class DateConvertor {
     return `${this.year}년 ${this.month}월 ${this.date}일`;
   }
 
+  formatWithLongDateHour(): string {
+    const timeDiff = this.getTimeDifference();
+    if (timeDiff) return timeDiff;
+
+    return `${this.year}년 ${this.month}월 ${this.date}일 ${this.hour}시`;
+  }
+
   formatWithLongTermDifference(): string | null {
     const timeGap = this.calculateTimeGap();
     const days = Math.round(timeGap / (24 * 60 * 60 * 1000));
