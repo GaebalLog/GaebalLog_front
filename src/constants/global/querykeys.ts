@@ -12,5 +12,6 @@ export const QUERY_KEYS = {
   ADDEDBYBOTH: "addedByBoth",
   BANNEDBYME: "bannedByMe",
   MYDISCUSSION: "myDiscussion",
+  MYWRITTEN: "myWritten",
   DISCUSSION: "discussion",
 };

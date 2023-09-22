@@ -1,6 +1,7 @@
 import { instance } from "./api";
 
 export const mypageApi = {
+  // 내 정보
   updateNickname: (nickname: string) => {
     return instance.patch(`/users/name`, { nickname });
   },
@@ -12,14 +13,18 @@ export const mypageApi = {
     });
   },
 
-  getAlertSetting: async () => {
-    const { data } = await instance.get(`/users/preferences`);
-    return data;
+  // 내가 쓴 글
+  getMyBookmarks: () => {
+    return instance.get(`/mywritten/myBookmark`);
   },
-  updateAlertSetting: async (payload: Partial<preferencesResponse>) => {
-    return await instance.patch(`/users/preferences`, payload);
+  getMyComments: () => {
+    return instance.get(`/mywritten/myComment`);
+  },
+  getMyLikes: () => {
+    return instance.get(`/mywritten/myLike`);
   },
 
+  // 이웃 관리
   blockUser: (block_id: string) => {
     return instance.post(`/users/block/${block_id}`);
   },
@@ -36,10 +41,20 @@ export const mypageApi = {
     return instance.get(`/users/block`);
   },
 
-  getMyDiscussion: () => {
+  // 참여 중인 토의
+  getMyDiscussions: () => {
     return instance.get(`/mydiscussion/me`);
   },
-  getNeighborDiscussion: () => {
+  getNeighborDiscussions: () => {
     return instance.get(`/mydiscussion/neighbor`);
+  },
+
+  // 설정
+  getAlertSetting: async () => {
+    const { data } = await instance.get(`/users/preferences`);
+    return data;
+  },
+  updateAlertSetting: async (payload: Partial<preferencesResponse>) => {
+    return await instance.patch(`/users/preferences`, payload);
   },
 };

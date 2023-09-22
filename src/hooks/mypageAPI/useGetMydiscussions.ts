@@ -7,11 +7,11 @@ import { mypageApi } from "@/api/mypageApi";
 const query = {
   "내가 쓴 토의": {
     type: "me",
-    fn: () => mypageApi.getMyDiscussion(),
+    fn: () => mypageApi.getMyDiscussions(),
   },
   "상대방이 쓴 토의": {
     type: "neighbor",
-    fn: () => mypageApi.getNeighborDiscussion(),
+    fn: () => mypageApi.getNeighborDiscussions(),
   },
 };
 
