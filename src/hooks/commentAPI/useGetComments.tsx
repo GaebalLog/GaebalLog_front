@@ -3,10 +3,10 @@ import { useRecoilValue } from "recoil";
 
 import { commentAPI } from "@/api/commentAPI";
 import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { commentAtom } from "@/constants/global/atoms";
+import { postAtom } from "@/constants/global/atoms";
 
 const useGetComments = () => {
-  const { postId, commentPage } = useRecoilValue(commentAtom);
+  const { postId, commentPage } = useRecoilValue(postAtom);
   return useQuery<commentList>({
     queryKey: [QUERY_KEYS.COMMENTS, postId, commentPage],
     queryFn: () =>
