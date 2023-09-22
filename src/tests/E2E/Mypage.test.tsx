@@ -103,10 +103,10 @@ test("MyWritten 렌더링 및 경로 이동 테스트", async () => {
   expect(mockNavigation).toHaveBeenCalledWith("/tech/1");
 });
 
-describe("내가 추가한 이웃 테스트", () => {
+describe("이웃 관리 테스트", () => {
   beforeEach(async () => {
     renderMypage.loggedIn();
-    await userEvent.click(await screen.findByText("내가 추가한 이웃"));
+    await userEvent.click(await screen.findByText("이웃 관리"));
   });
 
   test("내가 추가한 이웃 테스트", async () => {

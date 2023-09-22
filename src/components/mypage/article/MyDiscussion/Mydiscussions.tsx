@@ -29,11 +29,11 @@ const Mydiscussions = () => {
           dropDownType={dropDownType}
           setDropDownType={setDropDownType}
         />
-        <div className="self-end mb-1 ml-auto">
+        <div className="self-end mb-[0.75px] ml-auto">
           <SortBar tab={tab} setTab={setTab} option="mypage" />
         </div>
       </div>
-      <article className="flex gap-[24px]">
+      <article className="grid grid-cols-4 gap-[24px] overflow-auto">
         {discussionList?.map((discussion: beforeDiscussion) => {
           return (
             <MyDiscussion

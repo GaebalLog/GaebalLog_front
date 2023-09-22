@@ -41,7 +41,7 @@ const MyPost: React.FC<{ post: post }> = ({ post }) => {
 
   return (
     <div
-      className={`w-[368px] h-[350px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.primary} cursor-pointer`}
+      className={`w-full h-[350px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.primary} cursor-pointer`}
       onClick={onClickHandler}
       data-testid={`post${post.postId}`}
     >

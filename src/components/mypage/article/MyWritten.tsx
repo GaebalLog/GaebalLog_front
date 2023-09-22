@@ -17,7 +17,7 @@ const MyWritten = () => {
   return (
     <div className="flex w-full h-full flex-col px-[44px] py-[24px]">
       <SortBar tab={tab} setTab={setTab} option="mypage" />
-      <article className="flex gap-[24px]">
+      <article className="grid grid-cols-4 gap-[24px] overflow-auto">
         {postList?.map((post: post) => {
           return <MyPost key={`post${post.postId}`} post={post} />;
         })}
