@@ -27,7 +27,7 @@ const NeighborProfile: React.FC<props> = ({
     {
       text: "이웃 정보 보기",
       onclick: () => {
-        router.push("/");
+        router.push(`/profile/${userId}`);
       },
     },
     {
@@ -60,6 +60,7 @@ const NeighborProfile: React.FC<props> = ({
         {!bannned &&
           btnList.map((item) => (
             <Button
+              data-testid={`${item.text}${userId}`}
               key={`이웃 ${item.text}`}
               size="button"
               color="white"
