@@ -13,19 +13,19 @@ const styles = {
   },
 };
 
-interface dropDownProps {
+interface DropDownProps<T extends string> {
   tab: "myNeighbors" | "mydiscussions";
-  types: string[];
-  dropDownType: string;
-  setDropDownType: React.Dispatch<React.SetStateAction<string>>;
+  types: T[];
+  dropDownType: T;
+  setDropDownType: React.Dispatch<React.SetStateAction<T>>;
 }
 
-const DropDown: React.FC<dropDownProps> = ({
+const DropDown = <T extends string>({
   tab,
   types,
   dropDownType,
   setDropDownType,
-}) => {
+}: DropDownProps<T>) => {
   const [hoveredItem, setHoveredItem] = React.useState("");
 
   const { getIcon } = useIcon();
