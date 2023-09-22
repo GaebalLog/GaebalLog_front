@@ -6,15 +6,15 @@ import { mypageApi } from "@/api/mypageApi";
 
 const query = {
   "내가 북마크한 글": {
-    type: "myBookmark",
+    type: "myBookmarks",
     fn: () => mypageApi.getMyBookmarks(),
   },
   "내가 댓글 단 글": {
-    type: "myComment",
+    type: "myComments",
     fn: () => mypageApi.getMyComments(),
   },
   "내가 좋아요 한 글": {
-    type: "myLike",
+    type: "myLikes",
     fn: () => mypageApi.getMyLikes(),
   },
 };
