@@ -35,4 +35,11 @@ export const mypageApi = {
   getBannedByMe: () => {
     return instance.get(`/users/block`);
   },
+
+  getMyDiscussion: () => {
+    return instance.get(`/mydiscussion/me`);
+  },
+  getNeighborDiscussion: () => {
+    return instance.get(`/mydiscussion/neighbor`);
+  },
 };
