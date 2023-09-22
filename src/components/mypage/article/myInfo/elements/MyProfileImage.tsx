@@ -4,8 +4,8 @@ import Image from "next/image";
 
 import Label from "@/components/commonUI/Label";
 import Button from "@/components/designSystem/Button";
-import useUpdateProfileImg from "@/hooks/mypageApi/useUpdateProfileImg";
 import { userAtom } from "@/hooks/useUserAuth";
+import useUpdateProfileImg from "@/hooks/mypageAPI/useUpdateProfileImg";
 
 import default_profile from "../../../../../../public/assets/images/common/default_profile.png";
 

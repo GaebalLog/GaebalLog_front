@@ -5,7 +5,7 @@ import { BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import { userAtom } from "@/hooks/useUserAuth";
 import useInput from "@/hooks/useInput";
 import Button from "@/components/designSystem/Button";
-import useUpdateNickname from "@/hooks/mypageApi/useUpdateNickname";
+import useUpdateNickname from "@/hooks/mypageAPI/useUpdateNickname";
 
 const MyNicknameInput = () => {
   const { nickname } = useRecoilValue(userAtom);
