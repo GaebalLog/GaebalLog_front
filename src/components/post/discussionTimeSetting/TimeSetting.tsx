@@ -68,7 +68,7 @@ const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
     },
   ];
 
-  const startDate = new DateConvertor(
+  const startDate = DateConvertor.separatedValues(
     +year.value,
     +month.value,
     +date.value,
@@ -76,7 +76,7 @@ const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
     +startHour.value,
     +startMinutes.value,
   );
-  const endDate = new DateConvertor(
+  const endDate = DateConvertor.separatedValues(
     +year.value,
     +month.value,
     +date.value,
