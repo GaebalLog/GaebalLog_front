@@ -15,8 +15,8 @@ const boxOption = `${BG_COLOR.general02} ${TEXT_COLOR.primary}`;
 const mypageTab = [
   "내 정보",
   "내가 쓴 글",
-  "내가 추가한 이웃",
-  "참여중인 토의",
+  "이웃 관리",
+  "참여 중인 토의",
   "설정",
 ] as const;
 const MyPagePage = withAuth(() => {
@@ -27,9 +27,9 @@ const MyPagePage = withAuth(() => {
         return <MyInfo />;
       case "내가 쓴 글":
         return <MyWritten />;
-      case "내가 추가한 이웃":
+      case "이웃 관리":
         return <MyNeighbors />;
-      case "참여중인 토의":
+      case "참여 중인 토의":
         return <Mydiscussions />;
       case "설정":
         return <MySettings />;

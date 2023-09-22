@@ -65,6 +65,7 @@ declare global {
     thumbnail?: string;
     categories: string[];
     createdAt?: string;
+    isDone?: boolean;
     remainingTime: number;
     isparticipated: boolean;
   }

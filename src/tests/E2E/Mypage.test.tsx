@@ -98,39 +98,63 @@ describe("MyInfo 테스트", () => {
 test("MyWritten 렌더링 및 경로 이동 테스트", async () => {
   renderMypage.loggedIn();
   await userEvent.click(await screen.findByText("내가 쓴 글"));
-  expect(await screen.findAllByText("title")).toHaveLength(3);
-  await userEvent.click(await screen.findByTestId("post1"));
+  expect(await screen.findByText("내가 북마크한 글1")).toBeInTheDocument();
+  await userEvent.click(await screen.findByText("내가 북마크한 글"));
+  await userEvent.click(await screen.findByText("내가 댓글 단 글"));
+  expect(await screen.findByText("내가 댓글 단 글1")).toBeInTheDocument();
+  await userEvent.click(await screen.findByText("내가 댓글 단 글"));
+  await userEvent.click(await screen.findByText("내가 좋아요 한 글"));
+  expect(await screen.findByText("내가 좋아요 한 글1")).toBeInTheDocument();
+  expect(screen.queryByText("내가 댓글 단 글1")).not.toBeInTheDocument();
+  await userEvent.click(await screen.findByText("내가 좋아요 한 글1"));
   expect(mockNavigation).toHaveBeenCalledWith("/tech/1");
 });
 
-describe("내가 추가한 이웃 테스트", () => {
+describe("이웃 관리 테스트", () => {
   beforeEach(async () => {
     renderMypage.loggedIn();
-    await userEvent.click(await screen.findByText("내가 추가한 이웃"));
+    await userEvent.click(await screen.findByText("이웃 관리"));
   });
 
-  test("내가 추가한 이웃 테스트", async () => {
+  test("내가 추가한 이웃 렌더링 테스트", async () => {
     expect(await screen.findByText("내가 추가한 이웃1")).toBeInTheDocument();
   });
 
-  test("나를 추가한 이웃 테스트", async () => {
+  test("나를 추가한 이웃 렌더링 테스트", async () => {
     await userEvent.click(await screen.findByTestId("neighborDropDown"));
     await userEvent.click(await screen.findByText("나를 추가한 이웃"));
     expect(await screen.findByText("나를 추가한 이웃1")).toBeInTheDocument();
     expect(screen.queryByText("내가 추가한 이웃1")).not.toBeInTheDocument();
   });
 
-  test("서로 이웃 테스트", async () => {
+  test("서로 이웃 렌더링 테스트", async () => {
     await userEvent.click(await screen.findByTestId("neighborDropDown"));
     await userEvent.click(await screen.findByText("서로 이웃"));
     expect(await screen.findByText("서로 이웃1")).toBeInTheDocument();
     expect(screen.queryByText("나를 추가한 이웃1")).not.toBeInTheDocument();
   });
 
-  test("차단한 이웃 테스트", async () => {
+  test("차단한 이웃 렌더링 테스트", async () => {
     await userEvent.click(await screen.findByTestId("neighborDropDown"));
     await userEvent.click(await screen.findByText("차단한 이웃"));
     expect(await screen.findByText("차단한 이웃1")).toBeInTheDocument();
     expect(screen.queryByText("서로 이웃1")).not.toBeInTheDocument();
   });
+
+  test("경로 이동 테스트", async () => {
+    await userEvent.click(await screen.findByTestId("이웃 정보 보기1"));
+    expect(mockNavigation).toHaveBeenCalledWith("/profile/1");
+  });
+});
+
+test("MyDiscussion 렌더링 및 경로 이동 테스트", async () => {
+  renderMypage.loggedIn();
+  await userEvent.click(await screen.findByText("참여 중인 토의"));
+  expect(await screen.findByText("내가 쓴 토의1")).toBeInTheDocument();
+  await userEvent.click(await screen.findByText("내가 쓴 토의"));
+  await userEvent.click(await screen.findByText("상대방이 쓴 토의"));
+  expect(await screen.findByText("상대방이 쓴 토의1")).toBeInTheDocument();
+  expect(screen.queryByText("내가 쓴 토의1")).not.toBeInTheDocument();
+  await userEvent.click(await screen.findByText("상대방이 쓴 토의1"));
+  expect(mockNavigation).toHaveBeenCalledWith("/discussion/1");
 });

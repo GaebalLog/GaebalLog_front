@@ -1,13 +1,13 @@
 import React from "react";
 
-import useGetNeighbor from "@/hooks/mypageAPI/useGetNeighbor";
+import useGetMyNeighbor from "@/hooks/mypageAPI/useGetMyNeighbor";
 
 import NeighborProfile from "./NeighborProfile";
 
 const NeighborCard: React.FC<{
   type: "addedByMe" | "addedByYou" | "addedByBoth" | "bannedByMe";
 }> = ({ type }) => {
-  const { data } = useGetNeighbor(type);
+  const { data } = useGetMyNeighbor(type);
   const neighborList: neighborItem[] = data?.data;
 
   return (

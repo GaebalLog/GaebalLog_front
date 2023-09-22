@@ -20,7 +20,7 @@ const query = {
   },
 };
 
-const useGetNeighbor = (
+const useGetMyNeighbor = (
   type: "addedByMe" | "addedByYou" | "addedByBoth" | "bannedByMe",
 ) => {
   return useQuery({
@@ -29,4 +29,4 @@ const useGetNeighbor = (
   });
 };
 
-export default useGetNeighbor;
+export default useGetMyNeighbor;
