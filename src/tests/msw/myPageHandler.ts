@@ -148,4 +148,36 @@ export const myPageHandler = [
     ];
     return res(ctx.status(200), ctx.json([...neighbors]));
   }),
+
+  // 참여 중인 토의방
+  rest.get("/api/mypage/mydiscussion/me", (req, res, ctx) => {
+    const discussions: discussions = [
+      {
+        chatListId: 1,
+        nickname: "안녕",
+        title: "내가 쓴 토의1",
+        categories: ["카테고리1", "카테고리2"],
+        createdAt: "2023-08-28 17:08:22",
+        remainingTime: 1,
+        isparticipated: true,
+        isDone: true,
+      },
+    ];
+    return res(ctx.status(200), ctx.json({ discussions }));
+  }),
+  rest.get("/api/mypage/mydiscussion/neighbor", (req, res, ctx) => {
+    const discussions: discussions = [
+      {
+        chatListId: 1,
+        nickname: "안녕",
+        title: "상대방이 쓴 토의1",
+        categories: ["카테고리1", "카테고리2"],
+        createdAt: "2023-08-28 17:08:22",
+        remainingTime: 1,
+        isparticipated: true,
+        isDone: true,
+      },
+    ];
+    return res(ctx.status(200), ctx.json({ discussions }));
+  }),
 ];
