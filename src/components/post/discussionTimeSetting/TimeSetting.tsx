@@ -4,7 +4,7 @@ import useIcon from "@/hooks/useIcon";
 import useModalController from "@/hooks/useModalController";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import useInput from "@/hooks/useInput";
-import { DateConvertor } from "@/utils/util-date";
+import DateConvertor from "@/utils/util-dateConvertor";
 
 import NonPortalModal from "../../modal/NonPortalModal";
 

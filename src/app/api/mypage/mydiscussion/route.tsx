@@ -7,8 +7,7 @@ export const GET = async () => {
       nickname: "나나",
       title: "제목1",
       categories: ["카테고리1", "카테고리2"],
-      thumbnail:
-        "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
+      createdAt: "2023-08-28 17:08:22",
       remainingTime: 1,
       isparticipated: true,
     },
@@ -17,8 +16,7 @@ export const GET = async () => {
       nickname: "나나",
       title: "제목1",
       categories: ["카테고리1", "카테고리2"],
-      thumbnail:
-        "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
+      createdAt: "2023-08-28 17:08:22",
       remainingTime: 1,
       isparticipated: false,
     },
@@ -27,8 +25,7 @@ export const GET = async () => {
       nickname: "나나",
       title: "제목1",
       categories: ["카테고리1", "카테고리2"],
-      thumbnail:
-        "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
+      createdAt: "2023-08-28 17:08:22",
       remainingTime: 1,
       isparticipated: true,
     },

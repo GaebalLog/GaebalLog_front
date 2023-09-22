@@ -43,7 +43,7 @@ declare global {
     nickname: string;
     title: string;
     categories: string[];
-    thumbnail: string;
+    createdAt: string;
     remainingTime: number;
     isparticipated: boolean;
   }

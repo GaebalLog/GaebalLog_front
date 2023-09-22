@@ -1,7 +1,6 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
-import utilConvertTime from "@/utils/util-datetime";
 import Button from "@/components/designSystem/Button";
 import ProfileImage from "@/components/designSystem/ProfileImage";
 import { openCommentEditorAtom } from "@/constants/global/atoms";
@@ -9,6 +8,7 @@ import { isLoggedInAtom, userAtom } from "@/hooks/useUserAuth";
 import useUpdateComment from "@/hooks/commentAPI/useUpdateComment";
 import useInput from "@/hooks/useInput";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
+import DateConvertor from "@/utils/util-dateConvertor";
 
 import BannedBtn from "../btn/BannedBtn";
 import DeleteCommentBtn from "../btn/DeleteCommentBtn";
@@ -40,7 +40,7 @@ const CommentCard: React.FC<commentCardProps> = ({
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const [editingId, seteditingId] = useRecoilState(openCommentEditorAtom);
   const myNick = useRecoilValue(userAtom)?.nickname;
-  const time = utilConvertTime(createdAt);
+  const dateConvertor = new DateConvertor(createdAt);
 
   const [updateComment, setUpdateComment] = React.useState<boolean>(false);
   const { value, onChange } = useInput(content);
@@ -125,7 +125,9 @@ const CommentCard: React.FC<commentCardProps> = ({
           />
         ) : (
           <>
-            <span className={styles.date}>{time}</span>
+            <span className={styles.date}>
+              {dateConvertor.formatWithLongDate()}
+            </span>
             <p className={styles.content}>{content}</p>
           </>
         )}
