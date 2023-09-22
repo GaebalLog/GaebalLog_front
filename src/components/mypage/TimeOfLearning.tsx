@@ -1,13 +1,10 @@
 import React from "react";
 
-import getTime from "@/utils/util-getTime";
-
 import Button from "../designSystem/Button";
 
 const TimeOfLearning: React.FC<{ category: timeOfLearning }> = ({
   category,
 }) => {
-  const timeOfLearning = getTime(category.timespent);
   return (
     <div
       key={`mypage${category.category}`}
@@ -18,11 +15,11 @@ const TimeOfLearning: React.FC<{ category: timeOfLearning }> = ({
         color="white"
         rounded
         border
-        className="cursor-default"
+        className="flex items-center cursor-default"
       >
         # {category.category}
       </Button>
-      <span>{timeOfLearning}</span>
+      <span>{category.timespent}</span>
     </div>
   );
 };

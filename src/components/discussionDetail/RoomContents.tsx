@@ -8,7 +8,7 @@ import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
 import useModalController from "@/hooks/useModalController";
 import useGetDetailDiscussion from "@/hooks/discussionAPI/useGetDetailDiscussion";
-import { utilDateKr } from "@/utils/util-datetimeKr";
+import DateConvertor from "@/utils/util-dateConvertor";
 
 import Button from "../designSystem/Button";
 import LoadingSpinner from "../LoadingSpinner";
@@ -39,6 +39,7 @@ const RoomContents = () => {
   const { getIcon } = useIcon();
   const like = getIcon("like", 18, 18);
   const more = getIcon("more", 5, 5);
+  const dateConvertor = new DateConvertor(data?.data.endTime);
 
   const moreOptionModalHandler = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -99,7 +100,7 @@ const RoomContents = () => {
             </div>
             <div className={styles.roomInfoBox.timeInfo}>
               <strong className={`mr-4`}>토의 종료 예정시간</strong>
-              <span>{utilDateKr(data?.data.endTime as string)}</span>
+              <span>{dateConvertor.formatWithLongDateHour()}</span>
             </div>
             <div className={styles.roomInfoBox.timeInfo}>
               <strong className={`mr-4`}>남은시간</strong>

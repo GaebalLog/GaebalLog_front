@@ -5,9 +5,9 @@ import Button from "@/components/designSystem/Button";
 import MyInfo from "@/components/mypage/article/myInfo/MyInfo";
 import MySettings from "@/components/mypage/article/MySettings";
 import MyWritten from "@/components/mypage/article/MyWritten";
-import Mydiscussions from "@/components/mypage/article/Mydiscussions";
+import Mydiscussions from "@/components/mypage/article/MyDiscussion/Mydiscussions";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import { MyNeighbors } from "@/components/mypage/article/MyNeighbors";
+import { MyNeighbors } from "@/components/mypage/article/neighbors/MyNeighbors";
 import withAuth from "@/components/provider/withAuth";
 
 const boxOption = `${BG_COLOR.general02} ${TEXT_COLOR.primary}`;

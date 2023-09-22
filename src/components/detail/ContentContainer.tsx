@@ -1,7 +1,6 @@
 import React from "react";
 
 import Contents from "@/components/detail/content/Contents";
-import utilConvertTime from "@/utils/util-datetime";
 import Button from "@/components/designSystem/Button";
 import DeleteConfirm from "@/components/modal/common/DeleteConfirm";
 import { utilDecodeImg } from "@/utils/util-decodeImg";
@@ -11,6 +10,7 @@ import useGetDetailPost from "@/hooks/postAPI/useGetDetailPost";
 import useToggleLike from "@/hooks/postAPI/useToggleLike";
 import useModalController from "@/hooks/useModalController";
 import { BG_COLOR } from "@/constants/global/colors";
+import DateConvertor from "@/utils/util-dateConvertor";
 
 const styles = {
   innerContainer: `flex gap-[109px] w-full min-h-[880px]`,
@@ -23,6 +23,7 @@ const ContentContainer = () => {
   const [detailData, setDetailData] = React.useState<postListAuthor>();
   const { modal, openModal } = useModalController();
   useGetDetailPost({ onSuccessSet: setDetailData });
+  const dateConvertor = new DateConvertor(detailData?.createdAt);
 
   const toggleLikeHandler = () => {
     setDetailData((prev) => {
@@ -60,7 +61,7 @@ const ContentContainer = () => {
           <div className="flex gap-[16px] items-center">
             <span className="text-[20px]">{detailData?.nickname}</span>
             {detailData?.createdAt && (
-              <span>{utilConvertTime(detailData?.createdAt)}</span>
+              <span>{dateConvertor.formatWithDot()}</span>
             )}
             <div>
               <LikeView

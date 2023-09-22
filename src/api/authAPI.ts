@@ -58,14 +58,4 @@ export const authAPI = {
   updateKeywords: (keyword: string) => {
     return instance.post(`/users/keywords`, { keyword });
   },
-
-  getBlockUser: () => {
-    return instance.get(`/users/block`);
-  },
-  blockUser: (block_id: string) => {
-    return instance.post(`/users/block/${block_id}`);
-  },
-  getFollowing: (id: number, targetId: number) => {
-    return instance.post(`/users/neighbors/${id}`, { targetId });
-  },
 };

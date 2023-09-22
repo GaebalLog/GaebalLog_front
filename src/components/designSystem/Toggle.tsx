@@ -39,7 +39,7 @@ const Toggle: React.FC<props> = ({ onSuccess, onFail, option, isChecked }) => {
     if (option?.dark) {
       setChecked(darkMode === 1 ? true : false);
     }
-  }, []);
+  }, [isChecked]);
 
   React.useEffect(() => {
     if (darkMode === 1) document.documentElement.classList.add("dark");

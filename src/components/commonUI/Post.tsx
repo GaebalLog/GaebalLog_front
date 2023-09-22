@@ -6,8 +6,8 @@ import Image from "next/image";
 
 import useIcon from "@/hooks/useIcon";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import utilConvertTime from "@/utils/util-datetime";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
+import DateConvertor from "@/utils/util-dateConvertor";
 
 import Button from "../designSystem/Button";
 import default_thumbnail from "../../../public/assets/images/common/thumbnail_default.png";
@@ -24,6 +24,8 @@ const Post: React.FC<{
   const { getIcon } = useIcon();
   const bookmark = getIcon("bookmark", 48, 80, "cursor hover");
   const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
+
+  const dateConvertor = new DateConvertor(post.createdAt);
 
   const clickHeartHandler = () => {
     likeHandler(post.postId);
@@ -74,9 +76,7 @@ const Post: React.FC<{
             <span className={`${TEXT_COLOR.general07rev} text-[20px]`}>
               {post.nickname}
             </span>
-            <span>{`· ${utilConvertTime(post.createdAt, {
-              toString: true,
-            })}`}</span>
+            <span>{`· ${dateConvertor.formatWithLongTermDifference()}`}</span>
           </div>
           <h1 className={`${TEXT_COLOR.text} text-[24px] font-bold`}>
             {post.title}

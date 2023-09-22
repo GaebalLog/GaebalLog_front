@@ -11,11 +11,28 @@ export const mypageApi = {
       },
     });
   },
+
   getAlertSetting: async () => {
     const { data } = await instance.get(`/users/preferences`);
     return data;
   },
   updateAlertSetting: async (payload: Partial<preferencesResponse>) => {
     return await instance.patch(`/users/preferences`, payload);
+  },
+
+  blockUser: (block_id: string) => {
+    return instance.post(`/users/block/${block_id}`);
+  },
+  getAddedByMe: () => {
+    return instance.get(`/neighbors`);
+  },
+  getAddedByYou: () => {
+    return instance.get(`/neighbors`);
+  },
+  getAddedByBoth: () => {
+    return instance.get(`/neighbors`);
+  },
+  getBannedByMe: () => {
+    return instance.get(`/users/block`);
   },
 };

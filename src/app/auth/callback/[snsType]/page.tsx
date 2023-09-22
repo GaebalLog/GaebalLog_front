@@ -25,15 +25,15 @@ const SnsLoginpage = ({ params: { snsType } }: snsTypeProps) => {
       const code = searchParams.get("code");
       try {
         if (code) {
-          if (snsType[0] === "google") {
+          if (snsType === "google") {
             const { data } = await authAPI.googleLogin(code);
             setUserInfo(data);
           }
-          if (snsType[0] === "github") {
+          if (snsType === "github") {
             const { data } = await authAPI.githubLogin(code);
             setUserInfo(data);
           }
-          if (snsType[0] === "kakao") {
+          if (snsType === "kakao") {
             const { data } = await authAPI.kakaoLogin(code);
             setUserInfo(data);
           }

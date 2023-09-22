@@ -9,16 +9,21 @@ import profile from "../../../public/assets/icons/common/profile_light.png";
 interface profileImage {
   idForModal: string | number;
   profileImage: string;
+  preventModalOpen?: boolean;
 }
 
-const ProfileImage: React.FC<profileImage> = ({ idForModal, profileImage }) => {
+const ProfileImage: React.FC<profileImage> = ({
+  idForModal,
+  profileImage,
+  preventModalOpen,
+}) => {
   const setActivatedId = useSetRecoilState(activatedModalIdAtom);
 
   return (
     <button
-      className={`relative w-10 h-10`}
+      className={`relative w-10 h-10 ${preventModalOpen && "cursor-default"}`}
       data-testid={`profile_${idForModal}`}
-      onClick={() => setActivatedId(idForModal)}
+      onClick={() => !preventModalOpen && setActivatedId(idForModal)}
     >
       <Image
         className="rounded-full object-cover"

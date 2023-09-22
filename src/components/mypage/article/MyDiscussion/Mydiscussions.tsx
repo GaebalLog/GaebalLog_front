@@ -4,7 +4,7 @@ import React from "react";
 
 import SortBar from "@/components/commonUI/SortBar";
 
-import MyDiscussion from "../MyDiscussion";
+import MyDiscussion from "./elements/MyDiscussion";
 
 const Mydiscussions = () => {
   const [tab, setTab] = React.useState<sortTab>("조회 순");

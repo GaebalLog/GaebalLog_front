@@ -2,14 +2,16 @@ import React from "react";
 import { useRouter } from "next/navigation";
 
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import getTime from "@/utils/util-getTime";
+import DateConvertor from "@/utils/util-dateConvertor";
 
-import Button from "../designSystem/Button";
+import Button from "../../../../designSystem/Button";
 
 const MyDiscussion: React.FC<{ discussion: beforeDiscussion }> = ({
   discussion,
 }) => {
   const router = useRouter();
+
+  const dateConvertor = new DateConvertor(discussion.createdAt);
 
   const onClickHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {
     if (!(e.target instanceof HTMLElement)) {
@@ -35,7 +37,7 @@ const MyDiscussion: React.FC<{ discussion: beforeDiscussion }> = ({
               <span className="font-bold">진행자 </span>
               {discussion.nickname}
             </p>
-            <h2>{getTime(discussion.remainingTime)}</h2>
+            <h2>{dateConvertor.formatWithLongDate()}</h2>
           </div>
           <h1 className={`${TEXT_COLOR.text} text-[24px] font-bold`}>
             {discussion.title}
