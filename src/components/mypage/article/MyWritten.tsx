@@ -1,31 +1,33 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import React from "react";
 
 import SortBar from "@/components/commonUI/SortBar";
+import useGetMyWritten from "@/hooks/mypageAPI/useGetMyWritten";
 
 import MyPost from "../MyPost";
 import DropDown from "../DropDown";
 
-const myWrittenTyep = [
+type myWrttenType =
+  | "내가 북마크한 글"
+  | "내가 댓글 단 글"
+  | "내가 좋아요 한 글";
+const myWrittenTyep: myWrttenType[] = [
   "내가 북마크한 글",
   "내가 댓글 단 글",
   "내가 좋아요 한 글",
 ];
 
 const MyWritten = () => {
-  const [dropDownType, setDropDownType] = React.useState("내가 북마크한 글");
+  const [dropDownType, setDropDownType] =
+    React.useState<myWrttenType>("내가 북마크한 글");
   const [tab, setTab] = React.useState<sortTab>("조회 순");
 
-  const { data } = useQuery({
-    queryKey: ["myWritten"],
-    queryFn: async () => await axios.get("/api/mypage/mywritten"),
-  });
+  const { data } = useGetMyWritten(dropDownType);
+
   const postList = data?.data.posts;
   return (
     <div className="flex w-full h-full flex-col px-[44px] pb-[24px]">
       <div className="flex">
-        <DropDown
+        <DropDown<myWrttenType>
           tab="mydiscussions"
           types={myWrittenTyep}
           dropDownType={dropDownType}

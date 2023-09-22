@@ -4,7 +4,7 @@ export const GET = async () => {
   const posts: posts = [
     {
       postId: 1,
-      title: "title",
+      title: "내가 댓글 단 글",
       content: "content",
       categories: ["tags", "tåg2"],
       like: 1,
