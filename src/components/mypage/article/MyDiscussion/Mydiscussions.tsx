@@ -6,7 +6,7 @@ import SortBar from "@/components/commonUI/SortBar";
 
 import DropDown from "../../DropDown";
 
-import MyDiscussion from "./elements/MyDiscussion";
+import MyDiscussionCard from "./MyDiscussionCard";
 
 const myDiscussionTypeList = ["내가 쓴 토의", "상대방이 쓴 토의"];
 
@@ -36,7 +36,7 @@ const Mydiscussions = () => {
       <article className="grid grid-cols-4 gap-[24px] overflow-auto">
         {discussionList?.map((discussion: beforeDiscussion) => {
           return (
-            <MyDiscussion
+            <MyDiscussionCard
               key={`post${discussion.chatListId}`}
               discussion={discussion}
             />

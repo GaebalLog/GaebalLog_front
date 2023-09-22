@@ -10,6 +10,7 @@ export const GET = async () => {
       createdAt: "2023-08-28 17:08:22",
       remainingTime: 1,
       isparticipated: true,
+      isDone: true,
     },
     {
       chatListId: 2,
@@ -19,6 +20,7 @@ export const GET = async () => {
       createdAt: "2023-08-28 17:08:22",
       remainingTime: 1,
       isparticipated: false,
+      isDone: true,
     },
     {
       chatListId: 3,
@@ -28,6 +30,7 @@ export const GET = async () => {
       createdAt: "2023-08-28 17:08:22",
       remainingTime: 1,
       isparticipated: true,
+      isDone: true,
     },
     {
       chatListId: 4,
@@ -37,6 +40,7 @@ export const GET = async () => {
       createdAt: "2023-08-28 17:08:22",
       remainingTime: 1,
       isparticipated: true,
+      isDone: true,
     },
     {
       chatListId: 5,
@@ -46,6 +50,7 @@ export const GET = async () => {
       createdAt: "2023-08-28 17:08:22",
       remainingTime: 1,
       isparticipated: false,
+      isDone: true,
     },
     {
       chatListId: 6,
@@ -55,6 +60,7 @@ export const GET = async () => {
       createdAt: "2023-08-28 17:08:22",
       remainingTime: 1,
       isparticipated: true,
+      isDone: false,
     },
     {
       chatListId: 7,
@@ -64,6 +70,7 @@ export const GET = async () => {
       createdAt: "2023-08-28 17:08:22",
       remainingTime: 1,
       isparticipated: true,
+      isDone: false,
     },
     {
       chatListId: 8,
@@ -73,6 +80,7 @@ export const GET = async () => {
       createdAt: "2023-08-28 17:08:22",
       remainingTime: 1,
       isparticipated: false,
+      isDone: false,
     },
     {
       chatListId: 9,
@@ -82,6 +90,7 @@ export const GET = async () => {
       createdAt: "2023-08-28 17:08:22",
       remainingTime: 1,
       isparticipated: true,
+      isDone: false,
     },
   ];
   return NextResponse.json({ discussions });
