@@ -4,7 +4,7 @@ export const GET = async () => {
   const discussions: discussions = [
     {
       chatListId: 1,
-      nickname: "나나",
+      nickname: "내가 쓴 토의",
       title: "제목1",
       categories: ["카테고리1", "카테고리2"],
       createdAt: "2023-08-28 17:08:22",

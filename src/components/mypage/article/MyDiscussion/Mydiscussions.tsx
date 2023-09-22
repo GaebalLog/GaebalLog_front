@@ -1,29 +1,31 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import React from "react";
 
 import SortBar from "@/components/commonUI/SortBar";
+import useGetMydiscussions from "@/hooks/mypageAPI/useGetMydiscussions";
 
 import DropDown from "../../DropDown";
 
 import MyDiscussionCard from "./MyDiscussionCard";
 
-const myDiscussionTypeList = ["내가 쓴 토의", "상대방이 쓴 토의"];
+type myDiscussionType = "내가 쓴 토의" | "상대방이 쓴 토의";
+const myDiscussionTypeList: myDiscussionType[] = [
+  "내가 쓴 토의",
+  "상대방이 쓴 토의",
+];
 
 const Mydiscussions = () => {
-  const [dropDownType, setDropDownType] = React.useState("내가 쓴 토의");
+  const [dropDownType, setDropDownType] =
+    React.useState<myDiscussionType>("내가 쓴 토의");
   const [tab, setTab] = React.useState<sortTab>("조회 순");
 
-  const { data } = useQuery({
-    queryKey: ["myWritten"],
-    queryFn: async () => await axios.get("/api/mypage/mydiscussion"),
-  });
+  const { data } = useGetMydiscussions(dropDownType);
+
   const discussionList = data?.data.discussions as discussions;
 
   return (
     <div className="flex w-full h-full flex-col px-[44px] pb-[24px]">
       <div className="flex">
-        <DropDown
+        <DropDown<myDiscussionType>
           tab="mydiscussions"
           types={myDiscussionTypeList}
           dropDownType={dropDownType}
