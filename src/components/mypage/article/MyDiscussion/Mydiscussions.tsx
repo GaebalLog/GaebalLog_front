@@ -39,7 +39,7 @@ const Mydiscussions = () => {
         {discussionList?.map((discussion: beforeDiscussion) => {
           return (
             <MyDiscussionCard
-              key={`post${discussion.chatListId}`}
+              key={`discussion${discussion.chatListId}`}
               discussion={discussion}
             />
           );
