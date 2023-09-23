@@ -7,10 +7,10 @@ import DropDown from "../../elements/DropDown";
 
 import MyDiscussionCard from "./MyDiscussionCard";
 
-type myDiscussionType = "내가 쓴 토의" | "상대방이 쓴 토의";
+type myDiscussionType = "내가 쓴 토의" | "이웃이 쓴 토의";
 const myDiscussionTypeList: myDiscussionType[] = [
   "내가 쓴 토의",
-  "상대방이 쓴 토의",
+  "이웃이 쓴 토의",
 ];
 
 const Mydiscussions = () => {
