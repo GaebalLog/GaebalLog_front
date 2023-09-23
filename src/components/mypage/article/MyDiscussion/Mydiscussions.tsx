@@ -3,7 +3,7 @@ import React from "react";
 import SortBar from "@/components/commonUI/SortBar";
 import useGetMydiscussions from "@/hooks/mypageAPI/useGetMydiscussions";
 
-import DropDown from "../../DropDown";
+import DropDown from "../../elements/DropDown";
 
 import MyDiscussionCard from "./MyDiscussionCard";
 

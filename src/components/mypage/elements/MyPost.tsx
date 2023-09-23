@@ -4,8 +4,7 @@ import { useRouter } from "next/navigation";
 import useIcon from "@/hooks/useIcon";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import DateConvertor from "@/utils/util-dateConvertor";
-
-import Button from "../designSystem/Button";
+import Button from "@/components/designSystem/Button";
 
 const MyPost: React.FC<{ post: post }> = ({ post }) => {
   const router = useRouter();
