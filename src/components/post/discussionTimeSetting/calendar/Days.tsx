@@ -1,18 +1,16 @@
 import React from "react";
 
-import { TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import CalendarManager from "@/utils/util-calendarManager";
 
 const styles = {
   wrapper: `grid grid-cols-7`,
   daysDiv: `h-[34px] flex items-center justify-center`,
-  currentDays: `w-[34px] h-[34px] flex items-center justify-center`,
-  surroundingDays: `w-[34px] h-[34px] flex items-center justify-center text-gray-400`,
+  currentDays: `w-full h-[21px] flex items-center justify-center`,
+  surroundingDays: `w-full h-[21px] flex items-center justify-center text-gray-400`,
 };
 
 interface DayProps {
-  prevMonth: () => void;
-  nextMonth: () => void;
   selectedYear: number;
   selectedMonth: number;
   startYearValue: number;
@@ -30,8 +28,6 @@ interface DayProps {
 }
 
 const Days: React.FC<DayProps> = ({
-  prevMonth,
-  nextMonth,
   selectedYear,
   selectedMonth,
   startYearValue,
@@ -108,8 +104,7 @@ const Days: React.FC<DayProps> = ({
   const returnDays = () => {
     const previousMonthDays = returnPreviousMonthDays();
     const currentMonthDays = returnCurrentMonthDays();
-    const nextMonthDays = returnNextMonthDays();
-    return [...previousMonthDays, ...currentMonthDays, ...nextMonthDays];
+    return [...previousMonthDays, ...currentMonthDays];
   };
 
   const returnPreviousMonthDays = () => {
@@ -117,15 +112,53 @@ const Days: React.FC<DayProps> = ({
       <div
         data-testid={`prevMonthDay_${p}`}
         key={`prevMonthDay_${p}`}
-        onClick={prevMonth}
         className={styles.daysDiv}
       >
-        <p className={styles.surroundingDays}>{p}</p>
+        <p className={styles.surroundingDays} />
       </div>
     ));
   };
   const returnCurrentMonthDays = () => {
     return calendarManager.getCurrentMonthDays().map((i) => {
+      const isSameMonthForStartEnd =
+        selectedDates[0]?.year &&
+        selectedDates[1]?.year &&
+        selectedDates[0]?.month &&
+        selectedDates[1]?.month &&
+        i >= selectedDates[0]?.date &&
+        i <= selectedDates[1]?.date;
+
+      const isMonthOfStart =
+        selectedYear === selectedDates[0]?.year &&
+        selectedMonth === selectedDates[0]?.month &&
+        (selectedDates[1]?.year > selectedDates[0]?.year ||
+          selectedDates[1]?.month > selectedDates[0]?.month) &&
+        i >= selectedDates[0]?.date;
+
+      const isMonthBetweenDates =
+        (selectedDates[1] &&
+          selectedYear > selectedDates[0]?.year &&
+          selectedDates[1]?.year > selectedDates[0]?.year &&
+          selectedMonth < selectedDates[1]?.month) ||
+        (selectedYear === selectedDates[0]?.year &&
+          selectedDates[1]?.year > selectedDates[0]?.year &&
+          selectedMonth > selectedDates[0]?.month) ||
+        (selectedDates[0]?.year === selectedDates[1]?.year &&
+          selectedMonth > selectedDates[0]?.month &&
+          selectedMonth < selectedDates[1]?.month);
+
+      const isMonthOfEnd =
+        selectedYear === selectedDates[1]?.year &&
+        selectedMonth === selectedDates[1]?.month &&
+        (selectedDates[1]?.year > selectedDates[0]?.year ||
+          selectedDates[1]?.month > selectedDates[0]?.month) &&
+        i <= selectedDates[1]?.date;
+
+      const isInitialState =
+        selectedDates[0]?.year === selectedDates[1]?.year &&
+        selectedDates[0]?.month === selectedDates[1]?.month &&
+        selectedDates[0]?.date === selectedDates[1]?.date;
+
       const isSelected = selectedDates.some(
         (d) =>
           d.year === selectedYear && d.month === selectedMonth && d.date === i,
@@ -136,30 +169,40 @@ const Days: React.FC<DayProps> = ({
           onClick={() => handleDateSelection(i)}
           className={styles.daysDiv}
         >
-          <p
+          <div
             data-testid={`currentMonthDay_${i}`}
-            className={`${styles.currentDays}
-          ${isSelected ? `rounded-full bg-[#967AC3] ${TEXT_COLOR.inverse}` : ""}
-          `}
+            className={`${styles.currentDays} ${`${
+              (isSameMonthForStartEnd ||
+                isMonthOfStart ||
+                isMonthBetweenDates ||
+                isMonthOfEnd) &&
+              !isInitialState &&
+              BG_COLOR.general04
+            }`} ${
+              selectedYear === selectedDates[0]?.year &&
+              selectedMonth === selectedDates[0]?.month &&
+              i === selectedDates[0]?.date &&
+              "ml-1 pr-1 rounded-l-full"
+            } ${
+              selectedYear === selectedDates[1]?.year &&
+              selectedMonth === selectedDates[1]?.month &&
+              i === selectedDates[1]?.date &&
+              "mr-1 pl-1 rounded-r-full"
+            }`}
           >
-            {i}
-          </p>
+            <p
+              className={`${
+                isSelected
+                  ? `w-[34px] h-[34px] flex justify-center items-center rounded-full bg-[#967AC3] ${TEXT_COLOR.inverse}`
+                  : ""
+              }`}
+            >
+              {i}
+            </p>
+          </div>
         </div>
       );
     });
-  };
-  const returnNextMonthDays = () => {
-    const sumPrevCurrentDay = calendarManager.getSumOfPrevAndCurrentDays();
-    return calendarManager.getNextMonthDays(sumPrevCurrentDay).map((n) => (
-      <div
-        data-testid={`nextMonthDay_${n}`}
-        key={`nextMonthDay_${n}`}
-        onClick={nextMonth}
-        className={styles.daysDiv}
-      >
-        <p className={styles.surroundingDays}>{n}</p>
-      </div>
-    ));
   };
 
   React.useEffect(() => {
