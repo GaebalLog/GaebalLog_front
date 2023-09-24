@@ -4,7 +4,7 @@ import useIcon from "@/hooks/useIcon";
 import useModalController from "@/hooks/useModalController";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import useInput from "@/hooks/useInput";
-import DateConvertor from "@/utils/util-dateConvertor";
+// import DateConvertor from "@/utils/util-dateConvertor";
 
 import NonPortalModal from "../../modal/NonPortalModal";
 
@@ -86,22 +86,22 @@ const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
     },
   ];
 
-  const startTime = DateConvertor.separatedValues(
-    +startYear.value,
-    +startMonth.value,
-    +startDate.value,
-    startHalfDay.value + "",
-    +startHour.value,
-    +startMinutes.value,
-  );
-  const endTime = DateConvertor.separatedValues(
-    +startYear.value,
-    +startMonth.value,
-    +startDate.value,
-    endHalfDay.value + "",
-    +endHour.value,
-    +endMinutes.value,
-  );
+  // const startTime = DateConvertor.separatedValues(
+  //   +startYear.value,
+  //   +startMonth.value,
+  //   +startDate.value,
+  //   startHalfDay.value + "",
+  //   +startHour.value,
+  //   +startMinutes.value,
+  // );
+  // const endTime = DateConvertor.separatedValues(
+  //   +startYear.value,
+  //   +startMonth.value,
+  //   +startDate.value,
+  //   endHalfDay.value + "",
+  //   +endHour.value,
+  //   +endMinutes.value,
+  // );
 
   React.useEffect(() => {
     setTimeSetting({
@@ -170,6 +170,7 @@ const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
                 {startYearMonthDayInputs.map((input, i) => (
                   <div key={i}>
                     <YearMonthDayInput
+                      testId="start"
                       type={input.type}
                       yearValue={startYear.value}
                       monthValue={startMonth.value}
@@ -220,6 +221,7 @@ const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
                 {endYearMonthDayInputs.map((input, i) => (
                   <div key={i}>
                     <YearMonthDayInput
+                      testId="end"
                       type={input.type}
                       yearValue={endYear.value}
                       monthValue={endMonth.value}

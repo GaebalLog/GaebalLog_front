@@ -109,11 +109,7 @@ const Days: React.FC<DayProps> = ({
 
   const returnPreviousMonthDays = () => {
     return calendarManager.getPreviousMonthDays().map((p) => (
-      <div
-        data-testid={`prevMonthDay_${p}`}
-        key={`prevMonthDay_${p}`}
-        className={styles.daysDiv}
-      >
+      <div key={`prevMonthDay_${p}`} className={styles.daysDiv}>
         <p className={styles.surroundingDays} />
       </div>
     ));
@@ -170,7 +166,6 @@ const Days: React.FC<DayProps> = ({
           className={styles.daysDiv}
         >
           <div
-            data-testid={`currentMonthDay_${i}`}
             className={`${styles.currentDays} ${`${
               (isSameMonthForStartEnd ||
                 isMonthOfStart ||
@@ -191,6 +186,7 @@ const Days: React.FC<DayProps> = ({
             }`}
           >
             <p
+              data-testid={`currentMonthDay_${i}`}
               className={`${
                 isSelected
                   ? `w-[34px] h-[34px] flex justify-center items-center rounded-full bg-[#967AC3] ${TEXT_COLOR.inverse}`

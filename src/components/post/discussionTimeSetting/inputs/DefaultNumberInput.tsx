@@ -4,6 +4,7 @@ import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
 
 interface props {
+  testId?: "start" | "end";
   type: "halfDay" | "hour" | "minutes" | "year" | "month" | "days";
   value: string | number;
   handleIncrease: () => void;
@@ -13,6 +14,7 @@ interface props {
 }
 
 const DefaultNumberInput: React.FC<props> = ({
+  testId,
   type,
   value,
   handleIncrease,
@@ -49,7 +51,7 @@ const DefaultNumberInput: React.FC<props> = ({
   return (
     <div className={styles.divBox}>
       <input
-        data-testid={`${type}_input`}
+        data-testid={`${testId ?? ""}${type}_input`}
         className={styles.input}
         readOnly={type === "halfDay"}
         value={`${showValue()}${showTimeUnits()}`}
@@ -57,10 +59,16 @@ const DefaultNumberInput: React.FC<props> = ({
         onBlur={handleBlur}
       />
       <div className={styles.buttonBox}>
-        <button data-testid={`${type}_up`} onClick={handleIncrease}>
+        <button
+          data-testid={`${testId ?? ""}${type}_up`}
+          onClick={handleIncrease}
+        >
           {upArrow}
         </button>
-        <button data-testid={`${type}_down`} onClick={handleDecrease}>
+        <button
+          data-testid={`${testId ?? ""}${type}_down`}
+          onClick={handleDecrease}
+        >
           {downArrow}
         </button>
       </div>
