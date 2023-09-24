@@ -166,6 +166,7 @@ const Days: React.FC<DayProps> = ({
           className={styles.daysDiv}
         >
           <div
+            data-testid={`currentMonthDayStyle_${i}`}
             className={`${styles.currentDays} ${`${
               (isSameMonthForStartEnd ||
                 isMonthOfStart ||
