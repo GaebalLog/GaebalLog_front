@@ -1,18 +1,14 @@
-import { TEXT_COLOR } from "@/constants/global/colors";
+// import { TEXT_COLOR } from "@/constants/global/colors";
 
 export default class CalendarManager {
   private selectedYear: number;
   private selectedMonth: number;
-  private selectedDate: {
-    year: number;
-    month: number;
-    date: number;
-  };
+  private selectedDate: number;
 
   constructor(
     selectedYear: number,
     selectedMonth: number,
-    selectedDate: { year: number; month: number; date: number },
+    selectedDate: number,
   ) {
     this.selectedYear = selectedYear;
     this.selectedMonth = selectedMonth;
@@ -23,12 +19,12 @@ export default class CalendarManager {
     const today = new Date();
     const selectedDateInTime = new Date(
       this.selectedYear,
-      this.selectedMonth - 1,
+      this.selectedMonth,
       selectedDay,
     ).getTime();
     const todayInTime = new Date(
       today.getFullYear(),
-      today.getMonth() - 1,
+      today.getMonth() + 1,
       today.getDate(),
     ).getTime();
     return selectedDateInTime < todayInTime;
@@ -54,14 +50,14 @@ export default class CalendarManager {
     return this.getCurrentMonth().getDate();
   }
 
-  isSelectedDate(day: number) {
-    if (
-      this.selectedDate.year === this.selectedYear &&
-      this.selectedDate.month === this.selectedMonth &&
-      this.selectedDate.date === day
-    )
-      return `rounded-full bg-[#967AC3] ${TEXT_COLOR.inverse}`;
-  }
+  // isSelectedDate(day: number) {
+  //   if (
+  //     this.selectedDate.year === this.selectedYear &&
+  //     this.selectedDate.month === this.selectedMonth &&
+  //     this.selectedDate.date === day
+  //   )
+  //     return `rounded-full bg-[#967AC3] ${TEXT_COLOR.inverse}`;
+  // }
 
   getPreviousMonthDays(): number[] {
     const days = [];
