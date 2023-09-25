@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
@@ -14,6 +13,7 @@ import Button from "../designSystem/Button";
 import LoadingSpinner from "../LoadingSpinner";
 import Modal from "../modal/Modal";
 import ConfirmModal from "../modal/common/ConfirmModal";
+import AuthorContentBtn from "../discussion/box/AuthorContentBtn";
 
 const styles = {
   container: `relative overflow-y-auto w-[68.75rem] h-[62%] p-4 ${BG_COLOR.primary} ${BORDER_COLOR.button}`,
@@ -34,7 +34,7 @@ const styles = {
 const RoomContents = () => {
   const [topLeft, setTopLeft] = React.useState({ top: "0px", left: "0px" });
   const router = useRouter();
-  const { modal, openModal, toggleModal, allCloseModal } = useModalController();
+  const { modal, toggleModal } = useModalController();
   const { data, isLoading } = useGetDetailDiscussion();
   const { getIcon } = useIcon();
   const like = getIcon("like", 18, 18);
@@ -50,11 +50,6 @@ const RoomContents = () => {
       left: `${rect.left + 17}px`,
     });
     toggleModal("discussionMore");
-  };
-
-  const discussionExitHandler = () => {
-    allCloseModal();
-    openModal("discussionExit");
   };
 
   if (isLoading)
@@ -129,29 +124,10 @@ const RoomContents = () => {
       {modal.discussionMore && (
         <Modal positionOption={topLeft} nonBackdrop>
           <div className={`flex flex-col ${BORDER_COLOR.button}`}>
-            {data?.data.isAuthor && (
-              <Link
-                className="text-center"
-                href={"/discussion/create"}
-                onClick={() => allCloseModal()}
-              >
-                <Button
-                  className={`w-full py-4 px-[30px]`}
-                  size="tab"
-                  color="white"
-                >
-                  수정하기
-                </Button>
-              </Link>
-            )}
-            <Button
-              className={`py-4 px-[30px]`}
-              size="tab"
-              color="white"
-              onClick={discussionExitHandler}
-            >
-              토의 나가기
-            </Button>
+            <AuthorContentBtn
+              isAuthor={data?.data.isAuthor as boolean}
+              discussionId={data?.data.discussionId as number}
+            />
           </div>
         </Modal>
       )}

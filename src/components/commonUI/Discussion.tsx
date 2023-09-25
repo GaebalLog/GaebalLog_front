@@ -7,7 +7,7 @@ import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 import Button from "../designSystem/Button";
-import LikeParticipants from "../discussion/btn/LikeParticipant";
+import LikeParticipants from "../discussion/box/LikeParticipant";
 
 const Discussion: React.FC<{
   discussion: discussion;
