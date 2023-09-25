@@ -7,7 +7,7 @@ interface Atom {
   headerSearch: boolean;
   keywordSearch: boolean;
   mypageSearch: boolean;
-  myNeightborsType: boolean;
+  myPageDropDownType: boolean;
   discussionMore: boolean;
   discussionExit: boolean;
   deleteModal: boolean;
@@ -23,7 +23,7 @@ export const modalControlAtom = atom<Atom>({
     headerSearch: false,
     keywordSearch: false,
     mypageSearch: false,
-    myNeightborsType: false,
+    myPageDropDownType: false,
     discussionMore: false,
     discussionExit: false,
     deleteModal: false,

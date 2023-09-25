@@ -1,7 +1,7 @@
 import React from "react";
 
 import useModalController from "@/hooks/useModalController";
-import { CalendarManager } from "@/utils/util-date";
+import CalendarManager from "@/utils/util-calendarManager";
 
 const styles = {
   wrapper: `grid grid-cols-7`,

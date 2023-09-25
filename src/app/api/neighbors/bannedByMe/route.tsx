@@ -5,13 +5,13 @@ export const GET = async () => {
   const neighbors = [
     {
       userId: 1,
-      nickname: "no.4",
-      profileImg: null,
+      nickname: "차단한 이웃1",
+      profileImage: null,
     },
     {
       userId: 2,
-      nickname: "no.7",
-      profileImg: null,
+      nickname: "차단한 이웃2",
+      profileImage: null,
     },
   ];
   return NextResponse.json(neighbors);

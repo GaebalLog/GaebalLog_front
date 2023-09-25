@@ -62,8 +62,10 @@ declare global {
     chatListId: number;
     nickname: string;
     title: string;
+    thumbnail?: string;
     categories: string[];
-    thumbnail: string;
+    createdAt?: string;
+    isDone?: boolean;
     remainingTime: number;
     isparticipated: boolean;
   }

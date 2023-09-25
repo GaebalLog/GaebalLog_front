@@ -4,9 +4,9 @@ import userEvent from "@testing-library/user-event";
 
 import useInput from "@/hooks/useInput";
 import Provider from "@/components/provider/Provider";
-import { CalendarManager } from "@/utils/util-date";
 import Calendar from "@/components/post/discussionTimeSetting/calendar/Calendar";
 import TimeSetting from "@/components/post/discussionTimeSetting/TimeSetting";
+import CalendarManager from "@/utils/util-calendarManager";
 
 const today = new Date();
 const year = today.getFullYear();

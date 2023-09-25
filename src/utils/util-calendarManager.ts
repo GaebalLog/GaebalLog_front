@@ -1,6 +1,6 @@
 import { TEXT_COLOR } from "@/constants/global/colors";
 
-export class CalendarManager {
+export default class CalendarManager {
   private selectedYear: number;
   private selectedMonth: number;
   private selectedDate: {
@@ -19,7 +19,7 @@ export class CalendarManager {
     this.selectedDate = selectedDate;
   }
 
-  isPastDate(selectedDay: number) {
+  isPastDate(selectedDay: number): boolean {
     const today = new Date();
     const selectedDateInTime = new Date(
       this.selectedYear,
@@ -42,15 +42,15 @@ export class CalendarManager {
     return new Date(this.selectedYear, this.selectedMonth, 0);
   }
 
-  getPrevMonthLastDate() {
+  getPrevMonthLastDate(): number {
     return this.getPrevMonth().getDate();
   }
 
-  getPrevMonthLastDay() {
+  getPrevMonthLastDay(): number {
     return this.getPrevMonth().getDay();
   }
 
-  getCurrentMonthLastDate() {
+  private getCurrentMonthLastDate(): number {
     return this.getCurrentMonth().getDate();
   }
 
@@ -98,46 +98,5 @@ export class CalendarManager {
       days.push(n);
     }
     return days;
-  }
-}
-
-//
-export class DateConvertor {
-  private year: number;
-  private month: number;
-  private date: number;
-  private halfDay: string;
-  private hour: number;
-  private minutes: number;
-
-  constructor(
-    year: number,
-    month: number,
-    date: number,
-    halfDay: string,
-    hour: number,
-    minutes: number,
-  ) {
-    this.year = year;
-    this.month = month;
-    this.date = date;
-    this.hour = hour;
-    this.halfDay = halfDay;
-    this.minutes = minutes;
-  }
-
-  convertTo24Hour(): number {
-    return this.halfDay === "오후" ? +this.hour + 12 : +this.hour;
-  }
-
-  convertToISOString() {
-    const convertedHour = this.convertTo24Hour();
-    return new Date(
-      this.year,
-      this.month - 1,
-      this.date,
-      convertedHour,
-      this.minutes,
-    ).toISOString();
   }
 }

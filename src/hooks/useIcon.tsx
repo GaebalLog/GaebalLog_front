@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRecoilValue } from "recoil";
 
 import ICON from "../../public/assets/icons/common";
+import not_found from "../../public/assets/images/common/not_found.png";
 
 import { darkAtom } from "./useUserAuth";
 
@@ -37,9 +38,10 @@ const useIcon = () => {
     option?: "cursor" | "hover" | "cursor hover",
   ): React.ReactElement => {
     const source = ICON[name][dark];
+
     return (
       <Image
-        src={source}
+        src={source ?? not_found}
         alt={name}
         width={width}
         height={height}

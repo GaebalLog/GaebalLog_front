@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 
 import useIcon from "@/hooks/useIcon";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
-import { utilDateKr } from "@/utils/util-datetimeKr";
+import DateConvertor from "@/utils/util-dateConvertor";
 
 import Button from "../designSystem/Button";
 
@@ -13,6 +13,7 @@ const MyPost: React.FC<{ post: post }> = ({ post }) => {
   const { getIcon } = useIcon();
   const heart = getIcon("heart", 16, 14, "cursor hover");
   const eye = getIcon("eye", 18, 16);
+  const dateConvertor = new DateConvertor(post.createdAt + "");
 
   const clickHeartHandler = () => {
     console.log("좋아요");
@@ -40,7 +41,7 @@ const MyPost: React.FC<{ post: post }> = ({ post }) => {
 
   return (
     <div
-      className={`w-[368px] h-[350px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.primary} cursor-pointer`}
+      className={`w-full h-[350px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.primary} cursor-pointer`}
       onClick={onClickHandler}
       data-testid={`post${post.postId}`}
     >
@@ -50,7 +51,7 @@ const MyPost: React.FC<{ post: post }> = ({ post }) => {
             className={`flex items-center gap-[16px] ${TEXT_COLOR.general07rev}`}
           >
             <h2 className="text-[20px]">{post?.nickname}</h2>
-            <h2>{utilDateKr(post.createdAt)}</h2>
+            <h2>{dateConvertor.formatWithLongDate()}</h2>
           </div>
           <h1 className={`${TEXT_COLOR.text} text-[24px] font-bold`}>
             {post.title}

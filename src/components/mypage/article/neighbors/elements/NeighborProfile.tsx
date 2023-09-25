@@ -1,9 +1,8 @@
 import React from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import useIcon from "@/hooks/useIcon";
 import { TEXT_COLOR } from "@/constants/global/colors";
+import ProfileImage from "@/components/designSystem/ProfileImage";
 
 import Button from "../../../../designSystem/Button";
 
@@ -15,22 +14,20 @@ const styles = {
   btnBox: "absolute right-0 flex items-center gap-[24px]",
 };
 interface props extends neighborItem {
-  bannned?: boolean;
+  bannned: boolean;
 }
-const MyNeightborProfile: React.FC<props> = ({
+const NeighborProfile: React.FC<props> = ({
   nickname,
   profileImage,
   userId,
   bannned,
 }) => {
   const router = useRouter();
-  const { getIcon } = useIcon();
-  const defaultrofile = getIcon("default_profile", 40, 40);
   const btnList = [
     {
       text: "이웃 정보 보기",
       onclick: () => {
-        router.push("/");
+        router.push(`/profile/${userId}`);
       },
     },
     {
@@ -52,17 +49,18 @@ const MyNeightborProfile: React.FC<props> = ({
   return (
     <div id={userId.toString()} className={styles.container}>
       <div className={styles.profileBox}>
-        {profileImage ? (
-          <Image src={profileImage} alt={nickname} width={40} height={40} />
-        ) : (
-          defaultrofile
-        )}
+        <ProfileImage
+          idForModal={userId}
+          profileImage={profileImage}
+          preventModalOpen
+        />
         <span className={styles.nickname}>{nickname}</span>
       </div>
       <div className={styles.btnBox}>
         {!bannned &&
           btnList.map((item) => (
             <Button
+              data-testid={`${item.text}${userId}`}
               key={`이웃 ${item.text}`}
               size="button"
               color="white"
@@ -87,4 +85,4 @@ const MyNeightborProfile: React.FC<props> = ({
   );
 };
 
-export default MyNeightborProfile;
+export default NeighborProfile;
