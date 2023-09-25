@@ -21,6 +21,7 @@ const SnsLoginpage = ({ params: { snsType } }: snsTypeProps) => {
   const prePath = sessionStorage.getItem("prePath");
 
   React.useEffect(() => {
+    sessionStorage.removeItem("prePath");
     if (!isSocialParams) return notFound();
     const fetchSocialLogin = async () => {
       const code = searchParams.get("code");
@@ -44,7 +45,6 @@ const SnsLoginpage = ({ params: { snsType } }: snsTypeProps) => {
       }
     };
     fetchSocialLogin();
-    sessionStorage.removeItem("prePath");
     router.replace(prePath ?? "/home");
   }, []);
 

@@ -14,20 +14,21 @@ const NotLoggedInBox = () => {
   }${decodedSearchParams}`;
 
   const saveCurrentPath = () => {
+    if (url.includes("auth")) return;
     sessionStorage.setItem("prePath", url);
   };
 
   return (
     <>
       <li data-testid="sign-in">
-        <Link href={"/auth/login"}>
+        <Link href={"/auth/login"} replace>
           <Button size="login" color="lightGrey" onClick={saveCurrentPath}>
             Sign in
           </Button>
         </Link>
       </li>
       <li>
-        <Link href={"/auth/signup"}>
+        <Link href={"/auth/signup"} replace>
           <Button size="login" color="black" onClick={saveCurrentPath}>
             Sign up
           </Button>
