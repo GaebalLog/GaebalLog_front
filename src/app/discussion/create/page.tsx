@@ -14,6 +14,7 @@ import { utilExtractImages } from "@/utils/util-extractImage";
 import { utilReplaceImg } from "@/utils/util-replaceImg";
 import ThumbnailSelector from "@/components/post/ThumbnailSelector";
 import useModalController from "@/hooks/useModalController";
+import FinishedCreate from "@/components/discussion/btn/FinishedCreate";
 const PostEditor = dynamic(() => import("@/components/post/PostEditor"), {
   ssr: false,
 });
@@ -71,7 +72,7 @@ const Postpage: React.ComponentType = withAuth(() => {
     }
     console.log(timeSetting);
   };
-  const confirmThumbnail = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const confirmThumbnail = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     return openModal("thumbnailSelectModal");
   };
@@ -121,15 +122,7 @@ const Postpage: React.ComponentType = withAuth(() => {
             <Button className="px-12" size="bigLogin" color="lightGrey">
               임시 저장
             </Button>
-            <Button
-              type="submit"
-              className="px-12"
-              size="bigLogin"
-              color="black"
-              onClick={confirmThumbnail}
-            >
-              작성 완료
-            </Button>
+            <FinishedCreate onClick={confirmThumbnail} />
           </div>
         </div>
       </div>
