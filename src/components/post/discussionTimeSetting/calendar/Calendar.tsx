@@ -38,6 +38,23 @@ const Calendar: React.FC<calendarProps> = ({
   const [selectedYear, setSelectedYear] = React.useState(endYearValue);
   const [selectedMonth, setSelectedMonth] = React.useState(endMonthValue);
 
+  const startDate = {
+    startYearValue,
+    startMonthValue,
+    startDateValue,
+    setStartYearValue,
+    setStartMonthValue,
+    setStartDateValue,
+  };
+  const endDate = {
+    endYearValue,
+    endMonthValue,
+    endDateValue,
+    setEndYearValue,
+    setEndMonthValue,
+    setEndDateValue,
+  };
+
   const prevMonth = () => {
     if (selectedMonth === 1) {
       setSelectedMonth(12);
@@ -71,18 +88,8 @@ const Calendar: React.FC<calendarProps> = ({
       <Days
         selectedYear={selectedYear}
         selectedMonth={selectedMonth}
-        startYearValue={startYearValue}
-        startMonthValue={startMonthValue}
-        startDateValue={startDateValue}
-        endYearValue={endYearValue}
-        endMonthValue={endMonthValue}
-        endDateValue={endDateValue}
-        setStartYearValue={setStartYearValue}
-        setStartMonthValue={setStartMonthValue}
-        setStartDateValue={setStartDateValue}
-        setEndYearValue={setEndYearValue}
-        setEndMonthValue={setEndMonthValue}
-        setEndDateValue={setEndDateValue}
+        startDate={startDate}
+        endDate={endDate}
       />
     </div>
   );

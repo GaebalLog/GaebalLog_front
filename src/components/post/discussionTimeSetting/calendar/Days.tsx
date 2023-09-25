@@ -2,6 +2,7 @@ import React from "react";
 
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import CalendarManager from "@/utils/util-calendarManager";
+import useCalendarController from "@/hooks/TimeSetting/useCalendarController";
 
 const styles = {
   wrapper: `grid grid-cols-7`,
@@ -16,36 +17,32 @@ const styles = {
 interface DayProps {
   selectedYear: number;
   selectedMonth: number;
-  startYearValue: number;
-  startMonthValue: number;
-  startDateValue: number;
-  endYearValue: number;
-  endMonthValue: number;
-  endDateValue: number;
-  setStartYearValue: React.Dispatch<React.SetStateAction<string | number>>;
-  setStartMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
-  setStartDateValue: React.Dispatch<React.SetStateAction<string | number>>;
-  setEndYearValue: React.Dispatch<React.SetStateAction<string | number>>;
-  setEndMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
-  setEndDateValue: React.Dispatch<React.SetStateAction<string | number>>;
+  startDate: {
+    startYearValue: number;
+    startMonthValue: number;
+    startDateValue: number;
+    setStartYearValue: React.Dispatch<React.SetStateAction<string | number>>;
+    setStartMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
+    setStartDateValue: React.Dispatch<React.SetStateAction<string | number>>;
+  };
+  endDate: {
+    endYearValue: number;
+    endMonthValue: number;
+    endDateValue: number;
+    setEndYearValue: React.Dispatch<React.SetStateAction<string | number>>;
+    setEndMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
+    setEndDateValue: React.Dispatch<React.SetStateAction<string | number>>;
+  };
 }
 
 const Days: React.FC<DayProps> = ({
   selectedYear,
   selectedMonth,
-  startYearValue,
-  startMonthValue,
-  startDateValue,
-  endYearValue,
-  endMonthValue,
-  endDateValue,
-  setStartYearValue,
-  setStartMonthValue,
-  setStartDateValue,
-  setEndYearValue,
-  setEndMonthValue,
-  setEndDateValue,
+  startDate,
+  endDate,
 }) => {
+  const { startYearValue, startMonthValue, startDateValue } = startDate;
+  const { endYearValue, endMonthValue, endDateValue } = endDate;
   const [selectedDates, setSelectedDates] = React.useState<selectedDates[]>([
     {
       year: startYearValue,
@@ -65,42 +62,16 @@ const Days: React.FC<DayProps> = ({
     endDateValue,
   );
 
-  //
-  const handleDateSelection = (day: number) => {
-    if (calendarManager.isPastDate(day)) return alert("이미 지난 날짜입니다.");
+  const { handleDateSelection } = useCalendarController({
+    selectedYear,
+    selectedMonth,
+    selectedDates,
+    setSelectedDates,
+    calendarManager,
+    startDate,
+    endDate,
+  });
 
-    const isDateSelected = calendarManager.isSelected(selectedDates, day);
-
-    if (isDateSelected) {
-      setSelectedDates((prev) =>
-        prev.filter(
-          (d) =>
-            !(
-              d.year === selectedYear &&
-              d.month === selectedMonth &&
-              d.date === day
-            ),
-        ),
-      );
-    } else if (selectedDates.length < 2) {
-      setSelectedDates((prev) => [
-        ...prev,
-        { year: selectedYear, month: selectedMonth, date: day },
-      ]);
-    } else if (
-      selectedDates.length === 2 &&
-      selectedDates[0].year === selectedDates[1].year &&
-      selectedDates[0].month === selectedDates[1].month &&
-      selectedDates[0].date === selectedDates[1].date
-    ) {
-      setSelectedDates([
-        selectedDates[0],
-        { year: selectedYear, month: selectedMonth, date: day },
-      ]);
-    }
-  };
-
-  //
   const returnDays = () => {
     const previousMonthDays = returnPreviousMonthDays();
     const currentMonthDays = returnSelectedMonthDays();
@@ -152,34 +123,6 @@ const Days: React.FC<DayProps> = ({
       );
     });
   };
-
-  React.useEffect(() => {
-    const [start, end] = selectedDates.sort((a, b) => {
-      if (a.year !== b.year) {
-        return a.year - b.year;
-      }
-      if (a.month !== b.month) {
-        return a.month - b.month;
-      }
-      return a.date - b.date;
-    });
-
-    if (start) {
-      setStartYearValue(start.year);
-      setStartMonthValue(start.month);
-      setStartDateValue(start.date);
-    }
-    if (start && !end) {
-      setEndYearValue(start.year);
-      setEndMonthValue(start.month);
-      setEndDateValue(start.date);
-    }
-    if (end) {
-      setEndYearValue(end.year);
-      setEndMonthValue(end.month);
-      setEndDateValue(end.date);
-    }
-  }, [selectedDates]);
 
   return <div className={styles.wrapper}>{returnDays()}</div>;
 };
