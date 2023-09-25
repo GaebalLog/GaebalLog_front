@@ -112,19 +112,19 @@ describe("달력 날짜 선택 테스트", () => {
   test("달력에서 날짜를 선택하면 인풋에 반영되어야 함", async () => {
     await userEvent.click(await screen.findByTestId("calendar"));
     await userEvent.click(
-      await screen.findByTestId(`currentMonthDay_${new Date().getDate()}`),
+      await screen.findByTestId(`selectedMonthDay_${new Date().getDate()}`),
     );
     await userEvent.click(await screen.findByTestId("next_month"));
-    await userEvent.click(await screen.findByTestId(`currentMonthDay_1`));
-    await userEvent.click(await screen.findByTestId(`currentMonthDay_2`));
+    await userEvent.click(await screen.findByTestId(`selectedMonthDay_1`));
+    await userEvent.click(await screen.findByTestId(`selectedMonthDay_2`));
     expect(await screen.findByDisplayValue("01일")).toBeInTheDocument();
     expect(await screen.findByDisplayValue("02일")).toBeInTheDocument();
-    await userEvent.click(await screen.findByTestId(`currentMonthDay_2`));
-    await userEvent.click(await screen.findByTestId(`currentMonthDay_5`));
+    await userEvent.click(await screen.findByTestId(`selectedMonthDay_2`));
+    await userEvent.click(await screen.findByTestId(`selectedMonthDay_5`));
     expect(await screen.findByDisplayValue("01일")).toBeInTheDocument();
     expect(await screen.findByDisplayValue("05일")).toBeInTheDocument();
-    await userEvent.click(await screen.findByTestId(`currentMonthDay_1`));
-    await userEvent.click(await screen.findByTestId(`currentMonthDay_2`));
+    await userEvent.click(await screen.findByTestId(`selectedMonthDay_1`));
+    await userEvent.click(await screen.findByTestId(`selectedMonthDay_2`));
     expect(await screen.findByDisplayValue("02일")).toBeInTheDocument();
     expect(await screen.findByDisplayValue("05일")).toBeInTheDocument();
   });
@@ -132,24 +132,24 @@ describe("달력 날짜 선택 테스트", () => {
   test("달력을 열면 오늘 날짜가 선택되어 있어야 함", async () => {
     await userEvent.click(await screen.findByTestId("calendar"));
     expect(
-      await screen.findByTestId(`currentMonthDay_${new Date().getDate()}`),
+      await screen.findByTestId(`selectedMonthDay_${new Date().getDate()}`),
     ).toHaveClass("bg-[#967AC3]");
   });
 
   test("달력의 선택된 날짜는 색이 바뀌어야 함", async () => {
     await userEvent.click(await screen.findByTestId("calendar"));
     await userEvent.click(
-      await screen.findByTestId(`currentMonthDay_${new Date().getDate()}`),
+      await screen.findByTestId(`selectedMonthDay_${new Date().getDate()}`),
     );
     await userEvent.click(await screen.findByTestId("next_month"));
-    await userEvent.click(await screen.findByTestId(`currentMonthDay_1`));
-    await userEvent.click(await screen.findByTestId(`currentMonthDay_2`));
+    await userEvent.click(await screen.findByTestId(`selectedMonthDay_1`));
+    await userEvent.click(await screen.findByTestId(`selectedMonthDay_2`));
     await userEvent.click(await screen.findByText("시작 시간"));
     await userEvent.click(await screen.findByTestId("calendar"));
-    expect(await screen.findByTestId(`currentMonthDay_1`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDay_1`)).toHaveClass(
       "bg-[#967AC3]",
     );
-    expect(await screen.findByTestId(`currentMonthDay_2`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDay_2`)).toHaveClass(
       "bg-[#967AC3]",
     );
   });
@@ -160,10 +160,10 @@ describe("달력 날짜 선택 테스트", () => {
     await userEvent.click(await screen.findByTestId("calendar"));
 
     expect(await screen.findByText(`2100. 10`)).toBeInTheDocument();
-    expect(await screen.findByTestId(`currentMonthDay_1`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDay_1`)).toHaveClass(
       "bg-[#967AC3]",
     );
-    expect(await screen.findByTestId(`currentMonthDay_2`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDay_2`)).toHaveClass(
       "bg-[#967AC3]",
     );
   });
@@ -172,19 +172,19 @@ describe("달력 날짜 선택 테스트", () => {
     await inputType("2100", "10", "01", "2100", "10", "15");
 
     await userEvent.click(await screen.findByTestId("calendar"));
-    expect(await screen.findByTestId(`currentMonthDayStyle_1`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDayStyle_1`)).toHaveClass(
       "ml-1 pr-1 rounded-l-full",
     );
-    expect(await screen.findByTestId(`currentMonthDayStyle_10`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDayStyle_10`)).toHaveClass(
       BG_COLOR.general04,
     );
-    expect(await screen.findByTestId(`currentMonthDayStyle_15`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDayStyle_15`)).toHaveClass(
       "mr-1 pl-1 rounded-r-full",
     );
 
     await userEvent.click(await screen.findByTestId("prev_month"));
     expect(
-      await screen.findByTestId(`currentMonthDayStyle_10`),
+      await screen.findByTestId(`selectedMonthDayStyle_10`),
     ).not.toHaveClass(BG_COLOR.general04);
   });
 
@@ -194,28 +194,28 @@ describe("달력 날짜 선택 테스트", () => {
     await userEvent.click(await screen.findByTestId("calendar"));
 
     // 12월
-    expect(await screen.findByTestId(`currentMonthDayStyle_15`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDayStyle_15`)).toHaveClass(
       "mr-1 pl-1 rounded-r-full",
     );
-    expect(await screen.findByTestId(`currentMonthDayStyle_10`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDayStyle_10`)).toHaveClass(
       BG_COLOR.general04,
     );
 
     // 11월
     await userEvent.click(await screen.findByTestId("prev_month"));
-    expect(await screen.findByTestId(`currentMonthDayStyle_1`)).not.toHaveClass(
-      "ml-1 pr-1 rounded-l-full",
-    );
-    expect(await screen.findByTestId(`currentMonthDayStyle_1`)).toHaveClass(
+    expect(
+      await screen.findByTestId(`selectedMonthDayStyle_1`),
+    ).not.toHaveClass("ml-1 pr-1 rounded-l-full");
+    expect(await screen.findByTestId(`selectedMonthDayStyle_1`)).toHaveClass(
       BG_COLOR.general04,
     );
 
     // 10월
     await userEvent.click(await screen.findByTestId("prev_month"));
-    expect(await screen.findByTestId(`currentMonthDayStyle_1`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDayStyle_1`)).toHaveClass(
       "ml-1 pr-1 rounded-l-full",
     );
-    expect(await screen.findByTestId(`currentMonthDayStyle_10`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDayStyle_10`)).toHaveClass(
       BG_COLOR.general04,
     );
   });
@@ -226,37 +226,37 @@ describe("달력 날짜 선택 테스트", () => {
     await userEvent.click(await screen.findByTestId("calendar"));
 
     // 2월
-    expect(await screen.findByTestId(`currentMonthDayStyle_15`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDayStyle_15`)).toHaveClass(
       "mr-1 pl-1 rounded-r-full",
     );
-    expect(await screen.findByTestId(`currentMonthDayStyle_10`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDayStyle_10`)).toHaveClass(
       BG_COLOR.general04,
     );
 
     // 1월
     await userEvent.click(await screen.findByTestId("prev_month"));
-    expect(await screen.findByTestId(`currentMonthDayStyle_1`)).not.toHaveClass(
-      "ml-1 pr-1 rounded-l-full",
-    );
-    expect(await screen.findByTestId(`currentMonthDayStyle_1`)).toHaveClass(
+    expect(
+      await screen.findByTestId(`selectedMonthDayStyle_1`),
+    ).not.toHaveClass("ml-1 pr-1 rounded-l-full");
+    expect(await screen.findByTestId(`selectedMonthDayStyle_1`)).toHaveClass(
       BG_COLOR.general04,
     );
 
     // 12월
     await userEvent.click(await screen.findByTestId("prev_month"));
-    expect(await screen.findByTestId(`currentMonthDayStyle_1`)).not.toHaveClass(
-      "ml-1 pr-1 rounded-l-full",
-    );
-    expect(await screen.findByTestId(`currentMonthDayStyle_12`)).toHaveClass(
+    expect(
+      await screen.findByTestId(`selectedMonthDayStyle_1`),
+    ).not.toHaveClass("ml-1 pr-1 rounded-l-full");
+    expect(await screen.findByTestId(`selectedMonthDayStyle_12`)).toHaveClass(
       BG_COLOR.general04,
     );
 
     // 11월
     await userEvent.click(await screen.findByTestId("prev_month"));
-    expect(await screen.findByTestId(`currentMonthDayStyle_1`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDayStyle_1`)).toHaveClass(
       "ml-1 pr-1 rounded-l-full",
     );
-    expect(await screen.findByTestId(`currentMonthDayStyle_13`)).toHaveClass(
+    expect(await screen.findByTestId(`selectedMonthDayStyle_13`)).toHaveClass(
       BG_COLOR.general04,
     );
   });

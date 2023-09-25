@@ -50,14 +50,96 @@ export default class CalendarManager {
     return this.getCurrentMonth().getDate();
   }
 
-  // isSelectedDate(day: number) {
-  //   if (
-  //     this.selectedDate.year === this.selectedYear &&
-  //     this.selectedDate.month === this.selectedMonth &&
-  //     this.selectedDate.date === day
-  //   )
-  //     return `rounded-full bg-[#967AC3] ${TEXT_COLOR.inverse}`;
-  // }
+  private isSameMonthForStartEnd(
+    selectedDates: selectedDates[],
+    i: number,
+  ): boolean {
+    return (
+      this.selectedYear === selectedDates[0]?.year &&
+      this.selectedMonth === selectedDates[0]?.month &&
+      selectedDates[0]?.year === selectedDates[1]?.year &&
+      selectedDates[0]?.month === selectedDates[1]?.month &&
+      i >= selectedDates[0]?.date &&
+      i <= selectedDates[1]?.date
+    );
+  }
+
+  private isMonthOfStart(selectedDates: selectedDates[], i: number): boolean {
+    return (
+      this.selectedYear === selectedDates[0]?.year &&
+      this.selectedMonth === selectedDates[0]?.month &&
+      (selectedDates[1]?.year > selectedDates[0]?.year ||
+        selectedDates[1]?.month > selectedDates[0]?.month) &&
+      i >= selectedDates[0]?.date
+    );
+  }
+
+  private isMonthBetweenDates(selectedDates: selectedDates[]): boolean {
+    return (
+      (selectedDates[1] &&
+        this.selectedYear > selectedDates[0]?.year &&
+        selectedDates[1]?.year > selectedDates[0]?.year &&
+        this.selectedMonth < selectedDates[1]?.month) ||
+      (this.selectedYear === selectedDates[0]?.year &&
+        selectedDates[1]?.year > selectedDates[0]?.year &&
+        this.selectedMonth > selectedDates[0]?.month) ||
+      (selectedDates[0]?.year === selectedDates[1]?.year &&
+        this.selectedMonth > selectedDates[0]?.month &&
+        this.selectedMonth < selectedDates[1]?.month)
+    );
+  }
+
+  private isMonthOfEnd(selectedDates: selectedDates[], i: number): boolean {
+    return (
+      this.selectedYear === selectedDates[1]?.year &&
+      this.selectedMonth === selectedDates[1]?.month &&
+      (selectedDates[1]?.year > selectedDates[0]?.year ||
+        selectedDates[1]?.month > selectedDates[0]?.month) &&
+      i <= selectedDates[1]?.date
+    );
+  }
+
+  isInitialState(selectedDates: selectedDates[]): boolean {
+    return (
+      selectedDates[0]?.year === selectedDates[1]?.year &&
+      selectedDates[0]?.month === selectedDates[1]?.month &&
+      selectedDates[0]?.date === selectedDates[1]?.date
+    );
+  }
+
+  isSelected(selectedDates: selectedDates[], i: number): boolean {
+    return selectedDates.some(
+      (d) =>
+        d.year === this.selectedYear &&
+        d.month === this.selectedMonth &&
+        d.date === i,
+    );
+  }
+
+  isBetweenSelectedDates(selectedDates: selectedDates[], i: number): boolean {
+    return (
+      this.isSameMonthForStartEnd(selectedDates, i) ||
+      this.isMonthOfStart(selectedDates, i) ||
+      this.isMonthBetweenDates(selectedDates) ||
+      this.isMonthOfEnd(selectedDates, i)
+    );
+  }
+
+  isStartDate(selectedDates: selectedDates[], i: number): boolean {
+    return (
+      this.selectedYear === selectedDates[0]?.year &&
+      this.selectedMonth === selectedDates[0]?.month &&
+      i === selectedDates[0]?.date
+    );
+  }
+
+  isEndDate(selectedDates: selectedDates[], i: number): boolean {
+    return (
+      this.selectedYear === selectedDates[1]?.year &&
+      this.selectedMonth === selectedDates[1]?.month &&
+      i === selectedDates[1]?.date
+    );
+  }
 
   getPreviousMonthDays(): number[] {
     const days = [];
@@ -86,13 +168,5 @@ export default class CalendarManager {
     return (
       this.getPreviousMonthDays().length + this.getCurrentMonthDays().length
     );
-  }
-
-  getNextMonthDays(sumPrevCurrentDay: number): number[] {
-    const days = [];
-    for (let n = 1; n <= 42 - sumPrevCurrentDay; n++) {
-      days.push(n);
-    }
-    return days;
   }
 }

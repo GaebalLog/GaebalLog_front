@@ -35,16 +35,6 @@ const Calendar: React.FC<calendarProps> = ({
   setEndMonthValue,
   setEndDateValue,
 }) => {
-  // const startDate = {
-  //   year: startYearValue,
-  //   month: startMonthValue,
-  //   date: startDateValue,
-  // };
-  // const endDate = {
-  //   year: endYearValue,
-  //   month: endMonthValue,
-  //   date: endDateValue,
-  // };
   const [selectedYear, setSelectedYear] = React.useState(endYearValue);
   const [selectedMonth, setSelectedMonth] = React.useState(endMonthValue);
 

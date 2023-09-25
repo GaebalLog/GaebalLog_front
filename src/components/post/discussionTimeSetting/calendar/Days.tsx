@@ -6,8 +6,11 @@ import CalendarManager from "@/utils/util-calendarManager";
 const styles = {
   wrapper: `grid grid-cols-7`,
   daysDiv: `h-[34px] flex items-center justify-center`,
-  currentDays: `w-full h-[21px] flex items-center justify-center`,
-  surroundingDays: `w-full h-[21px] flex items-center justify-center text-gray-400`,
+  selectedMonthDays: `w-full h-[21px] flex items-center justify-center`,
+  otherMonthDays: `w-full h-[21px] flex items-center justify-center text-gray-400`,
+  selectedStartDay: `ml-1 pr-1 rounded-l-full`,
+  selectedEndDay: `mr-1 pl-1 rounded-r-full`,
+  selectedDay: `w-[34px] h-[34px] flex justify-center items-center rounded-full bg-[#967AC3] ${TEXT_COLOR.inverse}`,
 };
 
 interface DayProps {
@@ -43,7 +46,7 @@ const Days: React.FC<DayProps> = ({
   setEndMonthValue,
   setEndDateValue,
 }) => {
-  const [selectedDates, setSelectedDates] = React.useState([
+  const [selectedDates, setSelectedDates] = React.useState<selectedDates[]>([
     {
       year: startYearValue,
       month: startMonthValue,
@@ -66,10 +69,7 @@ const Days: React.FC<DayProps> = ({
   const handleDateSelection = (day: number) => {
     if (calendarManager.isPastDate(day)) return alert("이미 지난 날짜입니다.");
 
-    const isDateSelected = selectedDates.some(
-      (d) =>
-        d.year === selectedYear && d.month === selectedMonth && d.date === day,
-    );
+    const isDateSelected = calendarManager.isSelected(selectedDates, day);
 
     if (isDateSelected) {
       setSelectedDates((prev) =>
@@ -103,62 +103,28 @@ const Days: React.FC<DayProps> = ({
   //
   const returnDays = () => {
     const previousMonthDays = returnPreviousMonthDays();
-    const currentMonthDays = returnCurrentMonthDays();
+    const currentMonthDays = returnSelectedMonthDays();
     return [...previousMonthDays, ...currentMonthDays];
   };
 
   const returnPreviousMonthDays = () => {
     return calendarManager.getPreviousMonthDays().map((p) => (
       <div key={`prevMonthDay_${p}`} className={styles.daysDiv}>
-        <p className={styles.surroundingDays} />
+        <p className={styles.otherMonthDays} />
       </div>
     ));
   };
-  const returnCurrentMonthDays = () => {
+  const returnSelectedMonthDays = () => {
     return calendarManager.getCurrentMonthDays().map((i) => {
-      const isSameMonthForStartEnd =
-        selectedYear === selectedDates[0]?.year &&
-        selectedMonth === selectedDates[0]?.month &&
-        selectedDates[0]?.year === selectedDates[1]?.year &&
-        selectedDates[0]?.month === selectedDates[1]?.month &&
-        i >= selectedDates[0]?.date &&
-        i <= selectedDates[1]?.date;
-
-      const isMonthOfStart =
-        selectedYear === selectedDates[0]?.year &&
-        selectedMonth === selectedDates[0]?.month &&
-        (selectedDates[1]?.year > selectedDates[0]?.year ||
-          selectedDates[1]?.month > selectedDates[0]?.month) &&
-        i >= selectedDates[0]?.date;
-
-      const isMonthBetweenDates =
-        (selectedDates[1] &&
-          selectedYear > selectedDates[0]?.year &&
-          selectedDates[1]?.year > selectedDates[0]?.year &&
-          selectedMonth < selectedDates[1]?.month) ||
-        (selectedYear === selectedDates[0]?.year &&
-          selectedDates[1]?.year > selectedDates[0]?.year &&
-          selectedMonth > selectedDates[0]?.month) ||
-        (selectedDates[0]?.year === selectedDates[1]?.year &&
-          selectedMonth > selectedDates[0]?.month &&
-          selectedMonth < selectedDates[1]?.month);
-
-      const isMonthOfEnd =
-        selectedYear === selectedDates[1]?.year &&
-        selectedMonth === selectedDates[1]?.month &&
-        (selectedDates[1]?.year > selectedDates[0]?.year ||
-          selectedDates[1]?.month > selectedDates[0]?.month) &&
-        i <= selectedDates[1]?.date;
-
-      const isInitialState =
-        selectedDates[0]?.year === selectedDates[1]?.year &&
-        selectedDates[0]?.month === selectedDates[1]?.month &&
-        selectedDates[0]?.date === selectedDates[1]?.date;
-
-      const isSelected = selectedDates.some(
-        (d) =>
-          d.year === selectedYear && d.month === selectedMonth && d.date === i,
+      const isEndDate = calendarManager.isEndDate(selectedDates, i);
+      const isSelected = calendarManager.isSelected(selectedDates, i);
+      const isStartDate = calendarManager.isStartDate(selectedDates, i);
+      const isInitialState = calendarManager.isInitialState(selectedDates);
+      const isBetweenSelectedDates = calendarManager.isBetweenSelectedDates(
+        selectedDates,
+        i,
       );
+
       return (
         <div
           key={i}
@@ -166,33 +132,18 @@ const Days: React.FC<DayProps> = ({
           className={styles.daysDiv}
         >
           <div
-            data-testid={`currentMonthDayStyle_${i}`}
-            className={`${styles.currentDays} ${`${
-              (isSameMonthForStartEnd ||
-                isMonthOfStart ||
-                isMonthBetweenDates ||
-                isMonthOfEnd) &&
-              !isInitialState &&
-              BG_COLOR.general04
-            }`} ${
-              selectedYear === selectedDates[0]?.year &&
-              selectedMonth === selectedDates[0]?.month &&
-              i === selectedDates[0]?.date &&
-              "ml-1 pr-1 rounded-l-full"
-            } ${
-              selectedYear === selectedDates[1]?.year &&
-              selectedMonth === selectedDates[1]?.month &&
-              i === selectedDates[1]?.date &&
-              "mr-1 pl-1 rounded-r-full"
+            data-testid={`selectedMonthDayStyle_${i}`}
+            className={`${styles.selectedMonthDays} ${`${
+              isBetweenSelectedDates && !isInitialState
+                ? BG_COLOR.general04
+                : ""
+            }`} ${isStartDate ? styles.selectedStartDay : ""} ${
+              isEndDate ? styles.selectedEndDay : ""
             }`}
           >
             <p
-              data-testid={`currentMonthDay_${i}`}
-              className={`${
-                isSelected
-                  ? `w-[34px] h-[34px] flex justify-center items-center rounded-full bg-[#967AC3] ${TEXT_COLOR.inverse}`
-                  : ""
-              }`}
+              data-testid={`selectedMonthDay_${i}`}
+              className={`${isSelected ? styles.selectedDay : ""}`}
             >
               {i}
             </p>
