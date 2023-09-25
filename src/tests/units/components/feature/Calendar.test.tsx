@@ -167,6 +167,7 @@ describe("달력 날짜 선택 테스트", () => {
       "bg-[#967AC3]",
     );
   });
+
   test("선택된 날짜들이 같은 '월'일 때 테스트", async () => {
     await inputType("2100", "10", "01", "2100", "10", "15");
 
@@ -180,7 +181,13 @@ describe("달력 날짜 선택 테스트", () => {
     expect(await screen.findByTestId(`currentMonthDayStyle_15`)).toHaveClass(
       "mr-1 pl-1 rounded-r-full",
     );
+
+    await userEvent.click(await screen.findByTestId("prev_month"));
+    expect(
+      await screen.findByTestId(`currentMonthDayStyle_10`),
+    ).not.toHaveClass(BG_COLOR.general04);
   });
+
   test("선택된 날짜들이 같은 '년도'일 때 테스트", async () => {
     await inputType("2100", "10", "01", "2100", "12", "15");
 
@@ -212,6 +219,7 @@ describe("달력 날짜 선택 테스트", () => {
       BG_COLOR.general04,
     );
   });
+
   test("선택된 날짜들이 다른 '년도'일 때 테스트", async () => {
     await inputType("2100", "11", "01", "2101", "02", "15");
 
@@ -252,4 +260,6 @@ describe("달력 날짜 선택 테스트", () => {
       BG_COLOR.general04,
     );
   });
+
+  test("선택된 '일'이 같을 때 테스트", async () => {});
 });

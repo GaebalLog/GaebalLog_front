@@ -117,10 +117,10 @@ const Days: React.FC<DayProps> = ({
   const returnCurrentMonthDays = () => {
     return calendarManager.getCurrentMonthDays().map((i) => {
       const isSameMonthForStartEnd =
-        selectedDates[0]?.year &&
-        selectedDates[1]?.year &&
-        selectedDates[0]?.month &&
-        selectedDates[1]?.month &&
+        selectedYear === selectedDates[0]?.year &&
+        selectedMonth === selectedDates[0]?.month &&
+        selectedDates[0]?.year === selectedDates[1]?.year &&
+        selectedDates[0]?.month === selectedDates[1]?.month &&
         i >= selectedDates[0]?.date &&
         i <= selectedDates[1]?.date;
 
