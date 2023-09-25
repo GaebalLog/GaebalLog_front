@@ -93,6 +93,7 @@ const Loginpage = () => {
           <Link
             href="signup"
             className={`leading-none ${TEXT_COLOR.general07rev}`}
+            replace
           >
             회원가입
           </Link>
@@ -100,6 +101,7 @@ const Loginpage = () => {
           <Link
             href="forgotPassword"
             className={`leading-none ${TEXT_COLOR.general07rev}`}
+            replace
           >
             Email / 비밀번호 찾기
           </Link>

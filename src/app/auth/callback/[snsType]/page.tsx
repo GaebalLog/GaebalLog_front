@@ -18,8 +18,10 @@ const SnsLoginpage = ({ params: { snsType } }: snsTypeProps) => {
   const router = useRouter();
   const acceptedTypes = ["google", "github", "kakao", "local"];
   const isSocialParams = acceptedTypes.includes(snsType);
+  const prePath = sessionStorage.getItem("prePath");
 
   React.useEffect(() => {
+    sessionStorage.removeItem("prePath");
     if (!isSocialParams) return notFound();
     const fetchSocialLogin = async () => {
       const code = searchParams.get("code");
@@ -43,7 +45,7 @@ const SnsLoginpage = ({ params: { snsType } }: snsTypeProps) => {
       }
     };
     fetchSocialLogin();
-    router.back();
+    router.replace(prePath ?? "/home");
   }, []);
 
   return <></>;

@@ -1,7 +1,7 @@
 import React from "react";
 
-const UserKeyword = () => {
-  return <div></div>;
+const UserKeyword: React.FC<{ params: string }> = ({ params }) => {
+  return <div>{params}</div>;
 };
 
 export default UserKeyword;

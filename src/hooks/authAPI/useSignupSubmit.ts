@@ -40,7 +40,7 @@ const useSignupSubmit = (
         });
         setUserInfo(data);
         alert("회원가입 성공!");
-        router.replace("/home");
+        router.replace("/auth/callback/local");
       } catch (error) {
         if ((error as error)?.response?.status === 500) {
           alert("이미 존재하는 이메일입니다.");

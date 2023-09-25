@@ -214,9 +214,9 @@ describe("토의 시간 설정 테스트", () => {
     beforeEach(async () => {
       render(<TimeSetting setTimeSetting={jest.fn} />, { wrapper: Provider });
       await userEvent.click(await screen.findByText("토의 시간 설정"));
-      yearInput = screen.findByTestId(`year_input`);
-      monthInput = screen.findByTestId(`month_input`);
-      dayInput = screen.findByTestId(`days_input`);
+      yearInput = screen.findByTestId(`startyear_input`);
+      monthInput = screen.findByTestId(`startmonth_input`);
+      dayInput = screen.findByTestId(`startdays_input`);
     });
 
     // 2112년 02월 29일로 세팅
@@ -236,7 +236,7 @@ describe("토의 시간 설정 테스트", () => {
     test("년도 증감 버튼을 눌러서 2112년에서 1년 내리면 28일로 바뀌어야 함", async () => {
       setDefaultDateSetting("2112", "02", "29");
       expect(await screen.findByDisplayValue("29일")).toBeInTheDocument();
-      await userEvent.click(await screen.findByTestId("year_down"));
+      await userEvent.click(await screen.findByTestId("startyear_down"));
       expect(await screen.findByDisplayValue("28일")).toBeInTheDocument();
     });
 
@@ -245,14 +245,14 @@ describe("토의 시간 설정 테스트", () => {
       expect(await screen.findByDisplayValue("29일")).toBeInTheDocument();
       await userEvent.clear(await yearInput);
       await userEvent.type(await yearInput, "2111");
-      await userEvent.click(await screen.findByText("기간"));
+      await userEvent.click(await screen.findByText("시작 기간"));
       expect(await screen.findByDisplayValue("28일")).toBeInTheDocument();
     });
 
     test("월 증감 버튼을 눌러서 2월로 내리면 28일로 바뀌어야 함", async () => {
       setDefaultDateSetting("2111", "03", "31");
       expect(await screen.findByDisplayValue("31일")).toBeInTheDocument();
-      await userEvent.click(await screen.findByTestId("month_down"));
+      await userEvent.click(await screen.findByTestId("startmonth_down"));
       expect(await screen.findByDisplayValue("28일")).toBeInTheDocument();
     });
 
@@ -261,7 +261,7 @@ describe("토의 시간 설정 테스트", () => {
       expect(await screen.findByDisplayValue("31일")).toBeInTheDocument();
       await userEvent.clear(await monthInput);
       await userEvent.type(await monthInput, "02");
-      await userEvent.click(await screen.findByText("기간"));
+      await userEvent.click(await screen.findByText("시작 기간"));
       expect(await screen.findByDisplayValue("28일")).toBeInTheDocument();
     });
   });

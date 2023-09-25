@@ -5,6 +5,7 @@ import useYearMonthDayController from "@/hooks/TimeSetting/useYearMonthDayContro
 import DefaultNumberInput from "./DefaultNumberInput";
 
 interface props {
+  testId: "start" | "end";
   type: "year" | "month" | "days";
   value: string | number;
   setValue: React.Dispatch<React.SetStateAction<string | number>>;
@@ -15,6 +16,7 @@ interface props {
 }
 
 const YearMonthDayInput: React.FC<props> = ({
+  testId,
   type,
   value,
   setValue,
@@ -36,6 +38,7 @@ const YearMonthDayInput: React.FC<props> = ({
 
   return (
     <DefaultNumberInput
+      testId={testId}
       type={type}
       value={value}
       handleIncrease={handleIncrease}

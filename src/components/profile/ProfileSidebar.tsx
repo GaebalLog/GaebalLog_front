@@ -12,7 +12,7 @@ const ProfileSidebar = () => {
   const { nickname, profileImg } = useRecoilValue(userAtom);
 
   return (
-    <div className="flex flex-col items-center gap-[32px] py-[57px] pr-[76px]">
+    <div className="flex flex-col gap-[32px] py-[80px] pr-[76px]">
       <Image
         src={profileImg ?? default_profile}
         alt="프로필 사진"
@@ -22,7 +22,17 @@ const ProfileSidebar = () => {
         layout="fixed"
         objectFit="cover"
       />
-      <span className="text-[24px] font-bold">{nickname}</span>
+      <span className="text-[24px] text-center font-bold">{nickname}</span>
+      <div className="flex flex-col gap-10">
+        <div className="flex justify-between">
+          <p>나를 추가한 이웃</p>
+          <span className="text-[#967AC3]">{13}</span>
+        </div>
+        <div className="flex justify-between">
+          <p>내가 추가한 이웃</p>
+          <span className="text-[#967AC3]">{13}</span>
+        </div>
+      </div>
     </div>
   );
 };

@@ -3,14 +3,14 @@ import React from "react";
 import SortBar from "@/components/commonUI/SortBar";
 import useGetMydiscussions from "@/hooks/mypageAPI/useGetMydiscussions";
 
-import DropDown from "../../DropDown";
+import DropDown from "../../elements/DropDown";
 
 import MyDiscussionCard from "./MyDiscussionCard";
 
-type myDiscussionType = "내가 쓴 토의" | "상대방이 쓴 토의";
+type myDiscussionType = "내가 쓴 토의" | "이웃이 쓴 토의";
 const myDiscussionTypeList: myDiscussionType[] = [
   "내가 쓴 토의",
-  "상대방이 쓴 토의",
+  "이웃이 쓴 토의",
 ];
 
 const Mydiscussions = () => {
@@ -39,7 +39,7 @@ const Mydiscussions = () => {
         {discussionList?.map((discussion: beforeDiscussion) => {
           return (
             <MyDiscussionCard
-              key={`post${discussion.chatListId}`}
+              key={`discussion${discussion.chatListId}`}
               discussion={discussion}
             />
           );

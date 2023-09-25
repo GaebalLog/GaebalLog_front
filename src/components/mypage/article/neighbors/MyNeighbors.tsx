@@ -1,6 +1,6 @@
 import React from "react";
 
-import DropDown from "../../DropDown";
+import DropDown from "../../elements/DropDown";
 
 import NeighborCard from "./elements/NeighborCard";
 
