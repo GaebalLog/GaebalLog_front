@@ -21,9 +21,6 @@ export const discussionAPI = {
   getDetail: (discussionId: number) => {
     return instance.get<detailDisccussion>(`/discussions/${discussionId}`);
   },
-  toggleBookmark: (discussionId: number) => {
-    return instance.post(`/discussions/${discussionId}/bookmark`);
-  },
   toggleLike: (discussionId: number) => {
     return instance.post(`/discussions/${discussionId}/like`);
   },
