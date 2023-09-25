@@ -55,6 +55,8 @@ import checked_heart from "./checked_heart.png";
 import plus_light from "./plus_light.png";
 import none_check from "./none_check.png";
 import done_check from "./done_check.png";
+import people_light from "./people_light.png";
+import people_dark from "./people_dark.png";
 const ICON = {
   alarm: [alarm_light, alarm_dark],
   close: [close_light, close_dark],
@@ -88,5 +90,6 @@ const ICON = {
   plus: [plus_light, plus_light],
   none_check: [none_check, none_check],
   done_check: [done_check, done_check],
+  people: [people_light, people_dark],
 };
 export default ICON;

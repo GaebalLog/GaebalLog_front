@@ -27,14 +27,15 @@ declare global {
   interface discussion {
     discussionId: number;
     thumbnail: string;
+    nickname: string;
     title: string;
     category: string[];
     remainingTime: number;
-    bookmarked: boolean;
+    participating: boolean;
     liked: boolean;
     like: number;
-    view: number;
-    nickname: string;
+    capacity: number;
+    participants: number;
   }
   interface detailDisccussion extends discussion {
     content: string;
