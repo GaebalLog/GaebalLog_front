@@ -18,7 +18,6 @@ const useGetDetailDiscussion = ({
     queryKey: [QUERY_KEYS.DISCUSSION, Id],
     queryFn: () => discussionAPI.getDetail(Id),
     onSuccess: (data) => {
-      console.log(data);
       onSuccessSet && onSuccessSet(data.data);
     },
     enabled: Id !== 0,

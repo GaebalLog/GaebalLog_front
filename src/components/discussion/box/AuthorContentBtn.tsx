@@ -1,17 +1,16 @@
 import React from "react";
-import Link from "next/link";
 
 import Button from "@/components/designSystem/Button";
 import useModalController from "@/hooks/useModalController";
 
 import DeleteDiscussionBtn from "../btn/DeleteDiscussionBtn";
+import VerifyDiscussionBtn from "../btn/verifyDiscussionBtn";
 
 interface props {
   isAuthor: boolean;
-  discussionId: number;
 }
-const AuthorContentBtn: React.FC<props> = ({ isAuthor, discussionId }) => {
-  const { openModal, allCloseModal } = useModalController();
+const AuthorContentBtn: React.FC<props> = ({ isAuthor }) => {
+  const { openModal } = useModalController();
   const discussionExitHandler = () => {
     openModal("discussionExit");
   };
@@ -20,26 +19,11 @@ const AuthorContentBtn: React.FC<props> = ({ isAuthor, discussionId }) => {
     <>
       {isAuthor ? (
         <>
-          <Link
-            className="text-center"
-            href={"/discussion/create"}
-            onClick={(e) => {
-              e.stopPropagation();
-              allCloseModal();
-            }}
-          >
-            <Button
-              className={`w-full py-4 px-[30px]`}
-              size="tab"
-              color="white"
-            >
-              수정하기
-            </Button>
-          </Link>
+          <VerifyDiscussionBtn />
           <Button className={`w-full py-4 px-[30px]`} size="tab" color="white">
             토의진행종료
           </Button>
-          <DeleteDiscussionBtn discussionId={discussionId} />
+          <DeleteDiscussionBtn />
         </>
       ) : (
         <Button

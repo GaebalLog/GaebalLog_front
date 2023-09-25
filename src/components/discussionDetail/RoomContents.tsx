@@ -124,10 +124,7 @@ const RoomContents = () => {
       {modal.discussionMore && (
         <Modal positionOption={topLeft} nonBackdrop>
           <div className={`flex flex-col ${BORDER_COLOR.button}`}>
-            <AuthorContentBtn
-              isAuthor={data?.data.isAuthor as boolean}
-              discussionId={data?.data.discussionId as number}
-            />
+            <AuthorContentBtn isAuthor={data?.data.isAuthor as boolean} />
           </div>
         </Modal>
       )}

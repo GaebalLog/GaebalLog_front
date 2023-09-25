@@ -1,11 +1,12 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 
 import Button from "@/components/designSystem/Button";
 import { discussionAPI } from "@/api/discussionAPI";
-interface props {
-  discussionId: number;
-}
-const DeleteDiscussionBtn: React.FC<props> = ({ discussionId }) => {
+import { discussionAtom } from "@/constants/global/atoms";
+
+const DeleteDiscussionBtn = () => {
+  const { discussionId } = useRecoilValue(discussionAtom);
   const deleteDiscussionHandler = async () => {
     const result = await discussionAPI.delete(discussionId);
     if (result.status === 200) {
