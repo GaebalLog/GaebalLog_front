@@ -8,28 +8,19 @@ const useHourController = (time: "start" | "end") => {
     React.useContext(TimeContext);
 
   const isStart = time === "start";
+  const isEnd = time === "end";
 
   // 증감
   const handleIncrease = () => {
     if (isStart) {
-      return setStartHourValue((prev) =>
-        +prev >= 12 ? String(1) : String(+prev + 1),
-      );
-    } else
-      return setEndHourValue((prev) =>
-        +prev >= 12 ? String(1) : String(+prev + 1),
-      );
+      return setStartHourValue((prev) => (+prev >= 12 ? 1 : +prev + 1));
+    } else return setEndHourValue((prev) => (+prev >= 12 ? 1 : +prev + 1));
   };
 
   const handleDecrease = () => {
     if (isStart) {
-      return setStartHourValue((prev) =>
-        +prev <= 1 ? String(12) : String(+prev - 1),
-      );
-    } else
-      return setEndHourValue((prev) =>
-        +prev <= 1 ? String(12) : String(+prev - 1),
-      );
+      return setStartHourValue((prev) => (+prev <= 1 ? 12 : +prev - 1));
+    } else return setEndHourValue((prev) => (+prev <= 1 ? 12 : +prev - 1));
   };
 
   // onChange
@@ -54,16 +45,19 @@ const useHourController = (time: "start" | "end") => {
 
   const setDefaultIfEmpty = () => {
     const { calculatedStartHour, calculatedEndHour } = new TimeSettingManager();
-    const isEmpty = startHourValue === "" || endHourValue === "";
-    if (isStart && isEmpty) {
-      return setStartHourValue(calculatedStartHour + "");
-    } else return setEndHourValue(calculatedEndHour + "");
+    if (isStart && startHourValue === "") {
+      return setStartHourValue(calculatedStartHour);
+    }
+    if (isEnd && endHourValue === "") {
+      return setEndHourValue(calculatedEndHour);
+    }
   };
   const addZeroIfLengthOne = () => {
-    const isLength1 = startHourValue.length === 1 || endHourValue.length === 1;
-    if (isStart && isLength1) {
+    if (isStart && String(startHourValue).length === 1) {
       return setStartHourValue(`0${startHourValue}`);
-    } else return setEndHourValue(`0${endHourValue}`);
+    } else if (isEnd && String(endHourValue).length === 1) {
+      return setEndHourValue(`0${endHourValue}`);
+    }
   };
 
   return { handleIncrease, handleDecrease, handleInputChange, handleBlur };

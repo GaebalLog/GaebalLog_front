@@ -35,7 +35,7 @@ const DefaultNumberInput: React.FC<props> = ({
   const downArrow = getIcon("downArrow", 10, 10);
 
   const showValue = () => {
-    if (+value < 10) return `0${value}`;
+    if (typeof value === "number" && +value < 10) return `0${value}`;
     return value;
   };
 
