@@ -30,7 +30,7 @@ const LikeParticipants: React.FC<props> = ({
       className: "excluded",
       onClick: likeHandler,
     },
-    { id: "search", icon: participantsIcon, count: participants },
+    { id: "participants", icon: participantsIcon, count: participants },
   ];
   return (
     <div
@@ -40,7 +40,7 @@ const LikeParticipants: React.FC<props> = ({
     >
       {btns.map((btn) => (
         <Button
-          key={`${btn.id}likeView`}
+          key={`${btn.id}View`}
           size="withIcon"
           color="background"
           rounded

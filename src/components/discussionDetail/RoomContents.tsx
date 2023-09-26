@@ -9,11 +9,12 @@ import useModalController from "@/hooks/useModalController";
 import useGetDetailDiscussion from "@/hooks/discussionAPI/useGetDetailDiscussion";
 import DateConvertor from "@/utils/util-dateConvertor";
 
-import Button from "../designSystem/Button";
 import LoadingSpinner from "../LoadingSpinner";
 import Modal from "../modal/Modal";
 import ConfirmModal from "../modal/common/ConfirmModal";
 import AuthorContentBtn from "../discussion/box/AuthorContentBtn";
+import LikeDiscussionBtn from "../discussion/btn/LikeDiscussionBtn";
+import ParticipantsBtn from "../discussion/btn/ParticipantsBtn";
 
 const styles = {
   container: `relative overflow-y-auto w-[68.75rem] h-[62%] p-4 ${BG_COLOR.primary} ${BORDER_COLOR.button}`,
@@ -37,7 +38,6 @@ const RoomContents = () => {
   const { modal, toggleModal } = useModalController();
   const { data, isLoading } = useGetDetailDiscussion();
   const { getIcon } = useIcon();
-  const like = getIcon("like", 18, 18);
   const more = getIcon("more", 5, 5);
   const dateConvertor = new DateConvertor(data?.data.endDate);
 
@@ -86,11 +86,12 @@ const RoomContents = () => {
           />
         </div>
         <aside className={styles.roomInfoBox.aside}>
-          <div>
-            <Button size="withIcon" color="white" border rounded>
-              <div>{like}</div>
-              <span>{data?.data.like}</span>
-            </Button>
+          <div className="flex gap-[20px] bottom-2 right-3">
+            <LikeDiscussionBtn
+              like={data?.data.like as number}
+              liked={data?.data.liked as boolean}
+            />
+            <ParticipantsBtn count={data?.data.participants as number} />
           </div>
           <div>
             <div className={styles.roomInfoBox.timeInfo}>
