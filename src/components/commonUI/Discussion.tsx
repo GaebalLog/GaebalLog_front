@@ -36,6 +36,7 @@ const Discussion: React.FC<{
 
   return (
     <div
+      data-testId={`discussion${discussion.discussionId}`}
       className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02} ${BORDER_COLOR.container} cursor-pointer`}
       onClick={onClickHandler}
       data-testid={`discussion${discussion.discussionId}`}

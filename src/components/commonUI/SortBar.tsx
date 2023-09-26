@@ -2,7 +2,7 @@ import React from "react";
 
 import Button from "../designSystem/Button";
 
-const sortList = ["조회 순", "최신순"];
+const sortList = ["조회 순", "최신 순"];
 
 interface props {
   tab: sortTab;
