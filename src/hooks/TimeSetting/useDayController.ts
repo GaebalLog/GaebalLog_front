@@ -1,88 +1,64 @@
-import type React from "react";
+import React from "react";
 
-import useValueFormatter from "./useValueFormatter";
+import { TimeContext } from "@/components/provider/TimeSettingProvider";
+import TimeSettingManager from "@/utils/util-timeSettingManager";
 
-const useDayController = (
-  type: "year" | "month" | "day",
-  value: string | number,
-  setValue: React.Dispatch<React.SetStateAction<string | number>>,
-  yearValue?: string | number,
-  monthValue?: string | number,
-  dateValue?: string | number,
-  setDate?: React.Dispatch<React.SetStateAction<string | number>>,
-) => {
+const { parsedStartTime, parsedEndTime } = new TimeSettingManager();
+const currentDate = parsedStartTime.getDate();
+const currentDatePlus15Minutes = parsedEndTime.getDate();
+
+const useDayController = (time: "start" | "end") => {
+  const {
+    startYearValue,
+    endYearValue,
+    startMonthValue,
+    endMonthValue,
+    startDateValue,
+    setStartDateValue,
+    endDateValue,
+    setEndDateValue,
+  } = React.useContext(TimeContext);
+
+  const isStart = time === "start";
+  const initialDate = isStart ? currentDate : currentDatePlus15Minutes;
+  const yearValue = isStart ? startYearValue : endYearValue;
+  const monthValue = isStart ? startMonthValue : endMonthValue;
+  const dateValue = isStart ? startDateValue : endDateValue;
+  const setDateValue = isStart ? setStartDateValue : setEndDateValue;
+
   // 증감
   const handleIncrease = () => {
-    increaseSetValue[type]();
-    if (type === "year") return updateDayWhenYearMonthChanges(1, 0);
-    if (type === "month") return updateDayWhenYearMonthChanges(0, 1);
+    setDateValue((prev) => (+prev >= lastDay(0, 0) ? 1 : +prev + 1));
   };
 
   const handleDecrease = () => {
-    decreaseSetValue[type]();
-    if (type === "year") return updateDayWhenYearMonthChanges(-1, 0);
-    if (type === "month") return updateDayWhenYearMonthChanges(0, -1);
-  };
-
-  const increaseSetValue = {
-    year: () => setValue((prev) => +prev + 1),
-    month: () => setValue((prev) => (+prev >= 12 ? 1 : +prev + 1)),
-    day: () => setValue((prev) => (+prev >= lastDay(0, 0) ? 1 : +prev + 1)),
-  };
-  const decreaseSetValue = {
-    year: () =>
-      setValue((prev) =>
-        +prev <= new Date().getFullYear() ? prev : +prev - 1,
-      ),
-    month: () => setValue((prev) => (+prev <= 1 ? 12 : +prev - 1)),
-    day: () => setValue((prev) => (+prev <= 1 ? +lastDay(0, 0) : +prev - 1)),
+    setDateValue((prev) => (+prev <= 1 ? +lastDay(0, 0) : +prev - 1));
   };
 
   // onChange
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     const onlyNumberValue = inputValue.replace(/[^\d]/g, "");
-    let truncatedValue = onlyNumberValue.substring(0, 4);
-
-    if (type === "year") return setValue(truncatedValue);
-
-    truncatedValue = onlyNumberValue.substring(0, 2);
+    const truncatedValue = onlyNumberValue.substring(0, 2);
     setfilteredinputValue(truncatedValue);
   };
 
   const setfilteredinputValue = (truncatedValue: string) => {
-    if (type === "month" && (+truncatedValue > 12 || +truncatedValue < 0))
-      return;
-    if (
-      type === "day" &&
-      (+truncatedValue > lastDay(0, 0) || +truncatedValue < 0)
-    )
-      return;
-    setValue(truncatedValue + "");
+    if (+truncatedValue > lastDay(0, 0) || +truncatedValue < 0) return;
+    setDateValue(truncatedValue + "");
   };
 
   // onBlur
   const handleBlur = () => {
     setDefaultIfEmpty();
     addZeroIfLengthOne();
-    updateDayWhenYearMonthChanges(0, 0);
   };
-  const { setDefaultIfEmpty, addZeroIfLengthOne } = useValueFormatter(
-    type,
-    value + "",
-    setValue,
-  );
 
-  const updateDayWhenYearMonthChanges = (
-    yearOffset: 0 | -1 | 1,
-    monthOffset: 0 | -1 | 1,
-  ) => {
-    if (
-      (type === "month" || type === "year") &&
-      dateValue &&
-      +dateValue > lastDay(yearOffset, monthOffset)
-    )
-      return setDate && setDate(lastDay(yearOffset, monthOffset) + "");
+  const setDefaultIfEmpty = () => {
+    if (dateValue === "") setDateValue(initialDate);
+  };
+  const addZeroIfLengthOne = () => {
+    if (String(dateValue).length === 1) setDateValue(`0${dateValue}`);
   };
 
   const lastDay = (yearOffset: 0 | -1 | 1, monthOffset: 0 | -1 | 1) => {
@@ -93,7 +69,13 @@ const useDayController = (
     ).getDate();
   };
 
-  return { handleIncrease, handleDecrease, handleInputChange, handleBlur };
+  return {
+    dateValue,
+    handleIncrease,
+    handleDecrease,
+    handleInputChange,
+    handleBlur,
+  };
 };
 
 export default useDayController;

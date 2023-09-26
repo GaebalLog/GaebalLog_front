@@ -19,8 +19,6 @@ const styles = {
   settingModalWrapper: `flex flex-col w-[445px] px-5 py-[30px] gap-[30px] ${BG_COLOR.primary} ${BORDER_COLOR.button}`,
 };
 
-const yearMonthDayInputs = ["year", "month", "days"];
-
 const TimeSetting: React.FC = () => {
   const { modal, openModal, closeModal } = useModalController();
 
@@ -76,7 +74,7 @@ const TimeSetting: React.FC = () => {
               <div className="flex gap-4">
                 <YearInput time="start" />
                 <MonthInput time="start" />
-                {/* <DayInput testId="start" /> */}
+                <DayInput time="start" />
                 <div
                   data-testid="calendar"
                   className={`relative flex justify-center items-center w-[45px] h-[45px] ${BORDER_COLOR.button} cursor-pointer`}
@@ -104,7 +102,7 @@ const TimeSetting: React.FC = () => {
               <div className="flex gap-4">
                 <YearInput time="end" />
                 <MonthInput time="end" />
-                {/* <DayInput time="end" /> */}
+                <DayInput time="end" />
               </div>
             </div>
           </div>
