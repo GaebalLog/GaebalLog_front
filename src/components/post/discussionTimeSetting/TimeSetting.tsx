@@ -8,11 +8,11 @@ import NonPortalModal from "../../modal/NonPortalModal";
 
 import Calendar from "./calendar/Calendar";
 import HalfDayInput from "./inputs/HalfDayInput";
-// import YearMonthDayInput from "./inputs/YearInput";
 import HourInput from "./inputs/HourInput";
-// import YearInput from "./inputs/YearInput";
-// import MonthInput from "./inputs/MonthInput";
-// import DayInput from "./inputs/DayInput";
+import YearInput from "./inputs/YearInput";
+import MonthInput from "./inputs/MonthInput";
+import DayInput from "./inputs/DayInput";
+import MinutesInput from "./inputs/MinutesInput";
 
 const styles = {
   settingOpenButton: `flex items-center gap-[11px] py-[9px] px-[19px] border ${BORDER_COLOR.button}`,
@@ -54,7 +54,7 @@ const TimeSetting: React.FC = () => {
               <div className="flex gap-4">
                 <HalfDayInput time="start" />
                 <HourInput time="start" />
-                {/* <MinutesInput time="start" /> */}
+                <MinutesInput time="start" />
               </div>
             </div>
             <div>
@@ -65,7 +65,7 @@ const TimeSetting: React.FC = () => {
               <div className="flex gap-4">
                 <HalfDayInput time="end" />
                 <HourInput time="end" />
-                {/* <MinutesInput time="end" /> */}
+                <MinutesInput time="end" />
               </div>
             </div>
             <div>

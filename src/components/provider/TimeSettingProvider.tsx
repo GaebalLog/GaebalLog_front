@@ -22,16 +22,20 @@ export interface TimeContextType {
   setStartHourValue: (
     value: ((prev: string | number) => string | number) | string | number,
   ) => void;
-  startMinutesValue: string;
-  setStartMinutesValue: (value: ((prev: string) => string) | string) => void;
+  startMinutesValue: string | number;
+  setStartMinutesValue: (
+    value: ((prev: string | number) => string | number) | string | number,
+  ) => void;
   endHalfDayValue: string;
   setEndHalfDayValue: (value: ((prev: string) => string) | string) => void;
   endHourValue: string | number;
   setEndHourValue: (
     value: ((prev: string | number) => string | number) | string | number,
   ) => void;
-  endMinutesValue: string;
-  setEndMinutesValue: (value: ((prev: string) => string) | string) => void;
+  endMinutesValue: string | number;
+  setEndMinutesValue: (
+    value: ((prev: string | number) => string | number) | string | number,
+  ) => void;
   startYearValue: string;
   setStartYearValue: (value: string) => void;
   startMonthValue: string;
@@ -95,9 +99,9 @@ const TimeSettingProvider: React.FC<props> = ({
   const [startHourValue, setStartHourValue] = React.useState<string | number>(
     calculatedStartHour,
   );
-  const [startMinutesValue, setStartMinutesValue] = React.useState(
-    parsedStartTime.getMinutes() + "",
-  );
+  const [startMinutesValue, setStartMinutesValue] = React.useState<
+    string | number
+  >(parsedStartTime.getMinutes());
 
   const [endHalfDayValue, setEndHalfDayValue] = React.useState(
     parsedEndTime.getHours() < 12 ? "오전" : "오후",
@@ -105,8 +109,8 @@ const TimeSettingProvider: React.FC<props> = ({
   const [endHourValue, setEndHourValue] = React.useState<string | number>(
     calculatedEndHour,
   );
-  const [endMinutesValue, setEndMinutesValue] = React.useState(
-    parsedEndTime.getMinutes() + "",
+  const [endMinutesValue, setEndMinutesValue] = React.useState<string | number>(
+    parsedEndTime.getMinutes(),
   );
 
   const [startYearValue, setStartYearValue] = React.useState(

@@ -1,7 +1,6 @@
 import React from "react";
 
 import { TimeContext } from "@/components/provider/TimeSettingProvider";
-import TimeSettingManager from "@/utils/util-timeSettingManager";
 
 const useHourController = (time: "start" | "end") => {
   const { startHourValue, setStartHourValue, endHourValue, setEndHourValue } =
@@ -44,12 +43,11 @@ const useHourController = (time: "start" | "end") => {
   };
 
   const setDefaultIfEmpty = () => {
-    const { calculatedStartHour, calculatedEndHour } = new TimeSettingManager();
     if (isStart && startHourValue === "") {
-      return setStartHourValue(calculatedStartHour);
+      return setStartHourValue("12");
     }
     if (isEnd && endHourValue === "") {
-      return setEndHourValue(calculatedEndHour);
+      return setEndHourValue("12");
     }
   };
   const addZeroIfLengthOne = () => {
