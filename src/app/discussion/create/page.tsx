@@ -49,8 +49,8 @@ const Postpage: React.ComponentType = withAuth(() => {
     capacity: 1,
   });
   const [timeSetting, setTimeSetting] = React.useState({
-    startDate: "",
-    endDate: "",
+    startTime: "",
+    endTime: "",
   });
 
   const router = useRouter();

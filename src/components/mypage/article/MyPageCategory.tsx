@@ -10,7 +10,7 @@ import LiveSearchInput from "@/components/commonUI/LiveSearchInput";
 import mypageLiveSearchData from "@/utils/util-mypageLiveSearchData";
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 
-import TimeOfLearning from "../TimeOfLearning";
+import TimeOfLearning from "../elements/TimeOfLearning";
 
 const MyPageCategory = () => {
   const [participatedList, setParticipatedList] = React.useState<

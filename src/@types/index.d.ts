@@ -165,6 +165,12 @@ declare global {
     chatAlert: boolean;
     setNeighborPrivate: boolean;
   }
+
+  interface selectedDates {
+    year: number;
+    month: number;
+    date: number;
+  }
 }
 
 declare module "ckeditor5-custom-build/build/ckeditor" {

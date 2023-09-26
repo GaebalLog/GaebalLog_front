@@ -4,7 +4,7 @@ import useIcon from "@/hooks/useIcon";
 import useModalController from "@/hooks/useModalController";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import useInput from "@/hooks/useInput";
-import DateConvertor from "@/utils/util-dateConvertor";
+// import DateConvertor from "@/utils/util-dateConvertor";
 
 import NonPortalModal from "../../modal/NonPortalModal";
 
@@ -20,7 +20,7 @@ const styles = {
 
 interface timeSettingProps {
   setTimeSetting: React.Dispatch<
-    React.SetStateAction<{ startDate: string; endDate: string }>
+    React.SetStateAction<{ startTime: string; endTime: string }>
   >;
 }
 
@@ -38,6 +38,7 @@ interface yearMonthDayInputs {
 
 const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
   const { modal, openModal, closeModal } = useModalController();
+
   const { getIcon } = useIcon();
   const downArrow = getIcon("downBtn", 10, 10);
   const calendar = getIcon("calendar", 24, 24);
@@ -49,51 +50,70 @@ const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
   const endHalfDay = useInput("오전");
   const endHour = useInput(12);
   const endMinutes = useInput(0);
-  const year = useInput(new Date().getFullYear());
-  const month = useInput(new Date().getMonth() + 1);
-  const date = useInput(new Date().getDate());
+  const startYear = useInput(new Date().getFullYear());
+  const startMonth = useInput(new Date().getMonth() + 1);
+  const startDate = useInput(new Date().getDate());
+  const endYear = useInput(new Date().getFullYear());
+  const endMonth = useInput(new Date().getMonth() + 1);
+  const endDate = useInput(new Date().getDate());
 
-  const yearMonthDayInputs: yearMonthDayInputs[] = [
+  const startYearMonthDayInputs: yearMonthDayInputs[] = [
     {
       type: "year",
-      valueProps: year,
+      valueProps: startYear,
     },
     {
       type: "month",
-      valueProps: month,
+      valueProps: startMonth,
     },
     {
       type: "days",
-      valueProps: date,
+      valueProps: startDate,
+    },
+  ];
+  const endYearMonthDayInputs: yearMonthDayInputs[] = [
+    {
+      type: "year",
+      valueProps: endYear,
+    },
+    {
+      type: "month",
+      valueProps: endMonth,
+    },
+    {
+      type: "days",
+      valueProps: endDate,
     },
   ];
 
-  const startDate = DateConvertor.separatedValues(
-    +year.value,
-    +month.value,
-    +date.value,
-    startHalfDay.value + "",
-    +startHour.value,
-    +startMinutes.value,
-  );
-  const endDate = DateConvertor.separatedValues(
-    +year.value,
-    +month.value,
-    +date.value,
-    endHalfDay.value + "",
-    +endHour.value,
-    +endMinutes.value,
-  );
+  // const startTime = DateConvertor.separatedValues(
+  //   +startYear.value,
+  //   +startMonth.value,
+  //   +startDate.value,
+  //   startHalfDay.value + "",
+  //   +startHour.value,
+  //   +startMinutes.value,
+  // );
+  // const endTime = DateConvertor.separatedValues(
+  //   +startYear.value,
+  //   +startMonth.value,
+  //   +startDate.value,
+  //   endHalfDay.value + "",
+  //   +endHour.value,
+  //   +endMinutes.value,
+  // );
 
   React.useEffect(() => {
     setTimeSetting({
-      startDate: startDate.convertToISOString(),
-      endDate: endDate.convertToISOString(),
+      startTime: "",
+      endTime: "",
+      // startTime: startTime.convertToISOString(),
+      // endTime: endTime.convertToISOString(),
     });
   }, [
-    year.value,
-    month.value,
-    date.value,
+    startYear.value,
+    startMonth.value,
+    startDate.value,
     startHalfDay.value,
     startHour.value,
     startMinutes.value,
@@ -143,18 +163,19 @@ const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
             </div>
             <div>
               <p className="mb-5">
-                <span className="text-xl">기간</span>
+                <span className="text-xl">시작 기간</span>
                 (시작 기간을 설정하여 예약할 수 있습니다.)
               </p>
               <div className="flex gap-4">
-                {yearMonthDayInputs.map((input, i) => (
+                {startYearMonthDayInputs.map((input, i) => (
                   <div key={i}>
                     <YearMonthDayInput
+                      testId="start"
                       type={input.type}
-                      yearValue={year.value}
-                      monthValue={month.value}
-                      dateValue={date.value}
-                      setDate={date.setValue}
+                      yearValue={startYear.value}
+                      monthValue={startMonth.value}
+                      dateValue={startDate.value}
+                      setDate={startDate.setValue}
                       {...input.valueProps}
                     />
                   </div>
@@ -172,17 +193,44 @@ const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
                         onBackdropClick={() => closeModal("calendarModal")}
                       >
                         <Calendar
-                          yearValue={+year.value}
-                          monthValue={+month.value}
-                          dateValue={+date.value}
-                          setYearValue={year.setValue}
-                          setMonthValue={month.setValue}
-                          setDateValue={date.setValue}
+                          startYearValue={+startYear.value}
+                          startMonthValue={+startMonth.value}
+                          startDateValue={+startDate.value}
+                          endYearValue={+endYear.value}
+                          endMonthValue={+endMonth.value}
+                          endDateValue={+endDate.value}
+                          setStartYearValue={startYear.setValue}
+                          setStartMonthValue={startMonth.setValue}
+                          setStartDateValue={startDate.setValue}
+                          setEndYearValue={endYear.setValue}
+                          setEndMonthValue={endMonth.setValue}
+                          setEndDateValue={endDate.setValue}
                         />
                       </NonPortalModal>
                     </div>
                   )}
                 </div>
+              </div>
+            </div>
+            <div>
+              <p className="mb-5">
+                <span className="text-xl">종료 기간</span>
+                (시작 기간을 설정하여 예약할 수 있습니다.)
+              </p>
+              <div className="flex gap-4">
+                {endYearMonthDayInputs.map((input, i) => (
+                  <div key={i}>
+                    <YearMonthDayInput
+                      testId="end"
+                      type={input.type}
+                      yearValue={endYear.value}
+                      monthValue={endMonth.value}
+                      dateValue={endDate.value}
+                      setDate={endDate.setValue}
+                      {...input.valueProps}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>

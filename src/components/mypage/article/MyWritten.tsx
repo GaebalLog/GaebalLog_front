@@ -3,8 +3,8 @@ import React from "react";
 import SortBar from "@/components/commonUI/SortBar";
 import useGetMyWritten from "@/hooks/mypageAPI/useGetMyWritten";
 
-import MyPost from "../MyPost";
-import DropDown from "../DropDown";
+import DropDown from "../elements/DropDown";
+import MyPost from "../elements/MyPost";
 
 type myWrttenType =
   | "내가 북마크한 글"

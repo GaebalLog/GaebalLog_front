@@ -123,7 +123,7 @@ describe("로컬 회원가입 테스트", () => {
     await userEvent.click(checkboxInput);
     await userEvent.click(createAccountButton);
     await waitFor(() => {
-      expect(mockNavigation).toHaveBeenCalledWith("/home");
+      expect(mockNavigation).toHaveBeenCalledWith("/auth/callback/local");
     });
   });
 });

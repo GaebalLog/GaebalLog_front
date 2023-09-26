@@ -152,9 +152,9 @@ test("MyDiscussion 렌더링 및 경로 이동 테스트", async () => {
   await userEvent.click(await screen.findByText("참여 중인 토의"));
   expect(await screen.findByText("내가 쓴 토의1")).toBeInTheDocument();
   await userEvent.click(await screen.findByText("내가 쓴 토의"));
-  await userEvent.click(await screen.findByText("상대방이 쓴 토의"));
-  expect(await screen.findByText("상대방이 쓴 토의1")).toBeInTheDocument();
+  await userEvent.click(await screen.findByText("이웃이 쓴 토의"));
+  expect(await screen.findByText("이웃이 쓴 토의1")).toBeInTheDocument();
   expect(screen.queryByText("내가 쓴 토의1")).not.toBeInTheDocument();
-  await userEvent.click(await screen.findByText("상대방이 쓴 토의1"));
+  await userEvent.click(await screen.findByText("이웃이 쓴 토의1"));
   expect(mockNavigation).toHaveBeenCalledWith("/discussion/1");
 });

@@ -9,13 +9,13 @@ const query = {
     type: "me",
     fn: () => mypageApi.getMyDiscussions(),
   },
-  "상대방이 쓴 토의": {
+  "이웃이 쓴 토의": {
     type: "neighbor",
     fn: () => mypageApi.getNeighborDiscussions(),
   },
 };
 
-const useGetMydiscussions = (type: "내가 쓴 토의" | "상대방이 쓴 토의") => {
+const useGetMydiscussions = (type: "내가 쓴 토의" | "이웃이 쓴 토의") => {
   return useQuery({
     queryKey: [QUERY_KEYS.MYDISCUSSION, type],
     queryFn: () => axios.get(`/api/mypage/mydiscussion/${query[type].type}`),

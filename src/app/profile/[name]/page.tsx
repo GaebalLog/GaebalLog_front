@@ -7,27 +7,34 @@ import UserTech from "@/components/profile/article/UserTech";
 import UserDiscussion from "@/components/profile/article/UserDiscussion";
 import UserKeyword from "@/components/profile/article/UserKeyword";
 
+export interface profileParams {
+  params: {
+    name: string;
+  };
+}
+
 const boxOption = `${BG_COLOR.general02} ${TEXT_COLOR.primary}`;
 
 const profileeTab = ["Tech", "Discussion", "keyword"] as const;
-const ProfilePage = () => {
+const ProfilePage: React.FC<profileParams> = ({ params: { name } }) => {
   const [tab, setTab] = React.useState<(typeof profileeTab)[number]>("Tech");
   const renderPage = () => {
     switch (tab) {
       case "Tech":
-        return <UserTech />;
+        return <UserTech params={name} />;
       case "Discussion":
-        return <UserDiscussion />;
+        return <UserDiscussion params={name} />;
       case "keyword":
-        return <UserKeyword />;
+        return <UserKeyword params={name} />;
     }
   };
+
   const render = renderPage();
   return (
-    <div className="w-[1356px] flex flex-col mt-[20px]">
-      <div className="flex p-[10px]">
+    <div className="w-[1356px] flex flex-col py-[16px]">
+      <div className="flex">
         {profileeTab.map((item) => (
-          <div key={`${item}tab`} className="px-[40px] pb-[16px]">
+          <div key={`${item}tab`} className="px-[40px] pb-[20px]">
             <Button
               size="subTab"
               color={tab === item ? "checkTab" : "cancelButton"}
