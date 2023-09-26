@@ -81,7 +81,7 @@ describe("홈 화면 테스트", () => {
 
   test("글 리스트 클릭시 페이지 이동", async () => {
     renderHome.loggedOut();
-    const articleList = await screen.findByTestId("post30");
+    const articleList = await screen.findByTestId("tech30");
     await userEvent.click(articleList);
     expect(mockNavigation).toHaveBeenCalledWith("/tech/30");
   });
