@@ -20,7 +20,7 @@ const styles = {
 
 interface timeSettingProps {
   setTimeSetting: React.Dispatch<
-    React.SetStateAction<{ startTime: string; endTime: string }>
+    React.SetStateAction<{ startDate: string; endDate: string }>
   >;
 }
 
@@ -105,8 +105,8 @@ const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
 
   React.useEffect(() => {
     setTimeSetting({
-      startTime: "",
-      endTime: "",
+      startDate: "",
+      endDate: "",
       // startTime: startTime.convertToISOString(),
       // endTime: endTime.convertToISOString(),
     });

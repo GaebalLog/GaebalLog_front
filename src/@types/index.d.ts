@@ -39,10 +39,11 @@ declare global {
   }
   interface detailDisccussion extends discussion {
     content: string;
+    image: string[];
     isAuthor: boolean;
-    startTime: string;
-    endTime: string;
-    elapsedTime: string;
+    startDate: string;
+    endDate: string;
+    elapsedDate: string;
   }
   interface chatroom {
     data: {

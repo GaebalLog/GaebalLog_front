@@ -39,7 +39,7 @@ const RoomContents = () => {
   const { getIcon } = useIcon();
   const like = getIcon("like", 18, 18);
   const more = getIcon("more", 5, 5);
-  const dateConvertor = new DateConvertor(data?.data.endTime);
+  const dateConvertor = new DateConvertor(data?.data.endDate);
 
   const moreOptionModalHandler = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -69,7 +69,11 @@ const RoomContents = () => {
           <h1 className={styles.header.title}>{data?.data.title}</h1>
         </div>
         <div onClick={(e) => e.stopPropagation()} className="relative">
-          <button className="px-4" onClick={moreOptionModalHandler}>
+          <button
+            className="px-4"
+            onClick={moreOptionModalHandler}
+            data-testid="moreBtn"
+          >
             {more}
           </button>
         </div>
@@ -91,7 +95,7 @@ const RoomContents = () => {
           <div>
             <div className={styles.roomInfoBox.timeInfo}>
               <strong className={`mr-4`}>나의 참가시간</strong>
-              <span>{data?.data.elapsedTime}</span>
+              <span>{data?.data.elapsedDate}</span>
             </div>
             <div className={styles.roomInfoBox.timeInfo}>
               <strong className={`mr-4`}>토의 종료 예정시간</strong>

@@ -56,8 +56,8 @@ const useModalController = () => {
     }
     setActivatedId(null);
   };
-  const openModal = (type: ModalType) => {
-    allCloseModal();
+  const openModal = (type: ModalType, all?: boolean) => {
+    if (all) allCloseModal();
     modalControl((prev) => ({
       ...prev,
       [type]: true,
