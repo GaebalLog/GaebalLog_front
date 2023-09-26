@@ -38,4 +38,7 @@ export const discussionAPI = {
   verify: (discussionId: number) => {
     return instance.get(`/discussions/${discussionId}/verification`);
   },
+  leftMyDiscussion: (discussionId: number) => {
+    return instance.delete(`/discussions/${discussionId}/participation`);
+  },
 };

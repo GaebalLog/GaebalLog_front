@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
 
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
@@ -11,7 +10,6 @@ import DateConvertor from "@/utils/util-dateConvertor";
 
 import LoadingSpinner from "../LoadingSpinner";
 import Modal from "../modal/Modal";
-import ConfirmModal from "../modal/common/ConfirmModal";
 import AuthorContentBtn from "../discussion/box/AuthorContentBtn";
 import LikeDiscussionBtn from "../discussion/btn/LikeDiscussionBtn";
 import ParticipantsBtn from "../discussion/btn/ParticipantsBtn";
@@ -34,7 +32,6 @@ const styles = {
 
 const RoomContents = () => {
   const [topLeft, setTopLeft] = React.useState({ top: "0px", left: "0px" });
-  const router = useRouter();
   const { modal, toggleModal } = useModalController();
   const { data, isLoading } = useGetDetailDiscussion();
   const { getIcon } = useIcon();
@@ -118,14 +115,6 @@ const RoomContents = () => {
           dangerouslySetInnerHTML={{ __html: data?.data.content ?? "" }}
         />
       </div>
-      {modal.discussionExit && (
-        <ConfirmModal
-          title="이 토의에 대한 알림을 받으시겠습니까?"
-          content="토의의 끝나는 내용을 공유 받으실 수 있습니다."
-          onNegativeClick={() => router.back()}
-          onPositiveClick={() => router.back()}
-        />
-      )}
       {modal.discussionMore && (
         <Modal positionOption={topLeft} nonBackdrop>
           <div className={`flex flex-col ${BORDER_COLOR.button}`}>
