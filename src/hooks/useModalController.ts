@@ -50,7 +50,14 @@ type ModalType = keyof Atom;
 const useModalController = () => {
   const [modal, modalControl] = useRecoilState(modalControlAtom);
   const setActivatedId = useSetRecoilState(activatedModalIdAtom);
-  const openModal = (type: ModalType) => {
+  const allCloseModal = () => {
+    for (const key in modal) {
+      closeModal(key as ModalType);
+    }
+    setActivatedId(null);
+  };
+  const openModal = (type: ModalType, all?: boolean) => {
+    if (all) allCloseModal();
     modalControl((prev) => ({
       ...prev,
       [type]: true,
@@ -70,12 +77,6 @@ const useModalController = () => {
         [type]: !value,
       };
     });
-  };
-  const allCloseModal = () => {
-    for (const key in modal) {
-      closeModal(key as ModalType);
-    }
-    setActivatedId(null);
   };
   return { modal, openModal, closeModal, toggleModal, allCloseModal };
 };

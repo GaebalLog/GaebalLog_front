@@ -8,12 +8,12 @@ import Button from "@/components/designSystem/Button";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import AddTagInput from "@/components/post/AddTagInput";
 import withAuth from "@/components/provider/withAuth";
-import type { postDataType } from "@/api/postAPI";
-import { postAPI } from "@/api/postAPI";
 import { utilExtractImages } from "@/utils/util-extractImage";
 import { utilReplaceImg } from "@/utils/util-replaceImg";
 import ThumbnailSelector from "@/components/post/ThumbnailSelector";
 import useModalController from "@/hooks/useModalController";
+import FinishedCreate from "@/components/discussion/btn/FinishedCreate";
+import { discussionAPI, type discussionDataType } from "@/api/discussionAPI";
 const PostEditor = dynamic(() => import("@/components/post/PostEditor"), {
   ssr: false,
 });
@@ -40,16 +40,17 @@ const styles = {
 
 const Postpage: React.ComponentType = withAuth(() => {
   const [article, setArticle] = React.useState<string>("");
-  const [data, setData] = React.useState<postDataType>({
+  const [data, setData] = React.useState<discussionDataType>({
     title: "",
     content: "",
-    img: [],
+    image: [],
     thumbnail: null,
-    categories: [],
+    category: [],
+    capacity: 1,
   });
   const [timeSetting, setTimeSetting] = React.useState({
-    startTime: "",
-    endTime: "",
+    startDate: "",
+    endDate: "",
   });
 
   const router = useRouter();
@@ -57,21 +58,20 @@ const Postpage: React.ComponentType = withAuth(() => {
 
   React.useEffect(() => {
     setData((prev) => ({ ...prev, content: utilReplaceImg(article) }));
-    setData((prev) => ({ ...prev, img: utilExtractImages(article) }));
+    setData((prev) => ({ ...prev, image: utilExtractImages(article) }));
   }, [article]);
 
   const handleSubmit = async () => {
     const feedData = data.thumbnail
-      ? data
-      : { ...data, thumbnail: data.img[0] };
-    const result = await postAPI.create(feedData);
+      ? { ...timeSetting, ...data }
+      : { ...timeSetting, ...data, thumbnail: data.image[0] };
+    const result = await discussionAPI.create(feedData);
     if (result.status === 201) {
-      router.push(`/tech/${result.data.id}`);
+      router.push(`/discussion/${result.data.discussionId}`);
       return alert("성공적으로 작성되었습니다.");
     }
-    console.log(timeSetting);
   };
-  const confirmThumbnail = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const confirmThumbnail = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     return openModal("thumbnailSelectModal");
   };
@@ -85,8 +85,8 @@ const Postpage: React.ComponentType = withAuth(() => {
     setArticle(origin);
   };
 
-  const categoryHandler = (categories: string[]) => {
-    setData((prev) => ({ ...prev, categories }));
+  const categoryHandler = (category: string[]) => {
+    setData((prev) => ({ ...prev, category }));
   };
 
   const setThumbnail = (thumbnail: string) => {
@@ -107,29 +107,21 @@ const Postpage: React.ComponentType = withAuth(() => {
         </div>
         <PostEditor content={article} editHandler={contentHandler} />
         <ThumbnailSelector
-          img={data.img}
+          img={data.image}
           thumbnail={data.thumbnail}
           setThumbnail={setThumbnail}
           handleSubmit={handleSubmit}
         />
         <div className={styles.bottomBox.wrapper}>
           <AddTagInput
-            categories={data.categories}
+            categories={data.category}
             setCategories={categoryHandler}
           />
           <div className={styles.bottomBox.buttonDiv}>
             <Button className="px-12" size="bigLogin" color="lightGrey">
               임시 저장
             </Button>
-            <Button
-              type="submit"
-              className="px-12"
-              size="bigLogin"
-              color="black"
-              onClick={confirmThumbnail}
-            >
-              작성 완료
-            </Button>
+            <FinishedCreate onClick={confirmThumbnail} />
           </div>
         </div>
       </div>

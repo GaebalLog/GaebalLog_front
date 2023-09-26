@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
@@ -10,10 +8,11 @@ import useModalController from "@/hooks/useModalController";
 import useGetDetailDiscussion from "@/hooks/discussionAPI/useGetDetailDiscussion";
 import DateConvertor from "@/utils/util-dateConvertor";
 
-import Button from "../designSystem/Button";
 import LoadingSpinner from "../LoadingSpinner";
 import Modal from "../modal/Modal";
-import ConfirmModal from "../modal/common/ConfirmModal";
+import AuthorContentBtn from "../discussion/box/AuthorContentBtn";
+import LikeDiscussionBtn from "../discussion/btn/LikeDiscussionBtn";
+import ParticipantsBtn from "../discussion/btn/ParticipantsBtn";
 
 const styles = {
   container: `relative overflow-y-auto w-[68.75rem] h-[62%] p-4 ${BG_COLOR.primary} ${BORDER_COLOR.button}`,
@@ -33,13 +32,11 @@ const styles = {
 
 const RoomContents = () => {
   const [topLeft, setTopLeft] = React.useState({ top: "0px", left: "0px" });
-  const router = useRouter();
-  const { modal, openModal, toggleModal, allCloseModal } = useModalController();
+  const { modal, toggleModal } = useModalController();
   const { data, isLoading } = useGetDetailDiscussion();
   const { getIcon } = useIcon();
-  const like = getIcon("like", 18, 18);
   const more = getIcon("more", 5, 5);
-  const dateConvertor = new DateConvertor(data?.data.endTime);
+  const dateConvertor = new DateConvertor(data?.data.endDate);
 
   const moreOptionModalHandler = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -50,11 +47,6 @@ const RoomContents = () => {
       left: `${rect.left + 17}px`,
     });
     toggleModal("discussionMore");
-  };
-
-  const discussionExitHandler = () => {
-    allCloseModal();
-    openModal("discussionExit");
   };
 
   if (isLoading)
@@ -74,7 +66,11 @@ const RoomContents = () => {
           <h1 className={styles.header.title}>{data?.data.title}</h1>
         </div>
         <div onClick={(e) => e.stopPropagation()} className="relative">
-          <button className="px-4" onClick={moreOptionModalHandler}>
+          <button
+            className="px-4"
+            onClick={moreOptionModalHandler}
+            data-testid="moreBtn"
+          >
             {more}
           </button>
         </div>
@@ -87,16 +83,17 @@ const RoomContents = () => {
           />
         </div>
         <aside className={styles.roomInfoBox.aside}>
-          <div>
-            <Button size="withIcon" color="white" border rounded>
-              <div>{like}</div>
-              <span>{data?.data.like}</span>
-            </Button>
+          <div className="flex gap-[20px] bottom-2 right-3">
+            <LikeDiscussionBtn
+              like={data?.data.like as number}
+              liked={data?.data.liked as boolean}
+            />
+            <ParticipantsBtn count={data?.data.participants as number} />
           </div>
           <div>
             <div className={styles.roomInfoBox.timeInfo}>
               <strong className={`mr-4`}>나의 참가시간</strong>
-              <span>{data?.data.elapsedTime}</span>
+              <span>{data?.data.elapsedDate}</span>
             </div>
             <div className={styles.roomInfoBox.timeInfo}>
               <strong className={`mr-4`}>토의 종료 예정시간</strong>
@@ -118,40 +115,10 @@ const RoomContents = () => {
           dangerouslySetInnerHTML={{ __html: data?.data.content ?? "" }}
         />
       </div>
-      {modal.discussionExit && (
-        <ConfirmModal
-          title="이 토의에 대한 알림을 받으시겠습니까?"
-          content="토의의 끝나는 내용을 공유 받으실 수 있습니다."
-          onNegativeClick={() => router.back()}
-          onPositiveClick={() => router.back()}
-        />
-      )}
       {modal.discussionMore && (
         <Modal positionOption={topLeft} nonBackdrop>
           <div className={`flex flex-col ${BORDER_COLOR.button}`}>
-            {data?.data.isAuthor && (
-              <Link
-                className="text-center"
-                href={"/discussion/create"}
-                onClick={() => allCloseModal()}
-              >
-                <Button
-                  className={`w-full py-4 px-[30px]`}
-                  size="tab"
-                  color="white"
-                >
-                  수정하기
-                </Button>
-              </Link>
-            )}
-            <Button
-              className={`py-4 px-[30px]`}
-              size="tab"
-              color="white"
-              onClick={discussionExitHandler}
-            >
-              토의 나가기
-            </Button>
+            <AuthorContentBtn isAuthor={data?.data.isAuthor as boolean} />
           </div>
         </Modal>
       )}

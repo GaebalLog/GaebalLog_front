@@ -1,6 +1,6 @@
 import React from "react";
 
-import Contents from "@/components/detail/content/Contents";
+import Contents from "@/components/tech/detail/content/Contents";
 import Button from "@/components/designSystem/Button";
 import DeleteConfirm from "@/components/modal/common/DeleteConfirm";
 import { utilDecodeImg } from "@/utils/util-decodeImg";
