@@ -6,6 +6,8 @@ import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import useInput from "@/hooks/useInput";
 // import DateConvertor from "@/utils/util-dateConvertor";
 
+import { TimeContext } from "@/components/provider/TimeSettingProvider";
+
 import NonPortalModal from "../../modal/NonPortalModal";
 
 import Calendar from "./calendar/Calendar";
@@ -17,12 +19,6 @@ const styles = {
   settingOpenButton: `flex items-center gap-[11px] py-[9px] px-[19px] border ${BORDER_COLOR.button}`,
   settingModalWrapper: `flex flex-col w-[445px] px-5 py-[30px] gap-[30px] ${BG_COLOR.primary} ${BORDER_COLOR.button}`,
 };
-
-interface timeSettingProps {
-  setTimeSetting: React.Dispatch<
-    React.SetStateAction<{ startTime: string; endTime: string }>
-  >;
-}
 
 interface yearMonthDayInputs {
   type: "year" | "month" | "days";
@@ -36,7 +32,7 @@ interface yearMonthDayInputs {
   };
 }
 
-const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
+const TimeSetting: React.FC = () => {
   const { modal, openModal, closeModal } = useModalController();
 
   const { getIcon } = useIcon();
@@ -103,25 +99,6 @@ const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
   //   +endMinutes.value,
   // );
 
-  React.useEffect(() => {
-    setTimeSetting({
-      startTime: "",
-      endTime: "",
-      // startTime: startTime.convertToISOString(),
-      // endTime: endTime.convertToISOString(),
-    });
-  }, [
-    startYear.value,
-    startMonth.value,
-    startDate.value,
-    startHalfDay.value,
-    startHour.value,
-    startMinutes.value,
-    endHalfDay.value,
-    endHour.value,
-    endMinutes.value,
-  ]);
-
   return (
     <div className="relative" onClick={(e) => e.stopPropagation()}>
       <button
@@ -146,8 +123,12 @@ const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
               </p>
               <div className="flex gap-4">
                 <HalfDayInput {...startHalfDay} />
-                <HourMinutesInput type="hour" {...startHour} />
-                <HourMinutesInput type="minutes" {...startMinutes} />
+                <HourMinutesInput time="start" type="hour" {...startHour} />
+                <HourMinutesInput
+                  time="start"
+                  type="minutes"
+                  {...startMinutes}
+                />
               </div>
             </div>
             <div>
@@ -157,8 +138,8 @@ const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
               </p>
               <div className="flex gap-4">
                 <HalfDayInput {...endHalfDay} />
-                <HourMinutesInput type="hour" {...endHour} />
-                <HourMinutesInput type="minutes" {...endMinutes} />
+                <HourMinutesInput time="end" type="hour" {...endHour} />
+                <HourMinutesInput time="end" type="minutes" {...endMinutes} />
               </div>
             </div>
             <div>
@@ -192,20 +173,7 @@ const TimeSetting: React.FC<timeSettingProps> = ({ setTimeSetting }) => {
                         topLeft={{ top: 43, left: -130 }}
                         onBackdropClick={() => closeModal("calendarModal")}
                       >
-                        <Calendar
-                          startYearValue={+startYear.value}
-                          startMonthValue={+startMonth.value}
-                          startDateValue={+startDate.value}
-                          endYearValue={+endYear.value}
-                          endMonthValue={+endMonth.value}
-                          endDateValue={+endDate.value}
-                          setStartYearValue={startYear.setValue}
-                          setStartMonthValue={startMonth.setValue}
-                          setStartDateValue={startDate.setValue}
-                          setEndYearValue={endYear.setValue}
-                          setEndMonthValue={endMonth.setValue}
-                          setEndDateValue={endDate.setValue}
-                        />
+                        <Calendar />
                       </NonPortalModal>
                     </div>
                   )}

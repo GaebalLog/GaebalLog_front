@@ -3,6 +3,7 @@ import type React from "react";
 import useValueFormatter from "./useValueFormatter";
 
 const useHourMinuteController = (
+  time: "start" | "end",
   type: "hour" | "minutes",
   value: string | number,
   setValue: React.Dispatch<React.SetStateAction<string | number>>,
@@ -14,6 +15,7 @@ const useHourMinuteController = (
 
   const handleDecrease = () => {
     decreaseSetValue[type]();
+    console.log(new Date().getHours());
   };
 
   const increaseSetValue = {

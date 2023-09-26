@@ -5,14 +5,15 @@ import useHourMinuteController from "@/hooks/TimeSetting/useHourMinuteController
 import DefaultNumberInput from "./DefaultNumberInput";
 
 interface props {
+  time: "start" | "end";
   type: "hour" | "minutes";
   value: string | number;
   setValue: React.Dispatch<React.SetStateAction<string | number>>;
 }
 
-const HourMinutesInput: React.FC<props> = ({ type, value, setValue }) => {
+const HourMinutesInput: React.FC<props> = ({ time, type, value, setValue }) => {
   const { handleIncrease, handleDecrease, handleInputChange, handleBlur } =
-    useHourMinuteController(type, value + "", setValue);
+    useHourMinuteController(time, type, value + "", setValue);
 
   return (
     <DefaultNumberInput

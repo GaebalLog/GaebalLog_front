@@ -3,6 +3,7 @@ import React from "react";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import CalendarManager from "@/utils/util-calendarManager";
 import useCalendarController from "@/hooks/TimeSetting/useCalendarController";
+import { TimeContext } from "@/components/provider/TimeSettingProvider";
 
 const styles = {
   wrapper: `grid grid-cols-7`,
@@ -17,49 +18,34 @@ const styles = {
 interface DayProps {
   selectedYear: number;
   selectedMonth: number;
-  startDate: {
-    startYearValue: number;
-    startMonthValue: number;
-    startDateValue: number;
-    setStartYearValue: React.Dispatch<React.SetStateAction<string | number>>;
-    setStartMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
-    setStartDateValue: React.Dispatch<React.SetStateAction<string | number>>;
-  };
-  endDate: {
-    endYearValue: number;
-    endMonthValue: number;
-    endDateValue: number;
-    setEndYearValue: React.Dispatch<React.SetStateAction<string | number>>;
-    setEndMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
-    setEndDateValue: React.Dispatch<React.SetStateAction<string | number>>;
-  };
 }
 
-const Days: React.FC<DayProps> = ({
-  selectedYear,
-  selectedMonth,
-  startDate,
-  endDate,
-}) => {
-  const { startYearValue, startMonthValue, startDateValue } = startDate;
-  const { endYearValue, endMonthValue, endDateValue } = endDate;
+const Days: React.FC<DayProps> = ({ selectedYear, selectedMonth }) => {
+  const {
+    startYearValue,
+    startMonthValue,
+    startDateValue,
+    endYearValue,
+    endMonthValue,
+    endDateValue,
+  } = React.useContext(TimeContext);
   const [selectedDates, setSelectedDates] = React.useState<selectedDates[]>([
     {
-      year: startYearValue,
-      month: startMonthValue,
-      date: startDateValue,
+      year: +startYearValue,
+      month: +startMonthValue,
+      date: +startDateValue,
     },
     {
-      year: endYearValue,
-      month: endMonthValue,
-      date: endDateValue,
+      year: +endYearValue,
+      month: +endMonthValue,
+      date: +endDateValue,
     },
   ]);
 
   const calendarManager = new CalendarManager(
     selectedYear,
     selectedMonth,
-    endDateValue,
+    +endDateValue,
   );
 
   const { handleDateSelection } = useCalendarController({
@@ -68,8 +54,6 @@ const Days: React.FC<DayProps> = ({
     selectedDates,
     setSelectedDates,
     calendarManager,
-    startDate,
-    endDate,
   });
 
   const returnDays = () => {
