@@ -7,19 +7,16 @@ const useHourController = (time: "start" | "end") => {
     React.useContext(TimeContext);
 
   const isStart = time === "start";
-  const isEnd = time === "end";
+  const hourValue = isStart ? startHourValue : endHourValue;
+  const setHourValue = isStart ? setStartHourValue : setEndHourValue;
 
   // 증감
   const handleIncrease = () => {
-    if (isStart) {
-      return setStartHourValue((prev) => (+prev >= 12 ? 1 : +prev + 1));
-    } else return setEndHourValue((prev) => (+prev >= 12 ? 1 : +prev + 1));
+    setHourValue((prev) => (+prev >= 12 ? 1 : +prev + 1));
   };
 
   const handleDecrease = () => {
-    if (isStart) {
-      return setStartHourValue((prev) => (+prev <= 1 ? 12 : +prev - 1));
-    } else return setEndHourValue((prev) => (+prev <= 1 ? 12 : +prev - 1));
+    setHourValue((prev) => (+prev <= 1 ? 12 : +prev - 1));
   };
 
   // onChange
@@ -32,8 +29,7 @@ const useHourController = (time: "start" | "end") => {
 
   const setfilteredinputValue = (truncatedValue: string) => {
     if (+truncatedValue > 12 || +truncatedValue < 0) return;
-    if (isStart) return setStartHourValue(truncatedValue);
-    else return setEndHourValue(truncatedValue);
+    setHourValue(truncatedValue);
   };
 
   // onBlur
@@ -43,22 +39,19 @@ const useHourController = (time: "start" | "end") => {
   };
 
   const setDefaultIfEmpty = () => {
-    if (isStart && startHourValue === "") {
-      return setStartHourValue("12");
-    }
-    if (isEnd && endHourValue === "") {
-      return setEndHourValue("12");
-    }
+    if (hourValue === "") setHourValue("12");
   };
   const addZeroIfLengthOne = () => {
-    if (isStart && String(startHourValue).length === 1) {
-      return setStartHourValue(`0${startHourValue}`);
-    } else if (isEnd && String(endHourValue).length === 1) {
-      return setEndHourValue(`0${endHourValue}`);
-    }
+    if (String(hourValue).length === 1) setHourValue(`0${hourValue}`);
   };
 
-  return { handleIncrease, handleDecrease, handleInputChange, handleBlur };
+  return {
+    hourValue,
+    handleIncrease,
+    handleDecrease,
+    handleInputChange,
+    handleBlur,
+  };
 };
 
 export default useHourController;

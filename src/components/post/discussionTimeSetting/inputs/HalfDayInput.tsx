@@ -15,18 +15,19 @@ const HalfDayInput: React.FC<props> = ({ time }) => {
     endHalfDayValue,
     setEndHalfDayValue,
   } = React.useContext(TimeContext);
+
+  const isStart = time === "start";
+  const halfDayValue = isStart ? startHalfDayValue : endHalfDayValue;
+  const setHalfDayValue = isStart ? setStartHalfDayValue : setEndHalfDayValue;
+
   const toggleValue = () => {
-    if (time === "start") {
-      setStartHalfDayValue((prev) => (prev === "오전" ? "오후" : "오전"));
-    } else {
-      setEndHalfDayValue((prev) => (prev === "오전" ? "오후" : "오전"));
-    }
+    setHalfDayValue((prev) => (prev === "오전" ? "오후" : "오전"));
   };
 
   return (
     <DefaultNumberInput
       type="halfDay"
-      value={time === "start" ? startHalfDayValue : endHalfDayValue}
+      value={halfDayValue}
       handleIncrease={toggleValue}
       handleDecrease={toggleValue}
     />
