@@ -1,8 +1,8 @@
 import type React from "react";
 import { useState } from "react";
 
-const useInput = (initialState?: string | number) => {
-  const [value, setValue] = useState<string | number>(initialState ?? "");
+const useInput = (initialState?: string) => {
+  const [value, setValue] = useState<string>(initialState ?? "");
 
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,

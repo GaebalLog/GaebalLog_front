@@ -34,9 +34,9 @@ const useSignupSubmit = (
     ) {
       try {
         const { data } = await authAPI.localSignup({
-          email: emailValue + "",
-          password: passwordValue + "",
-          nickname: nicknameValue + "",
+          email: emailValue,
+          password: passwordValue,
+          nickname: nicknameValue,
         });
         setUserInfo(data);
         alert("회원가입 성공!");

@@ -56,7 +56,7 @@ const useLiveSearchController = (
     const selectedResult =
       focusedIndex !== null ? displayedResults[focusedIndex] : value;
     closeModal(type);
-    searchedKeywordClick(selectedResult + "");
+    searchedKeywordClick(selectedResult);
   };
 
   //

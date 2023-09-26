@@ -80,7 +80,7 @@ const LiveSearchInput: React.FC<liveSearchInputProps> = ({
         <Input
           type={type}
           placeholder={placeholder}
-          value={value + ""}
+          value={value}
           onClick={searchedKeywordClick}
           onChange={handleInputChange}
         />

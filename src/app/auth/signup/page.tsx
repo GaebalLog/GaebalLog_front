@@ -30,8 +30,8 @@ const Signuppage = () => {
   const passwordConfirmInput = useInput();
 
   const { isEmailValid, isPasswordValid } = useValidation(
-    emailInput.value + "",
-    passwordInput.value + "",
+    emailInput.value,
+    passwordInput.value,
   );
 
   const {
@@ -42,17 +42,17 @@ const Signuppage = () => {
     setIsNicknameDuplicated,
     emailCheckHandler,
     nicknameCheckHandler,
-  } = useCheckDuplicacy(emailInput.value + "", nicknameInput.value + "");
+  } = useCheckDuplicacy(emailInput.value, nicknameInput.value);
 
   const { handleSignSubmit } = useSignupSubmit(
     isEmailValid,
     isEmailDuplicated,
     isNicknameDuplicated,
     isPasswordValid,
-    emailInput.value + "",
-    nicknameInput.value + "",
-    passwordInput.value + "",
-    passwordConfirmInput.value + "",
+    emailInput.value,
+    nicknameInput.value,
+    passwordInput.value,
+    passwordConfirmInput.value,
     isConfirm,
   );
 
@@ -97,7 +97,7 @@ const Signuppage = () => {
             className="w-[574px]"
             label="Password"
             type="password"
-            value={passwordInput.value + ""}
+            value={passwordInput.value}
             onChange={passwordInput.onChange}
           />
           <ValidationText
@@ -111,7 +111,7 @@ const Signuppage = () => {
             className="w-[574px]"
             label="Confirm Password"
             type="password"
-            value={passwordConfirmInput.value + ""}
+            value={passwordConfirmInput.value}
             onChange={passwordConfirmInput.onChange}
           />
           <ValidationText
