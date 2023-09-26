@@ -15,6 +15,7 @@ import { utilReplaceImg } from "@/utils/util-replaceImg";
 import ThumbnailSelector from "@/components/post/ThumbnailSelector";
 import useModalController from "@/hooks/useModalController";
 import TimeSettingProvider from "@/components/provider/TimeSettingProvider";
+import TimeSettingManager from "@/utils/util-timeSettingManager";
 const PostEditor = dynamic(() => import("@/components/post/PostEditor"), {
   ssr: false,
 });
@@ -49,9 +50,10 @@ const Postpage: React.ComponentType = withAuth(() => {
     categories: [],
   });
 
+  const { currentTime, currentTimePlus15 } = new TimeSettingManager();
   const [timeSetting, setTimeSetting] = React.useState({
-    startTime: new Date().toISOString(),
-    endTime: new Date(new Date().getTime() + 15 * 60 * 1000).toISOString(),
+    startTime: currentTime,
+    endTime: currentTimePlus15,
   });
 
   const router = useRouter();
