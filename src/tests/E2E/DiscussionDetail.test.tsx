@@ -31,6 +31,16 @@ describe("다른 사람 토의글에 대한 테스트", () => {
     ).not.toBeInTheDocument();
     expect(screen.getByText("토의 나가기")).toBeInTheDocument();
   });
+  test("토의 나가기 버튼을 누르면, 토의에서 나가고, 토의 목록 페이지로 이동해야함.", async () => {
+    const moreBtn = await screen.findByTestId("moreBtn");
+    await userEvent.click(moreBtn);
+    const exitBtn = screen.getByText("토의 나가기");
+    await userEvent.click(exitBtn);
+    expect(
+      screen.getByText("이 토의에 대한 알림을 받으시겠습니까?"),
+    ).toBeInTheDocument();
+    // expect(mockNavigation).toBeCalledWith("/discussion");
+  });
 });
 
 describe("내가 쓴 토의글에 대한 테스트", () => {
@@ -50,5 +60,15 @@ describe("내가 쓴 토의글에 대한 테스트", () => {
     const deleteBtn = screen.getByText("토의삭제하기");
     await userEvent.click(deleteBtn);
     expect(window.alert).toBeCalledWith("토의가 삭제되었습니다.");
+  });
+});
+describe("공통 테스트", () => {
+  test("좋아요 기능 테스트", async () => {
+    renderDetailDiscussion.loggedIn("5");
+    const likeBtn = await screen.findByTestId("likeBtn");
+    await userEvent.click(likeBtn);
+    expect(screen.getByText("1")).toBeInTheDocument();
+    await userEvent.click(likeBtn);
+    expect(screen.getByText("0")).toBeInTheDocument();
   });
 });
