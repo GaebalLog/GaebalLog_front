@@ -88,19 +88,19 @@ const useCalendarController = ({
     });
 
     if (start) {
-      setStartYearValue(start.year);
-      setStartMonthValue(start.month);
-      setStartDateValue(start.date);
+      setStartYearValue(start.year + "");
+      setStartMonthValue(start.month + "");
+      setStartDateValue(start.date + "");
     }
     if (start && !end) {
-      setEndYearValue(start.year);
-      setEndMonthValue(start.month);
-      setEndDateValue(start.date);
+      setEndYearValue(start.year + "");
+      setEndMonthValue(start.month + "");
+      setEndDateValue(start.date + "");
     }
     if (end) {
-      setEndYearValue(end.year);
-      setEndMonthValue(end.month);
-      setEndDateValue(end.date);
+      setEndYearValue(end.year + "");
+      setEndMonthValue(end.month + "");
+      setEndDateValue(end.date + "");
     }
   }, [selectedDates]);
 

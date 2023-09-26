@@ -1,13 +1,20 @@
-import type React from "react";
+import React from "react";
+
+import { TimeContext } from "@/components/provider/TimeSettingProvider";
 
 import useValueFormatter from "./useValueFormatter";
 
-const useHourMinuteController = (
+const useMinuteController = (
   time: "start" | "end",
   type: "hour" | "minutes",
-  value: string | number,
-  setValue: React.Dispatch<React.SetStateAction<string | number>>,
 ) => {
+  const {
+    setStartHourValue,
+    setStartMinutesValue,
+    setEndHourValue,
+    setEndMinutesValue,
+  } = React.useContext(TimeContext);
+
   // 증감
   const handleIncrease = () => {
     increaseSetValue[type]();
@@ -15,16 +22,31 @@ const useHourMinuteController = (
 
   const handleDecrease = () => {
     decreaseSetValue[type]();
-    console.log(new Date().getHours());
   };
 
   const increaseSetValue = {
-    hour: () => setValue((prev) => (+prev >= 12 ? 1 : +prev + 1)),
-    minutes: () => setValue((prev) => (+prev >= 59 ? 0 : +prev + 1)),
+    hour: () => {
+      if (time === "start") {
+        setStartHourValue((prev) => (+prev >= 12 ? 1 : +prev + 1));
+      } else setEndHourValue((prev) => (+prev >= 12 ? 1 : +prev + 1));
+    },
+    minutes: () => {
+      if (time === "start") {
+        setStartMinutesValue((prev) => (+prev >= 59 ? 0 : +prev + 1));
+      } else setEndMinutesValue((prev) => (+prev >= 59 ? 0 : +prev + 1));
+    },
   };
   const decreaseSetValue = {
-    hour: () => setValue((prev) => (+prev <= 1 ? 12 : +prev - 1)),
-    minutes: () => setValue((prev) => (+prev <= 0 ? 59 : +prev - 1)),
+    hour: () => {
+      if (time === "start") {
+        setStartHourValue((prev) => (+prev <= 1 ? 12 : +prev - 1));
+      } else setEndHourValue((prev) => (+prev <= 1 ? 12 : +prev - 1));
+    },
+    minutes: () => {
+      if (time === "start") {
+        setStartHourValue((prev) => (+prev <= 0 ? 59 : +prev - 1));
+      } else setEndHourValue((prev) => (+prev <= 0 ? 59 : +prev - 1));
+    },
   };
 
   // onChange
@@ -40,7 +62,7 @@ const useHourMinuteController = (
       return;
     if (type === "minutes" && (+truncatedValue > 59 || +truncatedValue < 0))
       return;
-    setValue(truncatedValue + "");
+    if (time === "start") 
   };
 
   // onBlur
@@ -58,4 +80,4 @@ const useHourMinuteController = (
   return { handleIncrease, handleDecrease, handleInputChange, handleBlur };
 };
 
-export default useHourMinuteController;
+export default useMinuteController;

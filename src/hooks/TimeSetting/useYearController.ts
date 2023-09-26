@@ -2,8 +2,8 @@ import type React from "react";
 
 import useValueFormatter from "./useValueFormatter";
 
-const useYearMonthDayController = (
-  type: "year" | "month" | "days",
+const useYearController = (
+  type: "year" | "month" | "day",
   value: string | number,
   setValue: React.Dispatch<React.SetStateAction<string | number>>,
   yearValue?: string | number,
@@ -27,7 +27,7 @@ const useYearMonthDayController = (
   const increaseSetValue = {
     year: () => setValue((prev) => +prev + 1),
     month: () => setValue((prev) => (+prev >= 12 ? 1 : +prev + 1)),
-    days: () => setValue((prev) => (+prev >= lastDay(0, 0) ? 1 : +prev + 1)),
+    day: () => setValue((prev) => (+prev >= lastDay(0, 0) ? 1 : +prev + 1)),
   };
   const decreaseSetValue = {
     year: () =>
@@ -35,7 +35,7 @@ const useYearMonthDayController = (
         +prev <= new Date().getFullYear() ? prev : +prev - 1,
       ),
     month: () => setValue((prev) => (+prev <= 1 ? 12 : +prev - 1)),
-    days: () => setValue((prev) => (+prev <= 1 ? +lastDay(0, 0) : +prev - 1)),
+    day: () => setValue((prev) => (+prev <= 1 ? +lastDay(0, 0) : +prev - 1)),
   };
 
   // onChange
@@ -54,7 +54,7 @@ const useYearMonthDayController = (
     if (type === "month" && (+truncatedValue > 12 || +truncatedValue < 0))
       return;
     if (
-      type === "days" &&
+      type === "day" &&
       (+truncatedValue > lastDay(0, 0) || +truncatedValue < 0)
     )
       return;
@@ -96,4 +96,4 @@ const useYearMonthDayController = (
   return { handleIncrease, handleDecrease, handleInputChange, handleBlur };
 };
 
-export default useYearMonthDayController;
+export default useYearController;

@@ -5,7 +5,7 @@ import useIcon from "@/hooks/useIcon";
 
 interface props {
   testId?: "start" | "end";
-  type: "halfDay" | "hour" | "minutes" | "year" | "month" | "days";
+  type: "halfDay" | "hour" | "minutes" | "year" | "month" | "day";
   value: string | number;
   handleIncrease: () => void;
   handleDecrease: () => void;
@@ -35,7 +35,7 @@ const DefaultNumberInput: React.FC<props> = ({
   const downArrow = getIcon("downArrow", 10, 10);
 
   const showValue = () => {
-    if (typeof value === "number" && value < 10) return `0${value}`;
+    if (+value < 10) return `0${value}`;
     return value;
   };
 
@@ -44,7 +44,7 @@ const DefaultNumberInput: React.FC<props> = ({
     if (type === "minutes") return "분";
     if (type === "year") return "년";
     if (type === "month") return "월";
-    if (type === "days") return "일";
+    if (type === "day") return "일";
     return "";
   };
 

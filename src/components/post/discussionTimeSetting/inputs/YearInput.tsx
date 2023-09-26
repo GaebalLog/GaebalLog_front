@@ -1,12 +1,11 @@
 import React from "react";
 
-import useYearMonthDayController from "@/hooks/TimeSetting/useYearMonthDayController";
+import useYearMonthDayController from "@/hooks/TimeSetting/useYearController";
 
 import DefaultNumberInput from "./DefaultNumberInput";
 
 interface props {
   testId: "start" | "end";
-  type: "year" | "month" | "days";
   value: string | number;
   setValue: React.Dispatch<React.SetStateAction<string | number>>;
   yearValue?: string | number;
@@ -15,9 +14,8 @@ interface props {
   setDate?: React.Dispatch<React.SetStateAction<string | number>>;
 }
 
-const YearMonthDayInput: React.FC<props> = ({
+const YearInput: React.FC<props> = ({
   testId,
-  type,
   value,
   setValue,
   yearValue,
@@ -27,7 +25,7 @@ const YearMonthDayInput: React.FC<props> = ({
 }) => {
   const { handleIncrease, handleDecrease, handleInputChange, handleBlur } =
     useYearMonthDayController(
-      type,
+      "year",
       value + "",
       setValue,
       yearValue + "",
@@ -39,7 +37,7 @@ const YearMonthDayInput: React.FC<props> = ({
   return (
     <DefaultNumberInput
       testId={testId}
-      type={type}
+      type={"year"}
       value={value}
       handleIncrease={handleIncrease}
       handleDecrease={handleDecrease}
@@ -49,4 +47,4 @@ const YearMonthDayInput: React.FC<props> = ({
   );
 };
 
-export default YearMonthDayInput;
+export default YearInput;
