@@ -2,7 +2,6 @@
 
 import React from "react";
 
-import useInput from "@/hooks/useInput";
 import DateConvertor from "@/utils/util-dateConvertor";
 
 interface props {
@@ -17,56 +16,56 @@ interface props {
 }
 
 export interface TimeContextType {
-  startHalfDayValue: string | number;
-  setStartHalfDayValue: (value: string | number) => void;
-  startHourValue: string | number;
-  setStartHourValue: (value: string | number) => void;
-  startMinutesValue: string | number;
-  setStartMinutesValue: (value: string | number) => void;
-  endHalfDayValue: string | number;
-  setEndHalfDayValue: (value: string | number) => void;
-  endHourValue: string | number;
-  setEndHourValue: (value: string | number) => void;
-  endMinutesValue: string | number;
-  setEndMinutesValue: (value: string | number) => void;
-  startYearValue: string | number;
-  setStartYearValue: (value: string | number) => void;
-  startMonthValue: string | number;
-  setStartMonthValue: (value: string | number) => void;
-  startDateValue: string | number;
-  setStartDateValue: (value: string | number) => void;
-  endYearValue: string | number;
-  setEndYearValue: (value: string | number) => void;
-  endMonthValue: string | number;
-  setEndMonthValue: (value: string | number) => void;
-  endDateValue: string | number;
-  setEndDateValue: (value: string | number) => void;
+  startHalfDayValue: string;
+  setStartHalfDayValue: (value: ((prev: string) => string) | string) => void;
+  startHourValue: string;
+  setStartHourValue: (value: ((prev: string) => string) | string) => void;
+  startMinutesValue: string;
+  setStartMinutesValue: (value: ((prev: string) => string) | string) => void;
+  endHalfDayValue: string;
+  setEndHalfDayValue: (value: ((prev: string) => string) | string) => void;
+  endHourValue: string;
+  setEndHourValue: (value: ((prev: string) => string) | string) => void;
+  endMinutesValue: string;
+  setEndMinutesValue: (value: ((prev: string) => string) | string) => void;
+  startYearValue: string;
+  setStartYearValue: (value: string) => void;
+  startMonthValue: string;
+  setStartMonthValue: (value: string) => void;
+  startDateValue: string;
+  setStartDateValue: (value: string) => void;
+  endYearValue: string;
+  setEndYearValue: (value: string) => void;
+  endMonthValue: string;
+  setEndMonthValue: (value: string) => void;
+  endDateValue: string;
+  setEndDateValue: (value: string) => void;
 }
 
 export const TimeContext = React.createContext<TimeContextType>({
   startHalfDayValue: "",
   setStartHalfDayValue: () => {},
-  startHourValue: 0,
+  startHourValue: "",
   setStartHourValue: () => {},
-  startMinutesValue: 0,
+  startMinutesValue: "",
   setStartMinutesValue: () => {},
   endHalfDayValue: "",
   setEndHalfDayValue: () => {},
-  endHourValue: 0,
+  endHourValue: "",
   setEndHourValue: () => {},
-  endMinutesValue: 0,
+  endMinutesValue: "",
   setEndMinutesValue: () => {},
-  startYearValue: 0,
+  startYearValue: "",
   setStartYearValue: () => {},
-  startMonthValue: 0,
+  startMonthValue: "",
   setStartMonthValue: () => {},
-  startDateValue: 0,
+  startDateValue: "",
   setStartDateValue: () => {},
-  endYearValue: 0,
+  endYearValue: "",
   setEndYearValue: () => {},
-  endMonthValue: 0,
+  endMonthValue: "",
   setEndMonthValue: () => {},
-  endDateValue: 0,
+  endDateValue: "",
   setEndDateValue: () => {},
 });
 
@@ -82,49 +81,49 @@ const TimeSettingProvider: React.FC<props> = ({
       ? parsedStartTime.getHours()
       : parsedStartTime.getHours() - 12;
 
-  const { value: startHalfDayValue, setValue: setStartHalfDayValue } = useInput(
+  const [startHalfDayValue, setStartHalfDayValue] = React.useState(
     parsedStartTime.getHours() < 12 ? "오전" : "오후",
   );
-  const { value: startHourValue, setValue: setStartHourValue } =
-    useInput(calculatedHour);
-  const { value: startMinutesValue, setValue: setStartMinutesValue } = useInput(
-    parsedStartTime.getMinutes(),
+  const [startHourValue, setStartHourValue] = React.useState(
+    calculatedHour + "",
+  );
+  const [startMinutesValue, setStartMinutesValue] = React.useState(
+    parsedStartTime.getMinutes() + "",
   );
 
-  const { value: endHalfDayValue, setValue: setEndHalfDayValue } = useInput(
+  const [endHalfDayValue, setEndHalfDayValue] = React.useState(
     parsedEndTime.getHours() < 12 ? "오전" : "오후",
   );
-  const { value: endHourValue, setValue: setEndHourValue } =
-    useInput(calculatedHour);
-  const { value: endMinutesValue, setValue: setEndMinutesValue } = useInput(
-    parsedEndTime.getMinutes(),
+  const [endHourValue, setEndHourValue] = React.useState(calculatedHour + "");
+  const [endMinutesValue, setEndMinutesValue] = React.useState(
+    parsedEndTime.getMinutes() + "",
   );
 
-  const { value: startYearValue, setValue: setStartYearValue } = useInput(
-    parsedStartTime.getFullYear(),
+  const [startYearValue, setStartYearValue] = React.useState(
+    parsedStartTime.getFullYear() + "",
   );
-  const { value: startMonthValue, setValue: setStartMonthValue } = useInput(
-    parsedStartTime.getMonth() + 1,
+  const [startMonthValue, setStartMonthValue] = React.useState(
+    parsedStartTime.getMonth() + 1 + "",
   );
-  const { value: startDateValue, setValue: setStartDateValue } = useInput(
-    parsedStartTime.getDate(),
+  const [startDateValue, setStartDateValue] = React.useState(
+    parsedStartTime.getDate() + "",
   );
 
-  const { value: endYearValue, setValue: setEndYearValue } = useInput(
-    parsedEndTime.getFullYear(),
+  const [endYearValue, setEndYearValue] = React.useState(
+    parsedEndTime.getFullYear() + "",
   );
-  const { value: endMonthValue, setValue: setEndMonthValue } = useInput(
-    parsedEndTime.getMonth() + 1,
+  const [endMonthValue, setEndMonthValue] = React.useState(
+    parsedEndTime.getMonth() + 1 + "",
   );
-  const { value: endDateValue, setValue: setEndDateValue } = useInput(
-    parsedEndTime.getDate(),
+  const [endDateValue, setEndDateValue] = React.useState(
+    parsedEndTime.getDate() + "",
   );
 
   const startTime = DateConvertor.separatedValues(
     +startYearValue,
     +startMonthValue,
     +startDateValue,
-    startHalfDayValue + "",
+    startHalfDayValue,
     +startHourValue,
     +startMinutesValue,
   );
@@ -132,7 +131,7 @@ const TimeSettingProvider: React.FC<props> = ({
     +startYearValue,
     +startMonthValue,
     +startDateValue,
-    endHalfDayValue + "",
+    endHalfDayValue,
     +endHourValue,
     +endMinutesValue,
   );
