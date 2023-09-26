@@ -39,7 +39,9 @@ describe("다른 사람 토의글에 대한 테스트", () => {
     expect(
       screen.getByText("이 토의에 대한 알림을 받으시겠습니까?"),
     ).toBeInTheDocument();
-    // expect(mockNavigation).toBeCalledWith("/discussion");
+    const okBtn = screen.getByText("예");
+    await userEvent.click(okBtn);
+    expect(okBtn).not.toBeInTheDocument();
   });
 });
 

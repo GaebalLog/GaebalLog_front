@@ -166,4 +166,15 @@ export const discussionHandler = [
       return res(ctx.status(404));
     }
   }),
+  rest.delete("/discussions/:discussionId/participation", (req, res, ctx) => {
+    const discussionId = req.params.discussionId;
+    const discussion = discussionList.find(
+      (discussion) => discussion.discussionId === Number(discussionId),
+    );
+    if (discussion) {
+      return res(ctx.status(200));
+    } else {
+      return res(ctx.status(404));
+    }
+  }),
 ];
