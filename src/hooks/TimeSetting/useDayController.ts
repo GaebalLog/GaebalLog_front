@@ -3,9 +3,7 @@ import React from "react";
 import { TimeContext } from "@/components/provider/TimeSettingProvider";
 import TimeSettingManager from "@/utils/util-timeSettingManager";
 
-const { parsedStartTime, parsedEndTime } = new TimeSettingManager();
-const currentDate = parsedStartTime.getDate();
-const currentDatePlus15Minutes = parsedEndTime.getDate();
+const { startTimeDate, endTimeDate } = new TimeSettingManager();
 
 const useDayController = (time: "start" | "end") => {
   const {
@@ -20,7 +18,7 @@ const useDayController = (time: "start" | "end") => {
   } = React.useContext(TimeContext);
 
   const isStart = time === "start";
-  const initialDate = isStart ? currentDate : currentDatePlus15Minutes;
+  const initialDate = isStart ? startTimeDate : endTimeDate;
   const yearValue = isStart ? startYearValue : endYearValue;
   const monthValue = isStart ? startMonthValue : endMonthValue;
   const dateValue = isStart ? startDateValue : endDateValue;
