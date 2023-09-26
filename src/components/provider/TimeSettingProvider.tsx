@@ -106,23 +106,23 @@ const TimeSettingProvider: React.FC<props> = ({
   );
 
   const [startYearValue, setStartYearValue] = React.useState<string | number>(
-    parsedStartTime.getFullYear() + "",
+    parsedStartTime.getFullYear(),
   );
   const [startMonthValue, setStartMonthValue] = React.useState<string | number>(
-    parsedStartTime.getMonth() + 1 + "",
+    parsedStartTime.getMonth() + 1,
   );
   const [startDateValue, setStartDateValue] = React.useState<string | number>(
-    parsedStartTime.getDate() + "",
+    parsedStartTime.getDate(),
   );
 
   const [endYearValue, setEndYearValue] = React.useState<string | number>(
-    parsedEndTime.getFullYear() + "",
+    parsedEndTime.getFullYear(),
   );
   const [endMonthValue, setEndMonthValue] = React.useState<string | number>(
-    parsedEndTime.getMonth() + 1 + "",
+    parsedEndTime.getMonth() + 1,
   );
   const [endDateValue, setEndDateValue] = React.useState<string | number>(
-    parsedEndTime.getDate() + "",
+    parsedEndTime.getDate(),
   );
 
   const startTime = DateConvertor.separatedValues(

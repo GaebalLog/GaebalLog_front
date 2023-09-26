@@ -74,13 +74,9 @@ const TimeSetting: React.FC = () => {
                 (시작 기간을 설정하여 예약할 수 있습니다.)
               </p>
               <div className="flex gap-4">
-                {yearMonthDayInputs.map((type, i) => (
-                  <div key={i}>
-                    {/* <YearInput testId="start" />
-                    <MonthInput testId="start" />
-                    <DayInput testId="start" /> */}
-                  </div>
-                ))}
+                <YearInput time="start" />
+                <MonthInput time="start" />
+                {/* <DayInput testId="start" /> */}
                 <div
                   data-testid="calendar"
                   className={`relative flex justify-center items-center w-[45px] h-[45px] ${BORDER_COLOR.button} cursor-pointer`}
@@ -106,13 +102,9 @@ const TimeSetting: React.FC = () => {
                 (시작 기간을 설정하여 예약할 수 있습니다.)
               </p>
               <div className="flex gap-4">
-                {yearMonthDayInputs.map((type, i) => (
-                  <div key={i}>
-                    {/* <YearInput testId="end" />
-                    <MonthInput testId="end" />
-                    <DayInput testId="end" /> */}
-                  </div>
-                ))}
+                <YearInput time="end" />
+                <MonthInput time="end" />
+                {/* <DayInput time="end" /> */}
               </div>
             </div>
           </div>
