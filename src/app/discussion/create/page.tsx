@@ -50,10 +50,10 @@ const Postpage: React.ComponentType = withAuth(() => {
     categories: [],
   });
 
-  const { currentTime, currentTimePlus15 } = new TimeSettingManager();
+  const { currentDate, currentDatePlus15 } = new TimeSettingManager();
   const [timeSetting, setTimeSetting] = React.useState({
-    startTime: currentTime,
-    endTime: currentTimePlus15,
+    startDate: currentDate,
+    endDate: currentDatePlus15,
   });
 
   const router = useRouter();

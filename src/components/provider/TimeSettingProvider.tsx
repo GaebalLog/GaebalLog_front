@@ -8,11 +8,11 @@ import TimeSettingManager from "@/utils/util-timeSettingManager";
 interface props {
   children: React.ReactNode;
   timeSetting: {
-    startTime: string;
-    endTime: string;
+    startDate: string;
+    endDate: string;
   };
   setTimeSetting: React.Dispatch<
-    React.SetStateAction<{ startTime: string; endTime: string }>
+    React.SetStateAction<{ startDate: string; endDate: string }>
   >;
 }
 
@@ -71,11 +71,11 @@ export const TimeContext = React.createContext<TimeContextType>({
 });
 
 const TimeSettingProvider: React.FC<props> = ({
-  timeSetting: { startTime, endTime },
+  timeSetting: { startDate, endDate },
   setTimeSetting,
   children,
 }) => {
-  const time = new TimeSettingManager(startTime, endTime);
+  const time = new TimeSettingManager(startDate, endDate);
 
   const [startHalfDayValue, setStartHalfDayValue] = React.useState<
     "오전" | "오후"
@@ -117,7 +117,7 @@ const TimeSettingProvider: React.FC<props> = ({
     time.endTimeDate,
   );
 
-  const startDate = DateConvertor.separatedValues(
+  const startDateConvertor = DateConvertor.separatedValues(
     +startYearValue,
     +startMonthValue,
     +startDateValue,
@@ -125,7 +125,7 @@ const TimeSettingProvider: React.FC<props> = ({
     +startHourValue,
     +startMinutesValue,
   );
-  const endDate = DateConvertor.separatedValues(
+  const endDateConvertor = DateConvertor.separatedValues(
     +startYearValue,
     +startMonthValue,
     +startDateValue,
@@ -136,8 +136,8 @@ const TimeSettingProvider: React.FC<props> = ({
 
   React.useEffect(() => {
     setTimeSetting({
-      startTime: startDate.convertToISOString(),
-      endTime: endDate.convertToISOString(),
+      startDate: startDateConvertor.convertToISOString(),
+      endDate: endDateConvertor.convertToISOString(),
     });
   }, [
     startYearValue,
