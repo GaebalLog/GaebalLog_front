@@ -4,9 +4,9 @@ import React from "react";
 import { useSetRecoilState } from "recoil";
 
 import { BG_COLOR } from "@/constants/global/colors";
-import CommentContainer from "@/components/detail/CommentContainer";
+import CommentContainer from "@/components/tech/detail/CommentContainer";
 import { postAtom } from "@/constants/global/atoms";
-import ContentContainer from "@/components/detail/ContentContainer";
+import ContentContainer from "@/components/tech/detail/ContentContainer";
 
 const styles = {
   wrapper: `flex flex-col items-center w-full]`,

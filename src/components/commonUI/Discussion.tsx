@@ -7,20 +7,18 @@ import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 import Button from "../designSystem/Button";
-
-import LikeView from "./LikeView";
+import LikeParticipants from "../discussion/box/LikeParticipant";
 
 const Discussion: React.FC<{
   discussion: discussion;
-  bookmarkHandler: (postId: number) => void;
   likeHandler: (postId: number) => void;
-}> = ({ discussion, bookmarkHandler, likeHandler }) => {
+}> = ({ discussion, likeHandler }) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const router = useRouter();
 
   const { getIcon } = useIcon();
-  const bookmark = getIcon("bookmark", 48, 80, "cursor hover");
-  const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
+  const bookmark = getIcon("bookmark", 48, 80);
+  const checkBookmark = getIcon("checkbook", 48, 80);
 
   const clickHeartHandler = () => {
     likeHandler(discussion.discussionId);
@@ -36,13 +34,9 @@ const Discussion: React.FC<{
     router.push(`/discussion/${discussion.discussionId}`);
   };
 
-  const checkBookmarkHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    bookmarkHandler(discussion.discussionId);
-  };
-
   return (
     <div
+      data-testId={`discussion${discussion.discussionId}`}
       className={`w-[1200px] h-[408px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.general02} ${BORDER_COLOR.container} cursor-pointer`}
       onClick={onClickHandler}
       data-testid={`discussion${discussion.discussionId}`}
@@ -75,11 +69,8 @@ const Discussion: React.FC<{
           </div>
         </div>
         {isLoggedIn && (
-          <div
-            className="absolute top-0 right-[40px] excluded"
-            onClick={checkBookmarkHandler}
-          >
-            {discussion.bookmarked ? checkBookmark : bookmark}
+          <div className="absolute top-0 right-[40px]">
+            {discussion.participating ? checkBookmark : bookmark}
           </div>
         )}
         <p className={`${TEXT_COLOR.general07rev} text-[20px]`}>
@@ -88,11 +79,11 @@ const Discussion: React.FC<{
         </p>
       </div>
       <div>
-        <LikeView
+        <LikeParticipants
           like={discussion.like}
           likeHandler={clickHeartHandler}
           liked={discussion.liked}
-          view={discussion.view}
+          participants={discussion.participants}
           option={{ absolute: true }}
         />
       </div>

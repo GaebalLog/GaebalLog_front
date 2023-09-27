@@ -1,12 +1,14 @@
 import { instance } from "./api";
 
-export interface postDataType {
-  user_id?: number;
+export interface discussionDataType {
   title: string;
   content: string;
-  categories: string[];
+  image: string[];
   thumbnail: string | null;
-  img: string[];
+  category: string[];
+  startDate?: string;
+  endDate?: string;
+  capacity: number;
 }
 export interface allDiscussionsType {
   hasMore: boolean;
@@ -21,10 +23,22 @@ export const discussionAPI = {
   getDetail: (discussionId: number) => {
     return instance.get<detailDisccussion>(`/discussions/${discussionId}`);
   },
-  toggleBookmark: (discussionId: number) => {
-    return instance.post(`/discussions/${discussionId}/bookmark`);
-  },
   toggleLike: (discussionId: number) => {
     return instance.post(`/discussions/${discussionId}/like`);
+  },
+  create: (data: discussionDataType) => {
+    return instance.post("/discussions", { ...data });
+  },
+  delete: (discussionId: number) => {
+    return instance.delete(`/discussions/${discussionId}`);
+  },
+  outDiscussion: (discussionId: number) => {
+    return instance.delete(`/discussions/${discussionId}/participation`);
+  },
+  verify: (discussionId: number) => {
+    return instance.get(`/discussions/${discussionId}/verification`);
+  },
+  leftMyDiscussion: (discussionId: number) => {
+    return instance.delete(`/discussions/${discussionId}/participation`);
   },
 };

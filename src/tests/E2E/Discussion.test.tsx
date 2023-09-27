@@ -12,7 +12,7 @@ import {
 
 import { renderHome } from "./Home.test";
 
-const rederDiscussion = {
+const renderDiscussion = {
   loggedOut: () => {
     renderLoggedOutLayout(<DiscussionPage />, { withHeader: true });
   },
@@ -30,8 +30,8 @@ describe("토의목록 페이지 테스트", () => {
     expect(mockNavigation).toHaveBeenCalledWith("/discussion");
   });
 
-  test("Create Article 버튼 클릭 후 글 작성 페이지 이동", async () => {
-    rederDiscussion.loggedIn();
+  test("Create Discussion 버튼 클릭 후 글 작성 페이지 이동", async () => {
+    renderDiscussion.loggedIn();
     const createArticleBtn = await screen.findByRole("button", {
       name: "+ Create Discussion",
     });
@@ -40,7 +40,7 @@ describe("토의목록 페이지 테스트", () => {
   });
 
   test("Edit 버튼 클릭 후 검색 모달 생성", async () => {
-    rederDiscussion.loggedIn();
+    renderDiscussion.loggedIn();
     const editBtn = await screen.findByRole("button", { name: "+ Edit" });
     await userEvent.click(editBtn);
     const cancelBtn = await screen.findByRole("button", { name: "Cancel" });
@@ -50,8 +50,16 @@ describe("토의목록 페이지 테스트", () => {
   });
 
   test("글 리스트 클릭시 페이지 이동", async () => {
-    rederDiscussion.loggedIn();
+    renderDiscussion.loggedIn();
+    const discussionArticle = await screen.findByTestId("discussion6");
+    await userEvent.click(discussionArticle);
+    expect(mockNavigation).toHaveBeenCalledWith("/discussion/6");
   });
 
-  test("정렬 방식 클릭시 정렬된 글 리스트 출력", async () => {});
+  test("최신 순 클릭시 최신 순으로 정렬된 글 리스트 출력", async () => {
+    renderDiscussion.loggedOut();
+    const sortBtn = await screen.findByRole("button", { name: "최신 순" });
+    await userEvent.click(sortBtn);
+    expect(await screen.findByTestId("discussion10")).toBeInTheDocument();
+  });
 });

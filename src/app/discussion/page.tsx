@@ -6,7 +6,6 @@ import Discussion from "@/components/commonUI/Discussion";
 import SortBar from "@/components/commonUI/SortBar";
 import InfiniteScroll from "@/components/observing/InfiniteScroll";
 import useGetDiscussion from "@/hooks/discussionAPI/useGetDiscussion";
-import useToggleDiscussionBookmark from "@/hooks/discussionAPI/useToggleDiscussionBookmark";
 import useToggleDiscussionLike from "@/hooks/discussionAPI/useToggleDiscussionLike";
 
 const DiscussionPage = () => {
@@ -20,18 +19,6 @@ const DiscussionPage = () => {
     const list = data?.pages.flatMap((page) => page?.data.discussions) || [];
     setDiscussionList(list);
   }, [data]);
-  const toggleBookmark = (discussionId: number) => {
-    setDiscussionList((prev) => {
-      return prev.map((discussion) =>
-        discussion.discussionId === discussionId
-          ? { ...discussion, bookmarked: !discussion.bookmarked }
-          : discussion,
-      );
-    });
-  };
-  const { mutate: bookmarkHandler } = useToggleDiscussionBookmark({
-    onToggle: toggleBookmark,
-  });
   const toggleLikeHandler = (discussionId: number) => {
     setDiscussionList((prev) =>
       prev.map((discussion) => {
@@ -62,7 +49,6 @@ const DiscussionPage = () => {
               return (
                 <Discussion
                   discussion={discussion}
-                  bookmarkHandler={bookmarkHandler}
                   likeHandler={likeHandler}
                   key={`discussionList${discussion.discussionId}`}
                 />

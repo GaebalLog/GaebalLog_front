@@ -1,27 +1,27 @@
 "use client";
 import React from "react";
 
+import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
 
-import Button from "../designSystem/Button";
 interface props {
   liked?: boolean;
   like?: number;
-  view?: number;
+  participants?: number;
   likeHandler?: () => void;
   option?: { absolute?: boolean };
 }
-const LikeView: React.FC<props> = ({
+const LikeParticipants: React.FC<props> = ({
   like,
   likeHandler,
   liked,
-  view,
+  participants,
   option,
 }) => {
   const { getIcon } = useIcon();
   const likeIcon = getIcon("heart", 16, 14, "cursor hover");
   const checkedLikeIcon = getIcon("checked_heart", 16, 14, "cursor hover");
-  const viewIcon = getIcon("eye", 18, 16);
+  const participantsIcon = getIcon("people", 18, 16);
   const btns = [
     {
       id: "like",
@@ -30,7 +30,7 @@ const LikeView: React.FC<props> = ({
       className: "excluded",
       onClick: likeHandler,
     },
-    { id: "search", icon: viewIcon, count: view },
+    { id: "participants", icon: participantsIcon, count: participants },
   ];
   return (
     <div
@@ -40,7 +40,7 @@ const LikeView: React.FC<props> = ({
     >
       {btns.map((btn) => (
         <Button
-          key={`${btn.id}likeView`}
+          key={`${btn.id}View`}
           size="withIcon"
           color="background"
           rounded
@@ -59,4 +59,4 @@ const LikeView: React.FC<props> = ({
   );
 };
 
-export default LikeView;
+export default LikeParticipants;

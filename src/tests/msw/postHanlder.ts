@@ -1,29 +1,36 @@
 import { rest } from "msw";
 
 import type { postDataType } from "@/api/postAPI";
-
-const posts = [
+const mockImg =
+  "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60";
+const posts: postDetail[] = [
   {
     postId: 30,
     nickname: "nickname",
     title: "title",
     content: "더",
-    view: null,
-    like: null,
-    img: ["img"],
+    view: 0,
+    like: 0,
+    liked: false,
+    bookmarked: false,
+    img: [mockImg],
+    thumbnail: mockImg,
     categories: ["jwt", "aws", "mysql"],
-    createdDt: "2023-08-28 17:08:22",
+    createdAt: "2023-08-28 17:08:22",
   },
 ];
-const postList = [
+const postList: postListAuthor[] = [
   {
     postId: 37,
     nickname: "카카오",
     title: "디테일 페이지 제목",
     content: "디테일 페이지 내용",
-    view: null,
-    like: null,
-    img: "test img update4",
+    view: 0,
+    like: 0,
+    liked: false,
+    bookmarked: false,
+    thumbnail: mockImg,
+    img: [mockImg],
     categories: ["jwt", "aws", "mysql"],
     isAuthor: true,
     createdAt: "2023-08-28 17:08:22",
@@ -33,9 +40,12 @@ const postList = [
     nickname: "카카오1",
     title: "디테일 페이지 제목",
     content: "디테일 페이지 내용",
-    view: null,
-    like: null,
-    img: "test img update4",
+    view: 0,
+    like: 0,
+    liked: false,
+    bookmarked: false,
+    thumbnail: mockImg,
+    img: [mockImg],
     categories: ["jwt", "aws", "mysql"],
     isAuthor: false,
     createdAt: "2023-08-28 17:08:22",
@@ -69,9 +79,33 @@ export const postHandler = [
             nickname: "nickname",
             title: "title",
             content: "마지막",
-            view: null,
-            like: null,
-            img: ["img"],
+            view: 0,
+            like: 0,
+            liked: false,
+            bookmarked: false,
+            img: [mockImg],
+            thumbnail: mockImg,
+            categories: ["jwt", "aws", "mysql"],
+            createdDt: "2023-08-28 17:08:22",
+          },
+        }),
+      );
+    } else if (sort === "createdAt") {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          hasMore: false,
+          posts: {
+            postId: 40,
+            nickname: "nickname",
+            title: "title",
+            content: "마지막",
+            view: 0,
+            like: 0,
+            liked: false,
+            bookmarked: false,
+            img: [mockImg],
+            thumbnail: mockImg,
             categories: ["jwt", "aws", "mysql"],
             createdDt: "2023-08-28 17:08:22",
           },
@@ -105,11 +139,14 @@ export const postHandler = [
         nickname: "글 작성",
         title: postData.title,
         content: postData.content,
-        view: null,
-        like: null,
-        img: postData.img,
+        view: 0,
+        like: 0,
+        liked: false,
+        bookmarked: false,
+        thumbnail: mockImg,
+        img: [mockImg],
         categories: postData.categories,
-        createdDt: "2023-08-28 17:08:22",
+        createdAt: "2023-08-28 17:08:22",
       });
       return res(ctx.status(201));
     }
