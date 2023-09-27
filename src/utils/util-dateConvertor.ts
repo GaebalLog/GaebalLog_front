@@ -68,6 +68,10 @@ export default class DateConvertor {
       this.minutes,
     );
     const now = new Date();
+    // console.log(this.year, this.month - 1, this.date, this.hour, this.minutes);
+    console.log(now);
+    console.log(createdTime);
+
     return now.getTime() - createdTime.getTime();
   }
 
@@ -97,9 +101,6 @@ export default class DateConvertor {
   }
 
   formatWithLongDateHour(): string {
-    const timeDiff = this.getTimeDifference();
-    if (timeDiff) return timeDiff;
-
     return `${this.year}년 ${this.month}월 ${this.date}일 ${this.hour}시`;
   }
 

@@ -37,6 +37,7 @@ const RoomContents = () => {
   const { getIcon } = useIcon();
   const more = getIcon("more", 5, 5);
   const dateConvertor = new DateConvertor(data?.data.endDate);
+  console.log(data?.data.endDate);
 
   const moreOptionModalHandler = (
     event: React.MouseEvent<HTMLButtonElement>,
