@@ -20,6 +20,7 @@ const MinutesInput: React.FC<props> = ({ time }) => {
   return (
     <DefaultNumberInput
       type="minutes"
+      testId={time}
       value={minutesValue}
       handleIncrease={handleIncrease}
       handleDecrease={handleDecrease}

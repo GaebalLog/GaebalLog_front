@@ -10,7 +10,7 @@ class TimeSettingManager {
       new Date(current.getTime() + 15 * 60 * 1000).toISOString();
   }
 
-  private get parsedStartDate(): Date {
+  get parsedStartDate(): Date {
     return new Date(this.currentDate);
   }
   private get parsedEndDate(): Date {
@@ -26,38 +26,38 @@ class TimeSettingManager {
     return hour <= 12 ? hour : hour - 12;
   }
 
-  get startTimeHalfDay(): "오전" | "오후" {
+  get startDateHalfDay(): "오전" | "오후" {
     return this.parsedStartDate.getHours() < 12 ? "오전" : "오후";
   }
-  get endTimeHalfDay(): "오전" | "오후" {
+  get endDateHalfDay(): "오전" | "오후" {
     return this.parsedEndDate.getHours() < 12 ? "오전" : "오후";
   }
 
-  get startTimeMinutes(): number {
+  get startDateMinutes(): number {
     return this.parsedStartDate.getMinutes();
   }
-  get endTimeMinutes(): number {
+  get endDateMinutes(): number {
     return this.parsedEndDate.getMinutes();
   }
 
-  get startTimeYear(): number {
+  get startDateYear(): number {
     return this.parsedStartDate.getFullYear();
   }
-  get endTimeYear(): number {
+  get endDateYear(): number {
     return this.parsedEndDate.getFullYear();
   }
 
-  get startTimeMonth(): number {
+  get startDateMonth(): number {
     return this.parsedStartDate.getMonth() + 1;
   }
-  get endTimeMonth(): number {
+  get endDateMonth(): number {
     return this.parsedEndDate.getMonth() + 1;
   }
 
-  get startTimeDate(): number {
+  get startDateDate(): number {
     return this.parsedStartDate.getDate();
   }
-  get endTimeDate(): number {
+  get endDateDate(): number {
     return this.parsedEndDate.getDate();
   }
 }

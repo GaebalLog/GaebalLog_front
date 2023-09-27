@@ -27,6 +27,7 @@ const HalfDayInput: React.FC<props> = ({ time }) => {
   return (
     <DefaultNumberInput
       type="halfDay"
+      testId={time}
       value={halfDayValue}
       handleIncrease={toggleValue}
       handleDecrease={toggleValue}

@@ -79,42 +79,42 @@ const TimeSettingProvider: React.FC<props> = ({
 
   const [startHalfDayValue, setStartHalfDayValue] = React.useState<
     "오전" | "오후"
-  >(time.startTimeHalfDay);
+  >(time.startDateHalfDay);
   const [startHourValue, setStartHourValue] = React.useState<string | number>(
     time.calculatedStartHour,
   );
   const [startMinutesValue, setStartMinutesValue] = React.useState<
     string | number
-  >(time.startTimeMinutes);
+  >(time.startDateMinutes);
 
   const [endHalfDayValue, setEndHalfDayValue] = React.useState<"오전" | "오후">(
-    time.endTimeHalfDay,
+    time.endDateHalfDay,
   );
   const [endHourValue, setEndHourValue] = React.useState<string | number>(
     time.calculatedEndHour,
   );
   const [endMinutesValue, setEndMinutesValue] = React.useState<string | number>(
-    time.endTimeMinutes,
+    time.endDateMinutes,
   );
 
   const [startYearValue, setStartYearValue] = React.useState<string | number>(
-    time.startTimeYear,
+    time.startDateYear,
   );
   const [startMonthValue, setStartMonthValue] = React.useState<string | number>(
-    time.startTimeMonth,
+    time.startDateMonth,
   );
   const [startDateValue, setStartDateValue] = React.useState<string | number>(
-    time.startTimeDate,
+    time.startDateDate,
   );
 
   const [endYearValue, setEndYearValue] = React.useState<string | number>(
-    time.endTimeYear,
+    time.endDateYear,
   );
   const [endMonthValue, setEndMonthValue] = React.useState<string | number>(
-    time.endTimeMonth,
+    time.endDateMonth,
   );
   const [endDateValue, setEndDateValue] = React.useState<string | number>(
-    time.endTimeDate,
+    time.endDateDate,
   );
 
   const startDateConvertor = DateConvertor.separatedValues(

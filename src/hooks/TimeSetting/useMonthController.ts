@@ -3,7 +3,7 @@ import React from "react";
 import { TimeContext } from "@/components/provider/TimeSettingProvider";
 import TimeSettingManager from "@/utils/util-timeSettingManager";
 
-const { startTimeMonth, endTimeMonth } = new TimeSettingManager();
+const { startDateMonth, endDateMonth } = new TimeSettingManager();
 
 const useMonthController = (time: "start" | "end") => {
   const {
@@ -20,7 +20,7 @@ const useMonthController = (time: "start" | "end") => {
   } = React.useContext(TimeContext);
 
   const isStart = time === "start";
-  const initialMonth = isStart ? startTimeMonth : endTimeMonth;
+  const initialMonth = isStart ? startDateMonth : endDateMonth;
   const yearValue = isStart ? startYearValue : endYearValue;
   const monthValue = isStart ? startMonthValue : endMonthValue;
   const setMonthValue = isStart ? setStartMonthValue : setEndMonthValue;
