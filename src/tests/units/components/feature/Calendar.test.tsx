@@ -2,46 +2,30 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import useInput from "@/hooks/useInput";
 import Provider from "@/components/provider/Provider";
 import Calendar from "@/components/post/discussionTimeSetting/calendar/Calendar";
 import TimeSetting from "@/components/post/discussionTimeSetting/TimeSetting";
 import { BG_COLOR } from "@/constants/global/colors";
+import TimeSettingManager from "@/utils/util-timeSettingManager";
+import TimeSettingProvider from "@/components/provider/TimeSettingProvider";
 
-const today = new Date();
-const todayYear = today.getFullYear();
-const todayMonth = today.getMonth() + 1;
-const todayDate = today.getDate();
+const date = new TimeSettingManager();
+const defaultDate = {
+  startDate: date.currentDate,
+  endDate: date.currentDatePlus15,
+};
 
 describe("달력 테스트", () => {
   beforeEach(() => {
-    render(<CalendarTestComponent />, { wrapper: Provider });
-  });
-
-  const CalendarTestComponent = () => {
-    const startYear = useInput(todayYear);
-    const startMonth = useInput(todayMonth);
-    const startDate = useInput(todayDate);
-    const endYear = useInput(todayYear);
-    const endMonth = useInput(todayMonth);
-    const endDate = useInput(todayDate);
-    return (
-      <Calendar
-        startYearValue={+startYear.value}
-        startMonthValue={+startMonth.value}
-        startDateValue={+startDate.value}
-        endYearValue={+endYear.value}
-        endMonthValue={+endMonth.value}
-        endDateValue={+endDate.value}
-        setStartYearValue={startYear.setValue}
-        setStartMonthValue={startMonth.setValue}
-        setStartDateValue={startDate.setValue}
-        setEndYearValue={endYear.setValue}
-        setEndMonthValue={endMonth.setValue}
-        setEndDateValue={endDate.setValue}
-      />
+    render(
+      <TimeSettingProvider timeSetting={defaultDate} setTimeSetting={jest.fn()}>
+        <Calendar />
+      </TimeSettingProvider>,
+      {
+        wrapper: Provider,
+      },
     );
-  };
+  });
 
   test("과거날짜 누르면 알럿이 떠야 함", async () => {
     await userEvent.click(await screen.findByTestId("prev_month"));
@@ -51,18 +35,20 @@ describe("달력 테스트", () => {
 
   test("달 이동 테스트", async () => {
     await userEvent.click(await screen.findByTestId("next_month"));
-    if (todayMonth === 12) {
+    console.log(date.endDateMonth);
+
+    if (date.endDateMonth === 12) {
       expect(
         await screen.findByText(`. 1}`, { exact: false }),
       ).toBeInTheDocument();
     } else {
       expect(
-        await screen.findByText(`. ${todayMonth + 1}`, { exact: false }),
+        await screen.findByText(`. ${date.endDateMonth + 1}`, { exact: false }),
       ).toBeInTheDocument();
     }
     await userEvent.click(await screen.findByTestId("prev_month"));
     expect(
-      await screen.findByText(`. ${todayMonth}`, { exact: false }),
+      await screen.findByText(`. ${date.endDateMonth}`, { exact: false }),
     ).toBeInTheDocument();
   });
 });
@@ -76,15 +62,20 @@ describe("달력 날짜 선택 테스트", () => {
     endtDayInput: Promise<HTMLElement>;
 
   beforeEach(async () => {
-    render(<TimeSetting setTimeSetting={jest.fn} />, { wrapper: Provider });
+    render(
+      <TimeSettingProvider timeSetting={defaultDate} setTimeSetting={jest.fn()}>
+        <TimeSetting />
+      </TimeSettingProvider>,
+      { wrapper: Provider },
+    );
     await userEvent.click(await screen.findByText("토의 시간 설정"));
 
     startYearInput = screen.findByTestId(`startyear_input`);
     startMonthInput = screen.findByTestId(`startmonth_input`);
-    startDayInput = screen.findByTestId(`startdays_input`);
+    startDayInput = screen.findByTestId(`startday_input`);
     endtYearInput = screen.findByTestId(`endyear_input`);
     endtMonthInput = screen.findByTestId(`endmonth_input`);
-    endtDayInput = screen.findByTestId(`enddays_input`);
+    endtDayInput = screen.findByTestId(`endday_input`);
   });
 
   const inputType = async (
@@ -260,6 +251,4 @@ describe("달력 날짜 선택 테스트", () => {
       BG_COLOR.general04,
     );
   });
-
-  test("선택된 '일'이 같을 때 테스트", async () => {});
 });
