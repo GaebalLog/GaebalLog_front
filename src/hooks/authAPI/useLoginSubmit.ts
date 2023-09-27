@@ -17,8 +17,8 @@ const useLoginSubmit = (
     e.preventDefault();
     try {
       const { data } = await authAPI.localLogin({
-        email: email + "",
-        password: password + "",
+        email: email,
+        password: password,
       });
       setUserInfo(data);
       router.replace("/auth/callback/local");

@@ -9,7 +9,7 @@ import InputWithLabel from "./InputWithLabel";
 
 interface props {
   email: string;
-  value: string | number;
+  value: string;
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
@@ -29,7 +29,7 @@ const InputEmailCodeCheck: React.FC<props> = ({
   const checkVerificationCode = async () => {
     if (!isEmailSent) return;
     try {
-      await authAPI.checkCode(value + "", email);
+      await authAPI.checkCode(value, email);
       alert("인증 성공");
       setIsEmailSent(false);
     } catch (error) {
@@ -45,7 +45,7 @@ const InputEmailCodeCheck: React.FC<props> = ({
             className="w-[511px]"
             label="인증번호"
             type="text"
-            value={value + ""}
+            value={value}
             onChange={onChange}
           />
         </div>

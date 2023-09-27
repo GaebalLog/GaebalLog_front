@@ -1,6 +1,7 @@
 import React from "react";
 
 import type CalendarManager from "@/utils/util-calendarManager";
+import { TimeContext } from "@/components/provider/TimeSettingProvider";
 
 interface parameter {
   selectedYear: number;
@@ -8,22 +9,6 @@ interface parameter {
   selectedDates: selectedDates[];
   setSelectedDates: React.Dispatch<React.SetStateAction<selectedDates[]>>;
   calendarManager: CalendarManager;
-  startDate: {
-    startYearValue: number;
-    startMonthValue: number;
-    startDateValue: number;
-    setStartYearValue: React.Dispatch<React.SetStateAction<string | number>>;
-    setStartMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
-    setStartDateValue: React.Dispatch<React.SetStateAction<string | number>>;
-  };
-  endDate: {
-    endYearValue: number;
-    endMonthValue: number;
-    endDateValue: number;
-    setEndYearValue: React.Dispatch<React.SetStateAction<string | number>>;
-    setEndMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
-    setEndDateValue: React.Dispatch<React.SetStateAction<string | number>>;
-  };
 }
 
 const useCalendarController = ({
@@ -32,9 +17,16 @@ const useCalendarController = ({
   selectedDates,
   setSelectedDates,
   calendarManager,
-  startDate: { setStartYearValue, setStartMonthValue, setStartDateValue },
-  endDate: { setEndYearValue, setEndMonthValue, setEndDateValue },
 }: parameter) => {
+  const {
+    setStartYearValue,
+    setStartMonthValue,
+    setStartDateValue,
+    setEndYearValue,
+    setEndMonthValue,
+    setEndDateValue,
+  } = React.useContext(TimeContext);
+
   const handleDateSelection = (day: number) => {
     if (calendarManager.isPastDate(day)) return alert("이미 지난 날짜입니다.");
 

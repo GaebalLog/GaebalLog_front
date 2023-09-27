@@ -6,8 +6,8 @@ import { mypageApi } from "@/api/mypageApi";
 import { userAtom } from "../useUserAuth";
 
 interface parameter {
-  value: string | number;
-  setValue: React.Dispatch<React.SetStateAction<string | number>>;
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const useUpdateNickname = ({ value, setValue }: parameter) => {
@@ -15,8 +15,8 @@ const useUpdateNickname = ({ value, setValue }: parameter) => {
 
   const handleUpdateNickname = async () => {
     try {
-      await mypageApi.updateNickname(value + "");
-      setUser((prev) => ({ ...prev, nickname: value + "" }));
+      await mypageApi.updateNickname(value);
+      setUser((prev) => ({ ...prev, nickname: value }));
       alert("닉네임 수정 성공");
       setValue("");
     } catch (error) {

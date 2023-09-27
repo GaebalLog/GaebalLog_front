@@ -8,7 +8,7 @@ import InputWithLabel from "./InputWithLabel";
 interface InputWithDuplicationCheckProps {
   type: "email" | "nickname";
   inputValue: {
-    value: string | number;
+    value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   };
   setDuplicated: React.Dispatch<React.SetStateAction<boolean | null>>;
@@ -34,7 +34,7 @@ const InputWithDuplicationCheck: React.FC<InputWithDuplicationCheckProps> = ({
           <InputWithLabel
             label={labelText}
             type={inputType}
-            value={inputValue.value + ""}
+            value={inputValue.value}
             onChange={(e) => {
               inputValue.onChange(e);
               setDuplicated(null);

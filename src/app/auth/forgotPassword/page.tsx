@@ -32,15 +32,15 @@ const ForgotPassword = () => {
   const passwordConfirmInput = useInput();
 
   const { isEmailValid, isPasswordValid } = useValidation(
-    emailInput.value + "",
-    passwordInput.value + "",
+    emailInput.value,
+    passwordInput.value,
   );
 
   const changePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     await authAPI.changePassword({
-      email: emailInput.value + "",
-      password: passwordInput.value + "",
+      email: emailInput.value,
+      password: passwordInput.value,
     });
   };
 
@@ -56,7 +56,7 @@ const ForgotPassword = () => {
           {...emailInput}
         />
         <InputEmailCodeCheck
-          email={emailInput.value + ""}
+          email={emailInput.value}
           isEmailSent={isEmailSent}
           resendClick={resendClick}
           setIsEmailSent={setIsEmailSent}
@@ -67,7 +67,7 @@ const ForgotPassword = () => {
             className="w-[511px]"
             label="비밀번호 재설정"
             type="password"
-            value={passwordInput.value + ""}
+            value={passwordInput.value}
             onChange={passwordInput.onChange}
           />
           <ValidationText
@@ -81,7 +81,7 @@ const ForgotPassword = () => {
             className="w-[511px]"
             label="비밀번호 재확인"
             type="password"
-            value={passwordConfirmInput.value + ""}
+            value={passwordConfirmInput.value}
             onChange={passwordConfirmInput.onChange}
           />
           <ValidationText

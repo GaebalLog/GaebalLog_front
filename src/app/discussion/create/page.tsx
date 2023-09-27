@@ -14,6 +14,7 @@ import ThumbnailSelector from "@/components/post/ThumbnailSelector";
 import useModalController from "@/hooks/useModalController";
 import FinishedCreate from "@/components/discussion/btn/FinishedCreate";
 import { discussionAPI, type discussionDataType } from "@/api/discussionAPI";
+import TimeSettingManager from "@/utils/util-timeSettingManager";
 const PostEditor = dynamic(() => import("@/components/post/PostEditor"), {
   ssr: false,
 });
@@ -38,6 +39,8 @@ const styles = {
   },
 };
 
+const { currentDate, currentDatePlus15 } = new TimeSettingManager();
+
 const Postpage: React.ComponentType = withAuth(() => {
   const [article, setArticle] = React.useState<string>("");
   const [data, setData] = React.useState<discussionDataType>({
@@ -49,9 +52,13 @@ const Postpage: React.ComponentType = withAuth(() => {
     capacity: 1,
   });
   const [timeSetting, setTimeSetting] = React.useState({
-    startDate: "",
-    endDate: "",
+    startDate: currentDate,
+    endDate: currentDatePlus15,
   });
+  const { isDifferenceLessThan15Minutes } = new TimeSettingManager(
+    timeSetting.startDate,
+    timeSetting.endDate,
+  );
 
   const router = useRouter();
   const { openModal } = useModalController();
@@ -62,6 +69,8 @@ const Postpage: React.ComponentType = withAuth(() => {
   }, [article]);
 
   const handleSubmit = async () => {
+    if (isDifferenceLessThan15Minutes)
+      return alert("토의 시간은 최소 15분 이상으로 설정 해 주세요.");
     const feedData = data.thumbnail
       ? { ...timeSetting, ...data }
       : { ...timeSetting, ...data, thumbnail: data.image[0] };
@@ -103,7 +112,10 @@ const Postpage: React.ComponentType = withAuth(() => {
             onChange={titleChangeHanlder}
             placeholder="제목을 입력해주세요."
           />
-          <TimeSetting setTimeSetting={setTimeSetting} />
+          <TimeSetting
+            timeSetting={timeSetting}
+            setTimeSetting={setTimeSetting}
+          />
         </div>
         <PostEditor content={article} editHandler={contentHandler} />
         <ThumbnailSelector

@@ -8,7 +8,7 @@ import ValidationText from "../text/ValidationText";
 import InputWithLabel from "./InputWithLabel";
 
 interface props {
-  value: string | number;
+  value: string;
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
@@ -27,7 +27,7 @@ const InputWithSendEmail: React.FC<props> = ({
   setResendClick,
 }) => {
   const sendMail = async () => {
-    await authAPI.sendEmail(value + "");
+    await authAPI.sendEmail(value);
     if (!isEmailSent) setIsEmailSent(true);
     if (isEmailSent) setResendClick((prev) => prev + 1);
   };
@@ -39,7 +39,7 @@ const InputWithSendEmail: React.FC<props> = ({
           <InputWithLabel
             label="E-mail"
             type="email"
-            value={value + ""}
+            value={value}
             onChange={onChange}
           />
         </div>
