@@ -3,6 +3,7 @@ import React from "react";
 import useIcon from "@/hooks/useIcon";
 import useModalController from "@/hooks/useModalController";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
+import TimeSettingProvider from "@/components/provider/TimeSettingProvider";
 
 import NonPortalModal from "../../modal/NonPortalModal";
 
@@ -19,7 +20,17 @@ const styles = {
   settingModalWrapper: `flex flex-col w-[445px] px-5 py-[30px] gap-[30px] ${BG_COLOR.primary} ${BORDER_COLOR.button}`,
 };
 
-const TimeSetting: React.FC = () => {
+interface props {
+  timeSetting: {
+    startDate: string;
+    endDate: string;
+  };
+  setTimeSetting: React.Dispatch<
+    React.SetStateAction<{ startDate: string; endDate: string }>
+  >;
+}
+
+const TimeSetting: React.FC<props> = ({ timeSetting, setTimeSetting }) => {
   const { modal, openModal, closeModal } = useModalController();
 
   const { getIcon } = useIcon();
@@ -42,71 +53,76 @@ const TimeSetting: React.FC = () => {
         <span>{downArrow}</span>
       </button>
       {modal.defaultModal && (
-        <NonPortalModal topLeft={{ top: 44, left: 0 }} nonBackdrop>
-          <div className={styles.settingModalWrapper}>
-            <div>
-              <p className="mb-5">
-                <span className="text-xl">시작 시간</span>
-                (직접 입력하여 시간을 설정할 수 있습니다.)
-              </p>
-              <div className="flex gap-4">
-                <HalfDayInput time="start" />
-                <HourInput time="start" />
-                <MinutesInput time="start" />
+        <TimeSettingProvider
+          timeSetting={timeSetting}
+          setTimeSetting={setTimeSetting}
+        >
+          <NonPortalModal topLeft={{ top: 44, left: 0 }} nonBackdrop>
+            <div className={styles.settingModalWrapper}>
+              <div>
+                <p className="mb-5">
+                  <span className="text-xl">시작 시간</span>
+                  (직접 입력하여 시간을 설정할 수 있습니다.)
+                </p>
+                <div className="flex gap-4">
+                  <HalfDayInput time="start" />
+                  <HourInput time="start" />
+                  <MinutesInput time="start" />
+                </div>
               </div>
-            </div>
-            <div>
-              <p className="mb-5">
-                <span className="text-xl">종료 시간</span>
-                (직접 입력하여 시간을 설정할 수 있습니다.)
-              </p>
-              <div className="flex gap-4">
-                <HalfDayInput time="end" />
-                <HourInput time="end" />
-                <MinutesInput time="end" />
+              <div>
+                <p className="mb-5">
+                  <span className="text-xl">종료 시간</span>
+                  (직접 입력하여 시간을 설정할 수 있습니다.)
+                </p>
+                <div className="flex gap-4">
+                  <HalfDayInput time="end" />
+                  <HourInput time="end" />
+                  <MinutesInput time="end" />
+                </div>
               </div>
-            </div>
-            <div>
-              <p className="mb-5">
-                <span className="text-xl">시작 기간</span>
-                (시작 기간을 설정하여 예약할 수 있습니다.)
-              </p>
-              <div className="flex gap-4">
-                <YearInput time="start" />
-                <MonthInput time="start" />
-                <DayInput time="start" />
-                <div
-                  data-testid="calendar"
-                  className={`relative flex justify-center items-center w-[45px] h-[45px] ${BORDER_COLOR.button} cursor-pointer`}
-                  onClick={() => openModal("calendarModal")}
-                >
-                  {modal.calendarModal ? focusedCalendar : calendar}
-                  {modal.calendarModal && (
-                    <div onClick={(e) => e.stopPropagation()}>
-                      <NonPortalModal
-                        topLeft={{ top: 43, left: -130 }}
-                        onBackdropClick={() => closeModal("calendarModal")}
-                      >
-                        <Calendar />
-                      </NonPortalModal>
-                    </div>
-                  )}
+              <div>
+                <p className="mb-5">
+                  <span className="text-xl">시작 기간</span>
+                  (시작 기간을 설정하여 예약할 수 있습니다.)
+                </p>
+                <div className="flex gap-4">
+                  <YearInput time="start" />
+                  <MonthInput time="start" />
+                  <DayInput time="start" />
+                  <div
+                    data-testid="calendar"
+                    className={`relative flex justify-center items-center w-[45px] h-[45px] ${BORDER_COLOR.button} cursor-pointer`}
+                    onClick={() => openModal("calendarModal")}
+                  >
+                    {modal.calendarModal ? focusedCalendar : calendar}
+                    {modal.calendarModal && (
+                      <div onClick={(e) => e.stopPropagation()}>
+                        <NonPortalModal
+                          topLeft={{ top: 43, left: -130 }}
+                          onBackdropClick={() => closeModal("calendarModal")}
+                        >
+                          <Calendar />
+                        </NonPortalModal>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p className="mb-5">
+                  <span className="text-xl">종료 기간</span>
+                  (시작 기간을 설정하여 예약할 수 있습니다.)
+                </p>
+                <div className="flex gap-4">
+                  <YearInput time="end" />
+                  <MonthInput time="end" />
+                  <DayInput time="end" />
                 </div>
               </div>
             </div>
-            <div>
-              <p className="mb-5">
-                <span className="text-xl">종료 기간</span>
-                (시작 기간을 설정하여 예약할 수 있습니다.)
-              </p>
-              <div className="flex gap-4">
-                <YearInput time="end" />
-                <MonthInput time="end" />
-                <DayInput time="end" />
-              </div>
-            </div>
-          </div>
-        </NonPortalModal>
+          </NonPortalModal>
+        </TimeSettingProvider>
       )}
     </div>
   );

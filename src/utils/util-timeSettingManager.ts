@@ -10,7 +10,7 @@ class TimeSettingManager {
       new Date(current.getTime() + 15 * 60 * 1000).toISOString();
   }
 
-  get parsedStartDate(): Date {
+  private get parsedStartDate(): Date {
     return new Date(this.currentDate);
   }
   private get parsedEndDate(): Date {
@@ -59,6 +59,18 @@ class TimeSettingManager {
   }
   get endDateDate(): number {
     return this.parsedEndDate.getDate();
+  }
+
+  get isDifferenceLessThan15Minutes(): boolean {
+    const selectedStartDate = this.parsedStartDate.getTime();
+    const selectedEndDate = this.parsedEndDate.getTime();
+
+    if (selectedStartDate > selectedEndDate) {
+      return false;
+    }
+
+    const difference = selectedEndDate - selectedStartDate;
+    return difference >= 0 && difference <= 14 * 60 * 1000;
   }
 }
 

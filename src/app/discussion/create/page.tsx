@@ -14,7 +14,6 @@ import { utilExtractImages } from "@/utils/util-extractImage";
 import { utilReplaceImg } from "@/utils/util-replaceImg";
 import ThumbnailSelector from "@/components/post/ThumbnailSelector";
 import useModalController from "@/hooks/useModalController";
-import TimeSettingProvider from "@/components/provider/TimeSettingProvider";
 import TimeSettingManager from "@/utils/util-timeSettingManager";
 const PostEditor = dynamic(() => import("@/components/post/PostEditor"), {
   ssr: false,
@@ -107,12 +106,10 @@ const Postpage: React.ComponentType = withAuth(() => {
             onChange={titleChangeHanlder}
             placeholder="제목을 입력해주세요."
           />
-          <TimeSettingProvider
+          <TimeSetting
             timeSetting={timeSetting}
             setTimeSetting={setTimeSetting}
-          >
-            <TimeSetting />
-          </TimeSettingProvider>
+          />
         </div>
         <PostEditor content={article} editHandler={contentHandler} />
         <ThumbnailSelector

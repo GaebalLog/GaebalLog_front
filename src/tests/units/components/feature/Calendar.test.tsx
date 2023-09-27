@@ -63,9 +63,7 @@ describe("달력 날짜 선택 테스트", () => {
 
   beforeEach(async () => {
     render(
-      <TimeSettingProvider timeSetting={defaultDate} setTimeSetting={jest.fn()}>
-        <TimeSetting />
-      </TimeSettingProvider>,
+      <TimeSetting timeSetting={defaultDate} setTimeSetting={jest.fn()} />,
       { wrapper: Provider },
     );
     await userEvent.click(await screen.findByText("토의 시간 설정"));

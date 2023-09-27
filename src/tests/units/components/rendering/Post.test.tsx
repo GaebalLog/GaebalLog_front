@@ -5,7 +5,6 @@ import userEvent from "@testing-library/user-event";
 import Postpage from "@/app/discussion/create/page";
 import Provider from "@/components/provider/Provider";
 import TimeSetting from "@/components/post/discussionTimeSetting/TimeSetting";
-import TimeSettingProvider from "@/components/provider/TimeSettingProvider";
 
 test("post페이지 렌더링 테스트", async () => {
   const { unmount } = render(<Postpage params={{ type: ["tech"] }} />, {
@@ -30,12 +29,9 @@ test("토의 시간 설정 모달 렌더링 테스트", async () => {
     endDate: "2222-09-27T06:00:03.805Z",
   };
 
-  render(
-    <TimeSettingProvider timeSetting={defaultDate} setTimeSetting={jest.fn()}>
-      <TimeSetting />
-    </TimeSettingProvider>,
-    { wrapper: Provider },
-  );
+  render(<TimeSetting timeSetting={defaultDate} setTimeSetting={jest.fn()} />, {
+    wrapper: Provider,
+  });
 
   await userEvent.click(await screen.findByText("토의 시간 설정"));
   expect(await screen.findByText("시작 시간")).toBeInTheDocument();
