@@ -35,7 +35,6 @@ describe("달력 테스트", () => {
 
   test("달 이동 테스트", async () => {
     await userEvent.click(await screen.findByTestId("next_month"));
-    console.log(date.endDateMonth);
 
     if (date.endDateMonth === 12) {
       expect(

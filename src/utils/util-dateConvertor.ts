@@ -49,14 +49,14 @@ export default class DateConvertor {
     return new DateConvertor(dateTimeString);
   }
 
-  convertToISOString(): string {
-    return new Date(
-      this.year,
-      this.month - 1,
-      this.date,
-      this.hour,
-      this.minutes,
-    ).toISOString();
+  convertToLocalISOString(): string {
+    const yearStr = String(this.year).padStart(4, "0");
+    const monthStr = String(this.month).padStart(2, "0");
+    const dateStr = String(this.date).padStart(2, "0");
+    const hourStr = String(this.hour).padStart(2, "0");
+    const minuteStr = String(this.minutes).padStart(2, "0");
+
+    return `${yearStr}-${monthStr}-${dateStr}T${hourStr}:${minuteStr}:00.000Z`;
   }
 
   private calculateTimeGap(): number {

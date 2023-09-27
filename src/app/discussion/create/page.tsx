@@ -39,6 +39,8 @@ const styles = {
   },
 };
 
+const { currentDate, currentDatePlus15 } = new TimeSettingManager();
+
 const Postpage: React.ComponentType = withAuth(() => {
   const [article, setArticle] = React.useState<string>("");
   const [data, setData] = React.useState<postDataType>({
@@ -48,13 +50,14 @@ const Postpage: React.ComponentType = withAuth(() => {
     thumbnail: null,
     categories: [],
   });
-
-  const { currentDate, currentDatePlus15 } = new TimeSettingManager();
   const [timeSetting, setTimeSetting] = React.useState({
     startDate: currentDate,
     endDate: currentDatePlus15,
   });
-  console.log(timeSetting);
+  const { isDifferenceLessThan15Minutes } = new TimeSettingManager(
+    timeSetting.startDate,
+    timeSetting.endDate,
+  );
 
   const router = useRouter();
   const { openModal } = useModalController();
@@ -65,6 +68,8 @@ const Postpage: React.ComponentType = withAuth(() => {
   }, [article]);
 
   const handleSubmit = async () => {
+    if (isDifferenceLessThan15Minutes)
+      return alert("토의 시간은 최소 15분 이상으로 설정 해 주세요.");
     const feedData = data.thumbnail
       ? data
       : { ...data, thumbnail: data.img[0] };

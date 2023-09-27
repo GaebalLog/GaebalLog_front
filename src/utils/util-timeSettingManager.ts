@@ -4,10 +4,16 @@ class TimeSettingManager {
 
   constructor(currentDate?: string, currentDatePlus15?: string) {
     const current = new Date();
-    this.currentDate = currentDate || current.toISOString();
+    this.currentDate = currentDate || this.toLocalISOString(current);
     this.currentDatePlus15 =
       currentDatePlus15 ||
-      new Date(current.getTime() + 15 * 60 * 1000).toISOString();
+      this.toLocalISOString(new Date(current.getTime() + 15 * 60 * 1000));
+  }
+
+  private toLocalISOString(date: Date): string {
+    const tzOffset = date.getTimezoneOffset() * 60000;
+    const localDate = new Date(date.getTime() - tzOffset);
+    return localDate.toISOString().slice(0, -1);
   }
 
   private get parsedStartDate(): Date {

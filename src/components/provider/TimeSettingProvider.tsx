@@ -136,8 +136,8 @@ const TimeSettingProvider: React.FC<props> = ({
 
   React.useEffect(() => {
     setTimeSetting({
-      startDate: startDateConvertor.convertToISOString(),
-      endDate: endDateConvertor.convertToISOString(),
+      startDate: startDateConvertor.convertToLocalISOString(),
+      endDate: endDateConvertor.convertToLocalISOString(),
     });
   }, [
     startHalfDayValue,
