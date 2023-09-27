@@ -54,6 +54,7 @@ const Postpage: React.ComponentType = withAuth(() => {
     startDate: currentDate,
     endDate: currentDatePlus15,
   });
+  console.log(timeSetting);
 
   const router = useRouter();
   const { openModal } = useModalController();

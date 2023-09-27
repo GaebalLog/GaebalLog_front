@@ -4,6 +4,7 @@ import useIcon from "@/hooks/useIcon";
 import useModalController from "@/hooks/useModalController";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import TimeSettingProvider from "@/components/provider/TimeSettingProvider";
+import TimeSettingManager from "@/utils/util-timeSettingManager";
 
 import NonPortalModal from "../../modal/NonPortalModal";
 
@@ -32,11 +33,21 @@ interface props {
 
 const TimeSetting: React.FC<props> = ({ timeSetting, setTimeSetting }) => {
   const { modal, openModal, closeModal } = useModalController();
+  const { isDifferenceLessThan15Minutes } = new TimeSettingManager(
+    timeSetting.startDate,
+    timeSetting.endDate,
+  );
 
   const { getIcon } = useIcon();
   const downArrow = getIcon("downBtn", 10, 10);
   const calendar = getIcon("calendar", 24, 24);
   const focusedCalendar = getIcon("calendar_focus", 24, 24);
+
+  React.useEffect(() => {
+    if (!modal.defaultModal && isDifferenceLessThan15Minutes) {
+      alert("토의 시간은 최소 15분 이상으로 설정 해 주세요.");
+    }
+  }, [modal.defaultModal]);
 
   return (
     <div className="relative" onClick={(e) => e.stopPropagation()}>

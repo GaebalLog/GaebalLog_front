@@ -62,15 +62,10 @@ class TimeSettingManager {
   }
 
   get isDifferenceLessThan15Minutes(): boolean {
-    const selectedStartDate = this.parsedStartDate.getTime();
-    const selectedEndDate = this.parsedEndDate.getTime();
-
-    if (selectedStartDate > selectedEndDate) {
-      return false;
-    }
-
+    const selectedStartDate = new Date(this.parsedStartDate).getTime();
+    const selectedEndDate = new Date(this.parsedEndDate).getTime();
     const difference = selectedEndDate - selectedStartDate;
-    return difference >= 0 && difference <= 14 * 60 * 1000;
+    return difference < 0 || difference < 15 * 60 * 1000;
   }
 }
 

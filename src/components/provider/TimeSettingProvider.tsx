@@ -41,8 +41,6 @@ export interface TimeContextType {
   setEndMonthValue: React.Dispatch<React.SetStateAction<string | number>>;
   endDateValue: string | number;
   setEndDateValue: React.Dispatch<React.SetStateAction<string | number>>;
-  startDate: string;
-  endDate: string;
 }
 
 export const TimeContext = React.createContext<TimeContextType>({
@@ -70,8 +68,6 @@ export const TimeContext = React.createContext<TimeContextType>({
   setEndMonthValue: () => {},
   endDateValue: "",
   setEndDateValue: () => {},
-  startDate: "",
-  endDate: "",
 });
 
 const TimeSettingProvider: React.FC<props> = ({
@@ -185,8 +181,6 @@ const TimeSettingProvider: React.FC<props> = ({
         setEndMonthValue,
         endDateValue,
         setEndDateValue,
-        startDate,
-        endDate,
       }}
     >
       {children}
