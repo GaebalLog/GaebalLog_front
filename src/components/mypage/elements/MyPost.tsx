@@ -7,9 +7,12 @@ import DateConvertor from "@/utils/util-dateConvertor";
 import Button from "@/components/designSystem/Button";
 
 const MyPost: React.FC<{ post: post }> = ({ post }) => {
+  const [isBookmark, setIsBookmark] = React.useState(false);
   const router = useRouter();
 
   const { getIcon } = useIcon();
+  const checkedSmallBookmark = getIcon("checkedSmallBookmark", 24, 48);
+  const smallBookmark = getIcon("smallBookmark", 24, 48);
   const heart = getIcon("heart", 16, 14, "cursor hover");
   const eye = getIcon("eye", 18, 16);
   const dateConvertor = new DateConvertor(post.createdAt + "");
@@ -44,6 +47,15 @@ const MyPost: React.FC<{ post: post }> = ({ post }) => {
       onClick={onClickHandler}
       data-testid={`post${post.postId}`}
     >
+      <button
+        className="absolute top-0 right-6"
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsBookmark((prev) => !prev);
+        }}
+      >
+        {isBookmark ? checkedSmallBookmark : smallBookmark}
+      </button>
       <div className="flex justify-between flex-col h-[280px] gap-[80px]">
         <div className="flex flex-col gap-[24px]">
           <div
