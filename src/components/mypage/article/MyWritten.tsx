@@ -7,10 +7,14 @@ import DropDown from "../elements/DropDown";
 import MyPost from "../elements/MyPost";
 
 type myWrttenType =
+  | "내가 쓴 글"
+  | "임시저장 글"
   | "내가 북마크한 글"
   | "내가 댓글 단 글"
   | "내가 좋아요 한 글";
 const myWrittenTyep: myWrttenType[] = [
+  "내가 쓴 글",
+  "임시저장 글",
   "내가 북마크한 글",
   "내가 댓글 단 글",
   "내가 좋아요 한 글",
@@ -18,7 +22,7 @@ const myWrittenTyep: myWrttenType[] = [
 
 const MyWritten = () => {
   const [dropDownType, setDropDownType] =
-    React.useState<myWrttenType>("내가 북마크한 글");
+    React.useState<myWrttenType>("내가 쓴 글");
   const [tab, setTab] = React.useState<sortTab>("조회 순");
 
   const { data } = useGetMyWritten(dropDownType);

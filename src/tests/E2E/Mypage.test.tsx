@@ -97,7 +97,7 @@ describe("MyInfo 테스트", () => {
 
 test("MyWritten 렌더링 및 경로 이동 테스트", async () => {
   renderMypage.loggedIn();
-  await userEvent.click(await screen.findByText("내가 쓴 글"));
+  await userEvent.click(await screen.findByText("글 관리"));
   expect(await screen.findByText("내가 북마크한 글1")).toBeInTheDocument();
   await userEvent.click(await screen.findByText("내가 북마크한 글"));
   await userEvent.click(await screen.findByText("내가 댓글 단 글"));
@@ -149,7 +149,7 @@ describe("이웃 관리 테스트", () => {
 
 test("MyDiscussion 렌더링 및 경로 이동 테스트", async () => {
   renderMypage.loggedIn();
-  await userEvent.click(await screen.findByText("참여 중인 토의"));
+  await userEvent.click(await screen.findByText("토의 관리"));
   expect(await screen.findByText("내가 쓴 토의1")).toBeInTheDocument();
   await userEvent.click(await screen.findByText("내가 쓴 토의"));
   await userEvent.click(await screen.findByText("이웃이 쓴 토의"));

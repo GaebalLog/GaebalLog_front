@@ -31,7 +31,7 @@ export const myPageHandler = [
     return res(ctx.status(200));
   }),
 
-  // 내가 쓴 글
+  // 글 관리
   rest.get("/api/mypage/mywritten/myBookmarks", (req, res, ctx) => {
     const posts: posts = [
       {
@@ -149,7 +149,7 @@ export const myPageHandler = [
     return res(ctx.status(200), ctx.json([...neighbors]));
   }),
 
-  // 참여 중인 토의방
+  // 토의 관리방
   rest.get("/api/mypage/mydiscussion/me", (req, res, ctx) => {
     const discussions: discussions = [
       {

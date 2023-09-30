@@ -13,7 +13,13 @@ export const mypageApi = {
     });
   },
 
-  // 내가 쓴 글
+  // 글 관리
+  getMyWrittens: () => {
+    return instance.get(`/mywritten/myWrittens`);
+  },
+  getMyTempSaves: () => {
+    return instance.get(`/mywritten/myTempSaves`);
+  },
   getMyBookmarks: () => {
     return instance.get(`/mywritten/myBookmark`);
   },
@@ -41,7 +47,7 @@ export const mypageApi = {
     return instance.get(`/users/block`);
   },
 
-  // 참여 중인 토의
+  // 토의 관리
   getMyDiscussions: () => {
     return instance.get(`/mydiscussion/me`);
   },
