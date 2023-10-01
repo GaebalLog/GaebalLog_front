@@ -98,6 +98,12 @@ describe("MyInfo 테스트", () => {
 test("MyWritten 렌더링 및 경로 이동 테스트", async () => {
   renderMypage.loggedIn();
   await userEvent.click(await screen.findByText("글 관리"));
+  expect(await screen.findByText("내가 쓴 글1")).toBeInTheDocument();
+  await userEvent.click(await screen.findByText("내가 쓴 글"));
+  await userEvent.click(await screen.findByText("임시저장 글"));
+  expect(await screen.findByText("임시저장 글1")).toBeInTheDocument();
+  await userEvent.click(await screen.findByText("임시저장 글"));
+  await userEvent.click(await screen.findByText("내가 북마크한 글"));
   expect(await screen.findByText("내가 북마크한 글1")).toBeInTheDocument();
   await userEvent.click(await screen.findByText("내가 북마크한 글"));
   await userEvent.click(await screen.findByText("내가 댓글 단 글"));

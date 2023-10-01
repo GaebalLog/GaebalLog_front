@@ -32,6 +32,42 @@ export const myPageHandler = [
   }),
 
   // 글 관리
+  rest.get("/api/mypage/mywritten/myWrittens", (req, res, ctx) => {
+    const posts: posts = [
+      {
+        postId: 1,
+        title: "내가 쓴 글1",
+        content: "content",
+        categories: ["tags", "tåg2"],
+        like: 1,
+        count: 1,
+        nickname: "hi",
+        thumbnail:
+          "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
+        isBookmarked: true,
+        createdAt: "2021-08-10T14:00:00.000Z",
+      },
+    ];
+    return res(ctx.status(200), ctx.json({ posts }));
+  }),
+  rest.get("/api/mypage/mywritten/myTempSaves", (req, res, ctx) => {
+    const posts: posts = [
+      {
+        postId: 1,
+        title: "임시저장 글1",
+        content: "content",
+        categories: ["tags", "tåg2"],
+        like: 1,
+        count: 1,
+        nickname: "hi",
+        thumbnail:
+          "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
+        isBookmarked: true,
+        createdAt: "2021-08-10T14:00:00.000Z",
+      },
+    ];
+    return res(ctx.status(200), ctx.json({ posts }));
+  }),
   rest.get("/api/mypage/mywritten/myBookmarks", (req, res, ctx) => {
     const posts: posts = [
       {
