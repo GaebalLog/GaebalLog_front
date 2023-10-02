@@ -37,8 +37,12 @@ export const authAPI = {
       email,
     });
   },
-  changePassword: async (payload: { email: string; password: string }) => {
-    return await instance.post("/users/password-reset", payload);
+  changePassword: async (payload: {
+    email: string;
+    password: string;
+    code: string;
+  }) => {
+    return await instance.patch("/users/password-reset", payload);
   },
 
   // 소셜
