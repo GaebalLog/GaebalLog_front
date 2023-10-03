@@ -9,13 +9,16 @@ import useUpdateComment from "@/hooks/commentAPI/useUpdateComment";
 import useInput from "@/hooks/useInput";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import DateConvertor from "@/utils/util-dateConvertor";
+import { activatedModalIdAtom } from "@/hooks/useModalController";
+import NonPortalModal from "@/components/modal/NonPortalModal";
+import { authAPI } from "@/api/authAPI";
 
 import BannedBtn from "../btn/BannedBtn";
 import DeleteCommentBtn from "../btn/DeleteCommentBtn";
 
 const styles = {
   commentHeader: `flex justify-between`,
-  metaInfoWrapper: `flex items-center`,
+  metaInfoWrapper: `relative flex items-center`,
   nickname: `ml-4 text-xl font-bold`,
   buttonBox: `flex gap-4 ml-auto`,
   date: `mt-2 ml-14`,
@@ -36,10 +39,12 @@ const CommentCard: React.FC<commentCardProps> = ({
   createdAt,
   content,
   grandChildComment,
+  userId,
 }) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
+  const activatedId = useRecoilValue(activatedModalIdAtom);
   const [editingId, seteditingId] = useRecoilState(openCommentEditorAtom);
-  const myNick = useRecoilValue(userAtom)?.nickname;
+  const user = useRecoilValue(userAtom);
   const localISOString = new DateConvertor(createdAt).convertToLocalISOString();
   const dateConvertor = new DateConvertor(localISOString);
 
@@ -56,6 +61,10 @@ const CommentCard: React.FC<commentCardProps> = ({
     onSuccess: () => setUpdateComment(false),
   });
 
+  const addNeighbor = async () => {
+    await authAPI.addNeighbor(user?.userId, userId);
+  };
+
   return (
     <div className={isChildComment ? "mt-4" : ""}>
       <div className={styles.commentHeader}>
@@ -63,7 +72,7 @@ const CommentCard: React.FC<commentCardProps> = ({
           <ProfileImage idForModal={commentId} profileImage={profileImg} />
           <span className={styles.nickname}>
             {nickname}
-            {`${myNick}`}
+            {`${user?.nickname}`}
           </span>
           {isLoggedIn && (
             <>
@@ -79,8 +88,22 @@ const CommentCard: React.FC<commentCardProps> = ({
               )}
             </>
           )}
+          {activatedId === commentId && (
+            <NonPortalModal topLeft={{ top: 0, left: 40 }} nonBackdrop>
+              <div className={`flex flex-col ${BORDER_COLOR.button}`}>
+                <Button
+                  className={`py-4 px-[30px]`}
+                  size="tab"
+                  color="white"
+                  onClick={addNeighbor}
+                >
+                  이웃추가
+                </Button>
+              </div>
+            </NonPortalModal>
+          )}
         </div>
-        {myNick === nickname && (
+        {user?.nickname === nickname && (
           <div className={styles.buttonBox}>
             {updateComment ? (
               <>

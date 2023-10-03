@@ -62,4 +62,13 @@ export const authAPI = {
   updateKeywords: (keyword: string) => {
     return instance.post(`/users/keywords`, { keyword });
   },
+
+  addNeighbor: (myId: string | null, targetId: string) => {
+    return instance.post(`/users/neighbors/${myId}`, { targetId });
+  },
+  deleteNeighbor: (myId: string | null, targetId: string) => {
+    return instance.delete(`/users/neighbors/${myId}`, {
+      data: { targetId },
+    });
+  },
 };

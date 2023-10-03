@@ -1,8 +1,11 @@
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useRecoilValue } from "recoil";
 
 import { TEXT_COLOR } from "@/constants/global/colors";
 import ProfileImage from "@/components/designSystem/ProfileImage";
+import { authAPI } from "@/api/authAPI";
+import { userAtom } from "@/hooks/useUserAuth";
 
 import Button from "../../../../designSystem/Button";
 
@@ -22,6 +25,7 @@ const NeighborProfile: React.FC<props> = ({
   userId,
   bannned,
 }) => {
+  const { userId: myId } = useRecoilValue(userAtom);
   const router = useRouter();
   const btnList = [
     {
@@ -32,8 +36,8 @@ const NeighborProfile: React.FC<props> = ({
     },
     {
       text: "이웃 삭제",
-      onclick: () => {
-        router.push("/");
+      onclick: async () => {
+        await authAPI.deleteNeighbor(myId, userId);
       },
     },
   ];

@@ -103,6 +103,7 @@ declare global {
     createdAt: string;
     isDeleted: boolean;
     isBlocked: boolean;
+    userId: string;
   }
   interface parentsComment extends comment {
     child?: comment[];
@@ -123,7 +124,7 @@ declare global {
     content: string;
   }
   interface neighborItem {
-    userId: number;
+    userId: string;
     nickname: string;
     profileImage: string;
   }
