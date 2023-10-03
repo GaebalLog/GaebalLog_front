@@ -23,7 +23,11 @@ const ContentContainer = () => {
   const [detailData, setDetailData] = React.useState<postListAuthor>();
   const { modal, openModal } = useModalController();
   useGetDetailPost({ onSuccessSet: setDetailData });
-  const dateConvertor = new DateConvertor(detailData?.createdAt);
+
+  const localISOString = new DateConvertor(
+    detailData?.createdAt,
+  ).convertToLocalISOString();
+  const dateConvertor = new DateConvertor(localISOString);
 
   const toggleLikeHandler = () => {
     setDetailData((prev) => {

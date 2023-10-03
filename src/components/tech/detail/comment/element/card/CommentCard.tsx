@@ -40,7 +40,8 @@ const CommentCard: React.FC<commentCardProps> = ({
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const [editingId, seteditingId] = useRecoilState(openCommentEditorAtom);
   const myNick = useRecoilValue(userAtom)?.nickname;
-  const dateConvertor = new DateConvertor(createdAt);
+  const localISOString = new DateConvertor(createdAt).convertToLocalISOString();
+  const dateConvertor = new DateConvertor(localISOString);
 
   const [updateComment, setUpdateComment] = React.useState<boolean>(false);
   const { value, onChange } = useInput(content);
