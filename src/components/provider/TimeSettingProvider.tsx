@@ -117,7 +117,7 @@ const TimeSettingProvider: React.FC<props> = ({
     time.endDateDate,
   );
 
-  const startDateConvertor = DateConvertor.separatedValues(
+  const startDateConvertor = DateConvertor.createLocalISOString(
     +startYearValue,
     +startMonthValue,
     +startDateValue,
@@ -125,7 +125,7 @@ const TimeSettingProvider: React.FC<props> = ({
     +startHourValue,
     +startMinutesValue,
   );
-  const endDateConvertor = DateConvertor.separatedValues(
+  const endDateConvertor = DateConvertor.createLocalISOString(
     +endYearValue,
     +endMonthValue,
     +endDateValue,
@@ -136,8 +136,8 @@ const TimeSettingProvider: React.FC<props> = ({
 
   React.useEffect(() => {
     setTimeSetting({
-      startDate: startDateConvertor.convertToLocalISOString(),
-      endDate: endDateConvertor.convertToLocalISOString(),
+      startDate: startDateConvertor,
+      endDate: endDateConvertor,
     });
   }, [
     startHalfDayValue,
