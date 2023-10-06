@@ -8,7 +8,7 @@ import profile from "../../../public/assets/icons/common/profile_light.png";
 
 interface profileImage {
   idForModal: string | number;
-  profileImage: string;
+  profileImage: string | null;
   preventModalOpen?: boolean;
 }
 
