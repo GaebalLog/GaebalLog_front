@@ -8,6 +8,12 @@ export const authAPI = {
   userAuth: () => {
     return instance.get(`/users/me`);
   },
+  withdraw: () => {
+    return instance.delete(`/users`);
+  },
+  logout: () => {
+    return instance.get(`/auth/logout`);
+  },
 
   // 로컬
   localSignup: (payload: {
@@ -56,19 +62,21 @@ export const authAPI = {
     return instance.post("/auth/kakao", { code, uri: kakaoURI });
   },
 
-  myKeywords: () => {
+  getKeywords: () => {
     return instance.get(`/keywords`);
   },
-  updateKeywords: (keyword: string) => {
-    return instance.post(`/users/keywords`, { keyword });
+  addKeywords: (keyword: string) => {
+    return instance.post(`/keywords`, { keyword });
+  },
+  deleteKeywords: (keyword: string) => {
+    return instance.delete(`/keywords`, { data: keyword });
   },
 
-  addNeighbor: (myId: string | null, targetId: string) => {
-    return instance.post(`/users/neighbors/${myId}`, { targetId });
+  //유저 상세 페이지
+  userPost: (targetId: string) => {
+    return instance.get(`/post/previews/${targetId}`);
   },
-  deleteNeighbor: (myId: string | null, targetId: string) => {
-    return instance.delete(`/users/neighbors/${myId}`, {
-      data: { targetId },
-    });
+  userDiscussion: (targetId: string) => {
+    return instance.get(`/discussions/previews/${targetId}`);
   },
 };

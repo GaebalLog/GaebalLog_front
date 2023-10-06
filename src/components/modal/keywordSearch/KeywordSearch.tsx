@@ -29,7 +29,7 @@ const KeywordSearch = () => {
 
   const { isLoading: myCategoriesLoading } = useQuery({
     queryKey: [QUERY_KEYS.KEYWORDLIST],
-    queryFn: () => authAPI.myKeywords(),
+    queryFn: () => authAPI.getKeywords(),
     onSuccess: (data) => {
       setMyCategories(data?.data);
     },
@@ -44,7 +44,7 @@ const KeywordSearch = () => {
 
   const { mutate } = useMutation({
     mutationFn: (selectedKeyword: string) =>
-      authAPI.updateKeywords(selectedKeyword),
+      authAPI.addKeywords(selectedKeyword),
     onMutate(variables: string) {
       if (!slicedMyCategories.includes(variables)) {
         setMyCategories((prev: string[]) => [...prev, variables]);
