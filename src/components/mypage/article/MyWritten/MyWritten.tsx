@@ -3,8 +3,10 @@ import React from "react";
 import SortBar from "@/components/commonUI/SortBar";
 import useGetMyWritten from "@/hooks/mypageAPI/useGetMyWritten";
 
-import DropDown from "../elements/DropDown";
-import MyPost from "../elements/MyPost";
+import DropDown from "../../elements/DropDown";
+import MyPost from "../../elements/MyPost";
+
+import NoData from "./NoData";
 
 type myWrttenType =
   | "내가 쓴 글"
@@ -25,9 +27,10 @@ const MyWritten = () => {
     React.useState<myWrttenType>("내가 쓴 글");
   const [tab, setTab] = React.useState<sortTab>("조회 순");
 
-  const { data } = useGetMyWritten(dropDownType);
+  const { data, error } = useGetMyWritten(dropDownType);
 
-  const postList = data?.data.posts;
+  const postList = data?.data;
+
   return (
     <div className="flex w-full h-full flex-col px-[44px] pb-[24px]">
       <div className="flex">
@@ -41,11 +44,15 @@ const MyWritten = () => {
           <SortBar tab={tab} setTab={setTab} option="mypage" />
         </div>
       </div>
-      <article className="grid grid-cols-4 gap-[24px] overflow-auto">
-        {postList?.map((post: post) => {
-          return <MyPost key={`post${post.postId}`} post={post} />;
-        })}
-      </article>
+      {error?.response?.status === 404 ? (
+        <NoData dropDownType={dropDownType} />
+      ) : (
+        <article className="grid grid-cols-4 gap-[24px] w-full h-full overflow-auto">
+          {postList?.map((post: myPost) => {
+            return <MyPost key={`post${post.postId}`} post={post} />;
+          })}
+        </article>
+      )}
     </div>
   );
 };
