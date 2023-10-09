@@ -6,7 +6,20 @@ import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import DateConvertor from "@/utils/util-dateConvertor";
 import Button from "@/components/designSystem/Button";
 
-const MyPost: React.FC<{ post: post }> = ({ post }) => {
+const styles = {
+  wrapper: `w-full h-[350px] relative flex items-center px-[32px] ${BG_COLOR.primary} cursor-pointer`,
+  postContainer: `flex justify-between flex-col h-full pt-10`,
+  contentsBox: {
+    wrapper: `flex flex-col gap-[24px]`,
+    header: `flex items-center gap-[16px] ${TEXT_COLOR.general07rev}`,
+    title: `${TEXT_COLOR.text} text-[24px] font-bold`,
+    contents: `truncate-multiline text-[16px] ${TEXT_COLOR.text}`,
+    categories: `flex items-center gap-4`,
+  },
+  likeViewBox: `absolute flex gap-[20px] bottom-2 right-3`,
+};
+
+const MyPost: React.FC<{ post: myPost }> = ({ post }) => {
   const [isBookmark, setIsBookmark] = React.useState(false);
   const router = useRouter();
 
@@ -15,7 +28,10 @@ const MyPost: React.FC<{ post: post }> = ({ post }) => {
   const smallBookmark = getIcon("smallBookmark", 24, 48);
   const heart = getIcon("heart", 16, 14, "cursor hover");
   const eye = getIcon("eye", 18, 16);
-  const dateConvertor = new DateConvertor(post.createdAt + "");
+  const localISOString = new DateConvertor(
+    post.createdAt,
+  ).convertToLocalISOString();
+  const dateConvertor = new DateConvertor(localISOString);
 
   const clickHeartHandler = () => {
     console.log("좋아요");
@@ -29,7 +45,7 @@ const MyPost: React.FC<{ post: post }> = ({ post }) => {
       className: "excluded",
       onClick: clickHeartHandler,
     },
-    { id: "search", icon: eye, count: post.count },
+    { id: "search", icon: eye, count: post.view },
   ];
 
   const onClickHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {
@@ -43,7 +59,7 @@ const MyPost: React.FC<{ post: post }> = ({ post }) => {
 
   return (
     <div
-      className={`w-full h-[350px] relative flex items-center gap-20 px-[32px] ${BG_COLOR.primary} cursor-pointer`}
+      className={styles.wrapper}
       onClick={onClickHandler}
       data-testid={`post${post.postId}`}
     >
@@ -56,41 +72,33 @@ const MyPost: React.FC<{ post: post }> = ({ post }) => {
       >
         {isBookmark ? checkedSmallBookmark : smallBookmark}
       </button>
-      <div className="flex justify-between flex-col h-[280px] gap-[80px]">
-        <div className="flex flex-col gap-[24px]">
-          <div
-            className={`flex items-center gap-[16px] ${TEXT_COLOR.general07rev}`}
-          >
+      <div className={styles.postContainer}>
+        <div className={styles.contentsBox.wrapper}>
+          <div className={styles.contentsBox.header}>
             <h2 className="text-[20px]">{post?.nickname}</h2>
             <h2>{dateConvertor.formatWithLongDate()}</h2>
           </div>
-          <h1 className={`${TEXT_COLOR.text} text-[24px] font-bold`}>
-            {post.title}
-          </h1>
-          {/* 에디터 구현에 따라 수정필요할지도 */}
-          <p
-            className={`${TEXT_COLOR.text} text-[16px] w-[320px] whitespace-normal break-words`}
-          >
-            {post.content}
-          </p>
+          <h1 className={styles.contentsBox.title}>{post.title}</h1>
+          <div
+            className={styles.contentsBox.contents}
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
+          <div className={styles.contentsBox.categories}>
+            {post.categories.map((category) => (
+              <Button key={`${post.postId}${category}`} color="grey" size="tag">
+                {category}
+              </Button>
+            ))}
+          </div>
         </div>
-        <div className="flex items-center gap-[16px]">
-          {post.categories.map((category) => (
-            <Button key={`${post.postId}${category}`} color="grey" size="tag">
-              # {category}
-            </Button>
-          ))}
-        </div>
-      </div>
-      <div>
-        <div className="absolute flex gap-[20px] bottom-2 right-3">
+        <div className={`flex justify-end gap-[20px] pb-6`}>
           {btns.map((btn) => (
             <Button
               key={btn.id}
               size="withIcon"
               color="background"
+              border
               rounded
-              className={`flex-wrap ${btn.className}`}
               onClick={btn.onClick}
             >
               {btn.icon}

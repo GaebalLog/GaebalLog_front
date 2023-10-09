@@ -4,7 +4,7 @@ import React from "react";
 import Button from "@/components/designSystem/Button";
 import MyInfo from "@/components/mypage/article/myInfo/MyInfo";
 import MySettings from "@/components/mypage/article/MySettings";
-import MyWritten from "@/components/mypage/article/MyWritten";
+import MyWritten from "@/components/mypage/article/MyWritten/MyWritten";
 import Mydiscussions from "@/components/mypage/article/MyDiscussion/Mydiscussions";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import { MyNeighbors } from "@/components/mypage/article/neighbors/MyNeighbors";
@@ -54,7 +54,7 @@ const MyPagePage = withAuth(() => {
           </div>
         ))}
       </div>
-      <div className={`flex items-center w-[1632px] h-[458px] ${boxOption}`}>
+      <div className={`flex items-center w-[1632px] h-[462px] ${boxOption}`}>
         {render}
       </div>
     </div>
