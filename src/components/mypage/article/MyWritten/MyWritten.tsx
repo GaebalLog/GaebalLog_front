@@ -4,11 +4,11 @@ import SortBar from "@/components/commonUI/SortBar";
 import useGetMyWritten from "@/hooks/mypageAPI/useGetMyWritten";
 
 import DropDown from "../../elements/DropDown";
-import MyPost from "../../elements/MyPost";
 
+import MyPost from "./MyPost";
 import NoData from "./NoData";
 
-type myWrttenType =
+export type myWrttenType =
   | "내가 쓴 글"
   | "임시저장 글"
   | "내가 북마크한 글"
@@ -49,7 +49,13 @@ const MyWritten = () => {
       ) : (
         <article className="grid grid-cols-4 gap-[24px] w-full h-full overflow-auto">
           {postList?.map((post: myPost) => {
-            return <MyPost key={`post${post.postId}`} post={post} />;
+            return (
+              <MyPost
+                key={`post${post.postId}`}
+                post={post}
+                dropDownType={dropDownType}
+              />
+            );
           })}
         </article>
       )}
