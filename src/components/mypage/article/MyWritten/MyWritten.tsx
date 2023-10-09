@@ -5,7 +5,7 @@ import useGetMyWritten from "@/hooks/mypageAPI/useGetMyWritten";
 
 import DropDown from "../../elements/DropDown";
 
-import MyPost from "./MyPost";
+import MyPost from "./elements/MyPost";
 import NoData from "./NoData";
 
 export type myWrttenType =

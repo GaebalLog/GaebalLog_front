@@ -15,30 +15,36 @@ export const mypageApi = {
 
   // 글 관리
   getMyWrittens: () => {
-    return instance.get(`/mywritten/myWrittens`);
+    return instance.get(`/post/previews?type=me`);
   },
   getMyTempSaves: () => {
-    return instance.get(`/mywritten/myTempSaves`);
+    return instance.get(`/post/previews/`);
   },
   getMyBookmarks: () => {
-    return instance.get(`/mywritten/myBookmark`);
+    return instance.get(`/post/previews?type=bookmark`);
   },
   getMyComments: () => {
-    return instance.get(`/mywritten/myComment`);
+    return instance.get(`/post/previews?type=comment`);
   },
   getMyLikes: () => {
-    return instance.get(`/mywritten/myLike`);
+    return instance.get(`/post/previews?type=like`);
   },
 
   // 이웃 관리
+  addNeighbor: (targetId: string) => {
+    return instance.post(`/users/neighbors/${targetId}`);
+  },
+  deleteNeighbor: (targetId: string) => {
+    return instance.delete(`/users/neighbors/${targetId}`);
+  },
   blockUser: (block_id: string) => {
     return instance.post(`/users/block/${block_id}`);
   },
-  getAddedByMe: () => {
-    return instance.get(`/neighbors`);
+  getAddedByMe: (myId: string | null) => {
+    return instance.get(`/users/neighbors/following/${myId}`);
   },
-  getAddedByYou: () => {
-    return instance.get(`/neighbors`);
+  getAddedByYou: (myId: string | null) => {
+    return instance.get(`/users/neighbors/follower/${myId}`);
   },
   getAddedByBoth: () => {
     return instance.get(`/neighbors`);
@@ -49,10 +55,10 @@ export const mypageApi = {
 
   // 토의 관리
   getMyDiscussions: () => {
-    return instance.get(`/mydiscussion/me`);
+    return instance.get(`/discussions/previews/me`);
   },
   getNeighborDiscussions: () => {
-    return instance.get(`/mydiscussion/neighbor`);
+    return instance.get(`/discussions/previews/neighbors`);
   },
 
   // 설정

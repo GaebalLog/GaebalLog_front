@@ -71,6 +71,17 @@ declare global {
     remainingTime: number;
     isparticipated: boolean;
   }
+  interface myDiscussion {
+    discussionId: string;
+    nickname: string;
+    title: string;
+    content: string;
+    status: string;
+    createdAt: string;
+    userId: string;
+    remainingTime: string;
+    categories: string[];
+  }
   type discussions = beforeDiscussion[];
 
   // Home 화면
@@ -87,6 +98,20 @@ declare global {
     createdAt: string;
   }
   type posts = post[];
+
+  interface myPost {
+    postId: string;
+    userId: string;
+    title: string;
+    content: string;
+    nickname: string;
+    categories: string[];
+    like: number;
+    view: number;
+    isBookmarked: boolean;
+    createdAt: string;
+  }
+  type myPosts = myPost[];
 
   export interface commentRequest {
     parentId?: number | null;
@@ -126,7 +151,7 @@ declare global {
   interface neighborItem {
     userId: string;
     nickname: string;
-    profileImage: string;
+    imageUrl: string;
   }
 
   interface chatItemAtSide {
@@ -172,6 +197,12 @@ declare global {
     year: number;
     month: number;
     date: number;
+  }
+
+  interface queryError {
+    response?: {
+      status: number;
+    };
   }
 }
 

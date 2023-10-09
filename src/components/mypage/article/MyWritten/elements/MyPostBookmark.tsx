@@ -5,7 +5,7 @@ import useIcon from "@/hooks/useIcon";
 import { postAPI } from "@/api/postAPI";
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 
-import type { myWrttenType } from "./MyWritten";
+import type { myWrttenType } from "../MyWritten";
 
 const query = {
   "내가 쓴 글": "myWrittens",
@@ -35,6 +35,9 @@ const MyPostBookmark: React.FC<props> = ({
         QUERY_KEYS.MYWRITTEN,
         query[dropDownType],
       ]);
+    },
+    onError() {
+      alert("북마크에 실패했습니다.");
     },
   });
 

@@ -1,17 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
 import { mypageApi } from "@/api/mypageApi";
 
+interface queryData {
+  data: myPost[];
+}
+
 const query = {
   "내가 쓴 글": {
     type: "myWrittens",
-    fn: () => mypageApi.getMyBookmarks(),
+    fn: () => mypageApi.getMyWrittens(),
   },
   "임시저장 글": {
     type: "myTempSaves",
-    fn: () => mypageApi.getMyBookmarks(),
+    fn: () => mypageApi.getMyTempSaves(),
   },
   "내가 북마크한 글": {
     type: "myBookmarks",
@@ -35,9 +38,9 @@ const useGetMyWritten = (
     | "내가 댓글 단 글"
     | "내가 좋아요 한 글",
 ) => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.MYWRITTEN, type],
-    queryFn: () => axios.get(`/api/mypage/mywritten/${query[type].type}`),
+  return useQuery<queryData, queryError>({
+    queryKey: [QUERY_KEYS.MYWRITTEN, query[type].type],
+    queryFn: query[type].fn,
   });
 };
 

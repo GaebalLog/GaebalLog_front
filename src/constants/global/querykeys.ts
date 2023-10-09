@@ -14,6 +14,8 @@ export const QUERY_KEYS = {
   MYDISCUSSION: "myDiscussion",
   MYWRITTEN: "myWritten",
   DISCUSSION: "discussion",
+  NEIGHBORPROFILE: "neighborProfile",
   NEIGHBORWRITTEN: "neighborWritten",
   NEIGHBORDISCUSSION: "neighborDiscussion",
+  NEIGHBORKEYWORD: "neighborKeyword",
 };
