@@ -20,7 +20,7 @@ const Mydiscussions = () => {
 
   const { data } = useGetMydiscussions(dropDownType);
 
-  const discussionList = data?.data.discussions as discussions;
+  const discussionList = data?.data as myDiscussion[];
 
   return (
     <div className="flex w-full h-full flex-col px-[44px] pb-[24px]">
@@ -36,10 +36,10 @@ const Mydiscussions = () => {
         </div>
       </div>
       <article className="grid grid-cols-4 gap-[24px] overflow-auto">
-        {discussionList?.map((discussion: beforeDiscussion) => {
+        {discussionList?.map((discussion: myDiscussion) => {
           return (
             <MyDiscussionCard
-              key={`discussion${discussion.chatListId}`}
+              key={`discussion${discussion.discussionId}`}
               discussion={discussion}
             />
           );
