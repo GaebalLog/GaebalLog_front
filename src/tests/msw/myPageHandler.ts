@@ -186,7 +186,7 @@ export const myPageHandler = [
   }),
 
   // 토의 관리방
-  rest.get("/api/mypage/mydiscussion/me", (req, res, ctx) => {
+  rest.get("/api/discussions/previews/me", (req, res, ctx) => {
     const discussions: discussions = [
       {
         chatListId: 1,
@@ -201,7 +201,7 @@ export const myPageHandler = [
     ];
     return res(ctx.status(200), ctx.json({ discussions }));
   }),
-  rest.get("/api/mypage/mydiscussion/neighbor", (req, res, ctx) => {
+  rest.get("/api/discussions/previews/neighbors", (req, res, ctx) => {
     const discussions: discussions = [
       {
         chatListId: 1,
