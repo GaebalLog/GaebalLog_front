@@ -1,6 +1,5 @@
 import React from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { BG_COLOR } from "@/constants/global/colors";
 import useIcon from "@/hooks/useIcon";
@@ -24,12 +23,15 @@ const styles = {
 };
 
 const KeywordSearch = () => {
-  const [myCategories, setMyCategories] = React.useState<string[]>([]);
+  const [myCategories, setMyCategories] = React.useState<{ keyword: string }[]>(
+    [],
+  );
   const myCategoriesContainerRef = React.useRef<HTMLUListElement | null>(null);
+  const queryClient = useQueryClient();
 
   const { isLoading: myCategoriesLoading } = useQuery({
     queryKey: [QUERY_KEYS.KEYWORDLIST],
-    queryFn: () => authAPI.getKeywords(),
+    queryFn: () => authAPI.myKeywords(),
     onSuccess: (data) => {
       setMyCategories(data?.data);
     },
@@ -38,17 +40,18 @@ const KeywordSearch = () => {
   const { data: trendCategories, isLoading: trendCategoriesLoading } = useQuery(
     {
       queryKey: ["trendCategories"],
-      queryFn: () => axios.get("/api/trendCategories"),
+      queryFn: async () => await authAPI.trendKeywords(),
     },
   );
 
   const { mutate } = useMutation({
     mutationFn: (selectedKeyword: string) =>
       authAPI.addKeywords(selectedKeyword),
-    onMutate(variables: string) {
-      if (!slicedMyCategories.includes(variables)) {
-        setMyCategories((prev: string[]) => [...prev, variables]);
-      }
+    onSuccess() {
+      queryClient.invalidateQueries([QUERY_KEYS.KEYWORDLIST]);
+    },
+    onError() {
+      alert("키워드 추가 실패");
     },
   });
 
@@ -91,7 +94,6 @@ const KeywordSearch = () => {
                   data={slicedMyCategories}
                   type="keywordList"
                   isLoading={myCategoriesLoading}
-                  setMyCategories={setMyCategories}
                 />
               )}
               {!isLastPage && (

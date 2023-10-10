@@ -19,7 +19,7 @@ interface props {
 const LoggedSide: React.FC<props> = ({ position, type }) => {
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.KEYWORDLIST],
-    queryFn: async () => await authAPI.getKeywords(),
+    queryFn: async () => await authAPI.myKeywords(),
   });
   const keywordList = data?.data;
 

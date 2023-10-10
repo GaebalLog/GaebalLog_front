@@ -1,6 +1,8 @@
 import React from "react";
 
-interface usePaginationReturnType<T extends string[] | timeOfLearning[]> {
+interface usePaginationReturnType<
+  T extends { keyword: string }[] | timeOfLearning[],
+> {
   isFirstPage: boolean;
   isLastPage: boolean;
   handlePrev: () => void;
@@ -8,7 +10,7 @@ interface usePaginationReturnType<T extends string[] | timeOfLearning[]> {
   slicedMyCategories: T;
 }
 
-const usePagination = <T extends string[] | timeOfLearning[]>(
+const usePagination = <T extends { keyword: string }[] | timeOfLearning[]>(
   data: T,
   containerRef: React.MutableRefObject<
     HTMLUListElement | HTMLDivElement | null

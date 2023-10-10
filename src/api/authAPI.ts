@@ -72,7 +72,7 @@ export const authAPI = {
     return instance.post(`/keywords`, { keyword });
   },
   deleteKeywords: (keyword: string) => {
-    return instance.delete(`/keywords`, { data: keyword });
+    return instance.delete(`/keywords`, { data: { keyword } });
   },
   liveSearchKeyword: (keyword: string) => {
     const encodedKeyword = encodeURIComponent(keyword);

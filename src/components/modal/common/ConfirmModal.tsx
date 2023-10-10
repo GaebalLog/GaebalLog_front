@@ -11,6 +11,7 @@ const styles = {
   wrapper: `flex flex-col items-center w-[780px] h-[400px]`,
   closeIcon: `self-end m-6`,
   title: `text-2xl font-bold mt-[34px]`,
+  onlyTitle: `text-2xl font-bold mt-[75px]`,
   content: `text-center mt-14`,
   buttonBox: `flex mt-auto mb-[50px] gap-[105px]`,
 };
@@ -18,6 +19,7 @@ const styles = {
 interface confirmModalProps {
   title: string;
   content: string | React.ReactNode;
+  onlyTitle?: boolean;
   onNegativeClick?: () => void;
   onPositiveClick: () => void;
 }
@@ -25,6 +27,7 @@ interface confirmModalProps {
 const ConfirmModal: React.FC<confirmModalProps> = ({
   title,
   content,
+  onlyTitle,
   onNegativeClick,
   onPositiveClick,
 }) => {
@@ -49,7 +52,7 @@ const ConfirmModal: React.FC<confirmModalProps> = ({
         <button className={styles.closeIcon} onClick={() => negativeHandler()}>
           {defaultClose}
         </button>
-        <h1 className={styles.title}>{title}</h1>
+        <h1 className={onlyTitle ? styles.onlyTitle : styles.title}>{title}</h1>
         <div className={styles.content}>{content}</div>
         <div className={styles.buttonBox}>
           <Button

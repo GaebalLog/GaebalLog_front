@@ -15,7 +15,7 @@ interface props {
 }
 const SideBar: React.FC<props> = ({ height, sticky }) => {
   const { data } = useQuery({
-    queryKey: ["categories"],
+    queryKey: ["trendCategories"],
     queryFn: async () => await authAPI.trendKeywords(),
   });
   const keywordList = data?.data;
