@@ -8,7 +8,7 @@ import DropDown from "../../elements/DropDown";
 import MyPost from "./elements/MyPost";
 import NoData from "./NoData";
 
-export type myWrttenType =
+type myWrttenType =
   | "내가 쓴 글"
   | "임시저장 글"
   | "내가 북마크한 글"
@@ -27,7 +27,7 @@ const MyWritten = () => {
     React.useState<myWrttenType>("내가 쓴 글");
   const [tab, setTab] = React.useState<sortTab>("조회 순");
 
-  const { data, error } = useGetMyWritten(dropDownType);
+  const { queryKey, data, error } = useGetMyWritten(dropDownType);
 
   const postList = data?.data;
 
@@ -53,7 +53,7 @@ const MyWritten = () => {
               <MyPost
                 key={`post${post.postId}`}
                 post={post}
-                dropDownType={dropDownType}
+                queryKey={queryKey}
               />
             );
           })}

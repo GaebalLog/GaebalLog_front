@@ -5,8 +5,6 @@ import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import DateConvertor from "@/utils/util-dateConvertor";
 import Button from "@/components/designSystem/Button";
 
-import type { myWrttenType } from "../MyWritten";
-
 import MyPostBookmark from "./MyPostBookmark";
 import MyPostLikeAndView from "./MyPostLikeAndView";
 
@@ -24,7 +22,7 @@ const styles = {
 
 interface props {
   post: myPost;
-  dropDownType: myWrttenType;
+  queryKey: string[];
 }
 
 const MyPost: React.FC<props> = ({
@@ -39,7 +37,7 @@ const MyPost: React.FC<props> = ({
     like,
     view,
   },
-  dropDownType,
+  queryKey,
 }) => {
   const router = useRouter();
 
@@ -64,7 +62,7 @@ const MyPost: React.FC<props> = ({
       <MyPostBookmark
         postId={postId}
         isBookmarked={isBookmarked}
-        dropDownType={dropDownType}
+        queryKey={queryKey}
       />
       <div className={styles.postContainer}>
         <div className={styles.contentsBox.wrapper}>
@@ -89,7 +87,7 @@ const MyPost: React.FC<props> = ({
           postId={postId}
           like={like}
           view={view}
-          dropDownType={dropDownType}
+          queryKey={queryKey}
         />
       </div>
     </div>

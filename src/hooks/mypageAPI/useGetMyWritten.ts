@@ -38,10 +38,12 @@ const useGetMyWritten = (
     | "내가 댓글 단 글"
     | "내가 좋아요 한 글",
 ) => {
-  return useQuery<queryData, queryError>({
+  const queryKey = [QUERY_KEYS.MYWRITTEN, query[type].type];
+  const result = useQuery<queryData, queryError>({
     queryKey: [QUERY_KEYS.MYWRITTEN, query[type].type],
     queryFn: query[type].fn,
   });
+  return { ...result, queryKey };
 };
 
 export default useGetMyWritten;
