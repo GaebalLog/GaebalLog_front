@@ -5,7 +5,7 @@ export const restHandler = [
   rest.get("/api/categories", (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(["test1", "test2", "test3"]));
   }),
-  rest.get("/keywords", (req, res, ctx) => {
+  rest.get("/api/keywords?type=me", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json([
@@ -21,7 +21,7 @@ export const restHandler = [
       ]),
     );
   }),
-  rest.get("/api/trendCategories", (req, res, ctx) => {
+  rest.get("/api/keywords", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json([
