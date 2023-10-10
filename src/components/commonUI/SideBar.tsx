@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
+import { authAPI } from "@/api/authAPI";
 
 import Button from "../designSystem/Button";
 
@@ -16,7 +16,7 @@ interface props {
 const SideBar: React.FC<props> = ({ height, sticky }) => {
   const { data } = useQuery({
     queryKey: ["categories"],
-    queryFn: async () => await axios.get("/api/categories"),
+    queryFn: async () => await authAPI.trendKeywords(),
   });
   const keywordList = data?.data;
 
@@ -35,7 +35,7 @@ const SideBar: React.FC<props> = ({ height, sticky }) => {
       >
         <h1 className="font-hack text-[24px] mb-[32px]">Trend Keyword</h1>
         <div className="relative flex gap-3 flex-wrap content-start h-[350px] overflow-hidden">
-          {keywordList?.map((keyword: string) => (
+          {keywordList?.map(({ keyword }: { keyword: string }) => (
             <Button
               size="category"
               color="category"

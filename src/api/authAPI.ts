@@ -62,7 +62,10 @@ export const authAPI = {
     return instance.post("/auth/kakao", { code, uri: kakaoURI });
   },
 
-  getKeywords: () => {
+  myKeywords: () => {
+    return instance.get(`/keywords?type=me`);
+  },
+  trendKeywords: () => {
     return instance.get(`/keywords`);
   },
   addKeywords: (keyword: string) => {
@@ -71,12 +74,22 @@ export const authAPI = {
   deleteKeywords: (keyword: string) => {
     return instance.delete(`/keywords`, { data: keyword });
   },
+  liveSearchKeyword: (keyword: string) => {
+    const encodedKeyword = encodeURIComponent(keyword);
+    return instance.get(`/keywords/search/${encodedKeyword}`);
+  },
 
   //유저 상세 페이지
+  userProfile: (targetId: string) => {
+    return instance.get(`/users/${targetId}`);
+  },
   userPost: (targetId: string) => {
     return instance.get(`/post/previews/${targetId}`);
   },
   userDiscussion: (targetId: string) => {
     return instance.get(`/discussions/previews/${targetId}`);
+  },
+  userKeyword: (targetId: string) => {
+    return instance.get(`/keywords/${targetId}`);
   },
 };
