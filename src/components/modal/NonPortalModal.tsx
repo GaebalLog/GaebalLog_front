@@ -18,7 +18,7 @@
 import React from "react";
 
 interface nonPortalModalProps {
-  topLeft: { top: number; left: number };
+  topLeft: { top: number; left?: number; right?: number };
   nonBackdrop?: boolean;
   onBackdropClick?: () => void;
   children: React.ReactNode;

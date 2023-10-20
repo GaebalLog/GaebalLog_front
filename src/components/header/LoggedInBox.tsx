@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import axios from "axios";
 
 import useIcon from "@/hooks/useIcon";
 import { isLoggedInAtom, userAtom } from "@/hooks/useUserAuth";
+import { authAPI } from "@/api/authAPI";
 
 import Button from "../designSystem/Button";
 import ProfileImage from "../designSystem/ProfileImage";
@@ -18,7 +18,7 @@ const LoggedInBox = () => {
 
   const logoutHandler = async () => {
     try {
-      await axios.post("/api/auth");
+      await authAPI.logout();
       setIsLoggedIn(false);
     } catch (error) {
       console.log("logout error : ", error);
