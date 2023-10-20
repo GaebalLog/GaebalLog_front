@@ -3,9 +3,9 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import Link from "next/link";
 
+import Post from "@/components/commonUI/Post";
 import { TEXT_COLOR } from "@/constants/global/colors";
 import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
-import Post from "@/components/commonUI/Post";
 import Button from "@/components/designSystem/Button";
 import SideBar from "@/components/commonUI/SideBar";
 import StickyStyle from "@/components/commonUI/StickyStyle";
