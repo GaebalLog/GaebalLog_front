@@ -34,11 +34,17 @@ export const mypageApi = {
   addNeighbor: (targetId: string) => {
     return instance.post(`/users/neighbors/${targetId}`);
   },
+  checkNeighbor: (targetId: string) => {
+    return instance.get(`/users/neighbors/${targetId}`);
+  },
   deleteNeighbor: (targetId: string) => {
     return instance.delete(`/users/neighbors/${targetId}`);
   },
-  blockUser: (block_id: string) => {
+  addBlockUser: (block_id: string) => {
     return instance.post(`/users/block/${block_id}`);
+  },
+  deleteBlockUser: (block_id: string) => {
+    return instance.delete(`/users/block/${block_id}`);
   },
   getAddedByMe: (myId: string | null) => {
     return instance.get(`/users/neighbors/following/${myId}`);
