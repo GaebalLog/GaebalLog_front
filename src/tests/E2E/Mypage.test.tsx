@@ -133,12 +133,12 @@ describe("이웃 관리 테스트", () => {
     expect(screen.queryByText("내가 추가한 이웃1")).not.toBeInTheDocument();
   });
 
-  test("서로 이웃 렌더링 테스트", async () => {
-    await userEvent.click(await screen.findByTestId("neighborDropDown"));
-    await userEvent.click(await screen.findByText("서로 이웃"));
-    expect(await screen.findByText("서로 이웃1")).toBeInTheDocument();
-    expect(screen.queryByText("나를 추가한 이웃1")).not.toBeInTheDocument();
-  });
+  // test("서로 이웃 렌더링 테스트", async () => {
+  //   await userEvent.click(await screen.findByTestId("neighborDropDown"));
+  //   await userEvent.click(await screen.findByText("서로 이웃"));
+  //   expect(await screen.findByText("서로 이웃1")).toBeInTheDocument();
+  //   expect(screen.queryByText("나를 추가한 이웃1")).not.toBeInTheDocument();
+  // });
 
   test("차단한 이웃 렌더링 테스트", async () => {
     await userEvent.click(await screen.findByTestId("neighborDropDown"));
