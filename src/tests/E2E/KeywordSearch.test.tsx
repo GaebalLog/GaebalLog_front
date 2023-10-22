@@ -1,7 +1,6 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-// import axios from "axios";
 
 import KeywordSearch from "@/components/modal/keywordSearch/KeywordSearch";
 import Provider from "@/components/provider/Provider";
@@ -46,12 +45,6 @@ describe("키워드 검색 모달 API 요청 테스트", () => {
     await userEvent.type(input, "리액트");
     expect(await screen.findByText("리액트네이티브")).toBeInTheDocument();
   });
-
-  // test("OK버튼 눌렀을 때 patch 요청 가는지 테스트", () => {
-  //   const patchSpy = jest.spyOn(axios, "patch");
-  //   expect(patchSpy).toHaveBeenCalled();
-  //   patchSpy.mockRestore();
-  // });
 });
 
 describe("실시간 검색 기능 테스트", () => {
