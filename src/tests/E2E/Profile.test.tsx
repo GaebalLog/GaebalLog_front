@@ -20,7 +20,7 @@ describe("유저 정보 페이지 테스트", () => {
   });
 
   test("Tech탭 테스트", async () => {
-    await userEvent.click(await screen.findByText("이웃이 쓴 글"));
+    await userEvent.click(await screen.findByText("이웃이 쓴 글1"));
     expect(mockNavigation).toHaveBeenCalledWith("/tech/1");
   });
 

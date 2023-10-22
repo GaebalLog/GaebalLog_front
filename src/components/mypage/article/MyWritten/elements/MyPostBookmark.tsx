@@ -26,7 +26,6 @@ const MyPostBookmark: React.FC<props> = ({
       alert("북마크에 실패했습니다.");
     },
   });
-  console.log(isBookmarked);
 
   const { getIcon } = useIcon();
   const checkedSmallBookmark = getIcon("checkedSmallBookmark", 24, 48);

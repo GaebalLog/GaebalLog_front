@@ -26,6 +26,7 @@ const MyNeighborList = () => {
         return <NeighborCard type="bannedByMe" />;
     }
   };
+
   const renderedList = render();
   return (
     <div className={`relative px-[44px] pb-[24px] w-full h-full overflow-auto`}>

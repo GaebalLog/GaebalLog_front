@@ -230,39 +230,4 @@ export const myPageHandler = [
       ]),
     );
   }),
-
-  // 유저 상세 페이지
-  rest.get("/api/users/tech/:name", (req, res, ctx) => {
-    const posts: posts = [
-      {
-        postId: 1,
-        title: "이웃이 쓴 글",
-        content: "content",
-        categories: ["tags", "tåg2"],
-        like: 1,
-        count: 1,
-        nickname: "hi",
-        thumbnail:
-          "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60",
-        isBookmarked: true,
-        createdAt: "2021-08-10T14:00:00.000Z",
-      },
-    ];
-    return res(ctx.status(200), ctx.json({ posts }));
-  }),
-  rest.get("/api/users/discussion/:name", (req, res, ctx) => {
-    const discussions: discussions = [
-      {
-        chatListId: 1,
-        nickname: "나나",
-        title: "이웃이 쓴 토의1",
-        categories: ["카테고리1", "카테고리2"],
-        createdAt: "2023-08-28 17:08:22",
-        remainingTime: 1,
-        isparticipated: true,
-        isDone: true,
-      },
-    ];
-    return res(ctx.status(200), ctx.json({ discussions }));
-  }),
 ];
