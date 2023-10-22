@@ -3,7 +3,12 @@ import React from "react";
 import ConfirmModal from "@/components/modal/common/ConfirmModal";
 import { mypageApi } from "@/api/mypageApi";
 
-const BannedBtn = ({ nickname }: { nickname: string }) => {
+interface props {
+  nickname: string;
+  userId: string;
+}
+
+const BannedBtn: React.FC<props> = ({ nickname, userId }) => {
   const [modal, openModal] = React.useState(false);
 
   const onBlockClick = () => {
@@ -11,7 +16,8 @@ const BannedBtn = ({ nickname }: { nickname: string }) => {
   };
 
   const addBlockUser = async () => {
-    await mypageApi.blockUser("");
+    await mypageApi.addBlockUser(userId);
+    openModal(false);
   };
 
   return (

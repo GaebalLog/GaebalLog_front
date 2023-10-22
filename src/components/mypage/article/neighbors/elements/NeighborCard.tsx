@@ -12,12 +12,12 @@ const NeighborCard: React.FC<{
 
   return (
     <React.Fragment>
-      {neighborList?.map(({ nickname, profileImage, userId }: neighborItem) => {
+      {neighborList?.map(({ nickname, imageUrl, userId }: neighborItem) => {
         return (
           <NeighborProfile
             key={`myneighborProfile${userId}`}
             nickname={nickname}
-            profileImage={profileImage}
+            imageUrl={imageUrl}
             userId={userId}
             bannned={type === "bannedByMe"}
           />

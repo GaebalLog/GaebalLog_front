@@ -14,6 +14,10 @@ export const authAPI = {
   logout: () => {
     return instance.get(`/auth/logout`);
   },
+  darkMode: (value: boolean) => {
+    console.log({ value });
+    return instance.patch(`/users/preferences/darkmode`), { value };
+  },
 
   // 로컬
   localSignup: (payload: {
@@ -62,21 +66,22 @@ export const authAPI = {
     return instance.post("/auth/kakao", { code, uri: kakaoURI });
   },
 
-  myKeywords: () => {
-    return instance.get(`/keywords?type=me`);
+  // 키워드
+  myKeywords: async () => {
+    return await instance.get(`/keywords?type=me`);
   },
-  trendKeywords: () => {
-    return instance.get(`/keywords`);
+  trendKeywords: async () => {
+    return await instance.get(`/keywords`);
   },
-  addKeywords: (keyword: string) => {
-    return instance.post(`/keywords`, { keyword });
+  addKeywords: async (keyword: string) => {
+    return await instance.post(`/keywords`, { keyword });
   },
   deleteKeywords: (keyword: string) => {
     return instance.delete(`/keywords`, { data: { keyword } });
   },
   liveSearchKeyword: (keyword: string) => {
     const encodedKeyword = encodeURIComponent(keyword);
-    return instance.get(`/keywords/search/${encodedKeyword}`);
+    return instance.get(`/keywords/search?value=${encodedKeyword}`);
   },
 
   //유저 상세 페이지
