@@ -25,12 +25,12 @@ const NeighborArticle: React.FC<props> = ({ discussion }) => {
     >
       <h1 className="font-hack text-[20px] mb-[32px]">My Friend’s</h1>
       {neighborList?.map((item: neighborItem) => {
-        const { nickname, profileImage, userId } = item;
+        const { nickname, imageUrl, userId } = item;
         return (
           <NeightborProfile
             key={`neighborProfile${item.userId}`}
             nickname={nickname}
-            profileImage={profileImage}
+            imageUrl={imageUrl}
             userId={userId}
           />
         );

@@ -1,47 +1,48 @@
 import { rest } from "msw";
 
+const myKeyword = [
+  { keyword: "개발자" },
+  { keyword: "깃헙사용법정리" },
+  { keyword: "깃허브" },
+  { keyword: "코딩용어" },
+  { keyword: "알고리즘" },
+  { keyword: "Pascal" },
+  { keyword: "Object" },
+  { keyword: "IMP" },
+  { keyword: "Javascript" },
+];
+
 export const restHandler = [
   // 카테고리
   rest.get("/api/categories", (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(["test1", "test2", "test3"]));
   }),
   rest.get("/keywords", (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json([
-        "개발자",
-        "깃헙사용법정리",
-        "깃허브",
-        "코딩용어",
-        "알고리즘",
-        "Pascal",
-        "Object",
-        "IMP",
-        "Javascript",
-      ]),
-    );
-  }),
-  rest.get("/api/trendCategories", (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json([
-        "Github",
-        "Java",
-        "Physon",
-        "IMP",
-        "Language",
-        "ALGOL",
-        "Javascript",
-        "PEARL",
-        "Object",
-        "PL/SQL",
-        "Pascal",
-        "JASS",
-      ]),
-    );
+    const type = req.url.searchParams.get("type");
+    if (type === "me") {
+      return res(ctx.status(200), ctx.json(myKeyword));
+    } else {
+      return res(
+        ctx.status(200),
+        ctx.json([
+          { keyword: "Github" },
+          { keyword: "Java" },
+          { keyword: "Physon" },
+          { keyword: "IMP" },
+          { keyword: "Language" },
+          { keyword: "ALGOL" },
+          { keyword: "Javascript" },
+          { keyword: "PEARL" },
+          { keyword: "Object" },
+          { keyword: "PL/SQL" },
+          { keyword: "Pascal" },
+          { keyword: "JASS" },
+        ]),
+      );
+    }
   }),
 
-  rest.get("/api/liveSearch", (req, res, ctx) => {
+  rest.get("/keywords/search", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json([
@@ -52,6 +53,12 @@ export const restHandler = [
         "리액트네이티브 튜토리얼",
       ]),
     );
+  }),
+
+  rest.post("/keywords", async (req, res, ctx) => {
+    const { keyword } = await req.json();
+    myKeyword.push({ keyword });
+    return res(ctx.status(200));
   }),
 
   //토의방 api

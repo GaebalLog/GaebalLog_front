@@ -48,7 +48,7 @@ const LoggedSide: React.FC<props> = ({ position, type }) => {
         {keywordList?.length === 0 ? (
           <div className={styles.noKeyword}>키워드 없음</div>
         ) : (
-          keywordList?.map((keyword: string) => (
+          keywordList?.map(({ keyword }: { keyword: string }) => (
             <Link key={`logged${keyword}`} href={`/${type}?keyword=${keyword}`}>
               <Button size="category" color="category" rounded>
                 #{keyword}

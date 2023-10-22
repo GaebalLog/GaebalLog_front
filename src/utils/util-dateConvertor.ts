@@ -17,9 +17,9 @@ export default class DateConvertor {
 
     if (dateTimeString.includes("T")) {
       const parsedDate = new Date(dateTimeString);
-      this.year = parsedDate.getFullYear();
-      this.month = parsedDate.getMonth() + 1;
-      this.date = parsedDate.getDate();
+      this.year = parsedDate.getUTCFullYear();
+      this.month = parsedDate.getUTCMonth() + 1;
+      this.date = parsedDate.getUTCDate();
       this.hour = parsedDate.getUTCHours();
       this.minutes = parsedDate.getUTCMinutes();
     } else {
@@ -36,25 +36,39 @@ export default class DateConvertor {
     }
   }
 
-  static separatedValues(
+  static createLocalISOString(
     year: number,
     month: number,
     date: number,
     halfDay: string,
     hour: number,
     minutes: number,
-  ): DateConvertor {
+  ): string {
     const adjustedHour = halfDay === "오후" ? hour + 12 : hour;
-    const dateTimeString = `${year}-${month}-${date} ${adjustedHour}:${minutes}`;
-    return new DateConvertor(dateTimeString);
+
+    const monthStr = String(month).padStart(2, "0");
+    const dateStr = String(date).padStart(2, "0");
+    const hourStr = String(adjustedHour).padStart(2, "0");
+    const minuteStr = String(minutes).padStart(2, "0");
+
+    return `${year}-${monthStr}-${dateStr}T${hourStr}:${minuteStr}:00.000Z`;
   }
 
   convertToLocalISOString(): string {
-    const yearStr = String(this.year).padStart(4, "0");
-    const monthStr = String(this.month).padStart(2, "0");
-    const dateStr = String(this.date).padStart(2, "0");
-    const hourStr = String(this.hour).padStart(2, "0");
-    const minuteStr = String(this.minutes).padStart(2, "0");
+    const utcDate = new Date(
+      this.year,
+      this.month - 1,
+      this.date,
+      this.hour,
+      this.minutes,
+    );
+    utcDate.setHours(utcDate.getHours() + 9);
+
+    const yearStr = utcDate.getFullYear();
+    const monthStr = String(utcDate.getMonth() + 1).padStart(2, "0");
+    const dateStr = String(utcDate.getDate()).padStart(2, "0");
+    const hourStr = String(utcDate.getHours()).padStart(2, "0");
+    const minuteStr = String(utcDate.getMinutes()).padStart(2, "0");
 
     return `${yearStr}-${monthStr}-${dateStr}T${hourStr}:${minuteStr}:00.000Z`;
   }
@@ -68,10 +82,6 @@ export default class DateConvertor {
       this.minutes,
     );
     const now = new Date();
-    // console.log(this.year, this.month - 1, this.date, this.hour, this.minutes);
-    console.log(now);
-    console.log(createdTime);
-
     return now.getTime() - createdTime.getTime();
   }
 
@@ -82,6 +92,8 @@ export default class DateConvertor {
     if (timeGap < 60 * 1000) return "방금 전";
     if (timeGap < 60 * 60 * 1000)
       return `${Math.floor(timeGap / (60 * 1000))}분 전`;
+    if (timeGap < 24 * 60 * 60 * 1000)
+      return `${Math.floor(timeGap / (60 * 60 * 1000))}시간 전`;
 
     return null;
   }
@@ -111,6 +123,7 @@ export default class DateConvertor {
     if (days > 365) return `${Math.round(days / 365)}년 전`;
     if (days > 30) return `${Math.round(days / 30)}달 전`;
     if (days > 7) return `${Math.round(days / 7)}주 전`;
-    else return this.getTimeDifference();
+    if (days === 0) return this.getTimeDifference();
+    else return `${days}일 전`;
   }
 }

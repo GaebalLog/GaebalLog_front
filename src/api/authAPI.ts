@@ -8,6 +8,16 @@ export const authAPI = {
   userAuth: () => {
     return instance.get(`/users/me`);
   },
+  withdraw: () => {
+    return instance.delete(`/users`);
+  },
+  logout: () => {
+    return instance.get(`/auth/logout`);
+  },
+  darkMode: (value: boolean) => {
+    console.log({ value });
+    return instance.patch(`/users/preferences/darkmode`), { value };
+  },
 
   // 로컬
   localSignup: (payload: {
@@ -37,8 +47,12 @@ export const authAPI = {
       email,
     });
   },
-  changePassword: async (payload: { email: string; password: string }) => {
-    return await instance.post("/users/password-reset", payload);
+  changePassword: async (payload: {
+    email: string;
+    password: string;
+    code: string;
+  }) => {
+    return await instance.patch("/users/password-reset", payload);
   },
 
   // 소셜
@@ -52,10 +66,35 @@ export const authAPI = {
     return instance.post("/auth/kakao", { code, uri: kakaoURI });
   },
 
-  myKeywords: () => {
-    return instance.get(`/keywords`);
+  // 키워드
+  myKeywords: async () => {
+    return await instance.get(`/keywords?type=me`);
   },
-  updateKeywords: (keyword: string) => {
-    return instance.post(`/users/keywords`, { keyword });
+  trendKeywords: async () => {
+    return await instance.get(`/keywords`);
+  },
+  addKeywords: async (keyword: string) => {
+    return await instance.post(`/keywords`, { keyword });
+  },
+  deleteKeywords: (keyword: string) => {
+    return instance.delete(`/keywords`, { data: { keyword } });
+  },
+  liveSearchKeyword: (keyword: string) => {
+    const encodedKeyword = encodeURIComponent(keyword);
+    return instance.get(`/keywords/search?value=${encodedKeyword}`);
+  },
+
+  //유저 상세 페이지
+  userProfile: (targetId: string) => {
+    return instance.get(`/users/${targetId}`);
+  },
+  userPost: (targetId: string) => {
+    return instance.get(`/post/previews/${targetId}`);
+  },
+  userDiscussion: (targetId: string) => {
+    return instance.get(`/discussions/previews/${targetId}`);
+  },
+  userKeyword: (targetId: string) => {
+    return instance.get(`/keywords/${targetId}`);
   },
 };

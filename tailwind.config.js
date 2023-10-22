@@ -30,6 +30,13 @@ module.exports = {
           "-webkit-line-clamp": "3", // 3줄로 설정. 필요에 따라 이 값을 변경할 수 있습니다.
           "-webkit-box-orient": "vertical",
         },
+        ".truncate-multiline": {
+          height: "3rem",
+          display: "-webkit-box",
+          overflow: "hidden",
+          "-webkit-line-clamp": "2",
+          "-webkit-box-orient": "vertical",
+        },
       };
 
       addUtilities(newUtilities, ["responsive", "hover"]);

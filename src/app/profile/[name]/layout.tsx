@@ -15,12 +15,12 @@ export const generateMetadata = ({ params: { name } }: profileParams) => {
   };
 };
 
-const ProfileLayout: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+const ProfileLayout: React.FC<
+  { children: React.ReactNode } & profileParams
+> = ({ children, params: { name } }) => {
   return (
     <main className="flex junstify-center">
-      <ProfileSidebar />
+      <ProfileSidebar params={name} />
       {children}
     </main>
   );

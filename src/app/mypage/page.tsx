@@ -4,7 +4,7 @@ import React from "react";
 import Button from "@/components/designSystem/Button";
 import MyInfo from "@/components/mypage/article/myInfo/MyInfo";
 import MySettings from "@/components/mypage/article/MySettings";
-import MyWritten from "@/components/mypage/article/MyWritten";
+import MyWritten from "@/components/mypage/article/MyWritten/MyWritten";
 import Mydiscussions from "@/components/mypage/article/MyDiscussion/Mydiscussions";
 import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import { MyNeighbors } from "@/components/mypage/article/neighbors/MyNeighbors";
@@ -14,9 +14,9 @@ const boxOption = `${BG_COLOR.general02} ${TEXT_COLOR.primary}`;
 
 const mypageTab = [
   "내 정보",
-  "내가 쓴 글",
+  "글 관리",
   "이웃 관리",
-  "참여 중인 토의",
+  "토의 관리",
   "설정",
 ] as const;
 const MyPagePage = withAuth(() => {
@@ -25,11 +25,11 @@ const MyPagePage = withAuth(() => {
     switch (tab) {
       case "내 정보":
         return <MyInfo />;
-      case "내가 쓴 글":
+      case "글 관리":
         return <MyWritten />;
       case "이웃 관리":
         return <MyNeighbors />;
-      case "참여 중인 토의":
+      case "토의 관리":
         return <Mydiscussions />;
       case "설정":
         return <MySettings />;
@@ -54,7 +54,7 @@ const MyPagePage = withAuth(() => {
           </div>
         ))}
       </div>
-      <div className={`flex items-center w-[1632px] h-[458px] ${boxOption}`}>
+      <div className={`flex items-center w-[1632px] h-[462px] ${boxOption}`}>
         {render}
       </div>
     </div>

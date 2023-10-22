@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 
 import useInput from "@/hooks/useInput";
 import { BG_COLOR } from "@/constants/global/colors";
@@ -25,6 +26,7 @@ const styles = {
 const ForgotPassword = () => {
   const [isEmailSent, setIsEmailSent] = React.useState(false);
   const [resendClick, setResendClick] = React.useState(0);
+  const router = useRouter();
 
   const emailInput = useInput();
   const verificationCode = useInput();
@@ -38,10 +40,17 @@ const ForgotPassword = () => {
 
   const changePassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    await authAPI.changePassword({
-      email: emailInput.value,
-      password: passwordInput.value,
-    });
+    try {
+      await authAPI.changePassword({
+        email: emailInput.value,
+        password: passwordInput.value,
+        code: "",
+      });
+      alert("비밀번호 변경 성공");
+      router.replace("/auth/login");
+    } catch (error) {
+      alert("비밀번호 변경 실패");
+    }
   };
 
   return (

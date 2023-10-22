@@ -40,7 +40,7 @@ describe("홈 화면 테스트", () => {
       await screen.findByText(`console.log("Hello, world!");`),
     ).toBeInTheDocument();
     expect(
-      await screen.findByRole("button", { name: "#test1" }),
+      await screen.findByRole("button", { name: "#Github" }),
     ).toBeInTheDocument();
     expect(await screen.findAllByText("nickname")).toHaveLength(2);
   });

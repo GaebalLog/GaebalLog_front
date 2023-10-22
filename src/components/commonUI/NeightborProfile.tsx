@@ -10,13 +10,13 @@ const styles = {
 };
 
 const NeightborProfile: React.FC<neighborItem> = (props) => {
-  const { nickname, profileImage, userId } = props;
+  const { nickname, imageUrl, userId } = props;
   const { getIcon } = useIcon();
   const defaultrofile = getIcon("default_profile", 40, 40);
   return (
     <div id={userId.toString()} className={styles.container}>
-      {profileImage ? (
-        <Image src={profileImage} alt={nickname} width={40} height={40} />
+      {imageUrl ? (
+        <Image src={imageUrl} alt={nickname} width={40} height={40} />
       ) : (
         defaultrofile
       )}

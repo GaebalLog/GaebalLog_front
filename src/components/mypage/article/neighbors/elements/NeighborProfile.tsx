@@ -1,8 +1,11 @@
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { TEXT_COLOR } from "@/constants/global/colors";
 import ProfileImage from "@/components/designSystem/ProfileImage";
+import { mypageApi } from "@/api/mypageApi";
+import { QUERY_KEYS } from "@/constants/global/querykeys";
 
 import Button from "../../../../designSystem/Button";
 
@@ -18,11 +21,22 @@ interface props extends neighborItem {
 }
 const NeighborProfile: React.FC<props> = ({
   nickname,
-  profileImage,
+  imageUrl,
   userId,
   bannned,
 }) => {
+  const queryClient = useQueryClient();
   const router = useRouter();
+
+  const { mutate } = useMutation({
+    mutationFn: () => mypageApi.deleteBlockUser(userId),
+    onSuccess() {
+      queryClient.invalidateQueries([QUERY_KEYS.NEIGHBOR, "bannedByMe"]);
+    },
+    onError() {
+      alert("차단 해제에 실패했습니다.");
+    },
+  });
   const btnList = [
     {
       text: "이웃 정보 보기",
@@ -32,8 +46,8 @@ const NeighborProfile: React.FC<props> = ({
     },
     {
       text: "이웃 삭제",
-      onclick: () => {
-        router.push("/");
+      onclick: async () => {
+        await mypageApi.deleteNeighbor(userId);
       },
     },
   ];
@@ -41,7 +55,7 @@ const NeighborProfile: React.FC<props> = ({
     {
       text: "차단 해제",
       onclick: () => {
-        router.push("/");
+        mutate();
       },
     },
   ];
@@ -51,7 +65,7 @@ const NeighborProfile: React.FC<props> = ({
       <div className={styles.profileBox}>
         <ProfileImage
           idForModal={userId}
-          profileImage={profileImage}
+          profileImage={imageUrl}
           preventModalOpen
         />
         <span className={styles.nickname}>{nickname}</span>

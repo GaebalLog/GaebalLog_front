@@ -9,13 +9,17 @@ import useUpdateComment from "@/hooks/commentAPI/useUpdateComment";
 import useInput from "@/hooks/useInput";
 import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
 import DateConvertor from "@/utils/util-dateConvertor";
+import { activatedModalIdAtom } from "@/hooks/useModalController";
+import { mypageApi } from "@/api/mypageApi";
 
 import BannedBtn from "../btn/BannedBtn";
 import DeleteCommentBtn from "../btn/DeleteCommentBtn";
+import NeighborBtn from "../btn/NeighborBtn";
 
 const styles = {
   commentHeader: `flex justify-between`,
-  metaInfoWrapper: `flex items-center`,
+  metaInfoWrapper: `relative flex items-center`,
+  profileBox: `flex items-center cursor-pointer`,
   nickname: `ml-4 text-xl font-bold`,
   buttonBox: `flex gap-4 ml-auto`,
   date: `mt-2 ml-14`,
@@ -36,11 +40,15 @@ const CommentCard: React.FC<commentCardProps> = ({
   createdAt,
   content,
   grandChildComment,
+  userId,
 }) => {
+  const [isNeighbor, setIsNeighbor] = React.useState<boolean | null>(null);
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
+  const [activatedId, setActivatedId] = useRecoilState(activatedModalIdAtom);
   const [editingId, seteditingId] = useRecoilState(openCommentEditorAtom);
-  const myNick = useRecoilValue(userAtom)?.nickname;
-  const dateConvertor = new DateConvertor(createdAt);
+  const { nickname: myNickname } = useRecoilValue(userAtom);
+  const localISOString = new DateConvertor(createdAt).convertToLocalISOString();
+  const dateConvertor = new DateConvertor(localISOString);
 
   const [updateComment, setUpdateComment] = React.useState<boolean>(false);
   const { value, onChange } = useInput(content);
@@ -55,18 +63,33 @@ const CommentCard: React.FC<commentCardProps> = ({
     onSuccess: () => setUpdateComment(false),
   });
 
+  const checkNeighbor = async () => {
+    setActivatedId(commentId);
+    try {
+      const { data } = await mypageApi.checkNeighbor(userId);
+      setIsNeighbor(data?.isNeighbor);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className={isChildComment ? "mt-4" : ""}>
       <div className={styles.commentHeader}>
         <div className={styles.metaInfoWrapper}>
-          <ProfileImage idForModal={commentId} profileImage={profileImg} />
-          <span className={styles.nickname}>
-            {nickname}
-            {`${myNick}`}
-          </span>
+          <div className={styles.profileBox} onClick={checkNeighbor}>
+            <ProfileImage idForModal={commentId} profileImage={profileImg} />
+            <span className={styles.nickname}>
+              {nickname}
+              {`${myNickname}`}
+            </span>
+          </div>
+          {activatedId === commentId && myNickname !== nickname && (
+            <NeighborBtn userId={userId} isNeighbor={isNeighbor} />
+          )}
           {isLoggedIn && (
             <>
-              <BannedBtn nickname={nickname} />
+              <BannedBtn nickname={nickname} userId={userId} />
               {!grandChildComment && (
                 <button
                   data-testid={`addCommentButton_${commentId}`}
@@ -79,7 +102,7 @@ const CommentCard: React.FC<commentCardProps> = ({
             </>
           )}
         </div>
-        {myNick === nickname && (
+        {myNickname === nickname && (
           <div className={styles.buttonBox}>
             {updateComment ? (
               <>

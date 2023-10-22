@@ -1,8 +1,8 @@
 import React from "react";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 import { QUERY_KEYS } from "@/constants/global/querykeys";
+import { authAPI } from "@/api/authAPI";
 
 import useDebounce from "../useDebounce";
 
@@ -16,14 +16,20 @@ const useLiveSearchList = (
 
   useQuery({
     queryKey: [QUERY_KEYS.LIVESEARCH, debouncedValue],
-    queryFn: () => axios.get(`/api/liveSearch?value=${debouncedValue}`),
+    queryFn: async () => await authAPI.liveSearchKeyword(debouncedValue),
     onSuccess: (data) => setDisplayedResults(data.data),
     enabled: type !== "mypageSearch",
   });
 
   React.useEffect(() => {
     if (data) {
-      const filteredResult = data?.filter((item) => item.includes(value));
+      let filteredResult;
+      if (value) {
+        filteredResult = data.filter((item) => item.includes(value));
+      } else {
+        filteredResult = [""];
+      }
+
       setDisplayedResults(filteredResult);
     }
   }, [value]);

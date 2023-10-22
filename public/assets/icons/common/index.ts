@@ -58,6 +58,11 @@ import done_check from "./done_check.png";
 import people_light from "./people_light.png";
 import people_dark from "./people_dark.png";
 import liked from "./liked.png";
+import checkedSmallBookmark from "./checkedSmallBookmark.png";
+import smallBookmark_light from "./smallBookmark_light.png";
+import smallBookmark_dark from "./smallBookmark_dark.png";
+import add_light from "./add_light.png";
+import add_dark from "./add_dark.png";
 const ICON = {
   alarm: [alarm_light, alarm_dark],
   close: [close_light, close_dark],
@@ -93,5 +98,8 @@ const ICON = {
   none_check: [none_check, none_check],
   done_check: [done_check, done_check],
   people: [people_light, people_dark],
+  checkedSmallBookmark: [checkedSmallBookmark, checkedSmallBookmark],
+  smallBookmark: [smallBookmark_light, smallBookmark_dark],
+  add: [add_light, add_dark],
 };
 export default ICON;

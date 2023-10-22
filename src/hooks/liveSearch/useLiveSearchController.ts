@@ -17,7 +17,6 @@ const useLiveSearchController = (
   const router = useRouter();
   const { modal, openModal, closeModal } = useModalController();
 
-  //
   const searchedKeywordClick = (selectedKeyword: string) => {
     clickResultList && clickResultList(selectedKeyword);
     closeModal(type);
@@ -26,13 +25,11 @@ const useLiveSearchController = (
     setValue(selectedKeyword);
   };
 
-  //
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.target.value.length > 0 ? openModal(type) : closeModal(type);
     setValue(e.target.value);
   };
 
-  //
   const handleKeyboard = (event: React.KeyboardEvent) => {
     const { key } = event;
     const maxIndex = (displayedResults?.length || 0) - 1;
@@ -40,7 +37,6 @@ const useLiveSearchController = (
     if (key === "ArrowUp") return handleArrowUp(maxIndex);
     if (key === "Enter") return handleEnter();
   };
-
   const handleArrowDown = (maxIndex: number) => {
     openModal(type);
     setFocusedIndex((prev) =>
@@ -59,7 +55,6 @@ const useLiveSearchController = (
     searchedKeywordClick(selectedResult);
   };
 
-  //
   React.useEffect(() => {
     if (modal[type] === false) setFocusedIndex(null);
   }, [modal]);

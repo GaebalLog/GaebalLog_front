@@ -52,6 +52,7 @@ const Input: React.FC<InputProps> = ({
   const [hoveredItem, setHoveredItem] =
     React.useState<(typeof sortList)[number]>();
   const search = getIcon("search", 18, 18);
+  const add = getIcon("add", 18, 18);
   const downBtn = getIcon("downBtn", 8, 12);
   const handleIconClick = () => {
     onClick && onClick(value);
@@ -101,7 +102,7 @@ const Input: React.FC<InputProps> = ({
         placeholder={placeholder || "검색어를 입력해주세요."}
       />
       <div className={styles.icon} onClick={handleIconClick}>
-        {search}
+        {type === "keywordSearch" ? add : search}
       </div>
     </div>
   );

@@ -21,6 +21,7 @@ export interface detailParams {
     postId: string;
   };
 }
+
 const Detail = ({ params: { postId } }: detailParams) => {
   const setPostId = useSetRecoilState(postAtom);
 

@@ -25,7 +25,10 @@ const Post: React.FC<{
   const bookmark = getIcon("bookmark", 48, 80, "cursor hover");
   const checkBookmark = getIcon("checkbook", 48, 80, "cursor hover");
 
-  const dateConvertor = new DateConvertor(post.createdAt);
+  const localISOString = new DateConvertor(
+    post.createdAt,
+  ).convertToLocalISOString();
+  const dateConvertor = new DateConvertor(localISOString);
 
   const clickHeartHandler = () => {
     likeHandler(post.postId);

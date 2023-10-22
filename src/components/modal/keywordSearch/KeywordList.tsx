@@ -1,10 +1,11 @@
 import React from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import Button from "@/components/designSystem/Button";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import useIcon from "@/hooks/useIcon";
 import { authAPI } from "@/api/authAPI";
+import { QUERY_KEYS } from "@/constants/global/querykeys";
 
 const styles = {
   keywordList: `relative flex flex-wrap gap-[10px] h-[100px] px-1 mt-[22px] overflow-y-hidden`,
@@ -12,11 +13,10 @@ const styles = {
 };
 
 interface keywordListProps {
-  data: string[];
+  data: { keyword: string }[];
   type: "keywordList" | "trendCategory";
   nonIcon?: boolean;
   isLoading?: boolean;
-  setMyCategories?: React.Dispatch<React.SetStateAction<string[]>>;
   myCategoriesContainerRef?: React.MutableRefObject<HTMLUListElement | null>;
 }
 
@@ -25,20 +25,21 @@ const KeywordList: React.FC<keywordListProps> = ({
   type,
   nonIcon,
   isLoading,
-  setMyCategories,
   myCategoriesContainerRef,
 }) => {
+  const queryClient = useQueryClient();
+
   const { getIcon } = useIcon();
   const close = getIcon("close", 18, 18);
 
   const { mutate } = useMutation({
     mutationFn: (selectedKeyword: string) =>
-      authAPI.updateKeywords(selectedKeyword),
-    onSuccess(data, variables) {
-      setMyCategories &&
-        setMyCategories((prev) =>
-          prev.filter((category) => category !== variables),
-        );
+      authAPI.deleteKeywords(selectedKeyword),
+    onSuccess() {
+      queryClient.invalidateQueries([QUERY_KEYS.KEYWORDLIST]);
+    },
+    onError() {
+      alert("키워드 삭제 실패");
     },
   });
 
@@ -53,11 +54,11 @@ const KeywordList: React.FC<keywordListProps> = ({
 
   return (
     <ul ref={myCategoriesContainerRef} className={styles.keywordList}>
-      {data?.map((category: string) => (
-        <li key={`${type}_${category}`} className="category mb-[6px]">
+      {data?.map(({ keyword }: { keyword: string }) => (
+        <li key={`${type}_${keyword}`} className="category mb-[6px]">
           <Button
             className="flex items-center gap-[10px]"
-            data-testid={`${type}_${category}`}
+            data-testid={`${type}_${keyword}`}
             size="category"
             color="category"
             rounded
@@ -65,13 +66,13 @@ const KeywordList: React.FC<keywordListProps> = ({
               !nonIcon
                 ? (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                     e.preventDefault();
-                    mutate(category);
+                    mutate(keyword);
                   }
                 : undefined
             }
           >
             <div className="max-w-[374px] truncate">
-              <span>#{category}</span>
+              <span>#{keyword}</span>
             </div>
             {!nonIcon && <div>{close}</div>}
           </Button>
