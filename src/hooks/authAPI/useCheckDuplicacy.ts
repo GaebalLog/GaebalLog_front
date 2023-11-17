@@ -18,7 +18,9 @@ const useCheckDuplicacy = (emailValue: string, nicknameValue: string) => {
       await authAPI.emailConfirm(emailValue);
       setIsEmailDuplicated(false);
     } catch (error) {
-      utilErrorCase((error as error).response.status);
+      if ((error as error).response.status === 409) {
+        setIsEmailDuplicated(true);
+      } else utilErrorCase((error as error).response.status);
     }
   }, [emailValue]);
 
@@ -28,7 +30,9 @@ const useCheckDuplicacy = (emailValue: string, nicknameValue: string) => {
       await authAPI.nicknameConfirm(nicknameValue);
       setIsNicknameDuplicated(false);
     } catch (error) {
-      utilErrorCase((error as error).response.status);
+      if ((error as error).response.status === 409) {
+        setIsNicknameDuplicated(true);
+      } else utilErrorCase((error as error).response.status);
     }
   }, [nicknameValue]);
 
