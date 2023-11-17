@@ -5,6 +5,7 @@ import { notFound, useRouter, useSearchParams } from "next/navigation";
 
 import { authAPI } from "@/api/authAPI";
 import useUserAuth from "@/hooks/useUserAuth";
+import { utilErrorCase } from "@/utils/util-errorCase";
 
 interface snsTypeProps {
   params: {
@@ -41,7 +42,7 @@ const SnsLoginpage = ({ params: { snsType } }: snsTypeProps) => {
           }
         }
       } catch (error) {
-        console.log("소셜 로그인 실패 ::", error);
+        utilErrorCase((error as error).response.status);
       }
     };
     fetchSocialLogin();

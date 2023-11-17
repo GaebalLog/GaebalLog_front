@@ -182,7 +182,7 @@ declare global {
   interface error {
     response: {
       data: object;
-      status: 500;
+      status: number;
     };
   }
 

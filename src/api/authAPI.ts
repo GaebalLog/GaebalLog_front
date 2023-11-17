@@ -15,7 +15,6 @@ export const authAPI = {
     return instance.get(`/auth/logout`);
   },
   darkMode: (value: boolean) => {
-    console.log({ value });
     return instance.patch(`/users/preferences/darkmode`), { value };
   },
 

@@ -2,6 +2,7 @@ import React from "react";
 
 import Button from "@/components/designSystem/Button";
 import { authAPI } from "@/api/authAPI";
+import { utilErrorCase } from "@/utils/util-errorCase";
 
 import CountdownText from "../text/CountdownText";
 
@@ -33,7 +34,7 @@ const InputEmailCodeCheck: React.FC<props> = ({
       alert("인증 성공");
       setIsEmailSent(false);
     } catch (error) {
-      alert("인증 실패");
+      utilErrorCase((error as error).response.status);
     }
   };
 

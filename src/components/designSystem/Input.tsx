@@ -1,9 +1,11 @@
 "use client";
 import React from "react";
+import { useRecoilState } from "recoil";
 
 import useIcon from "@/hooks/useIcon";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
 import useModalController from "@/hooks/useModalController";
+import { searchSortAtom } from "@/constants/global/atoms";
 
 const styles = {
   keywordSearch: {
@@ -47,8 +49,7 @@ const Input: React.FC<InputProps> = ({
   const { modal, closeModal, toggleModal } = useModalController();
 
   const { getIcon } = useIcon();
-  const [searchSort, setSearchSort] =
-    React.useState<(typeof sortList)[number]>("토의");
+  const [searchSort, setSearchSort] = useRecoilState(searchSortAtom);
   const [hoveredItem, setHoveredItem] =
     React.useState<(typeof sortList)[number]>();
   const search = getIcon("search", 18, 18);

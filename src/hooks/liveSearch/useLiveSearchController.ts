@@ -1,5 +1,8 @@
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useRecoilValue } from "recoil";
+
+import { searchSortAtom } from "@/constants/global/atoms";
 
 import useModalController from "../useModalController";
 
@@ -15,12 +18,18 @@ const useLiveSearchController = (
   clickResultList?: (selectedKeyword: string) => void,
 ) => {
   const router = useRouter();
+  const searchSort = useRecoilValue(searchSortAtom);
   const { modal, openModal, closeModal } = useModalController();
 
   const searchedKeywordClick = (selectedKeyword: string) => {
     clickResultList && clickResultList(selectedKeyword);
     closeModal(type);
-    isRouter && router.push(`/tech?keyword=${selectedKeyword}`);
+    isRouter &&
+      router.push(
+        `/${
+          searchSort === "기술" ? "tech" : "discussion"
+        }?keyword=${selectedKeyword}`,
+      );
     if (type === "keywordSearch") return setValue("");
     setValue(selectedKeyword);
   };

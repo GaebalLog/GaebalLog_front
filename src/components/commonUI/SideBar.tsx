@@ -7,6 +7,8 @@ import { authAPI } from "@/api/authAPI";
 
 import Button from "../designSystem/Button";
 
+import ResultNotFound from "./ResultNotFound";
+
 type WidthValue = `w-[${string}]`;
 
 interface props {
@@ -34,6 +36,7 @@ const SideBar: React.FC<props> = ({ height, sticky }) => {
         className={`${BG_COLOR.general02} ${BORDER_COLOR.container} px-[16px] py-[24px] h-[500px]`}
       >
         <h1 className="font-hack text-[24px] mb-[32px]">Trend Keyword</h1>
+        <ResultNotFound data={keywordList?.length} />
         <div className="relative flex gap-3 flex-wrap content-start h-[350px] overflow-hidden">
           {keywordList?.map(({ keyword }: { keyword: string }) => (
             <Button

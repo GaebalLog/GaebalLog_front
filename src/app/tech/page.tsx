@@ -8,6 +8,7 @@ import InfiniteScroll from "@/components/observing/InfiniteScroll";
 import useGetPost from "@/hooks/postAPI/useGetPost";
 import useToggleBookmark from "@/hooks/postAPI/useToggleBookmark";
 import useToggleLike from "@/hooks/postAPI/useToggleLike";
+import ResultNotFound from "@/components/commonUI/ResultNotFound";
 
 const TechPage = () => {
   const [tab, setTab] = React.useState<sortTab>("조회 순");
@@ -58,6 +59,7 @@ const TechPage = () => {
           onIntersect={fetchNextPage}
           canLoad={Boolean(hasNextPage && !isFetchingNextPage)}
         >
+          <ResultNotFound data={postList?.length} />
           <div className="relative flex flex-col items-end gap-[20px]">
             {postList?.map((post: postDetail) => {
               return (

@@ -1,6 +1,7 @@
 import React from "react";
 
 import { authAPI } from "@/api/authAPI";
+import { utilErrorCase } from "@/utils/util-errorCase";
 
 const useCheckDuplicacy = (emailValue: string, nicknameValue: string) => {
   const [isEmailDuplicated, setIsEmailDuplicated] = React.useState<
@@ -17,9 +18,7 @@ const useCheckDuplicacy = (emailValue: string, nicknameValue: string) => {
       await authAPI.emailConfirm(emailValue);
       setIsEmailDuplicated(false);
     } catch (error) {
-      if ((error as error)?.response?.status === 500) {
-        setIsEmailDuplicated(true);
-      } else alert("서버 연결 실패");
+      utilErrorCase((error as error).response.status);
     }
   }, [emailValue]);
 
@@ -29,9 +28,7 @@ const useCheckDuplicacy = (emailValue: string, nicknameValue: string) => {
       await authAPI.nicknameConfirm(nicknameValue);
       setIsNicknameDuplicated(false);
     } catch (error) {
-      if ((error as error)?.response?.status === 500) {
-        setIsNicknameDuplicated(true);
-      } else alert("서버 연결 실패");
+      utilErrorCase((error as error).response.status);
     }
   }, [nicknameValue]);
 

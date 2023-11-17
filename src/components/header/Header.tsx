@@ -98,11 +98,7 @@ const Header = () => {
             </ul>
           )}
           <ul className={styles.profileUl}>
-            <Toggle
-              onSuccess={() => console.log("success")}
-              onFail={() => console.log("fail")}
-              option={{ dark: true }}
-            />
+            <Toggle option={{ dark: true }} />
             {isLoggedIn ? <LoggedInBox /> : <NotLoggedInBox />}
           </ul>
         </nav>

@@ -23,3 +23,8 @@ export const discussionAtom = atom<{ discussionId: number }>({
     discussionId: 0,
   },
 });
+
+export const searchSortAtom = atom<"토의" | "기술">({
+  key: "searchSort",
+  default: "토의",
+});

@@ -7,6 +7,7 @@ import SortBar from "@/components/commonUI/SortBar";
 import InfiniteScroll from "@/components/observing/InfiniteScroll";
 import useGetDiscussion from "@/hooks/discussionAPI/useGetDiscussion";
 import useToggleDiscussionLike from "@/hooks/discussionAPI/useToggleDiscussionLike";
+import ResultNotFound from "@/components/commonUI/ResultNotFound";
 
 const DiscussionPage = () => {
   const [tab, setTab] = React.useState<sortTab>("조회 순");
@@ -44,6 +45,7 @@ const DiscussionPage = () => {
           onIntersect={fetchNextPage}
           canLoad={Boolean(hasNextPage && !isFetchingNextPage)}
         >
+          <ResultNotFound data={discussionList?.length} />
           <div className="flex flex-col items-end gap-[20px]">
             {discussionList?.map((discussion: discussion) => {
               return (
