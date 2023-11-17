@@ -4,17 +4,16 @@ import { useRecoilState } from "recoil";
 import { TEXT_COLOR } from "@/constants/global/colors";
 import { darkAtom } from "@/hooks/useUserAuth";
 import { authAPI } from "@/api/authAPI";
+import { utilErrorCase } from "@/utils/util-errorCase";
 
 interface props {
-  onSuccess: (checked?: boolean) => void;
-  onFail: (checked?: boolean) => void;
   option?: {
     dark?: boolean;
   };
   isChecked?: boolean;
 }
 
-const Toggle: React.FC<props> = ({ onSuccess, onFail, option, isChecked }) => {
+const Toggle: React.FC<props> = ({ option, isChecked }) => {
   const [checked, setChecked] = React.useState(false);
   const [darkMode, setDarkMode] = useRecoilState(darkAtom);
 
@@ -22,21 +21,19 @@ const Toggle: React.FC<props> = ({ onSuccess, onFail, option, isChecked }) => {
     if (option?.dark) {
       setDarkMode(1);
     }
-    onSuccess(checked);
   };
 
   const makeNonChecked = () => {
     if (option?.dark) {
       setDarkMode(0);
     }
-    onFail(checked);
   };
   const changeChecked = async () => {
     try {
       await authAPI.darkMode(!checked);
       darkMode === 0 ? setDarkMode(1) : setDarkMode(0);
     } catch (error) {
-      console.log(error);
+      utilErrorCase((error as error).response.status);
     }
     setChecked((prev) => !prev);
     checked ? makeNonChecked() : makeChecked();

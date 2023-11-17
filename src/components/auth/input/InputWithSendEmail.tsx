@@ -2,6 +2,7 @@ import React from "react";
 
 import { authAPI } from "@/api/authAPI";
 import Button from "@/components/designSystem/Button";
+import { utilErrorCase } from "@/utils/util-errorCase";
 
 import ValidationText from "../text/ValidationText";
 
@@ -27,9 +28,13 @@ const InputWithSendEmail: React.FC<props> = ({
   setResendClick,
 }) => {
   const sendMail = async () => {
-    await authAPI.sendEmail(value);
-    if (!isEmailSent) setIsEmailSent(true);
-    if (isEmailSent) setResendClick((prev) => prev + 1);
+    try {
+      await authAPI.sendEmail(value);
+      if (!isEmailSent) setIsEmailSent(true);
+      if (isEmailSent) setResendClick((prev) => prev + 1);
+    } catch (error) {
+      utilErrorCase((error as error).response.status);
+    }
   };
 
   return (

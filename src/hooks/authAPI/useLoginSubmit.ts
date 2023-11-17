@@ -2,6 +2,7 @@ import type React from "react";
 import { useRouter } from "next/navigation";
 
 import { authAPI } from "@/api/authAPI";
+import { utilErrorCase } from "@/utils/util-errorCase";
 
 import useUserAuth from "../useUserAuth";
 
@@ -24,6 +25,7 @@ const useLoginSubmit = (
       router.replace("/auth/callback/local");
     } catch (error) {
       setIsError(true);
+      utilErrorCase((error as error).response.status);
     }
   };
 

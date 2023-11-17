@@ -12,6 +12,7 @@ import InputWithLabel from "@/components/auth/input/InputWithLabel";
 import ValidationText from "@/components/auth/text/ValidationText";
 import InputWithSendEmail from "@/components/auth/input/InputWithSendEmail";
 import InputEmailCodeCheck from "@/components/auth/input/InputEmailCodeCheck";
+import { utilErrorCase } from "@/utils/util-errorCase";
 
 const styles = {
   wrapper: `flex justify-center items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
@@ -49,7 +50,7 @@ const ForgotPassword = () => {
       alert("비밀번호 변경 성공");
       router.replace("/auth/login");
     } catch (error) {
-      alert("비밀번호 변경 실패");
+      utilErrorCase((error as error).response.status);
     }
   };
 
