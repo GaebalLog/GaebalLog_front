@@ -15,6 +15,7 @@ import useToggleBookmark from "@/hooks/postAPI/useToggleBookmark";
 import useToggleLike from "@/hooks/postAPI/useToggleLike";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
 import MainBanner from "@/components/commonUI/MainBanner";
+import ResultNotFound from "@/components/commonUI/ResultNotFound";
 
 const userTab = ["전체글", "My Friends' Articles"];
 
@@ -100,6 +101,7 @@ const HomePage = () => {
             onIntersect={fetchNextPage}
             canLoad={Boolean(hasNextPage && !isFetchingNextPage)}
           >
+            <ResultNotFound data={postList?.length} />
             <div className="relative flex flex-col items-end gap-[20px]">
               {postList?.map((post: postDetail) => {
                 return (
