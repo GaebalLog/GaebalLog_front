@@ -21,14 +21,14 @@ export const authHandler = [
     if (emailValue === "dddd@gmail.com") {
       return res(ctx.status(200));
     }
-    return res(ctx.status(500));
+    return res(ctx.status(409));
   }),
   rest.get("/users/name", (req, res, ctx) => {
     const nicknameValue = req.url.searchParams.get("value");
     if (nicknameValue === "테스트") {
       return res(ctx.status(200));
     }
-    return res(ctx.status(500));
+    return res(ctx.status(409));
   }),
 
   //소셜
