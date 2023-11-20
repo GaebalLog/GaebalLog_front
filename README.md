@@ -1,74 +1,63 @@
-**명명 규칙**
-1. 컴포넌트 - Pascal Case
-2. 그 외 파일 - Kebab Case (ex. hook-bookmark.ts)
-3. const variant - Upper Case
-4. 변수명, 타입 - Camel Case
-5. 리액트 훅 - React객체를 사용
-6. 함수는 화살표 함수 사용
-7. 컴포넌트 타입은 React.FC<Props>
+## ✨ 개발로그
 
-**import 순서**
-1. 외부 라이브러리
-2. 내부 라이브러리
-3. 컴포넌트
-4. asset 등 기타
+![gabal-log](https://github.com/jhchoi1182/portfolio/assets/116577489/54d15845-3c8b-40e2-8b16-3ad34ebd2880)
 
-**export**
-1. 컴포넌트, 커스텀훅만 export default
+## 👉🏻 서비스 소개 <br>
 
-**비동기**
-1. async / await 사용
+- 블로그에 채팅 기능이 더해진 개발자들을 위한 공간! 글도 쓰고 여러 사람들과 토론도 해보세요!
 
-**컴포넌트 내부 선언 순서**
-1. 리액트 훅
-2. 라이브러리 훅
-3. 커스텀 훅
-4. 변수 및 상수
-5. 함수
-6. useEffect (상태값을 의존성으로 갖는 것 -> 초기 렌더링 순)
-7. 파생되는 값
+<br>
 
-**타입 스크립트 컨벤션**
-1. 타입 전역 선언 = 전역 상태값에 대한 타입, 서버 요청 response값에 대한 타입
-2. 특정 값에 대한 타입은 type으로 객체에 대한 타입은 interface로
-3. any, as 사용 x
+## ⚙ 기술 스택
 
-**스타일(tailwind CSS) 컨벤션**
-1. variant로 선언
-```
-const StMainSidebar = {
-  mainSideBar: "flex flex-col items-center basis-1/3",
-  logo: "w-[200px] h-[200px] my-[60px]",
-  // ...
-}
-```
-2. 반응형 작업을 위한 스타일 객체 리터럴 선언 (width, height, margin, padding, flex-direction, gap)
-```
-const width = {
-  "w-full": "w-full sm:w-[300px]",
-};
-```
+### ✔ Frond-end
 
-**폴더 구조**
-1. index 사용 x
-2. 디자인 시스템은 components/designSystem 폴더 안에 아토믹 패턴으로 구성
-3. 페이지별로 폴더 구성
+<div>
 
-**깃 컨벤션**
-1. 깃 이모지 x
-2. 커밋 단위는 기능 단위로 (커밋 날렸을 때 정상 동작)
-3. FEAT: 새로운 기능 추가
-4. FIX: 버그 수정
-5. DOCS: 문서 수정
-6. REFACTOR: 코드 리팩토링
-7. STYLE: 코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우
-8. TEST: 테스트 코드, 리팩토링 테스트 코드 추가
-9. CHORE: 빌드 업무 수정, 패키지 매니저 수정
-10. 브랜치명(병합 후 삭제) - feature/기능명, fix/기능명, chore/기능명
+<img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=Next.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"/>
+<img src="https://img.shields.io/badge/react_query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white">
+<img src="https://img.shields.io/badge/Recoil-31A8FF?style=for-the-badge&logo=&logoColor=white"/>
+<br>
+<img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?style=for-the-badge&logo=Tailwind CSS&logoColor=white"/>
+<img src="https://img.shields.io/badge/RTL-E9113B?style=for-the-badge&logo=RTL&logoColor=white"/>
+<img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=Jest&logoColor=white"/>
+<img src="https://img.shields.io/badge/socket.io-010101?style=for-the-badge&logo=socket.io&logoColor=white">
 
-**기타**
-1. 스프린트 방식으로 진행
-2. 추가 기능은 다음 스프린트 사이클에서 개발
+</div>
 
-**테스트 코드**
-1. 테스트 파일은 units폴더에 작성
+<br>
+
+## 🐻 기능 구현
+
+- Socket.io를 이용한 **채팅 기능**
+- **Oauth 2.0 소셜 로그인** (구글, 깃허브, 카카오)
+- **Web Speech API**를 활용한 **음성 검색** 기능
+- **에디터(Ckeditor5)** 라이브러리 프로젝트에 맞게 **커스텀**
+- **TDD**방식으로 **E2E, 기능, 유닛 단위의 테스트** 코드 작성
+- Github Action으로 테스트를 자동화하고, 정적 배포(Vercel)를 통해 **CI/CD** 적용
+- **추천 검색어** 기능
+  - 입력된 검색어에 해당되는 실시간 결과값 모달로 보여주는 로직
+- 페이지 당 일정하지 않은 요소의 개수를 계산한 페이지네이션 기능 구현
+  - 랜덤한 요소의 개수를 카운팅해 다음 페이지를 계산하고 보여주는 로직
+
+<br>
+
+## 📝 기술적 의사결정
+
+https://indigo-dolphin-e56.notion.site/0ff5bd90b74c4c909fef54caaf0e729e?v=28ba70a7f6bb4d5db850f6bf864074ba&pvs=4
+
+<br>
+
+
+## 👻 개발로그의 팀원들
+
+| Role  | Name   | Github                        |
+| ----- | ------ | ----------------------------- |
+| BE | 허인주 | https://github.com/jjoonior  |
+| BE    | 정지용 | https://github.com/camp5803 |
+| FE | 최지현 | https://github.com/jhchoi1182 |
+| FE    | 정호영 | https://github.com/Jungbam |
+| DE    | 허연 |                               |
+
+<br>
