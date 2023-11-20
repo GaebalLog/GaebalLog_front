@@ -3,9 +3,9 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
 
-import { BG_COLOR } from "@/constants/global/colors";
+import { BG_COLOR } from "@/config/constants/colors";
 import CommentContainer from "@/components/tech/detail/CommentContainer";
-import { postAtom } from "@/constants/global/atoms";
+import { postAtom } from "@/config/constants/atoms";
 import ContentContainer from "@/components/tech/detail/ContentContainer";
 
 const styles = {

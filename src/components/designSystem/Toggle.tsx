@@ -1,9 +1,9 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 
-import { TEXT_COLOR } from "@/constants/global/colors";
+import { TEXT_COLOR } from "@/config/constants/colors";
 import { darkAtom } from "@/hooks/useUserAuth";
-import { authAPI } from "@/api/authAPI";
+import { authAPI } from "@/config/api/authAPI";
 import { utilErrorCase } from "@/utils/util-errorCase";
 
 interface props {

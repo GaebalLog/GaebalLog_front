@@ -1,4 +1,4 @@
-import { instance } from "./api";
+import { instance } from "../axios_config";
 
 export const mypageApi = {
   // 내 정보

@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 import useIcon from "@/hooks/useIcon";
-import { TEXT_COLOR } from "@/constants/global/colors";
+import { TEXT_COLOR } from "@/config/constants/colors";
 
 const styles = {
   container: "flex px-[16px] py-[5px] gap-[24px] items-center",

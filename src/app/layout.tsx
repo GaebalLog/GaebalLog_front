@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import "regenerator-runtime/runtime";
 import Provider from "@/components/provider/Provider";
 import Header from "@/components/header/Header";
-import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import Footer from "@/components/footer/Footer";
 
 export const metadata: Metadata = {

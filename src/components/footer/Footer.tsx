@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import { BORDER_COLOR } from "@/constants/global/colors";
+import { BORDER_COLOR } from "@/config/constants/colors";
 
 import logo from "../../../public/assets/images/home/logo.png";
 

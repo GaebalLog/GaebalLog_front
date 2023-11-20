@@ -1,7 +1,7 @@
 import React from "react";
 import type { ReactNode } from "react";
 
-import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 
 const Label: React.FC<{ children: ReactNode; htmlFor: string }> = ({
   children,

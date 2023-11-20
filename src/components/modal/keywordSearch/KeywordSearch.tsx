@@ -1,11 +1,11 @@
 import React from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { BG_COLOR } from "@/constants/global/colors";
+import { BG_COLOR } from "@/config/constants/colors";
 import useIcon from "@/hooks/useIcon";
 import usePagination from "@/hooks/usePagination";
-import { authAPI } from "@/api/authAPI";
-import { QUERY_KEYS } from "@/constants/global/querykeys";
+import { authAPI } from "@/config/api/authAPI";
+import { QUERY_KEYS } from "@/config/query_config";
 
 import Modal from "../Modal";
 import LiveSearchInput from "../../commonUI/LiveSearchInput";

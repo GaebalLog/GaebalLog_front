@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 
 import { userAtom } from "@/hooks/useUserAuth";
-import { TEXT_COLOR } from "@/constants/global/colors";
+import { TEXT_COLOR } from "@/config/constants/colors";
 
 interface props {
   dropDownType:

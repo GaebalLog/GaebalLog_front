@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import useIcon from "@/hooks/useIcon";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
 

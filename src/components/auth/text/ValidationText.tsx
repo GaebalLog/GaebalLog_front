@@ -1,6 +1,6 @@
 import React from "react";
 
-import { TEXT_COLOR } from "@/constants/global/colors";
+import { TEXT_COLOR } from "@/config/constants/colors";
 
 interface validationTextProps {
   text: string;

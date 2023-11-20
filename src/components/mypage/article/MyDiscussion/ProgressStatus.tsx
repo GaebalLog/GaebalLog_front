@@ -1,6 +1,6 @@
 import React from "react";
 
-import { TEXT_COLOR } from "@/constants/global/colors";
+import { TEXT_COLOR } from "@/config/constants/colors";
 
 const styles = {
   isDoneCircle: `absolute top-4 right-6 rounded-2xl py-1 ${TEXT_COLOR.inverse}`,

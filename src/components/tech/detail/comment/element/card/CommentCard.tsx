@@ -3,14 +3,14 @@ import { useRecoilState, useRecoilValue } from "recoil";
 
 import Button from "@/components/designSystem/Button";
 import ProfileImage from "@/components/designSystem/ProfileImage";
-import { openCommentEditorAtom } from "@/constants/global/atoms";
+import { openCommentEditorAtom } from "@/config/constants/atoms";
 import { isLoggedInAtom, userAtom } from "@/hooks/useUserAuth";
 import useUpdateComment from "@/hooks/commentAPI/useUpdateComment";
 import useInput from "@/hooks/useInput";
-import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR } from "@/config/constants/colors";
 import DateConvertor from "@/utils/util-dateConvertor";
 import { activatedModalIdAtom } from "@/hooks/useModalController";
-import { mypageApi } from "@/api/mypageApi";
+import { mypageApi } from "@/config/api/mypageApi";
 
 import BannedBtn from "../btn/BannedBtn";
 import DeleteCommentBtn from "../btn/DeleteCommentBtn";

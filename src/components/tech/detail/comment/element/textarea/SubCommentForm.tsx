@@ -1,9 +1,9 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
 
-import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR } from "@/config/constants/colors";
 import Button from "@/components/designSystem/Button";
-import { openCommentEditorAtom } from "@/constants/global/atoms";
+import { openCommentEditorAtom } from "@/config/constants/atoms";
 import useInput from "@/hooks/useInput";
 
 import ArrowInNestedComment from "../../icons/ArrowInNestedComment";

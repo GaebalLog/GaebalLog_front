@@ -2,7 +2,7 @@ import React from "react";
 import { useSetRecoilState } from "recoil";
 
 import Button from "@/components/designSystem/Button";
-import { modalAtom } from "@/constants/global/atoms";
+import { modalAtom } from "@/config/constants/atoms";
 
 const OkCancelButton = () => {
   const setIsModal = useSetRecoilState(modalAtom);

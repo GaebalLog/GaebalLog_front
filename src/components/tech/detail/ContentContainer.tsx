@@ -9,7 +9,7 @@ import UpdateBtn from "@/components/tech/updateBtn";
 import useGetDetailPost from "@/hooks/postAPI/useGetDetailPost";
 import useToggleLike from "@/hooks/postAPI/useToggleLike";
 import useModalController from "@/hooks/useModalController";
-import { BG_COLOR } from "@/constants/global/colors";
+import { BG_COLOR } from "@/config/constants/colors";
 import DateConvertor from "@/utils/util-dateConvertor";
 
 const styles = {

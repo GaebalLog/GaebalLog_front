@@ -2,7 +2,7 @@ import React from "react";
 
 import useIcon from "@/hooks/useIcon";
 import useModalController from "@/hooks/useModalController";
-import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR } from "@/config/constants/colors";
 import TimeSettingProvider from "@/components/provider/TimeSettingProvider";
 import TimeSettingManager from "@/utils/util-timeSettingManager";
 

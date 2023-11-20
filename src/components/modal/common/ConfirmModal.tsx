@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BG_COLOR } from "@/constants/global/colors";
+import { BG_COLOR } from "@/config/constants/colors";
 import useModalController from "@/hooks/useModalController";
 import useIcon from "@/hooks/useIcon";
 import Button from "@/components/designSystem/Button";

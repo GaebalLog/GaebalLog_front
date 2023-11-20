@@ -3,7 +3,7 @@ import SpeechRecognition from "react-speech-recognition";
 import { useSpeechRecognition } from "react-speech-recognition";
 
 import useIcon from "@/hooks/useIcon";
-import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 
 import BouncedMic from "./commonUI/BouncedMic";
 interface props {

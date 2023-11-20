@@ -2,7 +2,7 @@ import React from "react";
 import { useSpeechRecognition } from "react-speech-recognition";
 
 import useIcon from "@/hooks/useIcon";
-import { BG_COLOR } from "@/constants/global/colors";
+import { BG_COLOR } from "@/config/constants/colors";
 
 const BouncedMic = () => {
   const { isMicrophoneAvailable, transcript } = useSpeechRecognition();

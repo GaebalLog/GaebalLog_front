@@ -9,7 +9,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { BG_COLOR } from "@/constants/global/colors";
+import { BG_COLOR } from "@/config/constants/colors";
 
 const Portal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const element = document.getElementById("portal");

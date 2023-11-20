@@ -1,4 +1,4 @@
-import { instance } from "./api";
+import { instance } from "../axios_config";
 
 export const commentAPI = {
   getComments: (postId: number, page: number) =>

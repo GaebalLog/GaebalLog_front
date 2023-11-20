@@ -2,7 +2,7 @@
 import React from "react";
 
 import Button from "@/components/designSystem/Button";
-import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import UserTech from "@/components/profile/article/UserTech";
 import UserDiscussion from "@/components/profile/article/UserDiscussion";
 import UserKeyword from "@/components/profile/article/UserKeyword";

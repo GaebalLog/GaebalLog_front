@@ -1,4 +1,4 @@
-import type { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import type { BG_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 
 declare global {
   type bgColor = keyof typeof BG_COLOR;

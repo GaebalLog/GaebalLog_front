@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import useModalController from "@/hooks/useModalController";
 import useIcon from "@/hooks/useIcon";
 

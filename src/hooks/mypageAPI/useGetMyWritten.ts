@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { mypageApi } from "@/api/mypageApi";
+import { QUERY_KEYS } from "@/config/query_config";
+import { mypageApi } from "@/config/api/mypageApi";
 
 interface queryData {
   data: myPost[];

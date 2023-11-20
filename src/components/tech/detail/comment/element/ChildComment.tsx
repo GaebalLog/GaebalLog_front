@@ -1,7 +1,7 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 
-import { openCommentEditorAtom } from "@/constants/global/atoms";
+import { openCommentEditorAtom } from "@/config/constants/atoms";
 
 import GrandChildComment from "./GrandChildComment";
 import SubCommentForm from "./textarea/SubCommentForm";

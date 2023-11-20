@@ -1,6 +1,6 @@
 import { rest } from "msw";
 
-import type { postDataType } from "@/api/postAPI";
+import type { postDataType } from "@/config/api/postAPI";
 const mockImg =
   "https://plus.unsplash.com/premium_photo-1689750423556-b246f05cd301?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60";
 const posts: postDetail[] = [

@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import useIcon from "@/hooks/useIcon";
 import useModalController from "@/hooks/useModalController";
 import useGetDetailDiscussion from "@/hooks/discussionAPI/useGetDetailDiscussion";

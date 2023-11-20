@@ -1,6 +1,6 @@
 import React from "react";
 
-import { discussionAPI } from "@/api/discussionAPI";
+import { discussionAPI } from "@/config/api/discussionAPI";
 
 export interface params {
   params: {

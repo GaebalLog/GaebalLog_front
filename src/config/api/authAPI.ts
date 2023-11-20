@@ -1,8 +1,9 @@
-import { instance } from "./api";
-
-export const googleURI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
-export const kakaoURI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
-export const githubURI = process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI;
+import { instance } from "../axios_config";
+import {
+  githubRedirectURL,
+  googleRedirectURL,
+  kakaoRedirectURL,
+} from "../env_config";
 
 export const authAPI = {
   userAuth: () => {
@@ -56,13 +57,13 @@ export const authAPI = {
 
   // 소셜
   googleLogin: (code: string) => {
-    return instance.post("/auth/google", { code, uri: googleURI });
+    return instance.post("/auth/google", { code, uri: googleRedirectURL });
   },
   githubLogin: (code: string | null) => {
-    return instance.post("/auth/github", { code, uri: githubURI });
+    return instance.post("/auth/github", { code, uri: githubRedirectURL });
   },
   kakaoLogin: (code: string | null) => {
-    return instance.post("/auth/kakao", { code, uri: kakaoURI });
+    return instance.post("/auth/kakao", { code, uri: kakaoRedirectURL });
   },
 
   // 키워드

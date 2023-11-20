@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 
-import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import DateConvertor from "@/utils/util-dateConvertor";
 
 import Button from "../../../designSystem/Button";

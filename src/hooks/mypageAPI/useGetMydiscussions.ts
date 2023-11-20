@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { mypageApi } from "@/api/mypageApi";
+import { QUERY_KEYS } from "@/config/query_config";
+import { mypageApi } from "@/config/api/mypageApi";
 
 const useGetMydiscussions = (type: "내가 쓴 토의" | "이웃이 쓴 토의") => {
   const query = {

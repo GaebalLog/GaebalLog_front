@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 
-import { postAPI } from "@/api/postAPI";
+import { postAPI } from "@/config/api/postAPI";
 
 import ConfirmModal from "./ConfirmModal";
 

@@ -3,8 +3,8 @@ import React from "react";
 
 import SortBar from "@/components/commonUI/SortBar";
 import MyPost from "@/components/mypage/article/MyWritten/elements/MyPost";
-import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { authAPI } from "@/api/authAPI";
+import { QUERY_KEYS } from "@/config/query_config";
+import { authAPI } from "@/config/api/authAPI";
 
 const UserTech: React.FC<{ params: string }> = ({ params }) => {
   const [tab, setTab] = React.useState<sortTab>("조회 순");

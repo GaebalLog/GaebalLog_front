@@ -1,6 +1,6 @@
 import React from "react";
 
-import { authAPI } from "@/api/authAPI";
+import { authAPI } from "@/config/api/authAPI";
 import Button from "@/components/designSystem/Button";
 import { utilErrorCase } from "@/utils/util-errorCase";
 

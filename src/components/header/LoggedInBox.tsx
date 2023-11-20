@@ -4,7 +4,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import useIcon from "@/hooks/useIcon";
 import { isLoggedInAtom, userAtom } from "@/hooks/useUserAuth";
-import { authAPI } from "@/api/authAPI";
+import { authAPI } from "@/config/api/authAPI";
 
 import Button from "../designSystem/Button";
 import ProfileImage from "../designSystem/ProfileImage";

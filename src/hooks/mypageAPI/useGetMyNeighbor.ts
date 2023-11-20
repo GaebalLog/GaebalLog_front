@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 
-import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { mypageApi } from "@/api/mypageApi";
+import { QUERY_KEYS } from "@/config/query_config";
+import { mypageApi } from "@/config/api/mypageApi";
 
 import { userAtom } from "../useUserAuth";
 

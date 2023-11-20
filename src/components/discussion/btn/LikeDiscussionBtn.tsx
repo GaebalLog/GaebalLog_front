@@ -4,9 +4,9 @@ import { useRecoilValue } from "recoil";
 
 import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
-import { QUERY_KEYS } from "@/constants/global/querykeys";
+import { QUERY_KEYS } from "@/config/query_config";
 import useToggleDiscussionLike from "@/hooks/discussionAPI/useToggleDiscussionLike";
-import { discussionAtom } from "@/constants/global/atoms";
+import { discussionAtom } from "@/config/constants/atoms";
 
 interface props {
   liked: boolean;

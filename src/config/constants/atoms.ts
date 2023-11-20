@@ -17,6 +17,7 @@ export const postAtom = atom<{ commentPage: number; postId: number }>({
     postId: 0,
   },
 });
+
 export const discussionAtom = atom<{ discussionId: number }>({
   key: "discussion",
   default: {

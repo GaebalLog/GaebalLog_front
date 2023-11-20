@@ -2,7 +2,7 @@
 import React from "react";
 
 import Input from "@/components/designSystem/Input";
-import { BG_COLOR } from "@/constants/global/colors";
+import { BG_COLOR } from "@/config/constants/colors";
 import useIcon from "@/hooks/useIcon";
 import useModalController from "@/hooks/useModalController";
 import useLiveSearchController from "@/hooks/liveSearch/useLiveSearchController";

@@ -2,8 +2,8 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
-import { authAPI } from "@/api/authAPI";
+import { BG_COLOR, BORDER_COLOR } from "@/config/constants/colors";
+import { authAPI } from "@/config/api/authAPI";
 
 import Button from "../designSystem/Button";
 

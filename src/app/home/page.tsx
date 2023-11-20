@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import Link from "next/link";
 
 import Post from "@/components/commonUI/Post";
-import { TEXT_COLOR } from "@/constants/global/colors";
+import { TEXT_COLOR } from "@/config/constants/colors";
 import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
 import Button from "@/components/designSystem/Button";
 import SideBar from "@/components/commonUI/SideBar";

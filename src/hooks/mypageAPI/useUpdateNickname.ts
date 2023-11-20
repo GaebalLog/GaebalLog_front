@@ -1,7 +1,7 @@
 import type React from "react";
 import { useSetRecoilState } from "recoil";
 
-import { mypageApi } from "@/api/mypageApi";
+import { mypageApi } from "@/config/api/mypageApi";
 
 import { userAtom } from "../useUserAuth";
 

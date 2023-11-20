@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BG_COLOR } from "@/constants/global/colors";
+import { BG_COLOR } from "@/config/constants/colors";
 import useIcon from "@/hooks/useIcon";
 
 const NoResult = () => {

@@ -3,15 +3,21 @@
 import React from "react";
 import Link from "next/link";
 
-import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import Button from "@/components/designSystem/Button";
 import useIcon from "@/hooks/useIcon";
-import { googleURI, kakaoURI } from "@/api/authAPI";
 import useInput from "@/hooks/useInput";
 import InputWithLabel from "@/components/auth/input/InputWithLabel";
 import Title from "@/components/auth/text/Title";
 import ValidationText from "@/components/auth/text/ValidationText";
 import useLoginSubmit from "@/hooks/authAPI/useLoginSubmit";
+import {
+  githubKEY,
+  googleKEY,
+  googleRedirectURL,
+  kakaoKEY,
+  kakaoRedirectURL,
+} from "@/config/env_config";
 
 const styles = {
   container: `flex flex-col items-center w-[800px] h-[800px] ${BG_COLOR.general02}`,
@@ -29,8 +35,8 @@ const styles = {
 
 const googleURL =
   `https://accounts.google.com/o/oauth2/v2/auth?` +
-  `redirect_uri=${googleURI}&` +
-  `client_id=${process.env.NEXT_PUBLIC_GOOGLE_KEY}&` +
+  `redirect_uri=${googleRedirectURL}&` +
+  `client_id=${googleKEY}&` +
   `response_type=code&` +
   `scope=${[
     "https://www.googleapis.com/auth/userinfo.profile",
@@ -38,12 +44,11 @@ const googleURL =
   ].join(" ")}`;
 const kakaoURL =
   `https://kauth.kakao.com/oauth/authorize?` +
-  `client_id=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&` +
-  `redirect_uri=${kakaoURI}&` +
+  `client_id=${kakaoKEY}&` +
+  `redirect_uri=${kakaoRedirectURL}&` +
   `response_type=code&`;
 const githubURL =
-  `https://github.com/login/oauth/authorize?` +
-  `client_id=${process.env.NEXT_PUBLIC_GITHUB_API_KEY}&`;
+  `https://github.com/login/oauth/authorize?` + `client_id=${githubKEY}&`;
 
 const Loginpage = () => {
   const [isError, setIsError] = React.useState(false);

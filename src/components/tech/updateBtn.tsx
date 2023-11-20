@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 
 import Button from "@/components/designSystem/Button";
-import { postAPI } from "@/api/postAPI";
+import { postAPI } from "@/config/api/postAPI";
 
 interface props {
   postId: number | undefined;

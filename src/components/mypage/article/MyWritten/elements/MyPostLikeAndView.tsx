@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import useIcon from "@/hooks/useIcon";
 import Button from "@/components/designSystem/Button";
-import { postAPI } from "@/api/postAPI";
+import { postAPI } from "@/config/api/postAPI";
 
 interface props {
   postId: string;

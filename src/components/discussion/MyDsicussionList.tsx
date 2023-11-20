@@ -3,7 +3,7 @@ import axios from "axios";
 import React from "react";
 import Link from "next/link";
 
-import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR } from "@/config/constants/colors";
 import useIcon from "@/hooks/useIcon";
 
 const styles = {

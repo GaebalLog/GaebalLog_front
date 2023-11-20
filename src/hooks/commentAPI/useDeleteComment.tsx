@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 
-import { commentAPI } from "@/api/commentAPI";
-import { postAtom } from "@/constants/global/atoms";
-import { QUERY_KEYS } from "@/constants/global/querykeys";
+import { commentAPI } from "@/config/api/commentAPI";
+import { postAtom } from "@/config/constants/atoms";
+import { QUERY_KEYS } from "@/config/query_config";
 
 const useDeleteComment = ({
   commentId,

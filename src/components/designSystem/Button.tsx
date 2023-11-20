@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 
 const BUTTON_VARIANT = {
   tab: `text-[20px] leading-[25px] py-[10px] px-5 rounded-[3px]`,

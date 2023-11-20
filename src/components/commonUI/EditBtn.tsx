@@ -2,8 +2,8 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import dynamic from "next/dynamic";
 
-import { modalAtom } from "@/constants/global/atoms";
-import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { modalAtom } from "@/config/constants/atoms";
+import { BG_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 
 const KeywordSearch = dynamic(
   () => import("../../components/modal/keywordSearch/KeywordSearch"),

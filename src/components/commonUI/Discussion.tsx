@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { useRouter } from "next/navigation";
 
 import useIcon from "@/hooks/useIcon";
-import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 import Button from "../designSystem/Button";

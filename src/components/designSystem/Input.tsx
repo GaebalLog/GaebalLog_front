@@ -3,9 +3,9 @@ import React from "react";
 import { useRecoilState } from "recoil";
 
 import useIcon from "@/hooks/useIcon";
-import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import useModalController from "@/hooks/useModalController";
-import { searchSortAtom } from "@/constants/global/atoms";
+import { searchSortAtom } from "@/config/constants/atoms";
 
 const styles = {
   keywordSearch: {

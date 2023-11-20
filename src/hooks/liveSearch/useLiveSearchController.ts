@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
 
-import { searchSortAtom } from "@/constants/global/atoms";
+import { searchSortAtom } from "@/config/constants/atoms";
 
 import useModalController from "../useModalController";
 

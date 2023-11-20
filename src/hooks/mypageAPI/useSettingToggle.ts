@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { mypageApi } from "@/api/mypageApi";
-import { QUERY_KEYS } from "@/constants/global/querykeys";
+import { mypageApi } from "@/config/api/mypageApi";
+import { QUERY_KEYS } from "@/config/query_config";
 
 const useSettingToggle = () => {
   const { data } = useQuery<preferencesResponse>({

@@ -2,7 +2,7 @@ import type { ChangeEvent } from "react";
 import React from "react";
 
 import useModalController from "@/hooks/useModalController";
-import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR } from "@/config/constants/colors";
 import useIcon from "@/hooks/useIcon";
 
 import Modal from "../modal/Modal";

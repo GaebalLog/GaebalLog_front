@@ -4,8 +4,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Button from "@/components/designSystem/Button";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import useIcon from "@/hooks/useIcon";
-import { authAPI } from "@/api/authAPI";
-import { QUERY_KEYS } from "@/constants/global/querykeys";
+import { authAPI } from "@/config/api/authAPI";
+import { QUERY_KEYS } from "@/config/query_config";
 
 const styles = {
   keywordList: `relative flex flex-wrap gap-[10px] h-[100px] px-1 mt-[22px] overflow-y-hidden`,

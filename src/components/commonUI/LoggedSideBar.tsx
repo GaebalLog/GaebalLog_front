@@ -3,9 +3,9 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
-import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
-import { authAPI } from "@/api/authAPI";
+import { QUERY_KEYS } from "@/config/query_config";
+import { BG_COLOR, BORDER_COLOR } from "@/config/constants/colors";
+import { authAPI } from "@/config/api/authAPI";
 
 import Button from "../designSystem/Button";
 

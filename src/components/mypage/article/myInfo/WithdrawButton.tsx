@@ -1,8 +1,8 @@
 import React from "react";
 
 import Button from "@/components/designSystem/Button";
-import { TEXT_COLOR } from "@/constants/global/colors";
-import { authAPI } from "@/api/authAPI";
+import { TEXT_COLOR } from "@/config/constants/colors";
+import { authAPI } from "@/config/api/authAPI";
 import ConfirmModal from "@/components/modal/common/ConfirmModal";
 import useUserAuth from "@/hooks/useUserAuth";
 
