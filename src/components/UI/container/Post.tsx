@@ -10,7 +10,7 @@ import { isLoggedInAtom } from "@/hooks/useUserAuth";
 import DateConvertor from "@/utils/util-dateConvertor";
 
 import Button from "../buttons/base/Button";
-import default_thumbnail from "../../../public/assets/images/common/thumbnail_default.png";
+import default_thumbnail from "../../../../public/assets/images/common/thumbnail_default.png";
 import LikeView from "../common/LikeView";
 
 const Post: React.FC<{

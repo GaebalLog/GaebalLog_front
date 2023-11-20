@@ -4,7 +4,7 @@ import { useSetRecoilState } from "recoil";
 
 import { activatedModalIdAtom } from "@/hooks/useModalController";
 
-import profile from "../../../public/assets/icons/common/profile_light.png";
+import profile from "../../../../public/assets/icons/common/profile_light.png";
 
 interface profileImage {
   idForModal: string | number;

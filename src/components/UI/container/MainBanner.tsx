@@ -5,14 +5,14 @@ import { useRecoilValue } from "recoil";
 
 import { userAtom } from "@/hooks/useUserAuth";
 
-import banner_folder from "../../../public/assets/images/home/banner_folder.png";
-import banner_search from "../../../public/assets/images/home/banner_search.png";
-import banner_setting from "../../../public/assets/images/home/banner_setting.png";
-import banner_downArrow from "../../../public/assets/images/home/banner_downArrow.png";
-import banner_TSIcon from "../../../public/assets/images/home/banner_TSIcon.png";
-import banner_InfoIcon from "../../../public/assets/images/home/banner_InfoIcon.png";
-import banner_JSIcon from "../../../public/assets/images/home/banner_JSIcon.png";
-import banner_MDIcon from "../../../public/assets/images/home/banner_MDIcon.png";
+import banner_folder from "../../../../public/assets/images/home/banner_folder.png";
+import banner_search from "../../../../public/assets/images/home/banner_search.png";
+import banner_setting from "../../../../public/assets/images/home/banner_setting.png";
+import banner_downArrow from "../../../../public/assets/images/home/banner_downArrow.png";
+import banner_TSIcon from "../../../../public/assets/images/home/banner_TSIcon.png";
+import banner_InfoIcon from "../../../../public/assets/images/home/banner_InfoIcon.png";
+import banner_JSIcon from "../../../../public/assets/images/home/banner_JSIcon.png";
+import banner_MDIcon from "../../../../public/assets/images/home/banner_MDIcon.png";
 
 const styles = {
   wrapper: `flex w-[1632px] h-[400px] mt-5 mb-[30px] text-white`,
