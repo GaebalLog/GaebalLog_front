@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
 
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 import MyInfo from "@/components/mypage/article/myInfo/MyInfo";
 import MySettings from "@/components/mypage/article/MySettings";
 import MyWritten from "@/components/mypage/article/MyWritten/MyWritten";
 import Mydiscussions from "@/components/mypage/article/MyDiscussion/Mydiscussions";
-import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import { MyNeighbors } from "@/components/mypage/article/neighbors/MyNeighbors";
 import withAuth from "@/components/provider/withAuth";
 

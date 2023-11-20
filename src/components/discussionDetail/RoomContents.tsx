@@ -2,14 +2,14 @@
 
 import React from "react";
 
-import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import useIcon from "@/hooks/useIcon";
 import useModalController from "@/hooks/useModalController";
 import useGetDetailDiscussion from "@/hooks/discussionAPI/useGetDetailDiscussion";
 import DateConvertor from "@/utils/util-dateConvertor";
 
-import LoadingSpinner from "../LoadingSpinner";
-import Modal from "../modal/Modal";
+import LoadingSpinner from "../UI/status/LoadingSpinner";
+import Modal from "../UI/modals/base/Modal";
 import AuthorContentBtn from "../discussion/box/AuthorContentBtn";
 import LikeDiscussionBtn from "../discussion/btn/LikeDiscussionBtn";
 import ParticipantsBtn from "../discussion/btn/ParticipantsBtn";

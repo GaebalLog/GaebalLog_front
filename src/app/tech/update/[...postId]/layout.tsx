@@ -1,6 +1,6 @@
 import React from "react";
 
-import { postAPI } from "../../../../api/postAPI";
+import { postAPI } from "../../../../config/api/postAPI";
 export interface detailParams {
   params: {
     postId: number;

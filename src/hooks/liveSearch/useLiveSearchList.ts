@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { authAPI } from "@/api/authAPI";
+import { QUERY_KEYS } from "@/config/query_config";
+import { authAPI } from "@/config/api/authAPI";
 
 import useDebounce from "../useDebounce";
 

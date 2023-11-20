@@ -1,8 +1,8 @@
 import React from "react";
 
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 import useDeleteComment from "@/hooks/commentAPI/useDeleteComment";
-import ConfirmModal from "@/components/modal/common/ConfirmModal";
+import ConfirmModal from "@/components/UI/modals/default/ConfirmModal";
 
 const DeleteCommentBtn = ({ commentId }: { commentId: number }) => {
   const [modal, openModal] = React.useState(false);

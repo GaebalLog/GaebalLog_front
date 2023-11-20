@@ -1,7 +1,7 @@
 import React from "react";
 
-import Button from "@/components/designSystem/Button";
-import { authAPI } from "@/api/authAPI";
+import Button from "@/components/UI/buttons/base/Button";
+import { authAPI } from "@/config/api/authAPI";
 import { utilErrorCase } from "@/utils/util-errorCase";
 
 import CountdownText from "../text/CountdownText";

@@ -2,9 +2,9 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/navigation";
 
-import Button from "@/components/designSystem/Button";
-import { discussionAPI } from "@/api/discussionAPI";
-import { discussionAtom } from "@/constants/global/atoms";
+import Button from "@/components/UI/buttons/base/Button";
+import { discussionAPI } from "@/config/api/discussionAPI";
+import { discussionAtom } from "@/config/constants/atoms";
 
 const DeleteDiscussionBtn = () => {
   const { discussionId } = useRecoilValue(discussionAtom);

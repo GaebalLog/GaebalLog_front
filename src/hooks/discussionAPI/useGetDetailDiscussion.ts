@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 
-import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { discussionAtom } from "@/constants/global/atoms";
-import { discussionAPI } from "@/api/discussionAPI";
+import { QUERY_KEYS } from "@/config/query_config";
+import { discussionAtom } from "@/config/constants/atoms";
+import { discussionAPI } from "@/config/api/discussionAPI";
 
 const useGetDetailDiscussion = ({
   onSuccessSet,

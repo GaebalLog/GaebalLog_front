@@ -4,8 +4,8 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
-import Button from "@/components/designSystem/Button";
-import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import Button from "@/components/UI/buttons/base/Button";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import AddTagInput from "@/components/post/AddTagInput";
 import withAuth from "@/components/provider/withAuth";
 import { utilExtractImages } from "@/utils/util-extractImage";
@@ -13,7 +13,10 @@ import { utilReplaceImg } from "@/utils/util-replaceImg";
 import ThumbnailSelector from "@/components/post/ThumbnailSelector";
 import useModalController from "@/hooks/useModalController";
 import FinishedCreate from "@/components/discussion/btn/FinishedCreate";
-import { discussionAPI, type discussionDataType } from "@/api/discussionAPI";
+import {
+  discussionAPI,
+  type discussionDataType,
+} from "@/config/api/discussionAPI";
 import TimeSettingManager from "@/utils/util-timeSettingManager";
 const PostEditor = dynamic(() => import("@/components/post/PostEditor"), {
   ssr: false,

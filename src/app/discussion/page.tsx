@@ -2,12 +2,12 @@
 import React from "react";
 
 import DiscussionSideBar from "@/components/discussion/DiscussionSideBar";
-import Discussion from "@/components/commonUI/Discussion";
-import SortBar from "@/components/commonUI/SortBar";
-import InfiniteScroll from "@/components/observing/InfiniteScroll";
+import Discussion from "@/components/UI/container/Discussion";
+import SortBar from "@/components/UI/features/SortBar";
+import InfiniteScroll from "@/components/UI/features/InfiniteScroll";
 import useGetDiscussion from "@/hooks/discussionAPI/useGetDiscussion";
 import useToggleDiscussionLike from "@/hooks/discussionAPI/useToggleDiscussionLike";
-import ResultNotFound from "@/components/commonUI/ResultNotFound";
+import ResultNotFound from "@/components/UI/status/ResultNotFound";
 
 const DiscussionPage = () => {
   const [tab, setTab] = React.useState<sortTab>("조회 순");

@@ -2,8 +2,8 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import Image from "next/image";
 
-import Label from "@/components/commonUI/Label";
-import Button from "@/components/designSystem/Button";
+import Label from "@/components/UI/common/Label";
+import Button from "@/components/UI/buttons/base/Button";
 import { userAtom } from "@/hooks/useUserAuth";
 import useUpdateProfileImg from "@/hooks/mypageAPI/useUpdateProfileImg";
 

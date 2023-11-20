@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import CalendarManager from "@/utils/util-calendarManager";
 import useCalendarController from "@/hooks/TimeSetting/useCalendarController";
 import { TimeContext } from "@/components/provider/TimeSettingProvider";

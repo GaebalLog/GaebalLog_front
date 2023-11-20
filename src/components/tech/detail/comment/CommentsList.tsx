@@ -1,8 +1,8 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 
-import { BG_COLOR } from "@/constants/global/colors";
-import { openCommentEditorAtom } from "@/constants/global/atoms";
+import { BG_COLOR } from "@/config/constants/colors";
+import { openCommentEditorAtom } from "@/config/constants/atoms";
 
 import CommentCard from "./element/card/CommentCard";
 import SubCommentForm from "./element/textarea/SubCommentForm";

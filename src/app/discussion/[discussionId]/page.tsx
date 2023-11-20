@@ -5,7 +5,7 @@ import { useSetRecoilState } from "recoil";
 import RoomContents from "@/components/discussionDetail/RoomContents";
 import DiscussionProgress from "@/components/discussionDetail/DiscussionProgress";
 import Chat from "@/components/discussionDetail/chat/Chat";
-import { discussionAtom } from "@/constants/global/atoms";
+import { discussionAtom } from "@/config/constants/atoms";
 export interface params {
   params: {
     discussionId: string;

@@ -1,7 +1,7 @@
 import type React from "react";
 import { useRouter } from "next/navigation";
 
-import { authAPI } from "@/api/authAPI";
+import { authAPI } from "@/config/api/authAPI";
 import { utilErrorCase } from "@/utils/util-errorCase";
 
 import useUserAuth from "../useUserAuth";

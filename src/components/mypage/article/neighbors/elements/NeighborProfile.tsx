@@ -2,12 +2,12 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { TEXT_COLOR } from "@/constants/global/colors";
-import ProfileImage from "@/components/designSystem/ProfileImage";
-import { mypageApi } from "@/api/mypageApi";
-import { QUERY_KEYS } from "@/constants/global/querykeys";
+import { TEXT_COLOR } from "@/config/constants/colors";
+import ProfileImage from "@/components/UI/common/ProfileImage";
+import { mypageApi } from "@/config/api/mypageApi";
+import { QUERY_KEYS } from "@/config/query_config";
 
-import Button from "../../../../designSystem/Button";
+import Button from "../../../../UI/buttons/base/Button";
 
 const styles = {
   container:

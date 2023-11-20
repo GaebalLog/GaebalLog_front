@@ -1,6 +1,6 @@
 import React from "react";
 
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 interface props {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }

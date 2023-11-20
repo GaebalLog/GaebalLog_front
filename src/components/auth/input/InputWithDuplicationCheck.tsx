@@ -1,6 +1,6 @@
 import React from "react";
 
-import Button from "../../designSystem/Button";
+import Button from "../../UI/buttons/base/Button";
 import ValidationText from "../text/ValidationText";
 
 import InputWithLabel from "./InputWithLabel";

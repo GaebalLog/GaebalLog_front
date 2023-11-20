@@ -1,10 +1,10 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
 
-import Button from "@/components/designSystem/Button";
-import NonPortalModal from "@/components/modal/NonPortalModal";
-import { BORDER_COLOR } from "@/constants/global/colors";
-import { mypageApi } from "@/api/mypageApi";
+import Button from "@/components/UI/buttons/base/Button";
+import NonPortalModal from "@/components/UI/modals/base/NonPortalModal";
+import { BORDER_COLOR } from "@/config/constants/colors";
+import { mypageApi } from "@/config/api/mypageApi";
 import { activatedModalIdAtom } from "@/hooks/useModalController";
 
 interface props {

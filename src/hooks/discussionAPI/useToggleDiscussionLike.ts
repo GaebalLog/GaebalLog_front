@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 
-import { discussionAPI } from "@/api/discussionAPI";
+import { discussionAPI } from "@/config/api/discussionAPI";
 
 import { isLoggedInAtom } from "../useUserAuth";
 import useModalController from "../useModalController";

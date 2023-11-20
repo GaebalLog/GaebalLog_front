@@ -1,11 +1,11 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 
-import { BG_COLOR, BORDER_COLOR } from "@/constants/global/colors";
-import NonPortalModal from "@/components/modal/NonPortalModal";
-import Button from "@/components/designSystem/Button";
+import { BG_COLOR, BORDER_COLOR } from "@/config/constants/colors";
+import NonPortalModal from "@/components/UI/modals/base/NonPortalModal";
+import Button from "@/components/UI/buttons/base/Button";
 import { activatedModalIdAtom } from "@/hooks/useModalController";
-import ProfileImage from "@/components/designSystem/ProfileImage";
+import ProfileImage from "@/components/UI/common/ProfileImage";
 
 import ChatTail from "./ChatTail";
 

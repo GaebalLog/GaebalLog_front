@@ -1,6 +1,6 @@
 import React from "react";
 
-import SortBar from "@/components/commonUI/SortBar";
+import SortBar from "@/components/UI/features/SortBar";
 import useGetMydiscussions from "@/hooks/mypageAPI/useGetMydiscussions";
 
 import DropDown from "../../elements/DropDown";

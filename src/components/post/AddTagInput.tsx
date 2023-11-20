@@ -1,10 +1,10 @@
 import React from "react";
 
-import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import useIcon from "@/hooks/useIcon";
 import useInput from "@/hooks/useInput";
 
-import NonPortalModal from "../modal/NonPortalModal";
+import NonPortalModal from "../UI/modals/base/NonPortalModal";
 
 const styles = {
   tagDiv: `relative w-[1068px] flex items-center p-3 ${BORDER_COLOR.button} rounded-full`,

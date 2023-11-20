@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import Provider from "@/components/provider/Provider";
 import Calendar from "@/components/post/discussionTimeSetting/calendar/Calendar";
 import TimeSetting from "@/components/post/discussionTimeSetting/TimeSetting";
-import { BG_COLOR } from "@/constants/global/colors";
+import { BG_COLOR } from "@/config/constants/colors";
 import TimeSettingManager from "@/utils/util-timeSettingManager";
 import TimeSettingProvider from "@/components/provider/TimeSettingProvider";
 

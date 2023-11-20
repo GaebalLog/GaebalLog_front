@@ -1,29 +1,23 @@
 "use client";
 
 import React from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { MutableSnapshot } from "recoil";
 import { RecoilRoot } from "recoil";
 import dynamic from "next/dynamic";
 
+import { queryClient } from "@/config/query_config";
+
 import SettingsProvider from "./SettingsProvider";
 const RequireLoginConfirm = dynamic(
-  () => import("../modal/confirm/RequireLoginConfirm"),
+  () => import("../UI/modals/RequireLoginConfirm"),
 );
 
 const Provider: React.FC<{
   children: React.ReactNode;
   initializeState?: (mutableSnapshot: MutableSnapshot) => void;
 }> = ({ children, initializeState }) => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-        refetchOnWindowFocus: false,
-      },
-    },
-  });
   return (
     <>
       <QueryClientProvider client={queryClient}>

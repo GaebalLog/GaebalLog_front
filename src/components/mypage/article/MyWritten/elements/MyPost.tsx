@@ -1,9 +1,9 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 
-import { BG_COLOR, TEXT_COLOR } from "@/constants/global/colors";
+import { BG_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import DateConvertor from "@/utils/util-dateConvertor";
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 
 import MyPostBookmark from "./MyPostBookmark";
 import MyPostLikeAndView from "./MyPostLikeAndView";

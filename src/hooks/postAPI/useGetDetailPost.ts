@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 
-import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { postAtom } from "@/constants/global/atoms";
-import { postAPI } from "@/api/postAPI";
+import { QUERY_KEYS } from "@/config/query_config";
+import { postAtom } from "@/config/constants/atoms";
+import { postAPI } from "@/config/api/postAPI";
 
 const useGetDetailPost = ({
   onSuccessSet,

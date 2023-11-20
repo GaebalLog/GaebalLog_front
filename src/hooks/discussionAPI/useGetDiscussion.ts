@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { QUERY_KEYS } from "@/constants/global/querykeys";
-import { discussionAPI } from "@/api/discussionAPI";
+import { QUERY_KEYS } from "@/config/query_config";
+import { discussionAPI } from "@/config/api/discussionAPI";
 import { utilErrorCase } from "@/utils/util-errorCase";
 interface postProps {
   sort: "views" | "createdAt" | "neighbor";

@@ -3,7 +3,7 @@
 import React from "react";
 import { notFound, useRouter, useSearchParams } from "next/navigation";
 
-import { authAPI } from "@/api/authAPI";
+import { authAPI } from "@/config/api/authAPI";
 import useUserAuth from "@/hooks/useUserAuth";
 import { utilErrorCase } from "@/utils/util-errorCase";
 

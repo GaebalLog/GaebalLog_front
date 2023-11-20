@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import Button from "@/components/designSystem/Button";
-import { BG_COLOR } from "@/constants/global/colors";
+import Button from "@/components/UI/buttons/base/Button";
+import { BG_COLOR } from "@/config/constants/colors";
 import CheckBox from "@/components/auth/signup/CheckBox";
 import InputWithDuplicationCheck from "@/components/auth/input/InputWithDuplicationCheck";
 import InputWithLabel from "@/components/auth/input/InputWithLabel";
