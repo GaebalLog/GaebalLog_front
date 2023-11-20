@@ -4,7 +4,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 
 import ChatItem from "./ChatItem";

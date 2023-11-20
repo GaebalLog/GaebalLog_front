@@ -5,9 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import { BG_COLOR, BORDER_COLOR } from "@/config/constants/colors";
 import { authAPI } from "@/config/api/authAPI";
 
-import Button from "../designSystem/Button";
-
-import ResultNotFound from "./ResultNotFound";
+import Button from "../buttons/base/Button";
+import ResultNotFound from "../status/ResultNotFound";
 
 type WidthValue = `w-[${string}]`;
 

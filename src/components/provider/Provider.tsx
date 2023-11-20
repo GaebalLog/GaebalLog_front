@@ -11,7 +11,7 @@ import { queryClient } from "@/config/query_config";
 
 import SettingsProvider from "./SettingsProvider";
 const RequireLoginConfirm = dynamic(
-  () => import("../modal/confirm/RequireLoginConfirm"),
+  () => import("../UI/modals/RequireLoginConfirm"),
 );
 
 const Provider: React.FC<{

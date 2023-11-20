@@ -1,8 +1,8 @@
 import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import Button from "@/components/designSystem/Button";
-import LoadingSpinner from "@/components/LoadingSpinner";
+import Button from "@/components/UI/buttons/base/Button";
+import LoadingSpinner from "@/components/UI/status/LoadingSpinner";
 import useIcon from "@/hooks/useIcon";
 import { authAPI } from "@/config/api/authAPI";
 import { QUERY_KEYS } from "@/config/query_config";

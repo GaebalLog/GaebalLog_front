@@ -1,9 +1,9 @@
 import React from "react";
 
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 import { TEXT_COLOR } from "@/config/constants/colors";
 import { authAPI } from "@/config/api/authAPI";
-import ConfirmModal from "@/components/modal/common/ConfirmModal";
+import ConfirmModal from "@/components/UI/modals/default/ConfirmModal";
 import useUserAuth from "@/hooks/useUserAuth";
 
 const WithdrawButton = () => {

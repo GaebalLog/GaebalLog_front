@@ -3,9 +3,9 @@ import React from "react";
 import { BG_COLOR } from "@/config/constants/colors";
 import useModalController from "@/hooks/useModalController";
 import useIcon from "@/hooks/useIcon";
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 
-import Modal from "../Modal";
+import Modal from "../base/Modal";
 
 const styles = {
   wrapper: `flex flex-col items-center w-[780px] h-[400px]`,

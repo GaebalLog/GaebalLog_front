@@ -3,7 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import AddTagInput from "@/components/post/AddTagInput";
 import withAuth from "@/components/provider/withAuth";

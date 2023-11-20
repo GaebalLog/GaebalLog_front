@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
-import Button from "../designSystem/Button";
+import Button from "../UI/buttons/base/Button";
 
 const NotLoggedInBox = () => {
   const pathname = usePathname();

@@ -4,11 +4,11 @@ import Link from "next/link";
 
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
-import SideBar from "../commonUI/SideBar";
-import Button from "../designSystem/Button";
-import { LoggedSideBar } from "../commonUI/LoggedSideBar";
-import { NeighborArticleList } from "../commonUI/NeighborArticleList";
-import StickyStyle from "../commonUI/StickyStyle";
+import SideBar from "../UI/container/SideBar";
+import Button from "../UI/buttons/base/Button";
+import { LoggedSideBar } from "../UI/container/LoggedSideBar";
+import { NeighborArticleList } from "../UI/common/NeighborArticleList";
+import StickyStyle from "../UI/common/StickyStyle";
 
 const TechSideBar = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);

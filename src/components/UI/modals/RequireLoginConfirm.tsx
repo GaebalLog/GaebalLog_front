@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 import useModalController from "@/hooks/useModalController";
 
-import ConfirmModal from "../common/ConfirmModal";
+import ConfirmModal from "./default/ConfirmModal";
 
 const RequireLoginConfirm = () => {
   const { modal, closeModal } = useModalController();

@@ -6,7 +6,7 @@ import { rest } from "msw";
 import HomePage from "@/app/home/page";
 import "../__mocks__/IntersectionObserverMock";
 import { renderLoggedInLayout, renderLoggedOutLayout } from "@/utils/util-test";
-import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
+import { LoggedSideBar } from "@/components/UI/container/LoggedSideBar";
 
 import { server } from "../msw/server";
 import { mockNavigation } from "../__mocks__/next/navigation";

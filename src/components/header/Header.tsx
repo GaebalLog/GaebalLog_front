@@ -10,10 +10,10 @@ import useIcon from "@/hooks/useIcon";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
 import logo from "../../../public/assets/images/home/logo.png";
-import LiveSearchInput from "../commonUI/LiveSearchInput";
-import VoiceSearch from "../VoiceSearch";
-import Modal from "../modal/Modal";
-import Toggle from "../designSystem/Toggle";
+import LiveSearchInput from "../UI/inputs/LiveSearchInput";
+import VoiceSearch from "../UI/features/VoiceSearch";
+import Modal from "../UI/modals/base/Modal";
+import Toggle from "../UI/common/Toggle";
 
 import LoggedInBox from "./LoggedInBox";
 import NotLoggedInBox from "./NotLoggedInBox";

@@ -6,8 +6,8 @@ import useIcon from "@/hooks/useIcon";
 import { isLoggedInAtom, userAtom } from "@/hooks/useUserAuth";
 import { authAPI } from "@/config/api/authAPI";
 
-import Button from "../designSystem/Button";
-import ProfileImage from "../designSystem/ProfileImage";
+import Button from "../UI/buttons/base/Button";
+import ProfileImage from "../UI/common/ProfileImage";
 
 const LoggedInBox = () => {
   const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);

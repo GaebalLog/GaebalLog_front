@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
 
-import Post from "@/components/commonUI/Post";
+import Post from "@/components/UI/container/Post";
 import TechSideBar from "@/components/tech/TechSideBar";
-import SortBar from "@/components/commonUI/SortBar";
-import InfiniteScroll from "@/components/observing/InfiniteScroll";
+import SortBar from "@/components/UI/features/SortBar";
+import InfiniteScroll from "@/components/UI/features/InfiniteScroll";
 import useGetPost from "@/hooks/postAPI/useGetPost";
 import useToggleBookmark from "@/hooks/postAPI/useToggleBookmark";
 import useToggleLike from "@/hooks/postAPI/useToggleLike";
-import ResultNotFound from "@/components/commonUI/ResultNotFound";
+import ResultNotFound from "@/components/UI/status/ResultNotFound";
 
 const TechPage = () => {
   const [tab, setTab] = React.useState<sortTab>("조회 순");

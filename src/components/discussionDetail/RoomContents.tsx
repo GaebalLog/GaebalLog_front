@@ -8,8 +8,8 @@ import useModalController from "@/hooks/useModalController";
 import useGetDetailDiscussion from "@/hooks/discussionAPI/useGetDetailDiscussion";
 import DateConvertor from "@/utils/util-dateConvertor";
 
-import LoadingSpinner from "../LoadingSpinner";
-import Modal from "../modal/Modal";
+import LoadingSpinner from "../UI/status/LoadingSpinner";
+import Modal from "../UI/modals/base/Modal";
 import AuthorContentBtn from "../discussion/box/AuthorContentBtn";
 import LikeDiscussionBtn from "../discussion/btn/LikeDiscussionBtn";
 import ParticipantsBtn from "../discussion/btn/ParticipantsBtn";

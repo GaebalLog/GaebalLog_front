@@ -9,10 +9,9 @@ import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
 import DateConvertor from "@/utils/util-dateConvertor";
 
-import Button from "../designSystem/Button";
+import Button from "../buttons/base/Button";
 import default_thumbnail from "../../../public/assets/images/common/thumbnail_default.png";
-
-import LikeView from "./LikeView";
+import LikeView from "../common/LikeView";
 
 const Post: React.FC<{
   post: postDetail;

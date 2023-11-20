@@ -1,6 +1,6 @@
 import React from "react";
 
-import ConfirmModal from "@/components/modal/common/ConfirmModal";
+import ConfirmModal from "@/components/UI/modals/default/ConfirmModal";
 import { mypageApi } from "@/config/api/mypageApi";
 
 interface props {

@@ -6,8 +6,8 @@ import useIcon from "@/hooks/useIcon";
 import { BG_COLOR, BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
 
-import Button from "../designSystem/Button";
-import LikeParticipants from "../discussion/box/LikeParticipant";
+import Button from "../buttons/base/Button";
+import LikeParticipants from "../../discussion/box/LikeParticipant";
 
 const Discussion: React.FC<{
   discussion: discussion;

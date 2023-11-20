@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
-import SortBar from "@/components/commonUI/SortBar";
+import SortBar from "@/components/UI/features/SortBar";
 import MyDiscussionCard from "@/components/mypage/article/MyDiscussion/MyDiscussionCard";
 import { QUERY_KEYS } from "@/config/query_config";
 import { authAPI } from "@/config/api/authAPI";

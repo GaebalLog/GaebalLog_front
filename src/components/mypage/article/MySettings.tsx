@@ -1,6 +1,6 @@
 import React from "react";
 
-import Toggle from "@/components/designSystem/Toggle";
+import Toggle from "@/components/UI/common/Toggle";
 import useSettingToggle from "@/hooks/mypageAPI/useSettingToggle";
 
 const MySettings = () => {

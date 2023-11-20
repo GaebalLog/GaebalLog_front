@@ -1,6 +1,6 @@
 import React from "react";
 
-import Button from "../designSystem/Button";
+import Button from "../buttons/base/Button";
 
 const sortList = ["조회 순", "최신 순"];
 

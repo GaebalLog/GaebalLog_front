@@ -1,10 +1,10 @@
 import React from "react";
 
 import Contents from "@/components/tech/detail/content/Contents";
-import Button from "@/components/designSystem/Button";
-import DeleteConfirm from "@/components/modal/common/DeleteConfirm";
+import Button from "@/components/UI/buttons/base/Button";
+import DeleteConfirm from "@/components/UI/modals/default/DeleteConfirm";
 import { utilDecodeImg } from "@/utils/util-decodeImg";
-import LikeView from "@/components/commonUI/LikeView";
+import LikeView from "@/components/UI/common/LikeView";
 import UpdateBtn from "@/components/tech/updateBtn";
 import useGetDetailPost from "@/hooks/postAPI/useGetDetailPost";
 import useToggleLike from "@/hooks/postAPI/useToggleLike";

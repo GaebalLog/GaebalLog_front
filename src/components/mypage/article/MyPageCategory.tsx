@@ -6,7 +6,7 @@ import axios from "axios";
 import { BG_COLOR, BORDER_COLOR } from "@/config/constants/colors";
 import useIcon from "@/hooks/useIcon";
 import usePagination from "@/hooks/usePagination";
-import LiveSearchInput from "@/components/commonUI/LiveSearchInput";
+import LiveSearchInput from "@/components/UI/inputs/LiveSearchInput";
 import mypageLiveSearchData from "@/utils/util-mypageLiveSearchData";
 import { QUERY_KEYS } from "@/config/query_config";
 

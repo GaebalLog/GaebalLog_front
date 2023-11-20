@@ -6,7 +6,7 @@ import { modalAtom } from "@/config/constants/atoms";
 import { BG_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 
 const KeywordSearch = dynamic(
-  () => import("../../components/modal/keywordSearch/KeywordSearch"),
+  () => import("../../keywordSearch/KeywordSearch"),
 );
 
 const EditBtn: React.FC<{ position: "top" | "bottom" | "disussion" }> = ({
@@ -28,9 +28,7 @@ const EditBtn: React.FC<{ position: "top" | "bottom" | "disussion" }> = ({
       <button
         className={buttonStyles}
         onClick={() => setIsModal((prev) => !prev)}
-        onMouseOver={() =>
-          import("../../components/modal/keywordSearch/KeywordSearch")
-        }
+        onMouseOver={() => import("../../keywordSearch/KeywordSearch")}
       >
         + Edit
       </button>

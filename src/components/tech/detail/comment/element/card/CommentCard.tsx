@@ -1,8 +1,8 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
-import Button from "@/components/designSystem/Button";
-import ProfileImage from "@/components/designSystem/ProfileImage";
+import Button from "@/components/UI/buttons/base/Button";
+import ProfileImage from "@/components/UI/common/ProfileImage";
 import { openCommentEditorAtom } from "@/config/constants/atoms";
 import { isLoggedInAtom, userAtom } from "@/hooks/useUserAuth";
 import useUpdateComment from "@/hooks/commentAPI/useUpdateComment";

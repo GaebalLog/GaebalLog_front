@@ -5,7 +5,7 @@ import { useSpeechRecognition } from "react-speech-recognition";
 import useIcon from "@/hooks/useIcon";
 import { BG_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 
-import BouncedMic from "./commonUI/BouncedMic";
+import BouncedMic from "./BouncedMic";
 interface props {
   closeModal: () => void;
   setVoice: (value: string) => void;

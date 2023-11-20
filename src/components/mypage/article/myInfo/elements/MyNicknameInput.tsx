@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { BORDER_COLOR, TEXT_COLOR } from "@/config/constants/colors";
 import { userAtom } from "@/hooks/useUserAuth";
 import useInput from "@/hooks/useInput";
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 import useUpdateNickname from "@/hooks/mypageAPI/useUpdateNickname";
 
 const MyNicknameInput = () => {

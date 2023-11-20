@@ -5,8 +5,8 @@ import useModalController from "@/hooks/useModalController";
 import { BG_COLOR, BORDER_COLOR } from "@/config/constants/colors";
 import useIcon from "@/hooks/useIcon";
 
-import Modal from "../modal/Modal";
-import Button from "../designSystem/Button";
+import Modal from "../UI/modals/base/Modal";
+import Button from "../UI/buttons/base/Button";
 
 const styles = {
   modalContainer: `w-[1472px] h-[683px] px-[56px] py-[56px] ${BG_COLOR.primary} ${BORDER_COLOR.button}`,

@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 
 import { BG_COLOR, TEXT_COLOR } from "@/config/constants/colors";
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 import useIcon from "@/hooks/useIcon";
 import useInput from "@/hooks/useInput";
 import InputWithLabel from "@/components/auth/input/InputWithLabel";

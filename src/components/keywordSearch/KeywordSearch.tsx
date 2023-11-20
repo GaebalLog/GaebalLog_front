@@ -7,11 +7,11 @@ import usePagination from "@/hooks/usePagination";
 import { authAPI } from "@/config/api/authAPI";
 import { QUERY_KEYS } from "@/config/query_config";
 
-import Modal from "../Modal";
-import LiveSearchInput from "../../commonUI/LiveSearchInput";
+import Modal from "../UI/modals/base/Modal";
+import LiveSearchInput from "../UI/inputs/LiveSearchInput";
 
-import KeywordList from "./KeywordList";
 import OkCancelButton from "./elements/OkCancelButton";
+import KeywordList from "./KeywordList";
 
 const styles = {
   container: `flex justify-center w-[1330px] h-[700px] ${BG_COLOR.general02}`,

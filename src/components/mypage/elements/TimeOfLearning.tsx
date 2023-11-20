@@ -1,6 +1,6 @@
 import React from "react";
 
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 
 const TimeOfLearning: React.FC<{ category: timeOfLearning }> = ({
   category,

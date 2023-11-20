@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 import MyInfo from "@/components/mypage/article/myInfo/MyInfo";
 import MySettings from "@/components/mypage/article/MySettings";
 import MyWritten from "@/components/mypage/article/MyWritten/MyWritten";

@@ -6,7 +6,7 @@ import Link from "next/link";
 import Header from "@/components/header/Header";
 import Provider from "@/components/provider/Provider";
 import { BG_COLOR, TEXT_COLOR } from "@/config/constants/colors";
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 
 import notFound from "../../public/assets/images/common/not_found.png";
 

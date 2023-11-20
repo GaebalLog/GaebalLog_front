@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import Input from "@/components/designSystem/Input";
+import Input from "@/components/UI/inputs/base/Input";
 import { BG_COLOR } from "@/config/constants/colors";
 import useIcon from "@/hooks/useIcon";
 import useModalController from "@/hooks/useModalController";
@@ -9,8 +9,8 @@ import useLiveSearchController from "@/hooks/liveSearch/useLiveSearchController"
 import useLiveSearchList from "@/hooks/liveSearch/useLiveSearchList";
 import useDebounce from "@/hooks/useDebounce";
 
-import NonPortalModal from "../modal/NonPortalModal";
-import NoResult from "../mypage/elements/NoResult";
+import NonPortalModal from "../modals/base/NonPortalModal";
+import NoResult from "../../mypage/elements/NoResult";
 
 const typeStyles = {
   keywordSearch: {

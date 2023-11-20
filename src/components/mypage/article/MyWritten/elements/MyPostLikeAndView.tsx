@@ -2,7 +2,7 @@ import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import useIcon from "@/hooks/useIcon";
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 import { postAPI } from "@/config/api/postAPI";
 
 interface props {

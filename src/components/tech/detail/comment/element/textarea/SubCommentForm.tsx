@@ -2,7 +2,7 @@ import React from "react";
 import { useSetRecoilState } from "recoil";
 
 import { BG_COLOR, BORDER_COLOR } from "@/config/constants/colors";
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 import { openCommentEditorAtom } from "@/config/constants/atoms";
 import useInput from "@/hooks/useInput";
 

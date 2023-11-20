@@ -6,7 +6,7 @@ import { BG_COLOR, BORDER_COLOR } from "@/config/constants/colors";
 import TimeSettingProvider from "@/components/provider/TimeSettingProvider";
 import TimeSettingManager from "@/utils/util-timeSettingManager";
 
-import NonPortalModal from "../../modal/NonPortalModal";
+import NonPortalModal from "../../UI/modals/base/NonPortalModal";
 
 import Calendar from "./calendar/Calendar";
 import HalfDayInput from "./inputs/HalfDayInput";

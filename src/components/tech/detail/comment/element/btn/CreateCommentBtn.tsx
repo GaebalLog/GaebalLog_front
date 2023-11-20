@@ -1,6 +1,6 @@
 import React from "react";
 
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 import useCreateComment from "@/hooks/commentAPI/useCreateComment";
 interface props extends commentRequest {
   size: "lg" | "md";

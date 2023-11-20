@@ -3,19 +3,19 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import Link from "next/link";
 
-import Post from "@/components/commonUI/Post";
+import Post from "@/components/UI/container/Post";
 import { TEXT_COLOR } from "@/config/constants/colors";
-import { LoggedSideBar } from "@/components/commonUI/LoggedSideBar";
-import Button from "@/components/designSystem/Button";
-import SideBar from "@/components/commonUI/SideBar";
-import StickyStyle from "@/components/commonUI/StickyStyle";
+import { LoggedSideBar } from "@/components/UI/container/LoggedSideBar";
+import Button from "@/components/UI/buttons/base/Button";
+import SideBar from "@/components/UI/container/SideBar";
+import StickyStyle from "@/components/UI/common/StickyStyle";
 import useGetPost from "@/hooks/postAPI/useGetPost";
-import InfiniteScroll from "@/components/observing/InfiniteScroll";
+import InfiniteScroll from "@/components/UI/features/InfiniteScroll";
 import useToggleBookmark from "@/hooks/postAPI/useToggleBookmark";
 import useToggleLike from "@/hooks/postAPI/useToggleLike";
 import { isLoggedInAtom } from "@/hooks/useUserAuth";
-import MainBanner from "@/components/commonUI/MainBanner";
-import ResultNotFound from "@/components/commonUI/ResultNotFound";
+import MainBanner from "@/components/UI/container/MainBanner";
+import ResultNotFound from "@/components/UI/status/ResultNotFound";
 
 const userTab = ["전체글", "My Friends' Articles"];
 

@@ -3,7 +3,7 @@ import React from "react";
 
 import useIcon from "@/hooks/useIcon";
 
-import Button from "../designSystem/Button";
+import Button from "../buttons/base/Button";
 interface props {
   liked?: boolean;
   like?: number;

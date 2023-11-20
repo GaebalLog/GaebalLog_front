@@ -1,7 +1,7 @@
 import React from "react";
 
 import useIcon from "@/hooks/useIcon";
-import Button from "@/components/designSystem/Button";
+import Button from "@/components/UI/buttons/base/Button";
 
 interface props {
   count: number;

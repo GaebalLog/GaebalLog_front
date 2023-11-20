@@ -5,7 +5,7 @@ import useModalController from "@/hooks/useModalController";
 import useUserAuth, { isLoggedInAtom } from "@/hooks/useUserAuth";
 import { authAPI } from "@/config/api/authAPI";
 
-import LoadingSpinner, { loadingAtom } from "../LoadingSpinner";
+import LoadingSpinner, { loadingAtom } from "../UI/status/LoadingSpinner";
 
 interface props {
   children: React.ReactNode;
