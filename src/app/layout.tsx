@@ -1,5 +1,6 @@
 import React from "react";
-import "./globals.css";
+import "../styles/globals.css";
+import "../styles/ckeditor.css";
 import type { Metadata } from "next";
 
 import "regenerator-runtime/runtime";

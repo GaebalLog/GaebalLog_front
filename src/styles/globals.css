@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Gothic A1", sans-serif;
+}
+
+input[type="checkbox"]:checked + label > svg {
+  display: block;
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateY(-10%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.slide-right-enter-active {
+  animation: slideRight 0.5s forwards;
+}
