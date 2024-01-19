@@ -55,7 +55,7 @@ https://indigo-dolphin-e56.notion.site/0ff5bd90b74c4c909fef54caaf0e729e?v=28ba70
 | Role  | Name   | Github                        |
 | ----- | ------ | ----------------------------- |
 | BE | 허인주 | https://github.com/jjoonior  |
-| BE    | 정지용 | https://github.com/camp5803 |
+| BE    | 정지용 | https://github.com/clxxrlove |
 | FE | 최지현 | https://github.com/jhchoi1182 |
 | FE    | 정호영 | https://github.com/Jungbam |
 | DE    | 허연 |                               |
